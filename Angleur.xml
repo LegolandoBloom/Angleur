@@ -50,10 +50,10 @@
                                         GameTooltip:AddLine("/angang\n ")
                                     end
                                 end
-                                GameTooltip:AddLine("Shift + Right Click to temporarily put Angleur to sleep. zzz...", 0.8, 0.8, 0.8, true)
+                                GameTooltip:AddLine("Right Click to temporarily put Angleur to sleep. zzz...", 0.8, 0.8, 0.8, true)
                             elseif AngleurCharacter.sleeping == true then
                                 GameTooltip:AddLine("Sleeping. Zzz...\n", 1, 1, 1, true)
-                                GameTooltip:AddLine("\nShift + Right-Click")
+                                GameTooltip:AddLine("\nRight-Click")
                                 GameTooltip:AddLine("\nto wake Angleur!", 1, 1, 1, true)
                                 self.sleep:SetPoint("TOPRIGHT", "GameTooltip", "TOPRIGHT", -15, 0)
                                 self.sleep:Show()
@@ -71,7 +71,7 @@
                         end
                     </OnLeave>
                     <OnClick>
-                        if button == "RightButton" and IsShiftKeyDown() == true and down == true then
+                        if button == "RightButton" and down == true then
                                 if InCombatLockdown() then
                                     print("Can't change sleep state in combat.")
                                     return

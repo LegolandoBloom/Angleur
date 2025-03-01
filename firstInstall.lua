@@ -109,7 +109,7 @@ function Angleur_FirstInstall()
 
         angleurHelpTip.parts[3] = {
             text = "Angleur works on a " .. colorYellow:WrapTextInColorCode("Sleep/Wake ") .. "system, so you don't have to reload your UI after you're done fishing.\n\n"
-            .. colorBlu:WrapTextInColorCode("Shift + Right Click ") .. "to put Angleur to sleep, and wake it up if it is. You can also Shift + Right Click the minimap button.",
+            .. colorBlu:WrapTextInColorCode("Right Click ") .. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button.",
             relativeRegion = Angleur.visual,
             buttonStyle = 4,
             alignment = 1,
@@ -118,7 +118,7 @@ function Angleur_FirstInstall()
             highlightTextureSizeMultiplierY = 1.3,
         }
         Angleur.visual:HookScript("OnClick", function(self, button, down)
-            if button == "RightButton" and down == false and IsShiftKeyDown() then
+            if button == "RightButton" and down == false then
                 angleurHelpTip:CompletePartWithAction(3)
             end
         end)

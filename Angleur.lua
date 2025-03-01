@@ -170,17 +170,17 @@ function Angleur_EventLoader(self, event, unit, ...)
                 print("To access the configuration menu, type " .. color1:WrapTextInColorCode("/angleur ") .. "or " .. color1:WrapTextInColorCode("/angang") .. ".")
                 if AngleurCharacter.sleeping == true then
                     print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Shift + Right-Click ") .. "the Visual Button." )    
+                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )    
                 elseif AngleurCharacter.sleeping == false then
                     print(color2:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. color1:WrapTextInColorCode("/angsleep "))
-                    print("or " .. color1:WrapTextInColorCode("Shift + Right-Click ") .. "the Visual Button." )
+                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
                 end
             end
         elseif arg4 == true then
             if AngleurCharacter.sleeping == true then
                 if not Angleur_TinyOptions.loginDisabled then
                     print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Shift + Right-Click ") .. "the Visual Button." )
+                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
                 end
             end
         end

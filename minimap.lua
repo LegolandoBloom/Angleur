@@ -8,7 +8,7 @@ function Angleur_InitMinimapButton()
         text = "Angleur!",  
         icon = "Interface\\AddOns\\Angleur\\images\\angminimap.png",
         OnClick = function(self, b) 
-            if b == "RightButton" and IsShiftKeyDown() == true then
+            if b == "RightButton" then
                 if InCombatLockdown() then
                     print("Can't change sleep state in combat.")
                     return
@@ -36,7 +36,7 @@ function Angleur_InitMinimapButton()
             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
             GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Angleur"))
             GameTooltip:AddLine("Left Click: " .. colorYello:WrapTextInColorCode("Config Panel"), 1, 1, 1)
-            GameTooltip:AddLine("Shift + Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake"), 1, 1, 1)
+            GameTooltip:AddLine("Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake"), 1, 1, 1)
             GameTooltip:AddLine("Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon"), 1, 1, 1)
             GameTooltip:Show()
         end,
