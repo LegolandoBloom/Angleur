@@ -1,0 +1,30 @@
+## Interface: 110007
+## Title: Angleur
+## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
+## Version: Angleur 2.1 - Auto-Equip & Tiny Panel
+## Author: LegolandoBloom
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
+## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
+## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
+#@no-lib-strip@
+libraries\embeds.xml
+#@end-no-lib-strip@
+angTemplates\embeds.xml
+Angleur.lua
+toys.lua
+items.lua
+equipmentManager.lua
+tabs\tabs-general.lua
+tabs\standard.lua
+tabs\extra.lua
+tabs\tiny.lua
+doubleClick.lua
+oneKey.lua
+firstInstall.lua
+advancedAngling.lua
+slashcommands.lua
+minimap.lua
+animations.xml
+Angleur.xml
+thanks\thanks.lua
+thanks\thanks.xml

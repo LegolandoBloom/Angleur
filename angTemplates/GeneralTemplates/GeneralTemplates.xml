@@ -1,0 +1,455 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="Angleur_WarningFrame" toplevel="true" frameStrata="DIALOG" inherits="BasicFrameTemplateWithInset" hidden="true" virtual="true">
+        <Size x="320" y="128"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_MainText" parentKey="mainText" inherits="GameFontHighlight">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-35"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parent_OtherText" parentKey="otherText" inherits="SpellFont_Small">
+                    <Color r="0.8" g="0.8" b="0.8"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="22"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="yesButton" inherits="GameMenuButtonTemplate">
+                <Size x="96" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent_MainText" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+                </Anchors>
+            </Button>
+            <Button parentKey="noButton" inherits="GameMenuButtonTemplate">
+                <Size x="96" y="20"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" relativeTo="$parent_MainText" relativePoint="BOTTOMRIGHT" x="0" y="-10"/>
+                </Anchors>
+            </Button>
+        </Frames>
+    </Frame>
+    
+    <Button name="CombatWeaponSwapButtonTemplate" inherits="ActionButtonTemplate, SecureActionButtonTemplate" frameStrata="HIGH" mixin="Angleur_CombatWeaponSwapButtonMixin" hidden="true" virtual="true">
+        <Attributes>
+            <Attribute name="type" value="macro"/>
+        </Attributes>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_EquipArrow" parentKey="equipArrow" atlas="characterundelete-RestoreButton">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture name="$parent_Success" parentKey="success" atlas="checkmark-minimal" hidden="true">
+                    <Size x="48" y="48"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="-4" y="-6"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                self:HookScript("OnClick", function(self)
+                    self.icon:SetTexture(nil)
+                    siblings = {self:GetParent():GetChildren()}
+                    for i, frame in pairs(siblings) do
+                        if frame.icon then
+                            frame.icon:SetTexture(nil)
+                        end
+                    end
+                    if not InCombatLockdown() then 
+                        self:Hide()
+                        self:GetParent():Hide()
+                    end
+                end)
+                self:RegisterForClicks("AnyUp")
+            </OnLoad>
+            <OnShow>
+                self.success:Hide()
+                self.equipArrow:Show()
+            </OnShow>
+            <OnHide>
+                self.icon:SetTexture(nil)
+                self.success:Hide()
+                self:SetAttribute("macrotext", nil)
+                self:SetScript("OnEvent", nil)
+            </OnHide>
+            <OnEnter>
+                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                GameTooltip:AddLine("Click to Equip your combat weapons!")
+                GameTooltip:Show()
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+        
+        <Frames>
+            <Frame name="$parent_AlertAnim" parentKey="alertAnim" frameStrata="TOOLTIP" toplevel="true" inherits="ActionBarButtonSpellActivationAlert">
+                <Size x="64" y="64"/>
+                <Scripts>
+                    <OnLoad>
+
+                    </OnLoad>
+                    <OnEnter>
+                        self:Hide()
+                    </OnEnter>
+                </Scripts>
+            </Frame>
+        </Frames>
+    </Button>
+
+    <Button name="ExtraToyButtonTemplate" inherits="ActionButtonTemplate" virtual="true">
+        <Scripts>
+            <OnEnter>
+                if self.toyID ~= 0 then
+                    GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                    GameTooltip:SetToyByItemID(self.toyID)
+                    GameTooltip:Show()
+                end
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_CloseButton" parentKey="closeButton" inherits="UIPanelCloseButtonNoScripts" hidden="true">
+                <Size x="20" y="20"/>,
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-3" y="-5"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick function="Angleur_ToyBox_RemoveExtraToy"/>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Button>
+    
+    <Button name="ExtraItemButtonTemplate" inherits="ActionButtonTemplate" virtual="true">
+        <Scripts>
+            <OnEnter>
+                if self.toyID ~= 0 and self.toyID then
+                    GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                    GameTooltip:SetToyByItemID(self.toyID)
+                    GameTooltip:Show()
+                end
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+            <OnReceiveDrag>
+                local cursorInfo, macroIndex = GetCursorInfo()
+                if cursorInfo == "item" then
+                    Angleur_GrabCursorItem(self)
+                elseif cursorInfo == "macro" then
+                    Angleur_GrabCursorMacro(self, macroIndex)
+                end
+            </OnReceiveDrag>
+            <OnMouseUp>
+                if button ~= "LeftButton" or upInside == false then return end
+                local cursorInfo, macroIndex = GetCursorInfo()
+                if cursorInfo == "item" then
+                    Angleur_GrabCursorItem(self)
+                elseif cursorInfo == "macro" then
+                    Angleur_GrabCursorMacro(self, macroIndex)
+                end
+            </OnMouseUp>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_TimeButton" parentKey="timeButton" toplevel="true" inherits="UIPanelSquareButton" hidden="true">
+                <Size x="22" y="22"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-3" y="4"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self.icon:SetTexture("Interface/AddOns/Angleur/images/timeIcon.png")
+                        self.icon:SetTexCoord(0, 1, 0, 1)
+                        self.icon:SetSize(26, 26)
+                        self.icon:Show()
+                    </OnLoad>
+                    <OnEnter>
+                        self.inputBoxes:Show()
+                        self.inputBoxes:Raise()
+                        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                        GameTooltip:AddLine("Set Timer", 1, 0.82, 0)
+                        GameTooltip:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        if self.inputBoxes.minutes:HasFocus() == false and self.inputBoxes.seconds:HasFocus() == false then
+                            self.inputBoxes:Hide()
+                        end
+                        GameTooltip:Hide()
+                    </OnLeave>
+                    <OnClick>
+                        self.inputBoxes.minutes:SetFocus()
+                    </OnClick>
+                </Scripts>
+                <Frames>
+                    <Frame name="$parent_InputBoxes" parentKey="inputBoxes" hidden="true">
+                        <Size x="38" y="25"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-1"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="active" type="boolean" value="false"/>
+                        </KeyValues>
+                        <Scripts>
+                            <OnHide>
+                                if self.active then
+                                    Angleur_GetTimeFromBox(self)
+                                    self.active = false
+                                end
+                            </OnHide>
+                        </Scripts>
+                        <Layers>
+                            <Layer level="BACKGROUND">
+                                <Texture name="$parent_Background" parentKey="background" file="Interface/COMMON/Common-CheckBox-Background">
+                                    <Size x="38" y="25"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-2" y="-3"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                            <Layer level="ARTWORK">
+                                <FontString text="min sec" inherits="GameFontHighlightExtraSmall">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="-2" y="-3"/>
+                                    </Anchors>
+                                    <Color r="1.0" g="0.82" b="0.0"/>
+                                </FontString>
+                                <FontString text=":" inherits="GameFontNormalLarge">
+                                    <Anchors>
+                                        <Anchor point="CENTER" x="1" y="2"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <EditBox name="$parent_Min" letters="2" parentKey="minutes" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                                <Size x="22" y="22"/>
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
+                                </Anchors>
+                                <Scripts>
+                                    <OnEditFocusGained>
+                                        self:GetParent():Show()
+                                        self:GetParent().active = true
+                                        self:HighlightText()
+                                    </OnEditFocusGained>
+                                    <OnEditFocusLost>
+                                        self:ClearHighlightText()
+                                        Angleur_FillEditBox(self)
+                                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
+                                            self:GetParent():Hide()
+                                        end
+                                    </OnEditFocusLost>
+                                    <OnLoad>
+                                        self.Left:Hide()
+                                        self.Middle:Hide()
+                                        self.Right:Hide()
+                                        self:RegisterEvent("GLOBAL_MOUSE_UP")
+                                        self:SetScript("OnEvent", function(self, event, button) 
+                                            if event ~= "GLOBAL_MOUSE_UP" then return end
+                                            if button ~= "LeftButton" and button ~= "RightButton" then return end
+                                            if self:IsMouseOver() == true then return end
+                                            if self:GetParent():GetParent():IsMouseOver() == false then
+                                                self:ClearFocus()
+                                            end
+                                        end)
+                                    </OnLoad>
+                                    <OnTabPressed>
+                                        if self:HasFocus() then
+                                            self:GetParent().seconds:SetFocus()
+                                        end
+                                    </OnTabPressed>
+                                    <OnEnterPressed>
+                                        self:ClearFocus()
+                                    </OnEnterPressed>
+                                    <OnEscapePressed>
+                                        self:ClearFocus()
+                                    </OnEscapePressed>
+                                </Scripts>
+                            </EditBox>
+                            <EditBox name="$parent_Sec" letters="2" parentKey="seconds" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                                <Size x="22" y="22"/>
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeTo="$parent_Min" relativePoint="RIGHT" x="0" y="0"/>
+                                </Anchors>
+                                <Scripts>
+                                    <OnEditFocusGained>
+                                        self:GetParent():Show()
+                                        self:GetParent().active = true
+                                        self:HighlightText()
+                                    </OnEditFocusGained>
+                                    <OnEditFocusLost>
+                                        self:ClearHighlightText()
+                                        Angleur_FillEditBox(self)
+                                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
+                                            self:GetParent():Hide()
+                                        end
+                                    </OnEditFocusLost>
+                                    <OnLoad>
+                                        self.Left:Hide()
+                                        self.Middle:Hide()
+                                        self.Right:Hide()
+                                        self:RegisterEvent("GLOBAL_MOUSE_UP")
+                                        self:SetScript("OnEvent", function(self, event, button) 
+                                            if event ~= "GLOBAL_MOUSE_UP" then return end
+                                            if button ~= "LeftButton" and button ~= "RightButton" then return end
+                                            if self:IsMouseOver() == true then return end
+                                            if self:GetParent():GetParent():IsMouseOver() == false then
+                                                self:ClearFocus()
+                                            end
+                                        end)
+                                    </OnLoad>
+                                    <OnTabPressed>
+                                        if self:HasFocus() then
+                                            self:ClearFocus()
+                                        end
+                                    </OnTabPressed>
+                                    <OnEnterPressed>
+                                        self:ClearFocus()
+                                    </OnEnterPressed>
+                                    <OnEscapePressed>
+                                        self:ClearFocus()
+                                    </OnEscapePressed>
+                                </Scripts>
+                            </EditBox>
+                        </Frames>
+                    </Frame>
+                </Frames>
+            </Button>
+            <Button name="$parent_CloseButton" parentKey="closeButton" inherits="UIPanelCloseButtonNoScripts" hidden="true">
+                <Size x="20" y="20"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-3" y="-4"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick function="Angleur_RemoveExtraItem"/>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Button>
+    
+    <CheckButton name="MyCheckboxTemplate" parentKey="Enabled" mixin="Angleur_CheckboxMixin" virtual="true">
+		<Size x="24" y="24"/>
+		<HitRectInsets>
+			<AbsInset left="0" right="0" top="0" bottom="8"/>
+		</HitRectInsets>
+		<Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_Text" parentKey="text" hidden="false" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT"/>
+                    </Anchors>
+                    <Scripts>
+                        <OnEnter>
+                            if not self.tooltip then return end
+                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                            local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                            GameTooltip:AddLine(colorBlu:WrapTextInColorCode(self:GetText()))
+                            GameTooltip:AddLine(self.tooltip, 1, 1, 1, 0)
+                            GameTooltip:Show()
+                        </OnEnter>
+                        <OnLeave>
+                            if not self.tooltip then return end
+                            GameTooltip:Hide()
+                        </OnLeave>
+                    </Scripts>
+                </FontString>
+                <FontString name="$parent_DisabledText" parentKey="disabledText" hidden="true" inherits="SystemFont_Shadow_Small">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+		<NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
+		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+		<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+		<CheckedTexture name="$parentCheckedTexture" file="Interface\Buttons\UI-CheckBox-Check"/>
+		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+    </CheckButton>
+
+    <Button name="Angleur_UIPanelLargeSilverButton" virtual="true">
+		<Size x="72" y="72"/>
+		<Layers>
+			<Layer level="BACKGROUND">
+				<Texture name="$parentLeft" file="Interface\Buttons\UI-SilverButtonLG-Left-Up">
+					<Size x="64" y="104"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentRight" file="Interface\Buttons\UI-SilverButtonLG-Right-Up">
+					<Size x="64" y="104"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+				<Texture name="$parentMiddle" file="Interface\Buttons\UI-SilverButtonLG-Mid-Up">
+					<Size x="64" y="104"/>
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeTo="$parentLeft" relativePoint="TOPRIGHT" x="0" y="0"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parentRight" relativePoint="TOPLEFT" x="0" y="0"/>
+					</Anchors>
+				</Texture>
+			</Layer>
+            <Layer level="HIGHLIGHT">
+                <Texture name="$parentLeft" file="Interface\Buttons\UI-SilverButtonLG-Left-Hi">
+                    <Size x="64" y="104"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                    </Texture>
+                    <Texture name="$parentRight" file="Interface\Buttons\UI-SilverButtonLG-Right-Hi">
+                    <Size x="64" y="104"/>
+                    <Anchors>
+                        <Anchor point="TOPRIGHT" x="0" y="0"/>
+                    </Anchors>
+                    </Texture>
+                    <Texture name="$parentMiddle" file="Interface\Buttons\UI-SilverButtonLG-Mid-Hi">
+                    <Size x="64" y="104"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parentLeft" relativePoint="TOPRIGHT" x="0" y="0"/>
+                        <Anchor point="TOPRIGHT" relativeTo="$parentRight" relativePoint="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+		</Layers>
+        <Scripts>
+        <OnMouseDown>
+            if ( self:IsEnabled() ) then
+            local name = self:GetName();
+            _G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Left-Down");
+            _G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Mid-Down");
+            _G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Right-Down");
+            local contentsFrame = _G[name.."ContentsFrame"];
+            if ( contentsFrame ) then
+                contentsFrame:SetPoint("TOPLEFT", -2, -1);
+            end
+            end
+        </OnMouseDown>
+        <OnMouseUp>
+            if ( self:IsEnabled() ) then
+            local name = self:GetName();
+            _G[name.."Left"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Left-Up");
+            _G[name.."Middle"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Mid-Up");
+            _G[name.."Right"]:SetTexture("Interface\\Buttons\\UI-SilverButtonLG-Right-Up");
+            local contentsFrame = _G[name.."ContentsFrame"];
+            if ( contentsFrame ) then
+                contentsFrame:SetPoint("TOPLEFT", 0, 0);
+            end
+            end
+        </OnMouseUp>
+        </Scripts>
+	</Button>
+    
+</Ui>

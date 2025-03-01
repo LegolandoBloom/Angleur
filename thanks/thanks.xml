@@ -1,0 +1,101 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Button parent="Angleur_ConfigPanel" name="Angleur_ThanksButton" parentKey="thanksButton" inherits="UIPanelBorderedButtonTemplate" text="T&#xA;Y&#xA;&lt;3" hidden="false">
+        <Size x="27" y="64"/>
+        <Anchors>
+            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-3" y="0"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/thanksbutton.png" hidden="false">
+                    <Size x="32" y="64"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="1" y="-2"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad function="Angleur_Thanks_OnLoad"/>
+            <OnClick>
+                if self.thanksFrame:IsShown() then
+                    self.thanksFrame:Hide()
+                else
+                    self.thanksFrame:Show()
+                end
+            </OnClick>
+        </Scripts>
+        <Frames>
+            <Frame name="$parent_ThanksFrame" parentKey="thanksFrame" toplevel="true" frameStrata="DIALOG" inherits="BasicFrameTemplateWithInset" hidden="true">
+                <Size x="420" y="500"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <FontString name="$parent_Title" parentKey="title" inherits="Game20Font" hidden="false">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-43"/>
+                            </Anchors>
+                        </FontString>
+                        <Texture name="$parent_LegoThanks" parentKey="legoThanks" file="Interface/AddOns/Angleur/images/legothanks.png">
+                            <Size x="144" y="144"/>
+                            <Anchors>
+                                <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-10" y="-30"/>
+                            </Anchors>
+                        </Texture>
+                        <FontString name="$parent_SupportMe" parentKey="supportMe" inherits="FriendsFont_Normal" hidden="false">
+                            <Anchors>
+                                <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-12" y="10"/>
+                            </Anchors>
+                        </FontString>
+                        <Texture name="$parent_PatreonLogo" parentKey="patreonLogo" file="Interface/AddOns/Angleur/images/patreon.png">
+                            <Size x="22" y="22"/>
+                            <Anchors>
+                                <Anchor point="BOTTOMLEFT" relativeTo="$parent_SupportMe" relativePoint="TOPLEFT" x="0" y="5"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture name="$parent_KoFiLogo" parentKey="kofiLogo" file="Interface/AddOns/Angleur/images/kofi.png">
+                            <Size x="26" y="26"/>
+                            <Anchors>
+                                <Anchor point="BOTTOM" relativeTo="$parent_PatreonLogo" relativePoint="TOP" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame name="$parent_Supporters" parentKey="supporters">
+                        <Size x="10" y="5"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="$parent_Title" relativePoint="BOTTOMLEFT" x="5" y="0"/>
+                        </Anchors>
+                    </Frame>
+                    <EditBox name="$parent_PatreonLink" parentKey="patreonLink" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                        <Size x="140" y="22"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_PatreonLogo" relativePoint="RIGHT" x="10" y="0"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnShow>
+                                self:SetText("patreon.com/Legolando")
+                            </OnShow>
+                        </Scripts>
+                    </EditBox>
+                    <EditBox name="$parent_KoFiLink" parentKey="kofiLink" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                        <Size x="140" y="22"/>
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_KoFiLogo" relativePoint="RIGHT" x="10" y="0"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnShow>
+                                self:SetText("ko-fi.com/legolando")
+                            </OnShow>
+                        </Scripts>
+                    </EditBox>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Button>
+    
+</Ui>

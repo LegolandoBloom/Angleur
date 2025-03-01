@@ -1,0 +1,1014 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Frame name="Angleur" parentKey="Angleur" parent="UIParent" hidden="false">
+        <Scripts>
+            <OnLoad function="Angleur_OnLoad"/>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_Visual" parentKey="visual" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
+                <Size x="45" y="45"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <Texture name="$parent_Texture" parentKey="texture" hidden="false">
+                            <Size x="45" y="45"/>
+                            <Anchors>
+                                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER"/>
+                            </Anchors>
+                        </Texture>
+                        <FontString name="$parent_DragText" parentKey="dragText" hidden="true" text="You can drag and place this anywhere on your screen" inherits="GameFontNormalLarge">
+                            <Anchors>
+                                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" y="40"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnEnter>
+                        self.closeButton:Show()
+                        if not self:IsDragging() then
+                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                            if AngleurCharacter.sleeping == false then
+                                local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                                local colorWhite = CreateColor(1, 1, 1)
+                                GameTooltip:AddLine("Angleur Visual Button", 0.6, 0.85, 0.91)
+                                GameTooltip:AddLine("Shows what your next key press\nwill do. Not meant to be clicked.", 1, 1, 1, true)
+                                GameTooltip:AddLine(" ")
+                                if AngleurConfig.chosenMethod == "doubleClick" then
+                                    GameTooltip:AddLine("Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n"), 1, 1, 1)
+                                elseif AngleurConfig.chosenMethod == "oneKey" then
+                                    GameTooltip:AddLine("Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key"), 1, 1, 1)
+                                    if AngleurConfig.angleurKey then
+                                        GameTooltip:AddLine(colorWhite:WrapTextInColorCode("Key set to ") .. AngleurConfig.angleurKey .. "\n ")
+                                    else
+                                        GameTooltip:AddLine("One-Key NOT SET! To set,\nopen config menu with:", 1, 0, 0, true)
+                                        GameTooltip:AddLine("/angleur")
+                                        GameTooltip:AddLine(" or\n", 1, 1, 1, true)
+                                        GameTooltip:AddLine("/angang\n ")
+                                    end
+                                end
+                                GameTooltip:AddLine("Shift + Right Click to temporarily put Angleur to sleep. zzz...", 0.8, 0.8, 0.8, true)
+                            elseif AngleurCharacter.sleeping == true then
+                                GameTooltip:AddLine("Sleeping. Zzz...\n", 1, 1, 1, true)
+                                GameTooltip:AddLine("\nShift + Right-Click")
+                                GameTooltip:AddLine("\nto wake Angleur!", 1, 1, 1, true)
+                                self.sleep:SetPoint("TOPRIGHT", "GameTooltip", "TOPRIGHT", -15, 0)
+                                self.sleep:Show()
+                            end
+                            GameTooltip:Show()
+                        end
+                    </OnEnter>
+                    <OnLeave>
+                        if not self:IsMouseOver() then
+                            self.closeButton:Hide()
+                        end
+                        GameTooltip:Hide()
+                        if self.sleep:IsShown() then
+                            self.sleep:Hide()
+                        end
+                    </OnLeave>
+                    <OnClick>
+                        if button == "RightButton" and IsShiftKeyDown() == true and down == true then
+                                if InCombatLockdown() then
+                                    print("Can't change sleep state in combat.")
+                                    return
+                                end
+                                local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                                if AngleurCharacter.sleeping == true then
+                                    AngleurCharacter.sleeping = false
+                                    Angleur_SetSleep()
+                                    Angleur_EquipAngleurSet(true)
+                                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake.")
+                                elseif AngleurCharacter.sleeping == false then
+                                    AngleurCharacter.sleeping = true
+                                    Angleur_SetSleep()
+                                    Angleur_UnequipAngleurSet(true)
+                                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping.")
+                                end
+                                
+                        end
+                    </OnClick>
+                    <OnDoubleClick>
+                        if button == "LeftButton" then 
+                            self:GetParent().configPanel:Show() 
+                        end
+                    </OnDoubleClick>
+                </Scripts>
+                <Frames>
+                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                        <Size x="52" y="52"/>
+                        <Scripts>
+                            <OnLoad>
+                                self.texture:SetSize(52, 52)
+                            </OnLoad>
+                        </Scripts>
+                    </Frame>
+                    <Button name="$parent_CloseButton" parentKey = "closeButton" inherits="UIPanelCloseButton" hidden="true">
+                        <Anchors>
+                            <Anchor point = "CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-2"/>
+                        </Anchors>
+                        <Size x="20" y="20"/>
+                        <Scripts>
+                            <OnLeave>
+                                if not self:GetParent():IsMouseOver() then
+                                    self:Hide()
+                                end
+                            </OnLeave>
+                            <OnClick>
+                                UIPanelCloseButton_OnClick(self)
+                                Angleur_VisualHideHookScript()
+                            </OnClick>
+                        </Scripts>
+                    </Button>
+                </Frames>
+            </Button>
+            <Button name="$parent_ToyButton" parentKey="toyButton" inherits="SecureActionButtonTemplate" hidden="false"/>
+            <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
+                <Size x="300" y="420"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeTo="UIParent" relativePoint="LEFT" x="500" y="100"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        tinsert(UISpecialFrames, self:GetName())
+                        self.TitleText:SetText("Angleur Configuration")
+                        self:SetMovable(true)
+                        self:RegisterForDrag("LeftButton")
+                    </OnLoad>
+                    <OnMouseDown>
+                        self:Raise()
+                        if Angleur.visual:IsShown() then
+                            Angleur.visual:Raise()
+                        end
+                    </OnMouseDown>
+                    <OnDragStart>
+                        self:StartMoving()
+                        if Angleur.visual:IsShown() then
+                            Angleur.visual:Raise()
+                        end
+                    </OnDragStart>
+                    <OnDragStop>
+                        self:StopMovingOrSizing()
+                        if Angleur.visual:IsShown() then
+                            Angleur.visual:Raise()
+                        end
+                    </OnDragStop>
+                    <OnShow>
+                        if AngleurCharacter.sleeping == true then
+                            self.wakeUpButton:Show()
+                            self.wakeUpButton.sleep:Show()
+                        end
+                    </OnShow>
+                </Scripts>
+                <Layers>
+                    <Layer level="OVERLAY">
+                        <Texture name="$parent_Decoration" parentKey="decoration" file="Interface/AddOns/Angleur/images/angwithout.png" alpha="0.5">
+                            <Anchors>
+                                <Anchor point="CENTER" x="8" y="13"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Button name="$parent_Tab1" parentKey="tab1" inherits="MinimalTabTemplate" hidden="false">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                self.tabText = "Standard"
+                                self:OnLoad()
+                                self:SetSelected(true)
+                                Angleur_TabSystem(self)
+                            </OnLoad>
+                            <OnClick>
+                                self:OnClick()
+                                Angleur_TabSystem(self)
+                            </OnClick>
+                        </Scripts>
+                        <Frames>
+                            <Frame name="$parent_Contents" parentKey="contents" hidden="false">
+                                <Size x="300" y="420"/>
+                                <Anchors>
+                                    <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
+                                </Anchors>
+                                <Frames>
+                                    <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="45" y="-43"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Frame>
+                                        </Frames>
+                                    </CheckButton>
+                                    <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_RaftCheckBox" relativePoint="BOTTOMLEFT" x="83" y="-5"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_OversizedBobberCheckBox" relativePoint="BOTTOMLEFT" x="-8" y="-5"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Frame>
+                                        </Frames>
+                                    </CheckButton>
+                                    <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
+                                        <Size x="260" y="50"/>
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_CrateBobberCheckBox" relativePoint="BOTTOMLEFT" x="-100" y="-10"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <FontString name="$parent_Title" parentKey="title" text="Ultra Focus:" inherits="GameFontNormal">
+                                                    <Anchors>
+                                                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="0" y="0"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                        <Frames>
+                                            <CheckButton name="$parent_Audio" parentKey="audio" inherits="MyCheckboxTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="MyCheckboxTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                        </Frames>
+                                    </Frame>
+                                    <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
+                                        <Size x="260" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_UltraFocus" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "QuestFont_Outline_Huge" text= "FISHING METHOD:">
+                                                    <Color r="0.61" g=".85" b="0.92"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP"/>
+                                                    </Anchors>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                        <Frames>
+                                            <Button name="$parent_OneKey" parentKey="oneKey" inherits="ActionButtonTemplate">   
+                                                <Size x="46" y="46"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="30" y="-35"/>
+                                                </Anchors>
+                                                <Scripts>
+                                                    <OnClick function="Angleur_FishingMethodOnClick"/>
+                                                    <OnEnter>
+                                                        if not self:IsDragging() then
+                                                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                                                            GameTooltip:SetPadding(200, 300)
+                                                            GameTooltip:AddLine("One-Key Fishing Mode", 1.0, 0.82, 0.0, true)
+                                                            GameTooltip:AddLine("Fish, reel, cast toys using \none button!\n", 1, 1, 1, true)
+                                                            GameTooltip:AddLine("Set your desired key by: ", 0.6, 0.85, 0.91, true)
+                                                            GameTooltip:AddLine("Clicking on the button\nthat appears below\nonce this option is selected.", 1, 1, 1, true)
+                                                            GameTooltip:Show()
+                                                        end
+                                                    </OnEnter>
+                                                    <OnLeave>
+                                                        GameTooltip:Hide()
+                                                    </OnLeave>
+                                                </Scripts>
+                                                <Layers>
+                                                    <Layer level="ARTWORK">
+                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/Angleur/images/ExtraButtonWater.png" alpha="0.8">
+                                                            <Size x="105" y="105"/>
+                                                            <Anchors>
+                                                                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="-1" y="2"/>
+                                                            </Anchors>
+                                                        </Texture>
+                                                    </Layer>
+                                                </Layers>
+                                                <Frames>
+                                                    <Frame name="$parent_Contents" parentKey="contents">
+                                                        <Anchors>
+                                                            <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-5"/>
+                                                        </Anchors>
+                                                        <Size x="1" y="1"/>
+                                                        <Scripts>
+                                                            <OnShow>
+                                                                if AngleurConfig.chosenMethod == "oneKey" and not AngleurConfig.angleurKey then
+                                                                    Angleur.configPanel.tab1.contents.fishingMethod.oneKey.contents.angleurKey.warning:Show()
+                                                                end
+                                                            </OnShow>
+                                                        </Scripts>
+                                                        <Frames>
+                                                            <Button name="$parent_AngleurKey" parentkey="angleurKey" inherits="KeyBindingFrameBindingButtonTemplate">
+                                                                <Size x="100" y="22"/>
+                                                                <Anchors>
+                                                                    <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>
+                                                                </Anchors>
+                                                                <Layers>
+                                                                    <Layer level="ARTWORK">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline" text= "One Key">
+                                                                            <Color r="1" g="1" b="1"/>
+                                                                            <Anchors>
+                                                                                <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
+                                                                            </Anchors>
+                                                                        </FontString>
+                                                                        <FontString name="$parent_Disclaimer" parentKey="disclaimer" inherits= "SystemFont_Outline" text="The next key you press&#xA;will be set as Angleur Key" hidden="true">
+                                                                            <Anchors>
+                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="35" y="0"/>
+                                                                            </Anchors>
+                                                                        </FontString>
+                                                                        <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" text= "Please set a keybind&#xA; to use the One Key&#xA;Fishing Method by&#xA; using the the&#xA;button above" hidden="true">
+                                                                            <Color r="1"/>
+                                                                            <Anchors>
+                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
+                                                                            </Anchors>
+                                                                        </FontString>
+                                                                    </Layer>
+                                                                </Layers>
+                                                                <Scripts>
+                                                                    <OnLoad>
+                                                                        self.SelectedHighlight:SetWidth(self:GetWidth())
+                                                                        self:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+                                                                        self:RegisterEvent("PLAYER_REGEN_DISABLED")
+                                                                        self:RegisterEvent("PLAYER_REGEN_ENABLED")
+                                                                        self:SetPropagateKeyboardInput(true)
+                                                                    </OnLoad>
+                                                                    <OnClick>
+                                                                        if InCombatLockdown() then return end
+                                                                        if button == "LeftButton" then
+                                                                            if self.selected then
+                                                                                Angleur_KeyGetterStopWatching()
+                                                                            else
+                                                                                self.selected = true
+                                                                                self:SetSelected(true)
+                                                                                self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
+                                                                                self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
+                                                                                self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
+                                                                                self:SetPropagateKeyboardInput(false)
+                                                                                self.disclaimer:Show()
+                                                                                self.disclaimer:SetText("The next key you press\nwill be set as Angleur Key")
+                                                                                self.warning:Hide()
+                                                                            end
+                                                                        elseif button == "RightButton" then
+                                                                            Angleur_Unbind(self)
+                                                                        end
+                                                                    </OnClick>
+                                                                    <OnEvent>
+                                                                            if event == "PLAYER_REGEN_DISABLED" then
+                                                                                Angleur_KeyGetterStopWatching()
+                                                                                self:Disable()
+                                                                            elseif event =="PLAYER_REGEN_ENABLED" then
+                                                                                self:Enable()
+                                                                            end
+                                                                    </OnEvent>
+                                                                    <OnHide>
+                                                                        Angleur_KeyGetterStopWatching()
+                                                                    </OnHide>
+                                                                </Scripts>
+                                                            </Button>
+                                                        </Frames>
+                                                    </Frame>
+                                                </Frames>
+                                            </Button>
+                                            <Button name="$parent_DoubleClick" parentKey="doubleClick" inherits="ActionButtonTemplate">
+                                                <Size x="46" y="46"/>
+                                                <Anchors>
+                                                    <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-35" y="-35"/>
+                                                </Anchors>
+                                                <Scripts>
+                                                    <OnClick function="Angleur_FishingMethodOnClick"/>
+                                                    <OnEnter>
+                                                        if not self:IsDragging() then
+                                                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
+                                                            GameTooltip:SetPadding(400, 300)
+                                                            GameTooltip:AddLine("Double-Click Fishing Mode", 1.0, 0.82, 0.0, true)
+                                                            GameTooltip:AddLine("Fish, reel, cast toys using double mouse clicks!\n", 1, 1, 1, true)
+                                                            GameTooltip:AddLine("Select which mouse button by:", 0.6, 0.85, 0.91, true)
+                                                            GameTooltip:AddLine("Clicking on the box that appears below once this option is selected.\n", 1, 1, 1, true)
+                                                            local color = CreateColor(1, 0, 0)
+                                                            --GameTooltip:AddLine("This feature is currently in" .. color:WrapTextInColorCode(" BETA."), 1, 1, 1, true)
+                                                            GameTooltip:Show()
+                                                        end
+                                                    </OnEnter>
+                                                    <OnLeave>
+                                                        GameTooltip:Hide()
+                                                    </OnLeave>
+                                                </Scripts>
+                                                <Layers>
+                                                    <Layer level="ARTWORK">
+                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/Angleur/images/ExtraButtonWater.png" alpha="0.8">
+                                                            <Size x="105" y="105"/>
+                                                            <Anchors>
+                                                                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="-1" y="2"/>
+                                                            </Anchors>
+                                                        </Texture>
+                                                    </Layer>
+                                                </Layers>
+                                                <Frames>
+                                                    <Frame name="$parent_Contents" parentKey="contents">
+                                                    <Size x="1" y="1"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="50" y="-5"/>
+                                                    </Anchors>
+                                                        <Frames>
+                                                            <Frame name="$parent_DropDownMenu" parentKey="dropDownMenu" inherits="UIDropDownMenuTemplate">
+                                                                <Anchors>
+                                                                    <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="-45" y="-25"/>
+                                                                </Anchors>
+                                                                <Layers>
+                                                                    <Layer level="ARTWORK">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline" text= "Double Click">
+                                                                            <Color r="1" g="1" b="1"/>
+                                                                            <Anchors>
+                                                                                <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
+                                                                            </Anchors>
+                                                                        </FontString>
+                                                                    </Layer>
+                                                                </Layers>
+                                                            </Frame>
+                                                        </Frames>
+                                                    </Frame>
+                                                </Frames>
+                                            </Button>
+                                        </Frames>
+                                    </Frame>
+                                    <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" text="Return&#xA;Angleur Visual" hidden="true">
+                                        <Size x="100" y="42"/>
+                                        <Anchors>
+                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                                        </Anchors>
+                                        <Scripts>
+                                            <OnClick>
+                                                if AngleurConfig.visualHidden == true then
+                                                    Angleur_VisualReset(self, -75, -2, true)
+                                                    Angleur_CreateWeaponSwapFrames()
+                                                    self:Hide()
+                                                end
+                                            </OnClick>
+                                        </Scripts>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/returnbuttonholder.png">
+                                                    <Size x="52" y="52"/>
+                                                    <Anchors>
+                                                        <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT" y="0"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                        </Layers>
+                                    </Button>
+                                    <EditBox name="$parent_DiscordLink" parentKey="discordLink" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                                        <Size x="125" y="22"/>
+                                        <Anchors>
+                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-10" y="5"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <Texture name="$parent_Logo" parentKey="logo" file="Interface/AddOns/Angleur/images/discord.png">
+                                                    <Size x="16" y="16"/>
+                                                    <Anchors>
+                                                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT" x="-6" y="0"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                        </Layers>
+                                        <Scripts>
+                                            <OnShow>
+                                                self:SetText("discord.gg/Qn925hujfe")
+                                            </OnShow>
+                                        </Scripts>
+                                    </EditBox>
+                                </Frames>
+                            </Frame>
+                        </Frames>
+                    </Button>
+                    <Button name="$parent_Tab2" parentKey="tab2" inherits="MinimalTabTemplate" hidden="false">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_Tab1" relativePoint="RIGHT"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                self.tabText = "  Extra  "
+                                self:OnLoad()
+                                Angleur_SetTab2(self)
+                            </OnLoad>
+                            <OnClick>
+                                self:OnClick()
+                                Angleur_TabSystem(self)
+                            </OnClick>
+                        </Scripts>
+                        <Frames>
+                            <Frame name="$parent_Contents" parentKey="contents" hidden="true">
+                                <Size x="300" y="420"/>
+                                <Anchors>
+                                    <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
+                                </Anchors>
+                                <Frames>    
+                                    <Frame name="Angleur_ExtraToys" parentKey="extraToys">
+                                        <Size x="300" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativePoint="TOP" x="0" y="-40"/>
+                                        </Anchors>
+                                        <Scripts>
+                                            <OnLoad function="Angleur_LoadExtraToys"/>
+                                        </Scripts>
+                                        <Frames>
+                                            <Button name="$parent_First" parentKey="first" inherits="ExtraToyButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" x="35" y="15"/>
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parent_Second" parentKey="second" inherits="ExtraToyButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_First" relativePoint="RIGHT" x="45" y="0"/>
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parent_Third" parentKey="third" inherits="ExtraToyButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Second" relativePoint="RIGHT" x="45" y="0"/>
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </Frame>
+                                    <Frame name="Angleur_ExtraItems" parentKey="extraItems">
+                                        <Size x="300" y="150"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="Angleur_ExtraToys" relativePoint="BOTTOM" x="0" y="0"/>
+                                        </Anchors>
+                                        <Scripts>
+                                            <OnLoad function="Angleur_LoadExtraItems"/>
+                                        </Scripts>
+                                        <Frames>
+                                            <Button name="$parent_First" parentKey="first" inherits="ExtraItemButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" x="35" y="15"/>
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parent_Second" parentKey="second" inherits="ExtraItemButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_First" relativePoint="RIGHT" x="45" y="0"/>
+                                                </Anchors>
+                                            </Button>
+                                            <Button name="$parent_Third" parentKey="third" inherits="ExtraItemButtonTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Second" relativePoint="RIGHT" x="45" y="0"/>
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </Frame>
+                                    <Button name="$parent_EquipmentButton" parentKey="equipmentButton" inherits="IconButtonTemplate" hidden="false">
+                                        <Size x="36" y="36"/>
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="Angleur_ExtraItems" relativePoint="BOTTOMLEFT" x="80" y="25"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="icon" value="Interface\ICONS\INV_Chest_Leather_10" type="string"/>
+                                            <KeyValue key="iconSize" value="26" type="number"/>
+                                            <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+                                            <KeyValue key="tooltipAnchor" value="ANCHOR_BOTTOMRIGHT" type="string"/>
+				                            <KeyValue key="tooltipText" value="Open Equipment" type="string"/>
+                                        </KeyValues>
+                                        <Scripts>
+                                            <OnClick>
+                                                if InCombatLockdown() then return end
+                                                ToggleCharacter("PaperDollFrame")
+                                            </OnClick>
+                                        </Scripts>
+                                    </Button>
+                                    <Button name="$parent_BagsButton" parentKey="bagsButton" inherits="IconButtonTemplate" hidden="false">
+                                        <Size x="36" y="36"/>
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeTo="$parent_EquipmentButton" relativePoint="RIGHT" x="5" y="0"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="iconAtlas" value="bag-main" type="string"/>
+                                            <KeyValue key="iconSize" value="36" type="number"/>
+                                            <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+                                            <KeyValue key="tooltipAnchor" value="ANCHOR_BOTTOMRIGHT" type="string"/>
+				                            <KeyValue key="tooltipText" value="Toggle Bags" type="string"/>
+                                        </KeyValues>
+                                        <Scripts>
+                                            <OnClick>
+                                                ToggleAllBags()
+                                            </OnClick>
+                                        </Scripts>
+                                    </Button>
+                                    <Button name="$parent_MacroButton" parentKey="macroButton" inherits="IconButtonTemplate" hidden="false">
+                                        <Size x="36" y="36"/>
+                                        <Anchors>
+                                            <Anchor point="LEFT" relativeTo="$parent_BagsButton" relativePoint="RIGHT" x="5" y="0"/>
+                                        </Anchors>
+                                        <KeyValues>
+                                            <KeyValue key="icon" value="Interface\MacroFrame\MacroFrame-Icon" type="string"/>
+                                            <KeyValue key="iconSize" value="26" type="number"/>
+                                            <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+                                            <KeyValue key="tooltipAnchor" value="ANCHOR_BOTTOMRIGHT" type="string"/>
+				                            <KeyValue key="tooltipText" value="Open Macros" type="string"/>
+                                        </KeyValues>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <Texture name="$parent_Border" parentKey="border" atlas="bag-border-empty">
+                                                    <Size x="36" y="36"/>
+                                                    <Anchors>
+                                                        <Anchor point="CENTER" x="1" y="-2"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                        </Layers>
+                                        <Scripts>
+                                            <OnClick>
+                                                if InCombatLockdown() then return end
+                                                if not MacroFrame then
+                                                    C_AddOns.LoadAddOn("Blizzard_MacroUI")
+                                                    MacroFrame_Show()
+                                                elseif not  MacroFrame:IsShown() then
+                                                    MacroFrame_Show()
+                                                end
+                                            </OnClick>
+                                        </Scripts>
+                                    </Button>
+                                    <Frame name="$parent_Problems" parentKey="problems" hidden="true">
+                                        <Size x="210" y="24"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativePoint="BOTTOM" x="51" y="-348"/>
+                                        </Anchors>
+                                        <Scripts>
+                                            <OnLoad>
+                                                local problemsbackground = self:CreateTexture("$parent_Texture", "ARTWORK")
+                                                problemsbackground:SetTexture("Interface/AddOns/Angleur/images/extratoysproblems.png")
+                                                problemsbackground:SetPoint("CENTER")
+                                                problemsbackground:SetSize("250", "48")
+
+                                                local problemstext = self:CreateFontString("$parent_Text", "ARTWORK", "Game15Font")
+                                                problemstext:SetPoint("CENTER")
+                                                local color = CreateColor(1.0, 0.82, 0.0)
+                                                problemstext:SetText(color:WrapTextInColorCode("Having Problems?"))
+                                            </OnLoad>
+                                            <OnEnter>
+                                                if not self:IsDragging() then
+                                                    GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                                                    GameTooltip:SetPadding(400, 300)
+                                                    GameTooltip:AddLine("Not every toy will work!", 1.0, 0.82, 0.0, true)
+                                                    GameTooltip:AddLine("Extra Toys is a feature meant to provide flexible user customization, but not every toy is created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine. Test them out, experiment and have fun!\n", 1, 1, 1, true)
+                                                    GameTooltip:AddLine("Fun toy recommendations from mod author, Legolando:", 0.6, 0.85, 0.91, true)
+                                                    GameTooltip:AddLine("", 1, 1, 1, true)
+                                                    GameTooltip:AddLine("1) Tents such as Gnoll Tent to protect yourself from the sun as you fish.\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably.\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!", 1, 1, 1, true)
+                                                    GameTooltip:Show()
+                                                end
+                                            </OnEnter>
+                                            <OnLeave>
+                                                GameTooltip:Hide()
+                                            </OnLeave>
+                                        </Scripts>
+                                    </Frame>
+                                </Frames>
+                            </Frame>
+                        </Frames>
+                    </Button>
+                    <Button name="$parent_Tab3" parentKey="tab3" inherits="MinimalTabTemplate" hidden="false">
+                        <Anchors>
+                            <Anchor point="LEFT" relativeTo="$parent_Tab2" relativePoint="RIGHT"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnLoad>
+                                self.tabText = "  Tiny  "
+                                self:OnLoad()
+                            </OnLoad>
+                            <OnClick>
+                                self:OnClick()
+                                Angleur_TabSystem(self)
+                            </OnClick>
+                        </Scripts>
+                        <Frames>
+                            <Frame name="$parent_Contents" parentKey="contents" hidden="true">
+                                <Size x="300" y="420"/>
+                                <Anchors>
+                                    <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
+                                </Anchors>
+                                <Frames>
+                                    <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="142" y="-40"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_OffInteract" relativePoint="BOTTOM" x="-6" y="0"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_Dismount" relativePoint="BOTTOM" x="-45" y="-15"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="SliderAndEditControlTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_DoubleClickWindow" relativePoint="BOTTOM" x="0" y="-5"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Frame name="$parent_ButtonHolder" parentKey="buttonHolder">
+                                                <Size x="65" y="65"/>
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                                <Layers>
+                                                    <Layer level="ARTWORK">
+                                                        <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/returnbuttonholder.png">
+                                                            <Size x="65" y="65"/>
+                                                            <Anchors>
+                                                                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
+                                                            </Anchors>
+                                                        </Texture>
+                                                    </Layer>
+                                                </Layers>
+                                            </Frame>
+                                        </Frames>
+                                    </Frame>
+                                    <Frame name= "$parent_UltraFocusMaster" parentKey="ultraFocusMaster" inherits="SliderAndEditControlTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_VisualSize" relativePoint="BOTTOM" x="8" y="-5"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_UltraFocusMaster" relativePoint="BOTTOM" x="18" y="-10"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_LoginMessages" relativePoint="BOTTOM" x="-17" y="-5"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
+                                        <Size x="72" y="42"/>
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_DebugMode" relativePoint="BOTTOM" x="135" y="20"/>
+                                        </Anchors>
+                                    </Button>
+                                    <Button name="$parent_RedoTutorial" parentKey="redoTutorial" inherits="UIPanelSquareButton">
+                                        <Size x="32" y="32"/>
+                                        <Anchors>
+                                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="75" y="25"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="ARTWORK">
+                                                <FontString inherits="FriendsFont_Normal" text="Redo Tutorial">
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="3" y="0"/>
+                                                    </Anchors>
+                                                    <Color r="1" g="0.82" b="0"/>
+                                                </FontString>
+                                            </Layer>
+                                        </Layers>
+                                    </Button>
+                                </Frames>
+                            </Frame>
+                        </Frames>
+                    </Button>
+                    <Button name="$parent_WakeUpButton" parentKey="wakeUpButton" inherits="UIPanelBorderedButtonTemplate" hidden="true">
+                        <Size x="75" y="65"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="2" y="0"/>
+                        </Anchors>
+                        <Scripts>
+                            <OnClick>
+                                if InCombatLockdown() then
+                                    print("Can't change sleep state in combat.")
+                                    return
+                                end
+                                AngleurCharacter.sleeping = false
+                                Angleur_SetSleep()
+                                Angleur_EquipAngleurSet(true)
+                            </OnClick>
+                        </Scripts>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parent_Lego" parentKey="lego" file="Interface/AddOns/Angleur/images/legosleep.png">
+                                    <Size x="48" y="48"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-5" y="0"/>
+                                    </Anchors>
+                                </Texture>
+                                <FontString inherits="QuestFont_Outline_Huge" text="Wake!">
+                                    <Anchors>
+                                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-2" y="6"/>
+                                    </Anchors>
+                                    <Color r="1" g="0" b="0"/>
+                                </FontString>
+                            </Layer>
+                            <Layer level="BACKGROUND">
+                                <Texture file="Interface/FrameGeneral/UI-Background-Marble">
+                                    <Size x="70" y="50"/>
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" y="-5"/>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
+                        <Frames>
+                            <Frame name="$parent_Sleep" parentKey="sleep" toplevel="true" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                                <Size x="42" y="42"/>
+                                <Anchors>
+                                    <Anchor point="LEFT" relativeTo="$parent_Lego" relativePoint="RIGHT" x="-15" y="10"/>
+                                </Anchors>
+                                <Scripts>
+                                    <OnLoad>
+                                        self.texture:SetSize(42, 42)
+                                    </OnLoad>
+                                </Scripts>
+                            </Frame>
+                        </Frames>
+                    </Button>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Frame>
+
+
+    <Button parent="Angleur_ConfigPanel_Tab2_Contents" name="Angleur_CreateSetAndAdd" parentKey="createSetAndAdd" inherits="Angleur_UIPanelLargeSilverButton">
+        <Size x="72" y="72"/>
+        <Anchors>
+            <Anchor point="BOTTOMRIGHT" relativeTo="Angleur_ExtraItems" relativePoint="BOTTOMRIGHT" x="-25" y="-45"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_DefaultTexture" parentKey="defaultTexture" file="Interface/Addons/Angleur/images/armorequipyellowplus.png">
+                    <Size x="72" y="72"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parent_DefaultText" parentKey="defaultText" text="Create&#xA;  Add" inherits="Fancy12Font">
+                    <Color r="1" g="0.82" b="0"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="0"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parent_CheckedTexture" parentKey="checkedTexture" file="Interface/Addons/Angleur/images/armorequipgreencheck.png" hidden="true">
+                    <Size x="72" y="72"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parent_CheckedText" parentKey="checkedText" text="Update" inherits="Fancy12Font" hidden="true">
+                    <Color r="0" g="1" b="0"/>
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="5"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnClick>
+                if InCombatLockdown() then return end
+                self:Disable()
+                Angleur_CreateEquipmentSet()
+                Angleur_AddToEquipmentSet()
+            </OnClick>
+            <OnEnter>
+                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 70)
+                local colorWhite = CreateColor(1, 1, 1)
+                GameTooltip:AddLine("Beta: " 
+                .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
+                .. "/reload.", 1.0, 0.82, 0.0)
+                GameTooltip:Show()
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_DisableAndDelete" parentKey="disableAndDelete">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="CENTER" relativeKey="$parent" relativePoint="TOPRIGHT" x="-3" y="-5"/>
+                </Anchors>
+                <NormalTexture atlas="auctionhouse-ui-filter-redx">
+                    <Size x="24" y="24"/>
+                </NormalTexture>
+                <HighlightTexture atlas="auctionhouse-ui-filter-redx" alphaMode="ADD" alpha="0.4">
+                    <Size x="24" y="24"/>
+                </HighlightTexture>
+                <Scripts>
+                    <OnClick>
+                        AngleurCharacter.angleurSet = false
+                        Angleur_CreateSetAndAdd_UpdateState()
+                        C_EquipmentSet.DeleteEquipmentSet(C_EquipmentSet.GetEquipmentSetID("Angleur"))
+                        self:GetParent():Enable()
+                        self:GetParent():ClearPushedTexture()
+                    </OnClick>
+                    <OnEnter>
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
+                        GameTooltip:AddLine("Reset Angleur Set", 1.0, 0.82, 0.0)
+                        GameTooltip:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide()
+                    </OnLeave>
+                </Scripts>
+            </Button>
+        </Frames>
+    </Button>
+
+    <Frame parent="Angleur" name="Angleur_ToyBoxOverlay" frameStrata="DIALOG" toplevel="true" parentKey="toyBoxOverlay" hidden="false">
+        <Size x="100" y="100"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/croppedblue.png" hidden="false">
+                    <Size x="512" y="512"/>
+                </Texture>
+                <Texture name="$parent_TextBackground" parentKey="textBackground" file="Interface/AddOns/Angleur/images/croppedtextbackground.png" hidden="false">
+                    <Size x="475" y="60"/>
+                </Texture>
+                <FontString name="$parent_Text" parentKey="text" inherits= "Game20Font" height="100" text="Please select a toy using Left Mouse Click" hidden="false">
+                    <Anchors>
+                        <Anchor point="CENTER" relativePoint="CENTER"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad function="Angleur_ToyBoxOverlay_OnLoad"/>
+            <OnHide function="Angleur_ToyBoxOverlay_Deactivate"/>
+        </Scripts>
+    </Frame>
+
+    <Frame parent="Angleur" name="AngleurSet_AlertAnim" frameStrata="TOOLTIP" toplevel="true" inherits="ActionBarButtonSpellActivationAlert" hidden="true">
+        <Size x="64" y="64"/>
+        <Scripts>
+            <OnEnter>
+                self:Hide()
+            </OnEnter>
+        </Scripts>
+    </Frame>
+
+    <Frame name="Angleur_PlaterFrame" toplevel="true" frameStrata="DIALOG" inherits="BasicFrameTemplateWithInset" hidden="true">
+        <Size x="265" y="256"/>
+        <Anchors>
+            <Anchor point="CENTER" x="0" y="40"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_MainText" text="Make sure this box is checked!" parentKey="mainText" inherits="GameFontHighlight">
+                    <Color r="1" g="0.82" b="0"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="-170"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/platerinteractionangleur.png">
+                    <Size x="390" y="195"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="6" y="-25"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parent_OtherText" text="Located in Plater->Advanced->General Settings.&#xA;&#xA;Otherwise Angleur wont be able to reel fish in." parentKey="otherText" inherits="SpellFont_Small">
+                    <Color r="0.8" g="0.8" b="0.8"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="35"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="okayButton" inherits="GameMenuButtonTemplate">
+                <Size x="96" y="20"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="10"/>
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                        self:GetParent():Hide()
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad>
+                tinsert(UISpecialFrames, self:GetName())
+                self.TitleText:SetText("Angleur Warning: Plater")
+                local colorYellow = CreateColor(1.0, 0.82, 0.0)
+                self.okayButton:SetText(colorYellow:WrapTextInColorCode("Okay"))
+            </OnLoad>
+            <OnHide>
+                if C_AddOns.IsAddOnLoaded("Plater") then
+                    Plater.OpenOptionsPanel(23, true)
+                end
+            </OnHide>
+        </Scripts>
+    </Frame>
+</Ui>

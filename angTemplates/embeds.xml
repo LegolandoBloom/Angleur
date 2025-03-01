@@ -1,0 +1,10 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Script file="GeneralTemplates\GeneralTemplates.lua"/>
+    <Include file="GeneralTemplates\GeneralTemplates.xml"/>
+
+    <Script file="Angleur_HelpTipTemplate\Angleur_HelpTipTemplate.lua"/>
+    <Include file="Angleur_HelpTipTemplate\Angleur_HelpTipTemplate.xml"/>
+
+</Ui>

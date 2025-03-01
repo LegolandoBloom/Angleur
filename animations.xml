@@ -1,0 +1,28 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Frame name="Angleur_SleepAnimTemplate" virtual="true">
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/sleep animation/full.png">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Animations>
+            <AnimationGroup parentKey="anim" looping="REPEAT" setToFinalAlpha="true">
+                <FlipBook smoothing="NONE" childKey="texture" duration="2" order="1" flipBookRows="1" flipBookColumns="4" flipBookFrames="4" flipBookFrameWidth="64" flipBookFrameHeight="64"/>
+            </AnimationGroup>
+        </Animations>
+        <Scripts>
+            <OnHide>
+                self.anim:Stop()
+            </OnHide>
+            <OnShow>
+                self.anim:Play()
+            </OnShow>
+        </Scripts>
+    </Frame>
+</Ui>

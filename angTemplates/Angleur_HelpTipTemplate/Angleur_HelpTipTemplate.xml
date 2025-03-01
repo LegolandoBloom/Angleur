@@ -1,0 +1,74 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <!-- Needs Angleur_WarningFrame to work, located in GeneralTemplates -->
+    <Frame name="Angleur_HelpTipCloseWarning" toplevel="true" frameStrata="DIALOG" inherits="Angleur_WarningFrame" virtual="true" hidden="true">
+        <Anchors>
+            <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" x="0" y="100"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad>
+                self.TitleText:SetText("Angleur Warning")
+                self.mainText:SetText("Are you sure you want to abandon the tutorial?")
+                self.otherText:SetText("(You can redo it later by clicking the Redo Button\nin the Tiny Panel)")
+                local colorYellow = CreateColor(1.0, 0.82, 0.0)
+                self.yesButton:SetText(colorYellow:WrapTextInColorCode("Yes"))
+                self.noButton:SetText(colorYellow:WrapTextInColorCode("No"))
+            </OnLoad>
+        </Scripts>
+    </Frame>
+
+    <Frame name="Angleur_HelpTipTemplate" inherits="GlowBoxTemplate" hidden="true" mixin="Angleur_HelpTipTemplateMixin" toplevel="true" virtual="true" enableMouse="true" flattenRenderLayers="true">
+        <Size x="226" y="10"/>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture name="$parent_FeatureHighlight" parentKey="featureHighlight" file="Interface/AddOns/Angleur/Images/ListButtons-glowy.png" hidden="true">
+                    
+                </Texture>
+                <FontString parentKey="Text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="TOP">
+                    <Size x="196" y="0"/>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button parentKey="OkayButton" inherits="UIPanelButtonTemplate" text="OKAY" hidden="true">
+                <Size x="110" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" x="0" y="12"/>
+                </Anchors>
+            </Button>
+            <Frame parentKey="Arrow" inherits="GlowBoxArrowTemplate">
+                <Size x="61" y="61"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="-17" y="-9"/>
+                </Anchors>
+            </Frame>
+            <Button parentKey="CloseButton" mixin="Angleur_HelpTipCloseButtonMixin" hidden="false" frameLevel="100">
+                <Size x="18" y="18"/>
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="-2" y="-2"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="ARTWORK">
+                        <Texture parentKey="Texture">
+                            <Anchors>
+                                <Anchor point="TOPLEFT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Scripts>
+                    <OnLoad method="OnLoad"/>
+                    <OnEnter method="OnEnter"/>
+                    <OnLeave method="OnLeave"/>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnHide method="OnHide"/>
+            <!-- <OnShow method="OnShow"/>
+            <OnEvent method="OnEvent"/> -->
+        </Scripts>
+    </Frame>
+    
+</Ui>
