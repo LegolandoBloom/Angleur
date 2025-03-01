@@ -6,6 +6,7 @@
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
+## X-Curse-Project-ID: 893895
 #@no-lib-strip@
 libraries\embeds.xml
 #@end-no-lib-strip@
