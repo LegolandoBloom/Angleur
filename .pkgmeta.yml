@@ -1,0 +1,13 @@
+required-dependencies:
+
+optional-dependencies:
+
+embedded-libraries:
+- libdbicon-1-0
+- libdatabroker-1-1
+- callbackhandler
+- libstub
+
+manual-changelog:
+  filename: CHANGELOG.md
+  markup-type: markdown
