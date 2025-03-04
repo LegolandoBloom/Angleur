@@ -264,6 +264,36 @@ local function isChosenKeyDown()
     end
     return false
 end
+local warnedPLater = false
+local function warnPlater()
+    if warnedPlater then return end
+    if Angleur_TinyOptions.turnOffSoftInteract == true then
+        
+    else
+        if C_CVar.GetCVar("SoftTargetInteract") == "3" then
+            warnedPlater = true
+            return
+        end
+        local colorYellow = CreateColor(1.0, 0.82, 0.0)
+        local colorBlu = CreateColor(0.61, 0.85, 0.92)
+        local colorGreen = CreateColor(0, 1, 0)
+        if C_AddOns.IsAddOnLoaded("Plater") then
+            print("----------------------------------------------------------------------------")
+            print(colorBlu:WrapTextInColorCode("Angleur: ") .. colorYellow:WrapTextInColorCode("Plater ") .. "detected.")
+            print("Plater " .. colorYellow:WrapTextInColorCode("-> ") .. "Advanced " .. colorYellow:WrapTextInColorCode("-> ") .. "General Settings" 
+            .. colorYellow:WrapTextInColorCode(":") .. " Show soft-interact on game objects*")
+            print("Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " .. colorYellow:WrapTextInColorCode("Reel/Loot ") .. "your catches.")
+            print("----------------------------------------------------------------------------")
+        else
+            print("----------------------------------------------------------------------------")
+            print(colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" .. colorYellow:WrapTextInColorCode("Soft-Interact."))
+            print("Angleur Config Panel " .. colorYellow:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYellow:WrapTextInColorCode("-> ") .. "Disable Soft-Interact") 
+            print("Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly.")
+            print("----------------------------------------------------------------------------")
+        end
+        warnedPlater = true
+    end
+end
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register
@@ -304,6 +334,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" and (arg5 == 131476 or arg5 == 377895 or arg5 == 7620) then
         midFishing = true
         Angleur_ActionHandler(Angleur)
+        warnPlater()
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
