@@ -437,7 +437,6 @@ end
 --**Decides which action to perform**
 --***********[~]**********
 local Localized_FishingSpellName = C_Spell.GetSpellInfo(51294).name
-print(Localized_FishingSpellName)
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
