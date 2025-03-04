@@ -154,7 +154,6 @@ function Angleur_FishingMethodOnClick(self)
     AngleurConfig.chosenMethod = self:GetParentKey()
     Angleur_FishingMethodSetSelected(self:GetParent())
     if AngleurConfig.chosenMethod == "doubleClick" then
-        Angleur_RegisterAndHook()
         if stiffShownOnce then return end
         stiffShownOnce = true
         local color1 = CreateColor(1.0, 0.82, 0.0)

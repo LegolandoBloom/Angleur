@@ -125,7 +125,13 @@
                     </Button>
                 </Frames>
             </Button>
-            <Button name="$parent_ToyButton" parentKey="toyButton" inherits="SecureActionButtonTemplate" hidden="false"/>
+            <Button name="$parent_ToyButton" parentKey="toyButton" inherits="SecureActionButtonTemplate" hidden="false">
+                <Scripts>
+                    <PreClick>
+                        Angleur_BetaPrint("ToyButton functions have been invoked")
+                    </PreClick>
+                </Scripts>
+            </Button>
             <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
                 <Size x="300" y="420"/>
                 <Anchors>

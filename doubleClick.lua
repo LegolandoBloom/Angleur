@@ -7,16 +7,17 @@ angleurDoubleClick = {
     hookedregistered = false
 }
 
-function Angleur_RegisterAndHook()
-    if angleurDoubleClick.hookedregistered == true then return end
-    WorldFrame:RegisterForDrag("RightButton")
-    WorldFrame:HookScript("OnDragStart", function(self, button)
-        if IsMouseButtonDown("RightButton") then
-            MouselookStart()
-        end
-    end)
-    angleurDoubleClick.hookedregistered = true
-end
+-- !!!! AS OF UNDERMINED, WORLD FRAME NO LONGER RECEIVES DRAG !!!!
+-- function Angleur_RegisterAndHook()
+--     if angleurDoubleClick.hookedregistered == true then return end
+--     WorldFrame:RegisterForDrag("RightButton")
+--     WorldFrame:HookScript("OnDragStart", function(self, button)
+--         if IsMouseButtonDown("RightButton") then
+--             MouselookStart()
+--         end
+--     end)
+--     angleurDoubleClick.hookedregistered = true
+-- end
 
 local stuckFrame = CreateFrame("Frame")
 stuckFrame:RegisterEvent("GLOBAL_MOUSE_UP")
@@ -56,6 +57,7 @@ function Angleur_DoubleClickWatcher(self, event, button)
         return 
     end
     if event == "GLOBAL_MOUSE_UP" then
+        Angleur_StuckFix()
         if InCombatLockdown() then return end
         if angleurDoubleClick.ignoreNextMouseUp then angleurDoubleClick.ignoreNextMouseUp = false return end
         if not angleurDoubleClick.watching then
@@ -73,6 +75,13 @@ function Angleur_DoubleClickWatcher(self, event, button)
             Angleur_ActionHandler(Angleur)
         end
     elseif event == "GLOBAL_MOUSE_DOWN" then
+        if angleurDoubleClick.watching == true then
+            if IsMouseButtonDown(angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID]) then
+                MouselookStart()
+            else
+                MouselookStop()
+            end
+        end
         angleurDoubleClick.heldDown = true
         Angleur_PoolDelayer(0.2, 0, 0.05, angleurDelayers, function()
             if angleurDoubleClick.heldDown then

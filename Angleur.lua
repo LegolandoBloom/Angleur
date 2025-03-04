@@ -187,9 +187,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         Init_AngleurSavedVariables()
-        if AngleurConfig.chosenMethod == "doubleClick" then
-            Angleur_RegisterAndHook()
-        end
         if GetCVar("autoLootDefault") == "1" then
             Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
             AngleurConfig.ultraFocusAutoLootEnabled = false
@@ -439,6 +436,8 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
+local Localized_FishingSpellName = C_Spell.GetSpellInfo(51294).name
+print(Localized_FishingSpellName)
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
@@ -517,7 +516,8 @@ function Angleur_ActionHandler(self)
                 SetOverrideBinding_Custom(self, true, assignKey, "INTERACTTARGET")
                 self.visual.texture:SetTexture("Interface/ICONS/misc_arrowlup")
             else
-                SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+                self.toyButton:SetAttribute("macrotext", "/cast " .. Localized_FishingSpellName)
                 self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
             end
         end
