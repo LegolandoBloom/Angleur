@@ -131,7 +131,7 @@
                         Angleur_BetaPrint("ToyButton functions have been invoked")
                     </PreClick>
                 </Scripts>
-            </Button>
+            </Button> 
             <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
                 <Size x="300" y="420"/>
                 <Anchors>

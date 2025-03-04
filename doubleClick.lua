@@ -4,7 +4,6 @@ angleurDoubleClick = {
     ignoreNextMouseUp = false,
     iDtoButtonName = {"title(aka useless)", "BUTTON2", "BUTTON1"},
     iDtoLeftRight = {"title(aka useless)", "RightButton", "LeftButton"},
-    hookedregistered = false
 }
 
 -- !!!! AS OF UNDERMINED, WORLD FRAME NO LONGER RECEIVES DRAG !!!!
@@ -19,30 +18,15 @@ angleurDoubleClick = {
 --     angleurDoubleClick.hookedregistered = true
 -- end
 
-local stuckFrame = CreateFrame("Frame")
-stuckFrame:RegisterEvent("GLOBAL_MOUSE_UP")
-stuckFrame:SetScript("OnEvent", function(self, event, button)
-    if angleurDoubleClick.hookedregistered == false then return end
-    if button ~= "RightButton" then return end
-    if IsMouseButtonDown("RightButton") == false then
-        if IsMouselooking() then
-            MouselookStop() 
-        end
-    end
-end)
 
 function Angleur_StuckFix()
-if angleurDoubleClick.hookedregistered == false then return end
+if AngleurConfig.chosenMethod ~= "doubleClick" then return end
     if IsMouselooking() then
         if IsMouseButtonDown("RightButton") then
 
         else
             MouselookStop()
-            if Angleur_TinyOptions.errorsDisabled == true then return end
-            print("Angleur has encountered an error with the double click system.")
-            print("Hopefully, this shouldn't affect your gameplay, but please let me know if you get this message multiple times.")
-            print("You can contact me on the addon page, or u/LegolandoBloom on reddit.")
-            print("To disable these kinds of messages, type /angdisable")
+            Angleur_BetaPrint("Angleur: Double Click mouse look released")
         end
     end
 end
