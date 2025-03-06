@@ -37,7 +37,10 @@ angleurToys = {
         {name = "Crate of Bobbers: Tugboat", toyID = 142530, spellID = 231338, icon = 1126431},
         {name = "Crate of Bobbers: Wooden Pepe", toyID = 143662, spellID = 232613, icon = 1044996},
         {name = "Bat Visage Bobber", toyID = 180993, spellID = 335484, icon = 132182},
-        {name = "Templatename", toyID = 1111111, spellID = 222222, icon = 3333333}
+        {name = "Limited Edition Rocket Bobber", toyID = 237345, spellID = 1222880, icon = 6383563},
+        {name = "Artisan Beverage Goblet Bobber", toyID = 237346, spellID = 1222884, icon = 6383561},
+        {name = "Organically-Sourced Wellington Bobber", toyID = 237347, spellID = 1222888, icon = 6383562},
+        {name = "Templatename", toyID = 1111111, spellID = 222222, icon = 3333333},
     },
     --local crateBobberPossibilities = {{toyID = 444444, spellID = 444444}, {toyID = 555555, spellID = 555555}, {toyID = 666666, spellID = 666666}}
     ownedCrateBobbers = {},
