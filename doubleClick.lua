@@ -36,10 +36,10 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if AngleurCharacter.sleeping then return end
     if button ~= angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID] then return end
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
-    if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
-        --print("Mouse on another frame, ignoring")
-        return 
-    end
+    -- if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
+    --     --print("Mouse on another frame, ignoring")
+    --     return 
+    -- end
     if event == "GLOBAL_MOUSE_UP" then
         Angleur_StuckFix()
         if InCombatLockdown() then return end
