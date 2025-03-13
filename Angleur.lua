@@ -637,8 +637,20 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     return returnValue
 end
 
-
 --***********[~]**********
+function Angleur_FishingForAttentionAura()
+    if InCombatLockdown() then return end
+    local fishingAura = C_UnitAuras.GetPlayerAuraBySpellID(394009)
+    if not fishingAura then return end
+    local slots = {C_UnitAuras.GetAuraSlots("player", "HELPFUL|CANCELABLE", 20)}
+    if not slots then return end
+    for i, v in pairs(slots) do
+        local aura = C_UnitAuras.GetBuffDataByIndex("player", i)
+        if aura and aura.spellId == 394009 then 
+            CancelUnitBuff("player", i)
+        end
+    end
+end
 
 function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then
@@ -656,6 +668,7 @@ function Angleur_SetSleep()
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(false)
         end
+        Angleur_FishingForAttentionAura()
     elseif AngleurCharacter.sleeping == false then
         Angleur.visual.texture:SetDesaturated(false)
         Angleur.configPanel.tab1:DesaturateHierarchy(0)

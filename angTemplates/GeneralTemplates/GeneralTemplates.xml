@@ -1,5 +1,62 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
+    <Button name="Angleur_SimplifiedActionButtonTemplate" virtual="true">
+        <Size x="45" y="45"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" parentKey="icon" />
+                <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.icon"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+                <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/>
+                <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/>
+            </Layer>
+            <Layer level="ARTWORK" textureSubLevel="1">
+                <Texture name="$parentFlash" parentKey="Flash" atlas="UI-HUD-ActionBar-IconFrame-Flash" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentName" parentKey="Name" inherits="GameFontHighlightSmallOutline">
+                    <Size x="36" y="10"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentBorder" parentKey="Border" atlas="UI-HUD-ActionBar-IconFrame-Border" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture" atlas="UI-HUD-ActionBar-IconFrame">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </NormalTexture>
+        <PushedTexture atlas="UI-HUD-ActionBar-IconFrame-Down" parentKey="PushedTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </PushedTexture>
+        <HighlightTexture atlas="UI-HUD-ActionBar-IconFrame-Mouseover" parentKey="HighlightTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
+    
     <Frame name="Angleur_WarningFrame" toplevel="true" frameStrata="DIALOG" inherits="BasicFrameTemplateWithInset" hidden="true" virtual="true">
         <Size x="320" y="128"/>
         <Layers>
@@ -33,12 +90,31 @@
         </Frames>
     </Frame>
     
-    <Button name="CombatWeaponSwapButtonTemplate" inherits="ActionButtonTemplate, SecureActionButtonTemplate" frameStrata="HIGH" mixin="Angleur_CombatWeaponSwapButtonMixin" hidden="true" virtual="true">
+    <Button name="CombatWeaponSwapButtonTemplate" inherits="SecureActionButtonTemplate" frameStrata="HIGH" mixin="Angleur_CombatWeaponSwapButtonMixin" hidden="true" virtual="true">
         <Attributes>
             <Attribute name="type" value="macro"/>
         </Attributes>
+        <Size x="46" y="46"/>
         <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" parentKey="icon" />
+                <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.icon"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+                <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/>
+                <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/>
+            </Layer>
             <Layer level="ARTWORK">
+                <Texture name="$parentFlash" parentKey="Flash" atlas="UI-HUD-ActionBar-IconFrame-Flash" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
                 <Texture name="$parent_EquipArrow" parentKey="equipArrow" atlas="characterundelete-RestoreButton">
                     <Size x="64" y="64"/>
                     <Anchors>
@@ -52,7 +128,38 @@
                     </Anchors>
                 </Texture>
             </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentName" parentKey="Name" inherits="GameFontHighlightSmallOutline">
+                    <Size x="36" y="10"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentBorder" parentKey="Border" atlas="UI-HUD-ActionBar-IconFrame-Border" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
         </Layers>
+        <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture" atlas="UI-HUD-ActionBar-IconFrame">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </NormalTexture>
+        <PushedTexture atlas="UI-HUD-ActionBar-IconFrame-Down" parentKey="PushedTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </PushedTexture>
+        <HighlightTexture atlas="UI-HUD-ActionBar-IconFrame-Mouseover" parentKey="HighlightTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </HighlightTexture>
         <Scripts>
             <OnLoad>
                 self:HookScript("OnClick", function(self)
@@ -68,7 +175,7 @@
                         self:GetParent():Hide()
                     end
                 end)
-                self:RegisterForClicks("AnyUp")
+                self:RegisterForClicks("AnyUp", "AnyDown")
             </OnLoad>
             <OnShow>
                 self.success:Hide()

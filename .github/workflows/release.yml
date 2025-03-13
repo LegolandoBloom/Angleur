@@ -8,11 +8,11 @@ on:
 
 env:
   CF_API_KEY: ${{ secrets.CF_API_KEY }}
-  # WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
-  # WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
   # # for github releases, this secret is automatically provided to the workflow
   # # this must be explicitly configured with read-write permissions on the repository
-  # GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+  # WOWI_API_TOKEN: ${{ secrets.WOWI_API_TOKEN }}
+  # WAGO_API_TOKEN: ${{ secrets.WAGO_API_TOKEN }}
 
 jobs:
   release: # "release" is a job, you can name it anything you want
