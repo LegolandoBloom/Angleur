@@ -1,3 +1,7 @@
+local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
+local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
+local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow
+
 local function getItemLink(itemID)
     if not itemID then return end
     local name, link = C_Item.GetItemInfo(itemID)
@@ -43,7 +47,8 @@ function Angleur_CreateEquipmentSet()
         setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
         C_EquipmentSet.SaveEquipmentSet(setID)
         C_EquipmentSet.ClearIgnoredSlotsForSave()
-        Angleur_BetaDump(C_EquipmentSet.GetIgnoredSlots(setID))
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Angleur_CreateEquipmentSet ") .. ": Ignored Slots:")
+        Angleur_BetaTableToString(C_EquipmentSet.GetIgnoredSlots(setID))
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
         local colorYellow = CreateColor(1.0, 0.82, 0.0)
         print("Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : ", setID)
@@ -61,21 +66,23 @@ local function setIgnores(setID)
         print("setIgnores: Angleur error: Equip set ID not found")
         return
     end
+    local Debug_Ignores = ""
     for i, ignore in pairs(isIgnored) do
         if ignore == true then
             C_EquipmentSet.IgnoreSlotForSave(i)
-            Angleur_BetaPrint("setIgnores: ", i, " is ignored")
+            Debug_Ignores = Debug_Ignores .. " | " .. i
         end
     end
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("setIgnores "), ": ", Debug_Ignores, " are ignored")
 end
 
 local function isSetEquipped(setID)
     if next(C_EquipmentSet.GetItemIDs(setID)) == nil then
-        Angleur_BetaPrint("isSetEquipped: EMPTY SET")
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EMPTY SET")
         return true
     end
     local _, _, _, equipped = C_EquipmentSet.GetEquipmentSetInfo(setID)
-    Angleur_BetaPrint("isSetEquipped: EQUIPPED: ", equipped)
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EQUIPPED: ", equipped)
     return equipped
 end
 
@@ -97,7 +104,7 @@ local function showAndPlayAnimation()
     local angleurSetFrame
     for i, v in pairs(scrollTargets) do
         if v.setID == setID then 
-            Angleur_BetaPrint("showAndPlayAnimation: Found Angleur Set")
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("showAndPlayAnimation ") .. ": Found Angleur Set")
             angleurSetFrame = v
         end
     end
@@ -129,16 +136,16 @@ equipmentChangeTrackFrame:SetScript("OnEvent", function(self, event, slot, empty
             local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(C_EquipmentSet.GetEquipmentSetID("Angleur"))
             local setItem = angleurSetItemIDs[slot]
             if not setItem or setItem == -1 then
-                Angleur_BetaPrint("EquipmentChangeTrack: No set counterpart in the slot, not overwriting")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": No set counterpart in the slot, not overwriting")
                 return
             end
-            Angleur_BetaPrint("EquipmentChangeTrack: Newly Equipped Item: ", getItemLink(newItem))
-            Angleur_BetaPrint("EquipmentChangeTrack: Angleur Set Counterpart: ", getItemLink(setItem))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": Newly Equipped Item: ", getItemLink(newItem))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": Angleur Set Counterpart: ", getItemLink(setItem))
             if newItem == setItem then
-                Angleur_BetaPrint("EquipmentChangeTrack: The new item is the set item...")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": The new item is the set item...")
             elseif updatingSet == false then
                 Angleur_SwapoutItemsSaved[slot] = newItem
-                Angleur_BetaPrint("EquipmentChangeTrack: OVERWRITTEN: ", getItemLink(Angleur_SwapoutItemsSaved[slot]))
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": OVERWRITTEN: ", getItemLink(Angleur_SwapoutItemsSaved[slot]))
             end
         end
     end
@@ -185,25 +192,23 @@ local function OnUpdate_AttemptEquip(self, elapsed)
         Angleur.configPanel.tab2.contents.createSetAndAdd:Enable()
         return
     end
-    Angleur_BetaPrint("OnUpdate_AttemptEquip: Item IDs from Set ID:")
-    Angleur_BetaDump(C_EquipmentSet.GetItemIDs(setID))
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": Item IDs from Set ID:")
+    Angleur_BetaTableToString(C_EquipmentSet.GetItemIDs(setID))
     if not isSetEquipped(setID) then
         -- empty for now
     end
     -- Checks for each item in 'wantToEquip' if they are equipped. If not, call 'C_Item.EquipItemByName()' again.
     for location, itemID in pairs(wantToEquip) do
-        Angleur_BetaPrint("OnUpdate_AttemptEquip: Location ", location)
-        Angleur_BetaPrint("OnUpdate_AttemptEquip: itemID: ", itemID)
-        Angleur_BetaPrint("OnUpdate_AttemptEquip: link: ", getItemLink(itemID))
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": Location:", location, ", itemID:", itemID, ", link:", getItemLink(itemID))
         if itemID then
             if C_Item.IsEquippedItem(itemID) then
                 C_EquipmentSet.UnignoreSlotForSave(location)
                 C_EquipmentSet.SaveEquipmentSet(setID)
                 wantToEquip[location] = nil
-                Angleur_BetaPrint("OnUpdate_AttemptEquip: Item equipped succesfully, saving to equipment set")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": Item equipped succesfully, saving to equipment set")
             else
                 C_Item.EquipItemByName(itemID)
-                Angleur_BetaPrint("OnUpdate_AttemptEquip: Set equipped, trying to equip item")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": Set equipped, trying to equip item")
             end
         else
             wantToEquip[location] = nil
@@ -232,7 +237,7 @@ local function OnUpdate_AttemptEquip(self, elapsed)
             .. colorBlu:WrapTextInColorCode("Angleur Set ") .. "manually, and Angleur will swap them in and out like the rest.")
             print(colorBlu:WrapTextInColorCode("----------------------------------------------------------------------------------------------------"))
         end
-        Angleur_BetaPrint("OnUpdate_AttemptEquip: item table empty, removing script")
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": item table empty, removing script")
         AngleurCharacter.angleurSet = true
         Angleur_CreateSetAndAdd_UpdateState()
         Angleur.configPanel.tab2.contents.createSetAndAdd:Enable()
@@ -268,19 +273,19 @@ function Angleur_AddToEquipmentSet()
             if C_EquipmentSet.IsSlotIgnoredForSave(location) then
                 C_EquipmentSet.UnignoreSlotForSave(location)
             end
-            Angleur_BetaPrint("AddToEquipmentSet: Slotted item detected: ", C_Item.GetItemNameByID(itemID))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": Slotted item detected: ", C_Item.GetItemNameByID(itemID))
             wantToEquip[location] = itemID
             local currentlyEquipped = GetInventoryItemID("player", location)
             if itemID ~= currentlyEquipped then
                 Angleur_SwapoutItemsSaved[location] = currentlyEquipped
-                Angleur_BetaPrint("AddToEquipmentSet: This is the item to re-equip(swapout list): ", getItemLink(Angleur_SwapoutItemsSaved[location]))
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": This is the item to re-equip(swapout list): ", getItemLink(Angleur_SwapoutItemsSaved[location]))
             else
-                Angleur_BetaPrint("AddToEquipmentSet: Equipped item same as new, not overwriting Swapout.")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": Equipped item same as new, not overwriting Swapout.")
             end
         end
     end
-    Angleur_BetaPrint("AddToEquipmentSet: The items that will be equipped:")
-    Angleur_BetaDump(wantToEquip)
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": The items that will be equipped:")
+    Angleur_BetaTableToString(wantToEquip)
     local _, _, _, equipped = C_EquipmentSet.GetEquipmentSetInfo(setID)
     -- Will kick off the perpetual calling of 'OnUpdate_AttemptEquip' after making sure the Set is active
     if not equipped then
@@ -288,12 +293,12 @@ function Angleur_AddToEquipmentSet()
         equipFrame:RegisterEvent("EQUIPMENT_SWAP_FINISHED")
         equipFrame:SetScript("OnEvent", function(self, event, result, listenedSetID)
             if event == "EQUIPMENT_SWAP_FINISHED" and result == true and listenedSetID == setID then
-                Angleur_BetaPrint("AddToEquipmentSet: Set equip finished.")
-                Angleur_BetaDump(C_EquipmentSet.GetItemIDs(setID))
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": Set equip finished.")
+                Angleur_BetaTableToString(C_EquipmentSet.GetItemIDs(setID))
                 equipFrame:SetScript("OnEvent", nil)
                 equipFrame:SetScript("OnUpdate", OnUpdate_AttemptEquip)
             elseif event == "EQUIPMENT_SWAP_FINISHED" and result == false then
-                Angleur_BetaPrint("AddToEquipmentSet: failed to equip set: ", listenedSetID)
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": Failed to equip set: ", listenedSetID)
             end
         end)
     else
@@ -321,32 +326,31 @@ local function swapCombatWeapons_OnUpdate(self, elapsed)
     erapusuCounter3 = 0
     if InCombatLockdown() then 
         self:SetScript("OnUpdate", nil)
-        Angleur_BetaPrint("swapCombatWeapons_OnUpdate: Couldn't equip combat weapon in time")
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_OnUpdate ") .. ": Couldn't equip combat weapon in time")
         return 
     end
     for location, itemID in pairs(swapWepTable) do
-        Angleur_BetaPrint("swapCombatWeapons_OnUpdate: Weapon Location ", location)
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_OnUpdate ") .. ": Weapon Location ", location)
         if C_Item.IsEquippedItem(itemID) then
-            Angleur_BetaPrint(itemID, "swapCombatWeapons_OnUpdate: equipped weapon slot successfully")
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_OnUpdate ") .. ": equipped weapon slot successfully: ", itemID)
             swapWepTable[location] = nil
         elseif not IsInventoryItemLocked(location) then
             C_Item.EquipItemByName(itemID, location)
-            Angleur_BetaPrint("swapCombatWeapons_OnUpdate: trying to equip item")
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_OnUpdate ") .. ": trying to equip item")
             Angleur_BetaPrint(itemID, location)
         end
     end
     if next(swapWepTable) == nil then
         self:SetScript("OnUpdate", nil)
-        Angleur_BetaPrint("swapCombatWeapons_OnUpdate: weapon swap complete, removing script")
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_OnUpdate ") .. ": weapon swap complete, removing script")
     end
 end
 
 local function swapCombatWeapons_Single()
-    Angleur_BetaPrint("swapCombatWeapons_Single: STARTING COMBAT WEP SWAP")
     for location, itemID in pairs(swapWepTable) do
-        Angleur_BetaPrint("swapCombatWeapons_Single: Weapon Location ", location)
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_Single ") .. ": Weapon Location ", location)
         if C_Item.IsEquippedItem(itemID) then
-            Angleur_BetaPrint(itemID, "swapCombatWeapons_Single: equipped weapon slot successfully")
+            Angleur_BetaPrint(itemID, colorDebug2:WrapTextInColorCode("swapCombatWeapons_Single ") .. ": equipped weapon slot successfully")
             swapWepTable[location] = nil
         elseif not IsInventoryItemLocked(location) then
             local GUID = C_TooltipInfo.GetOwnedItemByID(itemID).guid
@@ -355,9 +359,9 @@ local function swapCombatWeapons_Single()
                 C_Item.UnlockItem(lokasyon)
             end
             C_Item.EquipItemByName(itemID, location)
-            Angleur_BetaPrint("swapCombatWeapons_Single: trying to equip item")
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_Single ") .. ": trying to equip item")
         else
-            Angleur_BetaPrint("swapCombatWeapons_Single: LOCKEDLOCKEDLOCKEDLOCKED")
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("swapCombatWeapons_Single ") .. ": LOCKEDLOCKEDLOCKEDLOCKED")
         end
     end
 end
@@ -419,11 +423,11 @@ weaponSwapFrames:SetScript("OnEvent", wepSwapFrame_OnEvent)
 
 -- Creates hidden overlay force-equip macro secureactionbuttons onto the minimap button and visual
 function Angleur_CreateWeaponSwapFrames()
-    if weaponSwapFrames.visual == nil then Angleur_BetaPrint("CreateWeaponSwapFrames: it do be nil") end
+    if weaponSwapFrames.visual == nil then Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("CreateWeaponSwapFrames ") .. ": it do be nil") end
     if Angleur.visual:IsShown() and weaponSwapFrames.visual == nil then
         weaponSwapFrames.visual = CreateFrame("Button", "Angleur_WeaponSwapFrame1", weaponSwapFrames, "CombatWeaponSwapButtonTemplate")
     end
-    if weaponSwapFrames.minimap == nil then Angleur_BetaPrint("CreateWeaponSwapFrames: it do be nil") end
+    if weaponSwapFrames.minimap == nil then Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("CreateWeaponSwapFrames ") .. ": it do be nil") end
     if LibDBIcon10_AngleurMap then
         if LibDBIcon10_AngleurMap:IsShown() then    
             weaponSwapFrames.minimap = CreateFrame("Button", "Angleur_WeaponSwapFrame2", weaponSwapFrames, "CombatWeaponSwapButtonTemplate")
@@ -439,7 +443,7 @@ function Angleur_RepositionWeaponSwapFrames()
         weaponSwapFrames.visual:ClearAllPoints()
         weaponSwapFrames.visual:SetPoint("BOTTOMLEFT", UIParent, Angleur.visual:GetLeft(), Angleur.visual:GetBottom())
     else
-        Angleur_BetaPrint("RepositionWeaponSwapFrames: it do be nil")
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
 
     if weaponSwapFrames.minimap ~= nil and LibDBIcon10_AngleurMap and LibDBIcon10_AngleurMap:IsShown() then 
@@ -450,7 +454,7 @@ function Angleur_RepositionWeaponSwapFrames()
         weaponSwapFrames.minimap:ClearAllPoints()
         weaponSwapFrames.minimap:SetPoint("BOTTOMLEFT", UIParent, LibDBIcon10_AngleurMap:GetLeft() / minimapScaler, LibDBIcon10_AngleurMap:GetBottom() / minimapScaler)
     else
-        Angleur_BetaPrint("RepositionWeaponSwapFrames: it do be nil")
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
 end
 
@@ -469,16 +473,16 @@ local equipFrameSet = CreateFrame("Frame")
 equipFrameSet:RegisterEvent("EQUIPMENT_SWAP_FINISHED")
 local function fillSwapoutTable(setID)
     itemIDs = C_EquipmentSet.GetItemIDs(setID)
-    Angleur_BetaPrint("fillSwapoutTable: Table ItemIDs:")
-    Angleur_BetaDump(itemIDs)
+    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Table ItemIDs:")
+    Angleur_BetaTableToString(itemIDs)
     for location = 1, 19 do
         if itemIDs[location] ~= nil and itemIDs[location] ~= -1 then
-            Angleur_BetaPrint("fillSwapoutTable: Slot is set to equip item: ", itemIDs[location])
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Slot is set to equip item: ", itemIDs[location])
             local inventoryItemID = GetInventoryItemID("player", location)
             Angleur_BetaPrint(inventoryItemID)
             if inventoryItemID then
                 if inventoryItemID == itemIDs[location] then
-                    Angleur_BetaPrint("fillSwapoutTable: Set item was previously equipped, not overriding previous re-requip table.")
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Set item was previously equipped, not overriding previous re-requip table.")
                 elseif Angleur_SwapoutItemsSaved[location] ~= nil and Angleur_SwapoutItemsSaved[location] ~= -1 then
                     local _, itemLink = GetItemInfo(Angleur_SwapoutItemsSaved[location])
                     Angleur_BetaPrint(location, itemLink)
@@ -491,7 +495,7 @@ end
 function Angleur_EquipAngleurSet(overrideSwapoutItems)
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     if not setID then 
-        Angleur_BetaPrint("EquipAngleurSet: No Angleur set found, can't swap")
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("EquipAngleurSet ") .. ": No Angleur set found, can't swap")
         return
     end
     if overrideSwapoutItems == true then
@@ -519,10 +523,10 @@ function Angleur_EquipAngleurSet(overrideSwapoutItems)
             if result == true and equippedSet == setID then
                 self:SetScript("OnEvent", nil)
                 self:SetScript("OnUpdate", nil)
-                Angleur_BetaPrint("Angleur_EquipAngleurSet: Angleur set equipped successfully")
+                Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Angleur_EquipAngleurSet ") .. ": Angleur set equipped successfully")
                 for location, itemID in pairs(Angleur_SwapoutItemsSaved) do
                     local _, itemLink = GetItemInfo(Angleur_SwapoutItemsSaved[location])
-                    Angleur_BetaPrint("Angleur_EquipAngleurSet: Swapout: ", location, itemLink)
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Angleur_EquipAngleurSet ") .. ": Swapout: ", location, itemLink)
                 end
             end
         end
@@ -554,30 +558,30 @@ local function unequipSet_OnUpdate(self, elapsed)
     erapusuCounter3 = 0
     copyTableToTemp()
     if InCombatLockdown() then 
-        Angleur_BetaPrint("unequipSet_OnUpdate: Couldn't re-equip all items for combat in time.")
-        Angleur_BetaDump(swapoutsTemporary)
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_OnUpdate ") .. ": Couldn't re-equip all items before combat in time.")
+        Angleur_BetaTableToString(swapoutsTemporary)
         self:SetScript("OnUpdate", nil)
         return 
     end
     for location, itemID in pairs(swapoutsTemporary) do
-        Angleur_BetaPrint("unequipSet_OnUpdate: Location ", location)
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_OnUpdate ") .. ": Location ", location)
         if C_Item.IsEquippedItem(itemID) then
-            Angleur_BetaPrint("unequipSet_OnUpdate: " , itemID, "equipped back successfully")
+            Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_OnUpdate ") .. ": " , itemID, "equipped back successfully")
             swapoutsTemporary[location] = nil
         else
             C_Item.EquipItemByName(itemID)
-            Angleur_BetaPrint("unequipSet_OnUpdate: trying to equip item")
+            Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_OnUpdate ") .. ": trying to equip item")
         end
     end
     if next(swapoutsTemporary) == nil then
         self:SetScript("OnUpdate", nil)
-        Angleur_BetaPrint("unequipSet_OnUpdate: swapback complete, removing script")
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_OnUpdate ") .. ": swapback complete, removing script")
     end
 end
 local function unequipSet_Single()
     for location, itemID in pairs(swapoutsTemporary) do
         C_Item.EquipItemByName(itemID)
-        Angleur_BetaPrint("unequipSet_Single: trying to equip item(first attempt)")
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("unequipSet_Single ") .. ": trying to equip item(first attempt)")
         if C_Item.IsEquippedItem(itemID) then
             swapoutsTemporary[location] = nil
         end
@@ -589,13 +593,13 @@ function Angleur_UnequipAngleurSet(secondary)
     equipFrameSet:SetScript("OnUpdate", nil)
     unequipSet_Single()
     if next(Angleur_SwapoutItemsSaved) == nil then 
-        Angleur_BetaPrint("Angleur_UnequipAngleurSet: Swapped back successfully on the first attempt")
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Angleur_UnequipAngleurSet ") .. ": Swapped back successfully on the first attempt")
         return 
     end
     if not secondary then return end
-    Angleur_BetaPrint("Angleur_UnequipAngleurSet: SwapoutItems Table remaining from first(singular) attempt:")
-    Angleur_BetaDump(Angleur_SwapoutItemsSaved)
-    Angleur_BetaPrint("Angleur_UnequipAngleurSet: Starting secondary swapback process")
+    Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Angleur_UnequipAngleurSet ") .. ": SwapoutItems Table remaining from first(singular) attempt:")
+    Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
+    Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Angleur_UnequipAngleurSet ") .. ": Starting secondary swapback process")
     equipFrameSet:SetScript("OnUpdate", unequipSet_OnUpdate)
 end
 --**********************[4]************************

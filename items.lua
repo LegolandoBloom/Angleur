@@ -1,3 +1,5 @@
+local colorDebug = CreateColor(1, 0.41, 0) -- orange
+
 Angleur_SlottedExtraItems = {
     first = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0, 
@@ -245,7 +247,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
                     Angleur_SlottedExtraItems[parentKey].forceEquip = true
                 end
                 local _, zarinku = C_Item.GetItemInfo(Angleur_SlottedExtraItems[parentKey].macroItemID)
-                Angleur_BetaPrint("spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
             end
         else
             print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " .. colorYellow:WrapTextInColorCode("macro conditions \n") .. 
@@ -290,7 +292,7 @@ local function startTimer_ItemOrMacro(self, event, unit, ...)
         for i, slot in pairs(Angleur_SlottedExtraItems) do
             if slot.spellID == arg5 or slot.macroSpellID == arg5 then
                 slot.lastUsed = GetTime()
-                Angleur_BetaPrint(i, "delay timer starting")
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting")
                 return
             end
         end

@@ -1,4 +1,6 @@
-auraIDHolders = {
+local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+
+local auraIDHolders = {
     raft,
     oversizedBobber,
     crateBobber
@@ -237,7 +239,7 @@ local function isChosenKeyDown()
         if not AngleurConfig.doubleClickChosenID then
             return false
         elseif IsKeyDown(angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]) then
-            Angleur_BetaPrint("mouse held")
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": mouse held")
             return true
         end
     elseif AngleurConfig.chosenMethod == "oneKey" then
@@ -256,10 +258,10 @@ local function isChosenKeyDown()
             return false
         end
         if IsKeyDown(keybind) == false then 
-            Angleur_BetaPrint("main key released")
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": main key released")
             return false 
         end
-        Angleur_BetaPrint("oneKey held")
+        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": oneKey held")
         return true
     end
     return false
@@ -457,7 +459,7 @@ function Angleur_ExtraItemAuras()
             if C_UnitAuras.GetAuraDataBySpellName("player", name) then
                 slottedItem.auraActive = true
                 local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint("Slotted item/macro aura is active:", link)
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
             end
         end
     end
@@ -596,13 +598,19 @@ local function parseMacroConditions(macroBody)
     end
     return returnValue
 end
+local lastPrint = 0 -- only used for debug mode, so the prints aren't too frequent
 local function checkConditions(self, slot, assignKey)
     if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUsed ~= 0 and slot.lastUsed ~= nil then
         if (GetTime() > slot.lastUsed + slot.delay) then
-            Angleur_BetaPrint("Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
             slot.lastUsed = 0
         else
-            Angleur_BetaPrint("Delay time remaining: ", GetTime() - (slot.lastUsed + slot.delay))
+            local remaining = GetTime() - (slot.lastUsed + slot.delay)
+            remaining = string.format("%.0f", remaining)
+            if remaining ~= lastPrint then
+                lastPrint = remaining
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Delay time remaining: ", remaining)
+            end
             return false
         end
     end
@@ -686,10 +694,10 @@ function Angleur_UltraFocusBackground(activate)
     if activate == true then
         Angleur_CVars.ultraFocus.backgroundOn = GetCVar("Sound_EnableSoundWhenGameIsInBG")
         SetCVar("Sound_EnableSoundWhenGameIsInBG", 1)
-        Angleur_BetaPrint("BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
+        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
     elseif activate == false then
         if Angleur_CVars.ultraFocus.backgroundOn ~= nil then SetCVar("Sound_EnableSoundWhenGameIsInBG", Angleur_CVars.ultraFocus.backgroundOn) end
-        Angleur_BetaPrint("BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
+        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
     end
 end
 
@@ -834,5 +842,16 @@ end
 function Angleur_BetaDump(dump)
     if Angleur_TinyOptions.errorsDisabled == false then
         DevTools_Dump(dump)
+    end
+end
+
+function Angleur_BetaTableToString(tbl)
+    if Angleur_TinyOptions.errorsDisabled == false then
+        local tableToString = ""
+        for i, v in pairs(tbl) do
+            local element = "[" .. tostring(i) .. ":" .. tostring(v) .. "]"
+            tableToString = tableToString .. "  " .. element
+        end
+        print(tableToString)
     end
 end

@@ -1,3 +1,5 @@
+local colorDebug = CreateColor(0.65, 1, 0) -- grass green
+
 angleurOneKey = {
     modifiedListening = nil,
     modifierKeys = {

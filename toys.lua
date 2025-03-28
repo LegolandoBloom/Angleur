@@ -1,3 +1,5 @@
+local colorDebug = CreateColor(0.68, 0, 1) -- purple
+
 angleurToys = {
     --the 111111's are a placeholder to make sure the check works
     --the last one has priority!!
@@ -242,7 +244,7 @@ function Angleur_ToyBoxOverlay_Watch(self, button)
         Angleur_SlottedExtraToys[parentKey].icon = toyInfo[3]
         local _
         _, Angleur_SlottedExtraToys[parentKey].spellID = C_Item.GetItemSpell(toyInfo[1])
-        Angleur_BetaPrint("New method: ", Angleur_SlottedExtraToys[parentKey].spellID)
+        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_ToyBoxOverlay_Watch ") .. ": New method: ", Angleur_SlottedExtraToys[parentKey].spellID)
 
         --We get the spellID using the "Angleur_ToyBoxOverlay_CaptureSpellID" here
         angleurToys.extraToyEventWatcher:RegisterEvent("UNIT_SPELLCAST_SENT")
@@ -263,7 +265,7 @@ function Angleur_ToyBoxOverlay_CaptureSpellID(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
 
     if event == "UNIT_SPELLCAST_SENT" and unit == "player" then
-        Angleur_BetaPrint("Previous method: ", arg6)
+        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_ToyBoxOverlay_CaptureSpellID ") .. ": Previous method: ", arg6)
         local parentKey = angleurToys.extraToySlotHolder:GetParentKey()
         Angleur_SlottedExtraToys[parentKey].spellID = arg6
     elseif event == "UNIT_SPELLCAST_FAILED" and unit == "player" then 
@@ -299,13 +301,13 @@ function Angleur_PickRandomBobber()
     if next(angleurToys.ownedCrateBobbers) == nil then return end
     if #angleurToys.ownedCrateBobbers == 1 then return end
     local randomToyTable = angleurToys.ownedCrateBobbers[math.random( #angleurToys.ownedCrateBobbers )]
-    Angleur_BetaPrint("Next random bobber: ")
-    Angleur_BetaDump(randomToyTable)
+    Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomBobber ") .. ": Next random bobber: ")
+    Angleur_BetaTableToString(randomToyTable)
     if angleurToys.selectedCrateBobberTable.name ~= 0 then 
         while randomToyTable.name == angleurToys.selectedCrateBobberTable.name do
             randomToyTable = angleurToys.ownedCrateBobbers[math.random( #angleurToys.ownedCrateBobbers )]
-            Angleur_BetaPrint("Same bobber detected, next attempt: ")
-            Angleur_BetaDump(randomToyTable)
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomBobber ") .. ": Same bobber detected, next attempt: ")
+            Angleur_BetaTableToString(randomToyTable)
         end
     end
     setTableToSelectedTable(randomToyTable, angleurToys.selectedCrateBobberTable)
