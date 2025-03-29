@@ -2,11 +2,13 @@ required-dependencies:
 
 optional-dependencies:
 
-embedded-libraries:
-- libdbicon-1-0
-- libdatabroker-1-1
-- callbackhandler
-- libstub
+externals:
+  libraries/CallbackHandler-1.0: https://repos.curseforge.com/wow/callbackhandler/trunk/CallbackHandler-1.0
+  libraries/LibDataBroker-1.1: 
+    url: https://github.com/tekkub/libdatabroker-1-1
+    curse-slug: libdatabroker-1-1
+  libraries/LibDBIcon-1.0: https://repos.curseforge.com/wow/libdbicon-1-0/trunk/LibDBIcon-1.0
+  libraries/LibStub: https://repos.curseforge.com/wow/libstub/trunk
 
 manual-changelog:
   filename: CHANGELOG.md
