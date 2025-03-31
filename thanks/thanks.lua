@@ -13,7 +13,8 @@ local logoTable = {
 -- r = 0.9, g = 0.082, b = 0.384 --> rosa
 local names = {
     {text = "xScarlife\n", smalltext = "youtube.com/@xScarlifeGaming", r = 0.94, g = 0.368, b = 0.054, logo = "youtube"},
-    {text = "T3chnological", r = 1, g = 0.843, b = 0, logo = nil}
+    {text = "T3chnological", r = 1, g = 0.843, b = 0, logo = nil},
+    {text = "flabasaurius\n", smalltext = "u/flabasaurius", r = 0.72, g = 0.25, b = 1},
 }
 
 local function iterateAndAdd(parent, anchorFrame)
