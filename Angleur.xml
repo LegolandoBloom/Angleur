@@ -364,6 +364,7 @@
                                                                                 self:SetSelected(true)
                                                                                 self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
                                                                                 self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
+                                                                                self:SetScript("OnMouseDown", Angleur_KeyGetterMouse)
                                                                                 self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
                                                                                 self:SetPropagateKeyboardInput(false)
                                                                                 self.disclaimer:Show()

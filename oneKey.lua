@@ -20,41 +20,53 @@ function Angleur_KeyGetterOnUp(self, key)
         self:SetScript("OnKeyUp", nil)
         self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
         self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
+        self:SetScript("OnMouseDown", Angleur_KeyGetterMouse)
         self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
     end
 end
 
---[[
-    function Angleur_KeyGetter(self, key)
-        if key == "ESCAPE" then
-            return
-        elseif angleurOneKey.modifierKeys[key] then
-            self:SetText(key .. "-" .. "?")
-            angleurOneKey.modifiedListening = key
-            self.disclaimer:SetText("Modifier key " .. key .. "down,\nawaiting additional key press.")
-            self:SetScript("OnKeyUp", Angleur_KeyGetterOnUp)
-            self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
-            self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
-            self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
+local mouseButtons = {
+    ["MiddleButton"] = "BUTTON3",
+    ["Button4"] = "BUTTON4",
+    ["Button5"] = "BUTTON5",
+}
+function Angleur_KeyGetterMouse(self, button)
+    if button == "LeftButton" or button =="RightButton" then
+        --nothing
+    else
+        local buttonName = mouseButtons[button]
+        if not buttonName then
+            print("Unregistered mouse button, please contact the addon author")
+        end
+        if angleurOneKey.modifiedListening then
+            AngleurConfig.angleurKey = angleurOneKey.modifiedListening .. "-" .. buttonName
+            AngleurConfig.angleurKeyModifier = angleurOneKey.modifiedListening
+            AngleurConfig.angleurKeyMain = buttonName
+            angleurOneKey.modifiedListening = nil
+            print("OneKey set to: " .. AngleurConfig.angleurKey)
         else
-            self:SetScript("OnKeyUp", nil)
-            self:SetScript("OnKeyDown", nil)
-            self:SetScript("OnMouseWheel", nil)
-            self:SetScript("OnGamePadButtonDown", nil)
-            self.disclaimer:Hide()
-            self:SetSelected(false)
-            self.selected = false
-            AngleurConfig.angleurKey = key
-            self:SetText(AngleurConfig.angleurKey)
+            AngleurConfig.angleurKey = buttonName
+            AngleurConfig.angleurKeyModifier = nil
+            AngleurConfig.angleurKeyMain = nil
             print("OneKey set to: " .. AngleurConfig.angleurKey)
         end
+        self.disclaimer:Hide()
+        self:SetSelected(false)
+        self.selected = false
+        self:SetScript("OnKeyUp", nil)
+        self:SetScript("OnKeyDown", nil)
+        self:SetScript("OnMouseWheel", nil)
+        self:SetScript("OnMouseDown", nil)
+        self:SetScript("OnGamePadButtonDown", nil)
+        self:SetText(AngleurConfig.angleurKey)
     end
-]]--
+end
 
 function Angleur_KeyGetterGamePad(self, button)
     self:SetScript("OnKeyUp", nil)
     self:SetScript("OnKeyDown", nil)
     self:SetScript("OnMouseWheel", nil)
+    self:SetScript("OnMouseDown", nil)
     self:SetScript("OnGamePadButtonDown", nil)
     self.disclaimer:Hide()
     self:SetSelected(false)
@@ -99,6 +111,7 @@ function Angleur_KeyGetterWheel(self, delta)
     self:SetScript("OnKeyUp", nil)
     self:SetScript("OnKeyDown", nil)
     self:SetScript("OnMouseWheel", nil)
+    self:SetScript("OnMouseDown", nil)
     self:SetScript("OnGamePadButtonDown", nil)
     self:SetText(AngleurConfig.angleurKey)
 end
@@ -115,10 +128,12 @@ function Angleur_KeyGetterModified(self, key)
         self:SetScript("OnKeyUp", Angleur_KeyGetterOnUp)
         self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
         self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
+        self:SetScript("OnMouseDown", Angleur_KeyGetterMouse)
     elseif angleurOneKey.modifiedListening then
         self:SetScript("OnKeyUp", nil)
         self:SetScript("OnKeyDown", nil)
         self:SetScript("OnMouseWheel", nil)
+        self:SetScript("OnMouseDown", nil)
         self:SetScript("OnGamePadButtonDown", nil)
         self.disclaimer:Hide()
         self:SetSelected(false)
@@ -133,6 +148,7 @@ function Angleur_KeyGetterModified(self, key)
         self:SetScript("OnKeyUp", nil)
         self:SetScript("OnKeyDown", nil)
         self:SetScript("OnMouseWheel", nil)
+        self:SetScript("OnMouseDown", nil)
         self:SetScript("OnGamePadButtonDown", nil)
         self.disclaimer:Hide()
         self:SetSelected(false)
@@ -152,6 +168,7 @@ function Angleur_KeyGetterStopWatching()
     angleurKeyFrameHolder:SetScript("OnKeyUp", nil)
     angleurKeyFrameHolder:SetScript("OnKeyDown", nil)
     angleurKeyFrameHolder:SetScript("OnMouseWheel", nil)
+    angleurKeyFrameHolder:SetScript("OnMouseDown", nil)
     angleurKeyFrameHolder:SetScript("OnGamePadButtonDown", nil)
     angleurKeyFrameHolder:SetText(AngleurConfig.angleurKey)
     angleurKeyFrameHolder.disclaimer:Hide()
