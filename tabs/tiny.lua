@@ -6,6 +6,7 @@ Angleur_TinyOptions = {
     ultraFocusMaster = 1,
     loginDisabled = false,
     errorsDisabled = true,
+    softIconOff = false,
 }
 
 function Angleur_SetTab3(self)
@@ -54,6 +55,34 @@ function Angleur_SetTab3(self)
     end)
     if Angleur_TinyOptions.allowDismount == true then
         self.dismount:SetChecked(true)
+    end
+
+    self.softIconOff.text:SetText("Disable Soft Icon")
+    --self.softIconOff.text:SetFontObject(SpellFont_Small)
+    self.softIconOff.text.tooltip = "Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."
+    self.softIconOff:SetScript("OnClick", function(self)
+        if InCombatLockdown() then
+            self:SetChecked(not self:GetChecked())
+            print("Can't change in combat.")
+            return
+        end
+        if self:GetChecked() then
+            Angleur_TinyOptions.softIconOff = true
+            if C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
+                C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+            end
+            self.disabledTexture:Show()
+            print("Soft target icon for game objects disabled.")
+        elseif self:GetChecked() == false then
+            Angleur_TinyOptions.softIconOff = false
+            C_CVar.SetCVar("SoftTargetIconGameObject", "1")
+            self.disabledTexture:Hide()
+            print("Soft target icon for game objects re-enabled.")
+        end
+    end)
+    if Angleur_TinyOptions.softIconOff == true then
+        self.softIconOff:SetChecked(true)
+        self.softIconOff.disabledTexture:Show()
     end
 
     self.doubleClickWindow.ValueBox:SetNumericFullRange()
@@ -126,6 +155,7 @@ function Angleur_SetTab3(self)
     self.defaults:SetScript("OnClick", function()
         Angleur_TinyOptions.turnOffSoftInteract = false
         Angleur_TinyOptions.allowDismount = false
+        Angleur_TinyOptions.softIconOff = false
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
         Angleur_TinyOptions.ultraFocusMaster = 1
@@ -133,6 +163,7 @@ function Angleur_SetTab3(self)
         Angleur_TinyOptions.errorsDisabled = true
         self.offInteract:SetChecked(false)
         self.dismount:SetChecked(false)
+        self.softIconOff:SetChecked(false)
         self.doubleClickWindow:SetValue(4)
         self.visualSize:SetValue(10)
         self.ultraFocusMaster:SetValue(100)

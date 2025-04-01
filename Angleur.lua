@@ -73,6 +73,9 @@ local function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.allowDismount == nil then
         Angleur_TinyOptions.allowDismount = false
     end
+    if Angleur_TinyOptions.softTargetIcon == nil then
+        Angleur_TinyOptions.softTargetIcon = true
+    end
     if Angleur_TinyOptions.doubleClickWindow == nil then
         Angleur_TinyOptions.doubleClickWindow = 0.4
     end
@@ -765,6 +768,9 @@ end
 
 function Angleur_HandleCVars()
     Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
+    if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
+        C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+    end
 end
 
 function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame, cycleFunk, endFunk)

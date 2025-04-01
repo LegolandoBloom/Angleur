@@ -710,7 +710,7 @@
                                 <Frames>
                                     <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="142" y="-40"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="142" y="-35"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="MyCheckboxTemplate">
@@ -718,9 +718,32 @@
                                             <Anchor point="TOP" relativeTo="$parent_OffInteract" relativePoint="BOTTOM" x="-6" y="0"/>
                                         </Anchors>
                                     </CheckButton>
+                                    <CheckButton name="$parent_SoftIconOff" parentKey="softIconOff" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOP" relativeTo="$parent_Dismount" relativePoint="BOTTOM" x="-15" y="0"/>
+                                        </Anchors>
+                                        <Layers>
+                                            <Layer level="OVERLAY">
+                                                <Texture parentKey="disabledTexture" file="interface/common/voicechat-muted.blp" hidden="true">
+                                                    <Size x="18" y="18"/>
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeTo="$parent_Text" relativePoint="RIGHT" x="25" y="0"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                            <Layer level="ARTWORK">
+                                                <Texture parentKey="hook" file="interface/cursor/crosshair/fishing.blp">
+                                                    <Size x="20" y="20"/>
+                                                    <Anchors>
+                                                        <Anchor point="LEFT" relativeTo="$parent_Text" relativePoint="RIGHT" x="25" y="0"/>
+                                                    </Anchors>
+                                                </Texture>
+                                            </Layer>
+                                        </Layers>
+                                    </CheckButton>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_Dismount" relativePoint="BOTTOM" x="-45" y="-15"/>
+                                            <Anchor point="TOP" relativeTo="$parent_SoftIconOff" relativePoint="BOTTOM" x="-28" y="-5"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="SliderAndEditControlTemplate">
