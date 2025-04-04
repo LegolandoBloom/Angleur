@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
 angleurToys = {
@@ -164,6 +166,7 @@ end
 
 
 function Angleur_ToyBoxOverlay_OnLoad(self)
+    self.text:SetText(T["Please select a toy using Left Mouse Click"])
     SLASH_ANGLEUROVERLAYTEST1 = "/alol"
     Angleur_ExtraToys_First:SetScript("OnClick", Angleur_ToyBoxOverlay_Activate)
     Angleur_ExtraToys_Second:SetScript("OnClick", Angleur_ToyBoxOverlay_Activate)

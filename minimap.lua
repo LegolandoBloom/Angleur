@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 local minimapButtonCreated = false
 function Angleur_InitMinimapButton()
     local colorBlu = CreateColor(0.61, 0.85, 0.92)

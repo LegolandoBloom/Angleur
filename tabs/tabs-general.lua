@@ -1,3 +1,12 @@
+local T = Angleur_Translate
+
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+
+function Angleur_ConfigPanelGeneral()
+    
+end
+
 function Angleur_TabSystem(self)
     local tabsMain = self:GetParent()
     local tabButtons = {tabsMain:GetChildren()}
@@ -25,6 +34,7 @@ function Init_AngleurVisual()
     Angleur.visual:RegisterForClicks("AnyDown", "AnyUp")
     Angleur.visual:SetMovable(true)
     Angleur.visual:RegisterForDrag("LeftButton")
+    Angleur.visual.dragText:SetText(T["You can drag and place this anywhere on your screen"])
     Angleur.visual:SetScript("OnDragStart", function(self, button)
         self:StartMoving()
         self.dragText:Hide()
@@ -73,11 +83,9 @@ end
 
 function Angleur_VisualHideHookScript()
     AngleurConfig.visualHidden = true
-    local color = CreateColor(0.6, 0.85, 0.91)
-    print(color:WrapTextInColorCode("Angleur visual"), "is now hidden.")
-    local color = CreateColor(1.0, 0.82, 0.0)
-    print("You can re-enable it from the") 
-    print(color:WrapTextInColorCode("Config Menu"), "accessed by:", color:WrapTextInColorCode("/angleur"), " or ", color:WrapTextInColorCode("/angang"))
+    print(T[colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."])
+    print(T["You can re-enable it from the"]) 
+    print(T[colorYello:WrapTextInColorCode("Config Menu ") .. "accessed by: " .. colorYello:WrapTextInColorCode("/angleur ") .. " or  " .. colorYello:WrapTextInColorCode("/angang")])
     Angleur_ConfigPanel_Tab1_Contents_ReturnButton:Show()
     AngleurConfig.visualLocation = nil
     Angleur.visual:ClearAllPoints()

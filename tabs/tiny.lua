@@ -1,3 +1,9 @@
+local T = Angleur_Translate
+
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorGrae = CreateColor(0.85, 0.85, 0.85)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+
 Angleur_TinyOptions = {
     turnOffSoftInteract = false,
     allowDismount = false,
@@ -10,23 +16,20 @@ Angleur_TinyOptions = {
 }
 
 function Angleur_SetTab3(self)
-    local colorYello = CreateColor(1.0, 0.82, 0.0)
-    local colorGrae = CreateColor(0.85, 0.85, 0.85)
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
-    self.offInteract.text:SetText("Disable Soft Interact")
+    self.offInteract.text:SetText(T["Disable Soft Interact"])
     --self.offInteract.text:SetFontObject(SpellFont_Small)
-    self.offInteract.text.tooltip = "If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
-    .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")
+    self.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
+    .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")]
     self.offInteract:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
-            print("Can't change in combat.")
+            print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
             Angleur_TinyOptions.turnOffSoftInteract = true
             Angleur_UltraFocusInteractOff(false)
-            print(colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing.")
+            print(T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.turnOffSoftInteract = false
             Angleur_UltraFocusInteractOff(true)
@@ -36,19 +39,19 @@ function Angleur_SetTab3(self)
         self.offInteract:SetChecked(true)
     end
 
-    self.dismount.text:SetText("Dismount With Key")
+    self.dismount.text:SetText(T["Dismount With Key"])
     --self.dismount.text:SetFontObject(SpellFont_Small)
-    self.dismount.text.tooltip = "If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ") .. "when you use OneKey/DoubleClick.\n\n" 
-    .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")
+    self.dismount.text.tooltip = T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ")
+    .. "when you use OneKey/DoubleClick.\n\n" .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")]
     self.dismount:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
-            print("Can't change in combat.")
+            print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
             Angleur_TinyOptions.allowDismount = true
-            print(colorBlu:WrapTextInColorCode("Angleur ") .. "will now " .. colorYello:WrapTextInColorCode("dismount ") .. "you")
+            print(T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now " .. colorYello:WrapTextInColorCode("dismount ") .. "you"])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.allowDismount = false
         end
@@ -57,13 +60,13 @@ function Angleur_SetTab3(self)
         self.dismount:SetChecked(true)
     end
 
-    self.softIconOff.text:SetText("Disable Soft Icon")
+    self.softIconOff.text:SetText(T["Disable Soft Icon"])
     --self.softIconOff.text:SetFontObject(SpellFont_Small)
-    self.softIconOff.text.tooltip = "Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."
+    self.softIconOff.text.tooltip = T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."]
     self.softIconOff:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
-            print("Can't change in combat.")
+            print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
@@ -72,12 +75,12 @@ function Angleur_SetTab3(self)
                 C_CVar.SetCVar("SoftTargetIconGameObject", "0")
             end
             self.disabledTexture:Show()
-            print("Soft target icon for game objects disabled.")
+            print(T["Soft target icon for game objects disabled."])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.softIconOff = false
             C_CVar.SetCVar("SoftTargetIconGameObject", "1")
             self.disabledTexture:Hide()
-            print("Soft target icon for game objects re-enabled.")
+            print(T["Soft target icon for game objects re-enabled."])
         end
     end)
     if Angleur_TinyOptions.softIconOff == true then
@@ -86,13 +89,13 @@ function Angleur_SetTab3(self)
     end
 
     self.doubleClickWindow.ValueBox:SetNumericFullRange()
-    self.doubleClickWindow:SetupSlider(1, 20, 4, 1, colorYello:WrapTextInColorCode("Double Click Window"))
+    self.doubleClickWindow:SetupSlider(1, 20, 4, 1, colorYello:WrapTextInColorCode(T["Double Click Window"]))
     self.doubleClickWindow:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.doubleClickWindow = value/10
     end)
     
     self.visualSize.ValueBox:SetNumericFullRange()
-    self.visualSize:SetupSlider(1, 20, Angleur_TinyOptions.visualScale*10, 1, colorYello:WrapTextInColorCode("Visual Size"))
+    self.visualSize:SetupSlider(1, 20, Angleur_TinyOptions.visualScale*10, 1, colorYello:WrapTextInColorCode(T["Visual Size"]))
     self.visualSize:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.visualScale = value/10
         Angleur_VisualReset(self.visualSize.buttonHolder, 0, 0)
@@ -102,17 +105,17 @@ function Angleur_SetTab3(self)
     end)
 
     self.ultraFocusMaster.ValueBox:SetNumericFullRange()
-    self.ultraFocusMaster:SetupSlider(1, 100, 100, 1, colorYello:WrapTextInColorCode("Master Volume(Ultra Focus)"))
+    self.ultraFocusMaster:SetupSlider(1, 100, 100, 1, colorYello:WrapTextInColorCode(T["Master Volume(Ultra Focus)"]))
     self.ultraFocusMaster:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.ultraFocusMaster = value/100
     end)
 
-    self.loginMessages.text:SetText("Login Messages")
+    self.loginMessages.text:SetText(T["Login Messages"])
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
     self.loginMessages:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
-            print("Can't change in combat.")
+            print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
@@ -172,6 +175,7 @@ function Angleur_SetTab3(self)
         print("Default tiny settings restored")
     end)
 
+    self.redoTutorial.title:SetText(T["Redo Tutorial"])
     self.redoTutorial.icon:SetTexture("Interface/BUTTONS/UI-RefreshButton")
     self.redoTutorial.icon:SetTexCoord(0, 1, 0, 1)
     self.redoTutorial.icon:SetSize(16, 16)

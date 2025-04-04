@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 Angleur_CheckboxMixin = {};
 
 function Angleur_CheckboxMixin:greyOut()

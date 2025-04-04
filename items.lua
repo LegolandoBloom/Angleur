@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
 
 Angleur_SlottedExtraItems = {

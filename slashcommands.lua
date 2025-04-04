@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 SLASH_ANGLEURHELPTIPFIND1 = "/anghelptip"
 SlashCmdList["ANGLEURHELPTIPFIND"] = function()
     for frame in HelpTip.framePool:EnumerateActive() do

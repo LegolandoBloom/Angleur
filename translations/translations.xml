@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Script file="translations\enUS.lua"/>
+    <Script file="translations\deDE.lua"/>
+    <Script file="translations\frFR.lua"/>
+    <Script file="translations\koKR.lua"/>
+    <Script file="translations\zhCN.lua"/>
+    <Script file="translations\zhTW.lua"/>
+    <Script file="translations\esES.lua"/>
+    <Script file="translations\esMX.lua"/>
+    <Script file="translations\ruRU.lua"/>
+    <Script file="translations\ptBR.lua"/>
+    <Script file="translations\itIT.lua"/>
+
+</Ui>
+

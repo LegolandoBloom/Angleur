@@ -1,9 +1,12 @@
+local T = Angleur_Translate
+
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorGrae = CreateColor(0.85, 0.85, 0.85)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+
 function Angleur_SetTab1(self)
-    local colorYello = CreateColor(1.0, 0.82, 0.0)
-    local colorGrae = CreateColor(0.85, 0.85, 0.85)
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
-    self.raftEnable.text:SetText("Raft")
-    self.raftEnable.disabledText:SetText("Couldn't find any rafts \n in toybox, feature disabled")
+    self.raftEnable.text:SetText(T["Raft"])
+    self.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
     self.raftEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.raftEnabled = true
@@ -24,8 +27,8 @@ function Angleur_SetTab1(self)
     end
     Angleur_DropDown_CreateTitle(self.raftEnable.dropDown, "Rafts")
     
-    self.oversizedBobberEnable.text:SetText("Oversized Bobber")
-    self.oversizedBobberEnable.disabledText:SetText("Couldn't find \n Oversized Bobber in \n toybox, feature disabled")
+    self.oversizedBobberEnable.text:SetText(T["Oversized Bobber"])
+    self.oversizedBobberEnable.disabledText:SetText(T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"])
     self.oversizedBobberEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.oversizedEnabled = true
@@ -37,8 +40,8 @@ function Angleur_SetTab1(self)
         self.oversizedBobberEnable:SetChecked(true)
     end
     
-    self.crateBobberEnable.text:SetText("Crate of Bobbers")
-    self.crateBobberEnable.disabledText:SetText("Couldn't find \n any Crate Bobbers \n in toybox, feature disabled")
+    self.crateBobberEnable.text:SetText(T["Crate of Bobbers"])
+    self.crateBobberEnable.disabledText:SetText(T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"])
     self.crateBobberEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.crateEnabled = true
@@ -60,9 +63,10 @@ function Angleur_SetTab1(self)
         self.crateBobberEnable:SetChecked(true)
         self.crateBobberEnable.dropDown:Show()
     end
-    Angleur_DropDown_CreateTitle(self.crateBobberEnable.dropDown, "Crate Bobbers")
+    Angleur_DropDown_CreateTitle(self.crateBobberEnable.dropDown, T["Crate Bobbers"])
 
-    self.ultraFocus.audio.text:SetText("Audio")
+    self.ultraFocus.title:SetText(T["Ultra Focus:"])
+    self.ultraFocus.audio.text:SetText(T["Audio"])
     self.ultraFocus.audio.text:SetFontObject(SpellFont_Small)
     self.ultraFocus.audio.text:ClearAllPoints()
     self.ultraFocus.audio.text:SetPoint("LEFT", self.ultraFocus.audio, "RIGHT")
@@ -82,15 +86,15 @@ function Angleur_SetTab1(self)
         self.ultraFocus.audio:SetChecked(true)
     end
 
-    self.ultraFocus.autoLoot.text:SetText("Temp. Auto Loot ")
+    self.ultraFocus.autoLoot.text:SetText(T["Temp. Auto Loot "])
     self.ultraFocus.autoLoot.text:SetFontObject(SpellFont_Small)
     self.ultraFocus.autoLoot.text:ClearAllPoints()
     self.ultraFocus.autoLoot.text:SetPoint("LEFT", self.ultraFocus.autoLoot, "RIGHT")
-    self.ultraFocus.autoLoot.text.tooltip = "If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorCode("Auto-Loot") .. ", then turn it back off after you reel.\n\n" 
-    .. colorGrae:WrapTextInColorCode("If you have ") .. colorYello:WrapTextInColorCode("Auto-Loot ") .. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")
+    self.ultraFocus.autoLoot.text.tooltip = T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorCode("Auto-Loot") .. ", then turn it back off after you reel.\n\n" 
+    .. colorGrae:WrapTextInColorCode("If you have ") .. colorYello:WrapTextInColorCode("Auto-Loot ") .. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")]
     self.ultraFocus.autoLoot.disabledText:SetJustifyH("LEFT")
     self.ultraFocus.autoLoot.disabledText:SetWordWrap(true)
-    self.ultraFocus.autoLoot.disabledText:SetText("(Already on)")
+    self.ultraFocus.autoLoot.disabledText:SetText(T["(Already on)"])
     self.ultraFocus.autoLoot.disabledText:ClearAllPoints()
     self.ultraFocus.autoLoot.disabledText:SetPoint("LEFT", self.ultraFocus.autoLoot.text, "RIGHT")
     self.ultraFocus.autoLoot:SetScript("OnClick", function(self)
@@ -104,13 +108,17 @@ function Angleur_SetTab1(self)
         self.ultraFocus.autoLoot:SetChecked(true)
     end
 
-    
+    self.fishingMethod.menuTitle:SetText(T["FISHING METHOD:"])
     if AngleurConfig.angleurKey then 
         self.fishingMethod.oneKey.contents.angleurKey:SetText(AngleurConfig.angleurKey)
     elseif AngleurTutorial.part > 1 then
         self.fishingMethod.oneKey.contents.angleurKey.warning:Show()
     end
     
+    local angKey = self.fishingMethod.oneKey.contents.angleurKey
+    angKey.menuTitle:SetText(T["One Key"])
+    angKey.disclaimer:SetText(T["The next key you press\nwill be set as Angleur Key"])
+    angKey.warning:SetText(T["Please set a keybind\nto use the One Key\nishing Method by\nusing the the\nbutton above"])
     self.fishingMethod.oneKey.icon:SetTexture("Interface/AddOns/Angleur/images/onekeyicon.png")
     self.fishingMethod.doubleClick.icon:SetTexture("Interface/AddOns/Angleur/images/doubleclickicon.png")
 
@@ -120,8 +128,10 @@ function Angleur_SetTab1(self)
     UIDropDownMenu_SetSelectedID(self.fishingMethod.doubleClick.contents.dropDownMenu, 1)
     UIDropDownMenu_JustifyText(self.fishingMethod.doubleClick.contents.dropDownMenu, "LEFT")
     
-
+    self.fishingMethod.doubleClick.contents.dropDownMenu.menuTitle:SetText(T["Double Click"])
     Angleur_FishingMethodSetSelected(self.fishingMethod)
+
+    self.returnButton:SetText(T["Return\nAngleur Visual"])
 
     --[[
         local newFeatureFrame = CreateFrame("Frame", "Angleur_NewFeatureFrame", self.ultraFocus.offInteract)
@@ -156,9 +166,7 @@ function Angleur_FishingMethodOnClick(self)
     if AngleurConfig.chosenMethod == "doubleClick" then
         if stiffShownOnce then return end
         stiffShownOnce = true
-        local color1 = CreateColor(1.0, 0.82, 0.0)
-        local color2 = CreateColor(0.61, 0.85, 0.92)
-        print(color2:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " .. color1:WrapTextInColorCode("/reload") .. " to fix it.")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."])
     end
 end
 
@@ -180,7 +188,7 @@ end
 local raftTitleSet = false
 function Angleur_InitializeDropDownRafts(self, level)
     if not raftTitleSet then
-        Angleur_DropDown_CreateTitle(self, "Rafts")
+        Angleur_DropDown_CreateTitle(self, T["Rafts"])
         raftTitleSet = true
         return
     end
@@ -198,9 +206,9 @@ end
 function Angleur_CrateDropDownOnClick(self)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.crateBobberEnable.dropDown, self:GetID())
     AngleurConfig.chosenCrateBobber.dropDownID = self:GetID()
-    if self.value == "Random Bobber" then
+    if self.value == T["Random Bobber"] then
         AngleurConfig.chosenCrateBobber.toyID = 0
-        AngleurConfig.chosenCrateBobber.name = "Random Bobber"
+        AngleurConfig.chosenCrateBobber.name = T["Random Bobber"]
         angleurToys.selectedCrateBobberTable.name = 0
         angleurToys.selectedCrateBobberTable.icon = 0
         angleurToys.selectedCrateBobberTable.toyID = 0
@@ -220,7 +228,7 @@ end
 local crateTitleSet = false
 function Angleur_InitializeDropDownCrateBobbers(self, level)
     if not crateTitleSet then
-        Angleur_DropDown_CreateTitle(self, "Crate Bobbers")
+        Angleur_DropDown_CreateTitle(self, T["Crate Bobbers"])
         crateTitleSet = true
         return
     end
@@ -233,8 +241,8 @@ function Angleur_InitializeDropDownCrateBobbers(self, level)
         UIDropDownMenu_AddButton(info)
     end
     local info = UIDropDownMenu_CreateInfo()
-    info.text = "Random Bobber"
-    info.value = "Random Bobber"
+    info.text = T["Random Bobber"]
+    info.value = T["Random Bobber"]
     info.func = Angleur_CrateDropDownOnClick
     UIDropDownMenu_AddButton(info)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.crateBobberEnable.dropDown, AngleurConfig.chosenCrateBobber.dropDownID)
@@ -247,7 +255,7 @@ end
 
 function Angleur_InitializeDropDownDoubleClickSelection(self, level)
     local info = UIDropDownMenu_CreateInfo()
-    info.text = "Preferred Mouse Button"
+    info.text = T["Preferred Mouse Button"]
     info.isTitle = true
     UIDropDownMenu_AddButton(info)
     --[[
@@ -258,8 +266,8 @@ function Angleur_InitializeDropDownDoubleClickSelection(self, level)
     UIDropDownMenu_AddButton(info)
     ]]--
     info = UIDropDownMenu_CreateInfo()
-    info.text = "Right Click"
-    info.value = "Right Click"
+    info.text = T["Right Click"]
+    info.value = T["Right Click"]
     info.func = Angleur_DoubleClickSelectionDropDownOnClick
     UIDropDownMenu_AddButton(info)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.fishingMethod.doubleClick.contents.dropDownMenu, AngleurConfig.doubleClickChosenID)

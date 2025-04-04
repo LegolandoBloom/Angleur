@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
 local auraIDHolders = {

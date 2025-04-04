@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 function AngleurUI_AdvancedAngling()
     local advancedButton = CreateFrame("Button", "$parent_AdvancedButton", Angleur.configPanel.tab2.contents, "GameMenuButtonTemplate")
     advancedButton:SetSize(85, 45)
