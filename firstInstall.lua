@@ -69,7 +69,7 @@ function Angleur_FirstInstall()
         angleurHelpTip:AttachWarning(angleurHelpTipCloseWarning)
 
         angleurHelpTip.savedTable = AngleurTutorial
-        
+
         angleurHelpTip.onSkipCallback = platerWarning
 
         angleurHelpTip.parts[1] = {

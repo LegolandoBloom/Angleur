@@ -22,9 +22,8 @@ angleurDoubleClick = {
 --     angleurDoubleClick.hookedregistered = true
 -- end
 
-
 function Angleur_StuckFix()
-if AngleurConfig.chosenMethod ~= "doubleClick" then return end
+    if AngleurConfig.chosenMethod ~= "doubleClick" then return end
     if IsMouselooking() then
         if IsMouseButtonDown("RightButton") then
 

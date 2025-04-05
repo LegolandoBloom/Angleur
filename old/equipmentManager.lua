@@ -369,7 +369,6 @@ local function swapCombatWeapons_Single()
 end
 
 
-
 local function wepSwapFrame_OnEvent(self, event, unit, ...)
     if AngleurCharacter.sleeping == true then return end
     local arg4, arg5 = ...
@@ -379,7 +378,7 @@ local function wepSwapFrame_OnEvent(self, event, unit, ...)
         swapWepTable[17] = Angleur_SwapoutItemsSaved[17]
         Angleur_RepositionWeaponSwapFrames()
         for i, child in pairs(children) do
-            child:setMacro(swapWepTable) 
+            child:setMacro(swapWepTable)
         end
         self:Show()
     elseif event == "PLAYER_REGEN_ENABLED" then

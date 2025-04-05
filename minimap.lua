@@ -7,7 +7,7 @@ function Angleur_InitMinimapButton()
     local colorYello = CreateColor(1.0, 0.82, 0.0)
     local mapData = LibStub("LibDataBroker-1.1"):NewDataObject("AngleurMap", {  
         type = "launcher",  
-        text = "Angleur!",  
+        text = "Angleur!",
         icon = "Interface\\AddOns\\Angleur\\images\\angminimap.png",
         OnClick = function(self, b) 
             if b == "RightButton" then

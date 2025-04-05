@@ -1,11 +1,11 @@
-## Interface: 110100
-## Title: Angleur
-## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
-## Version: Angleur 2.1 - Auto-Equip & Tiny Panel
+## Interface: 40402
+## Title: Angleur - Cataclysm Classic
+## Notes: Cataclysm Version of the Ultimate One Button Fishing AddOn, Angleur!
+## Version: Angleur Cata - Angleur 2.1 - Auto-Equip & Tiny Panel
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
-## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
+## IconTexture: Interface\AddOns\AngleurCata\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
 ## Category-enUS: Professions
@@ -22,22 +22,17 @@
 
 #@no-lib-strip@
 libraries\embeds.xml
-translations\translations.xml
 #@end-no-lib-strip@
 angTemplates\embeds.xml
 init.lua
-Angleur.lua
-toys\toys_retail.lua
-toys\toys_base.lua
-items\items_base.lua
-eqMan\eqMan_retail.lua
-eqMan\eqMan_base.lua
+AngleurCata.lua
+toys.lua
+items.lua
+equipmentManager.lua
 tabs\tabs-general.lua
-tabs\standard_retail.lua
-tabs\standard_base.lua
+tabs\standard.lua
 tabs\extra.lua
-tabs\tiny_retail.lua
-tabs\tiny_base.lua
+tabs\tiny.lua
 doubleClick.lua
 oneKey.lua
 firstInstall.lua
@@ -46,6 +41,6 @@ slashcommands.lua
 minimap.lua
 animations.xml
 Angleur.xml
-retail.xml
+cata.xml
 thanks\thanks.lua
 thanks\thanks.xml

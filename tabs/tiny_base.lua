@@ -1,33 +1,13 @@
 local T = Angleur_Translate
-
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
-function Angleur_SetTab3(self)
-    self.offInteract.text:SetText(T["Disable Soft Interact"])
-    --self.offInteract.text:SetFontObject(SpellFont_Small)
-    self.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
-    .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")]
-    self.offInteract:SetScript("OnClick", function(self)
-        if InCombatLockdown() then
-            self:SetChecked(not self:GetChecked())
-            print(T["Can't change in combat."])
-            return
-        end
-        if self:GetChecked() then
-            Angleur_TinyOptions.turnOffSoftInteract = true
-            Angleur_UltraFocusInteractOff(false)
-            print(T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."])
-        elseif self:GetChecked() == false then
-            Angleur_TinyOptions.turnOffSoftInteract = false
-            Angleur_UltraFocusInteractOff(true)
-        end
-    end)
-    if Angleur_TinyOptions.turnOffSoftInteract == true then
-        self.offInteract:SetChecked(true)
-    end
+local retail = AngleurTinyPanelRetail
 
+function Angleur_SetTab3(self)
+    retail:ExtraButtons(self)
+    
     self.dismount.text:SetText(T["Dismount With Key"])
     --self.dismount.text:SetFontObject(SpellFont_Small)
     self.dismount.text.tooltip = T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ")
@@ -49,33 +29,6 @@ function Angleur_SetTab3(self)
         self.dismount:SetChecked(true)
     end
 
-    self.softIconOff.text:SetText(T["Disable Soft Icon"])
-    --self.softIconOff.text:SetFontObject(SpellFont_Small)
-    self.softIconOff.text.tooltip = T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."]
-    self.softIconOff:SetScript("OnClick", function(self)
-        if InCombatLockdown() then
-            self:SetChecked(not self:GetChecked())
-            print(T["Can't change in combat."])
-            return
-        end
-        if self:GetChecked() then
-            Angleur_TinyOptions.softIconOff = true
-            if C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
-                C_CVar.SetCVar("SoftTargetIconGameObject", "0")
-            end
-            self.disabledTexture:Show()
-            print(T["Soft target icon for game objects disabled."])
-        elseif self:GetChecked() == false then
-            Angleur_TinyOptions.softIconOff = false
-            C_CVar.SetCVar("SoftTargetIconGameObject", "1")
-            self.disabledTexture:Hide()
-            print(T["Soft target icon for game objects re-enabled."])
-        end
-    end)
-    if Angleur_TinyOptions.softIconOff == true then
-        self.softIconOff:SetChecked(true)
-        self.softIconOff.disabledTexture:Show()
-    end
 
     self.doubleClickWindow.ValueBox:SetNumericFullRange()
     self.doubleClickWindow:SetupSlider(1, 20, 4, 1, colorYello:WrapTextInColorCode(T["Double Click Window"]))
@@ -98,6 +51,7 @@ function Angleur_SetTab3(self)
     self.ultraFocusMaster:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.ultraFocusMaster = value/100
     end)
+
 
     self.loginMessages.text:SetText(T["Login Messages"])
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
@@ -141,28 +95,17 @@ function Angleur_SetTab3(self)
     end
 
 
+
     self.defaults.text = self.defaults:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "Game12Font_o1")
     self.defaults.text:SetPoint("CENTER", self.defaults, "CENTER", 2, -2)
     self.defaults.text:SetText(colorYello:WrapTextInColorCode("Defaults"))
-    self.defaults:SetScript("OnClick", function()
-        Angleur_TinyOptions.turnOffSoftInteract = false
-        Angleur_TinyOptions.allowDismount = false
-        Angleur_TinyOptions.softIconOff = false
-        Angleur_TinyOptions.doubleClickWindow = 0.4
-        Angleur_TinyOptions.visualScale = 1
-        Angleur_TinyOptions.ultraFocusMaster = 1
-        Angleur_TinyOptions.loginDisabled = false
-        Angleur_TinyOptions.errorsDisabled = true
-        self.offInteract:SetChecked(false)
-        self.dismount:SetChecked(false)
-        self.softIconOff:SetChecked(false)
-        self.doubleClickWindow:SetValue(4)
-        self.visualSize:SetValue(10)
-        self.ultraFocusMaster:SetValue(100)
-        self.loginMessages:SetChecked(true)
-        self.debugMode:SetChecked(false)
-        print("Default tiny settings restored")
-    end)
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 1 then
+        retail:SetDefaultsButtonScript(self)
+    elseif gameVersion == 2 or gameVersion == 3 then
+
+    end
+
 
     self.redoTutorial.title:SetText(T["Redo Tutorial"])
     self.redoTutorial.icon:SetTexture("Interface/BUTTONS/UI-RefreshButton")

@@ -215,7 +215,7 @@ function Angleur_CrateDropDownOnClick(self)
         angleurToys.selectedCrateBobberTable.spellID = 0
         angleurToys.selectedCrateBobberTable.hasToy = false
         angleurToys.selectedCrateBobberTable.loaded = false
-        Angleur_PickRandomBobber()
+        AngleurToysRetail:PickRandomBobber()
     else
         AngleurConfig.chosenCrateBobber.toyID = angleurToys.ownedCrateBobbers[self:GetID()].toyID
         AngleurConfig.chosenCrateBobber.name = self:GetText()

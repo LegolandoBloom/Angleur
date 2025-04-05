@@ -249,7 +249,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
                     Angleur_SlottedExtraItems[parentKey].forceEquip = true
                 end
                 local _, zarinku = C_Item.GetItemInfo(Angleur_SlottedExtraItems[parentKey].macroItemID)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
+                print("spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
             end
         else
             print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " .. colorYellow:WrapTextInColorCode("macro conditions \n") .. 
