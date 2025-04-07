@@ -23,6 +23,8 @@
 #@no-lib-strip@
 libraries\embeds.xml
 translations\translations.xml
+classicResources.lua
+classicResources.xml
 #@end-no-lib-strip@
 angTemplates\embeds.xml
 
@@ -52,8 +54,7 @@ slashcommands.lua
 minimap.lua
 animations.xml
 
-Angleur(base).xml
-Angleur(cata).xml
+AngleurCata.xml
 
 thanks\thanks.lua
 thanks\thanks.xml

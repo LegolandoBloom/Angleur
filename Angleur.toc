@@ -45,7 +45,6 @@ advancedAngling.lua
 slashcommands.lua
 minimap.lua
 animations.xml
-Angleur(base).xml
-Angleur(retail).xml
+Angleur.xml
 thanks\thanks.lua
 thanks\thanks.xml
