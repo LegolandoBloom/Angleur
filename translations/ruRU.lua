@@ -10,118 +10,111 @@ local T = Angleur_Translate
 
 --Angleur.xml
 
-T["Ultra Focus:"] = "Ultra Focus:"
-T["You can drag and place this anywhere on your screen"] = "You can drag and place this anywhere on your screen"
-T["FISHING METHOD:"] = "FISHING METHOD:"
-T["One Key"] = "One Key"
-T["The next key you press\nwill be set as Angleur Key"] = "The next key you press\nwill be set as Angleur Key"
-T["Please set a keybind\nto use the One Key\nishing Method by\nusing the the\nbutton above"] = "Please set a keybind\nto use the One Key\nishing Method by\nusing the the\nbutton above"
-T["Return\nAngleur Visual"] = "Return\nAngleur Visual"
-T["Double Click"] = "Double Click"
-T["Redo Tutorial"] = "Redo Tutorial"
-T["Wake!"] = "Wake!"
-T["Create\n  Add"] = "Create\n  Add"
-T["Update"] = "Update"
-T["Please select a toy using Left Mouse Click"] = "Please select a toy using Left Mouse Click"
-T["Make sure this box is checked!"] = "Make sure this box is checked!"
-T["Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."] = "Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."
-T["Angleur Configuration"] = "Angleur Configuration"
-T["The next key you press\nwill be set as Angleur Key"] = "The next key you press\nwill be set as Angleur Key"
-T["Having Problems?"] = "Having Problems?"
-T["Angleur Warning: Plater"] = "Angleur Warning: Plater"
-T["Okay"] = "Okay"
-
+T["Ultra Focus:"] = "Ультра Фокус:"
+T["You can drag and place this anywhere on your screen"] = "Вы можете перетащить и разместить это в любом месте экрана"
+T["FISHING METHOD:"] = "МЕТОД РЫБАЛКИ:"
+T["One Key"] = "Одна клавиша"
+T["The next key you press\nwill be set as Angleur Key"] = "Следующая нажатая клавиша\nбудет установлена как клавиша Angleur"
+T["Please set a keybind\nto use the One Key\nishing Method by\nusing the the\nbutton above"] = "Пожалуйста, назначьте клавишу\nдля использования метода\n\"Одна клавиша\" с помощью\nкнопки выше"
+T["Return\nAngleur Visual"] = "Вернуть\nвизуал Angleur"
+T["Double Click"] = "Двойной клик"
+T["Redo Tutorial"] = "Повторить обучение"
+T["Wake!"] = "Проснись!"
+T["Create\n  Add"] = "Добавить"
+T["Update"] = "Обновить"
+T["Please select a toy using Left Mouse Click"] = "Пожалуйста, выберите игрушку левым кликом мыши"
+T["Make sure this box is checked!"] = "Убедитесь, что эта галочка отмечена!"
+T["Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."] = "Находится в Plater->Дополнительно->Общие настройки.\n\nИначе Angleur не сможет подсекать рыбу."
+T["Angleur Configuration"] = "Настройки Angleur"
+T["Having Problems?"] = "Возникли проблемы?"
+T["Angleur Warning: Plater"] = "Предупреждение Angleur: Plater"
+T["Okay"] = "ОК"
 
 --extra.lua
 
-T["Extra Toys"] = "Extra Toys"
+T["Extra Toys"] = "Доп. игрушки"
 T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
-.. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
-    .. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."
+.. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Нажмите ") .. "любую из кнопок выше,\nзатем выберите игрушку левым кликом из\n" 
+    .. colorYello:WrapTextInColorCode("Коллекции игрушек ") .. "которая появится."
 
-T["Extra Items / Macros"] = "Extra Items / Macros"
+T["Extra Items / Macros"] = "Доп. предметы / макросы"
 
 T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
-    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
-    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."
-
+    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Перетащите ") .. "используемый " .. colorYello:WrapTextInColorCode("предмет ") .. "или " .. 
+    colorYello:WrapTextInColorCode("макрос ") .. "в любое из полей ниже."
 
 --standard.lua
 
-T["Raft"] = "Raft"
-T["Couldn't find any rafts \n in toybox, feature disabled"] = "Couldn't find any rafts \n in toybox, feature disabled"
-T["Oversized Bobber"] = "Oversized Bobber"
-T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Couldn't find \n Oversized Bobber in \n toybox, feature disabled"
-T["Crate of Bobbers"] = "Crate of Bobbers"
-T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"
-T["Crate Bobbers"] = "Crate Bobbers"
-T["Ultra Focus:"] = "Ultra Focus:"
-T["Audio"] = "Audio"
-T["Temp. Auto Loot "] = "Temp. Auto Loot "
+T["Raft"] = "Плот"
+T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено в коллекции,\n функция отключена"
+T["Oversized Bobber"] = "Гигантский поплавок"
+T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден коллекции,\n функция отключена"
+T["Crate of Bobbers"] = "Ящик с поплавками"
+T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Не найдено в коллекции,\n функция отключена"
+T["Crate Bobbers"] = "Поплавки из ящика"
+T["Audio"] = "Звук"
+T["Temp. Auto Loot "] = "Временный авто-лут "
 T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorCode("Auto-Loot") 
 .. ", then turn it back off after you reel.\n\n" .. colorGrae:WrapTextInColorCode("If you have ")
 .. colorYello:WrapTextInColorCode("Auto-Loot ")
-.. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")] = "If checked, Angleur will temporarily turn on " 
-.. colorYello:WrapTextInColorCode("Auto-Loot") .. ", then turn it back off after you reel.\n\n" 
-.. colorGrae:WrapTextInColorCode("If you have ") .. colorYello:WrapTextInColorCode("Auto-Loot ")
-.. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")
-T["(Already on)"] = "(Already on)"
+.. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")] = "Если отмечено, Angleur временно включит " 
+.. colorYello:WrapTextInColorCode("Авто-лут") .. ", затем выключит его после подсечки.\n\n" 
+.. colorGrae:WrapTextInColorCode("Если у вас уже включен ") .. colorYello:WrapTextInColorCode("Авто-лут ")
+.. colorGrae:WrapTextInColorCode(", эта функция автоматически отключится.")
+T["(Already on)"] = "(Уже вкл.)"
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " 
 .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "If you experience stiffness with the Double-Click, do a " .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."
-T["Rafts"] = "Rafts"
-T["Random Bobber"] = "Random Bobber"
-T["Preferred Mouse Button"] = "Preferred Mouse Button"
-T["Right Click"] = "Right Click"
-
+.. "Если двойной клик работает не плавно, выполните " .. colorYello:WrapTextInColorCode("/reload") .. " для исправления."
+T["Rafts"] = "Плоты"
+T["Random Bobber"] = "Случайный поплавок"
+T["Preferred Mouse Button"] = "Предпочитаемая кнопка мыши"
+T["Right Click"] = "Правый клик"
 
 --tabs-general.lua
 
-T[colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."] = colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."
-T["You can re-enable it from the"] = "You can re-enable it from the"
+T[colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."] = colorBlu:WrapTextInColorCode("Визуал Angleur ") .. "теперь скрыт."
+T["You can re-enable it from the"] = "Вы можете снова включить его в"
 T[colorYello:WrapTextInColorCode("Config Menu ") .. "accessed by: " 
 .. colorYello:WrapTextInColorCode("/angleur ") .. " or  " 
-.. colorYello:WrapTextInColorCode("/angang")] = colorYello:WrapTextInColorCode("Config Menu ") 
-.. "accessed by: " .. colorYello:WrapTextInColorCode("/angleur ") 
-.. " or  " .. colorYello:WrapTextInColorCode("/angang")
-
-
+.. colorYello:WrapTextInColorCode("/angang")] = colorYello:WrapTextInColorCode("Меню настроек ") 
+.. "доступно по командам: " .. colorYello:WrapTextInColorCode("/angleur ") 
+.. " или  " .. colorYello:WrapTextInColorCode("/angang")
 
 --tiny.lua
 
-T["Disable Soft Interact"] = "Disable Soft Interact"
+T["Disable Soft Interact"] = "Отключить мягкое взаимодействие"
 
 T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
-.. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")] = "If checked, Angleur will disable " 
-.. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
-.. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")
+.. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")] = "Если отмечено, Angleur отключит " 
+.. colorYello:WrapTextInColorCode("Мягкое взаимодействие ") .. "после окончания рыбалки.\n\n" 
+.. colorGrae:WrapTextInColorCode("Для тех, кто хочет оставлять эту функцию отключенной вне рыбалки.")
 
-T["Can't change in combat."] = "Can't change in combat."
+T["Can't change in combat."] = "Нельзя изменить в бою."
 
 T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " 
 .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."
+.. "теперь будет отключать " .. colorYello:WrapTextInColorCode("Мягкое взаимодействие ") .. "вне рыбалки."
 
-T["Dismount With Key"] = "Dismount With Key"
+T["Dismount With Key"] = "Слезать с транспорта по клавише"
 
 T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ") 
 .. "when you use OneKey/DoubleClick.\n\n" 
-.. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")] = "If checked, Angleur will make you " 
-.. colorYello:WrapTextInColorCode("dismount ") .. "when you use OneKey/DoubleClick.\n\n" 
-.. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")
+.. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")] = "Если отмечено, Angleur заставит вас " 
+.. colorYello:WrapTextInColorCode("слезть с транспорта ") .. "при использовании OneKey/Двойного клика.\n\n" 
+.. colorGrae:WrapTextInColorCode("Ваша клавиша больше не будет отпускаться при посадке на транспорт.")
 
 T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now " 
 .. colorYello:WrapTextInColorCode("dismount ") .. "you"] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "will now " .. colorYello:WrapTextInColorCode("dismount ") .. "you"
+.. "теперь будет " .. colorYello:WrapTextInColorCode("сбрасывать вас с транспорта")
 
-T["Disable Soft Icon"] = "Disable Soft Icon"
+T["Disable Soft Icon"] = "Отключить иконку мягкого взаимодействия"
 
-T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."] = "Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."
+T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."] = "Отображать ли иконку крючка над поплавком.\nПримечание: это влияет на иконки других объектов с мягким взаимодействием."
 
-T["Soft target icon for game objects disabled."] = "Soft target icon for game objects disabled."
-T["Soft target icon for game objects re-enabled."] = "Soft target icon for game objects re-enabled."
-T["Double Click Window"] = "Double Click Window"
-T["Visual Size"] = "Visual Size"
-T["Master Volume(Ultra Focus)"] = "Master Volume(Ultra Focus)"
-T["Login Messages"] = "Login Messages"
+T["Soft target icon for game objects disabled."] = "Иконка мягкого взаимодействия для игровых объектов отключена."
+T["Soft target icon for game objects re-enabled."] = "Иконка мягкого взаимодействия для игровых объектов снова включена."
+T["Double Click Window"] = "Окно двойного клика"
+T["Visual Size"] = "Размер визуала"
+T["Master Volume(Ultra Focus)"] = "Громкость (Ультра Фокус)"
+T["Login Messages"] = "Сообщения при входе"
