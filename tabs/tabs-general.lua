@@ -1,5 +1,4 @@
 local T = Angleur_Translate
-
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
