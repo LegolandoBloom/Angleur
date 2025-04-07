@@ -1,5 +1,4 @@
 local T = Angleur_Translate
-
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
@@ -674,94 +673,5 @@ function Angleur_HandleCVars()
     Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
         C_CVar.SetCVar("SoftTargetIconGameObject", "0")
-    end
-end
-
-function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame, cycleFunk, endFunk)
-    delayFrame:SetScript("OnUpdate", function(self, elapsed)
-        timeElapsed = timeElapsed + elapsed
-        if timeElapsed > elapsedThreshhold then
-            if cycleFunk then
-                if cycleFunk() == true then
-                    --print("Breaking delayer")
-                    self:SetScript("OnUpdate", nil)
-                    return
-                end
-            end
-            delay = delay - timeElapsed
-            timeElapsed = 0
-        end
-        
-        if delay <= 0 then
-            self:SetScript("OnUpdate", nil)
-            endFunk()
-            return
-        end
-    end)
-end
-
-angleurCombatDelayFrame = CreateFrame("Frame")
-angleurCombatDelayFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-angleurFunctionsQueueTable = {}
-function Angleur_CombatDelayer(funk)
-    if InCombatLockdown() then
-        --print("triggered")
-        table.insert(angleurFunctionsQueueTable, funk)
-        angleurCombatDelayFrame:SetScript("OnEvent", function()
-            for i, funktion in pairs(angleurFunctionsQueueTable) do
-                funktion()
-                --print("executed: ", funktion)
-            end
-            angleurFunctionsQueueTable = {}
-            angleurCombatDelayFrame:SetScript("OnEvent", nil)
-        end)
-    else
-        funk()
-    end
-end
-
-function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePool, cycleFunk, endFunk)
-    local delayFrame = delayFramePool:Acquire()
-    delayFrame:Show()
-    delayFrame:SetScript("OnUpdate", function(self, elapsed)
-        timeElapsed = timeElapsed + elapsed
-        if timeElapsed > elapsedThreshhold then 
-            if cycleFunk then 
-                if cycleFunk() == true then
-                    delayFramePool:Release(self)
-                    return
-                end
-            end
-            delay = delay - timeElapsed
-            timeElapsed = 0
-        end
-        if delay <= 0 then
-            if endFunk then endFunk() end
-            delayFramePool:Release(self)
-            return
-        end
-    end)
-end
-
-function Angleur_BetaPrint(text, ...)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        print(text, ...)
-    end
-end
-
-function Angleur_BetaDump(dump)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        DevTools_Dump(dump)
-    end
-end
-
-function Angleur_BetaTableToString(tbl)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        local tableToString = ""
-        for i, v in pairs(tbl) do
-            local element = "[" .. tostring(i) .. ":" .. tostring(v) .. "]"
-            tableToString = tableToString .. "  " .. element
-        end
-        print(tableToString)
     end
 end

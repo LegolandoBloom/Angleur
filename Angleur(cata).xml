@@ -1,0 +1,28 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    
+    <!-- TAB 1 STUFF -->
+    <CheckButton parent="Angleur_ConfigPanel_Tab1_Contents" name="$parent_BaitCheckBox" parentKey="baitEnable" inherits="MyCheckboxTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="45" y="-43"/>
+        </Anchors>
+        <Frames>
+            <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </CheckButton>
+    
+
+
+    <!-- TAB 3 STUFF -->
+    <CheckButton parent="Angleur_ConfigPanel_Tab3_Contents" name="$parent_OffInteract" parentKey="offInteract" inherits="MyCheckboxTemplate">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="142" y="-35"/>
+        </Anchors>
+    </CheckButton>
+
+
+</Ui>

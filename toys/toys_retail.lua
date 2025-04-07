@@ -43,7 +43,6 @@ end
 
 
 function retail:PickRandomBobber()
-    print("called")
     --angleurToys.selectedCrateBobberTable
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" then return end
     if next(angleurToys.ownedCrateBobbers) == nil then return end

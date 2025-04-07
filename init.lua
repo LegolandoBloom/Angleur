@@ -118,3 +118,92 @@ end
 -- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail" 
 -- or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC and "Cata" 
 -- or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "Vanilla" or "I don't know")
+
+function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame, cycleFunk, endFunk)
+    delayFrame:SetScript("OnUpdate", function(self, elapsed)
+        timeElapsed = timeElapsed + elapsed
+        if timeElapsed > elapsedThreshhold then
+            if cycleFunk then
+                if cycleFunk() == true then
+                    --print("Breaking delayer")
+                    self:SetScript("OnUpdate", nil)
+                    return
+                end
+            end
+            delay = delay - timeElapsed
+            timeElapsed = 0
+        end
+        
+        if delay <= 0 then
+            self:SetScript("OnUpdate", nil)
+            endFunk()
+            return
+        end
+    end)
+end
+
+angleurCombatDelayFrame = CreateFrame("Frame")
+angleurCombatDelayFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+angleurFunctionsQueueTable = {}
+function Angleur_CombatDelayer(funk)
+    if InCombatLockdown() then
+        --print("triggered")
+        table.insert(angleurFunctionsQueueTable, funk)
+        angleurCombatDelayFrame:SetScript("OnEvent", function()
+            for i, funktion in pairs(angleurFunctionsQueueTable) do
+                funktion()
+                --print("executed: ", funktion)
+            end
+            angleurFunctionsQueueTable = {}
+            angleurCombatDelayFrame:SetScript("OnEvent", nil)
+        end)
+    else
+        funk()
+    end
+end
+
+function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePool, cycleFunk, endFunk)
+    local delayFrame = delayFramePool:Acquire()
+    delayFrame:Show()
+    delayFrame:SetScript("OnUpdate", function(self, elapsed)
+        timeElapsed = timeElapsed + elapsed
+        if timeElapsed > elapsedThreshhold then 
+            if cycleFunk then 
+                if cycleFunk() == true then
+                    delayFramePool:Release(self)
+                    return
+                end
+            end
+            delay = delay - timeElapsed
+            timeElapsed = 0
+        end
+        if delay <= 0 then
+            if endFunk then endFunk() end
+            delayFramePool:Release(self)
+            return
+        end
+    end)
+end
+
+function Angleur_BetaPrint(text, ...)
+    if Angleur_TinyOptions.errorsDisabled == false then
+        print(text, ...)
+    end
+end
+
+function Angleur_BetaDump(dump)
+    if Angleur_TinyOptions.errorsDisabled == false then
+        DevTools_Dump(dump)
+    end
+end
+
+function Angleur_BetaTableToString(tbl)
+    if Angleur_TinyOptions.errorsDisabled == false then
+        local tableToString = ""
+        for i, v in pairs(tbl) do
+            local element = "[" .. tostring(i) .. ":" .. tostring(v) .. "]"
+            tableToString = tableToString .. "  " .. element
+        end
+        print(tableToString)
+    end
+end
