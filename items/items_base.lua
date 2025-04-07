@@ -39,12 +39,6 @@ local function initializeSavedItems()
     end
 end
 
-local function clearTable(table)
-    for i, v in pairs(table) do
-        table[i] = nil
-    end
-end
-
 function Angleur_LoadExtraItems(self)
     initializeSavedItems()
     for i, slot in pairs(Angleur_SlottedExtraItems) do

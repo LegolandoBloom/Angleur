@@ -24,6 +24,8 @@
 libraries\embeds.xml
 translations\translations.xml
 #@end-no-lib-strip@
+angTemplates\GeneralTemplates\RetailTemplates.lua
+angTemplates\GeneralTemplates\RetailTemplates.xml
 angTemplates\embeds.xml
 init.lua
 Angleur.lua

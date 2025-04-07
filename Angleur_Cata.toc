@@ -23,9 +23,9 @@
 #@no-lib-strip@
 libraries\embeds.xml
 translations\translations.xml
-classicResources.lua
-classicResources.xml
 #@end-no-lib-strip@
+angTemplates\GeneralTemplates\ClassicTemplates.lua
+angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
 
 init.lua

@@ -56,6 +56,11 @@ function Angleur_RequestItems(selectedItemTable, ownedItemsTable, possibilityTab
     return foundUsableItem
 end
 
+local function clearTable(table)
+    for i, v in pairs(table) do
+        table[i] = nil
+    end
+end
 function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
     clearTable(ownedItemsTable)
     for i, item in pairs(possibilityTable) do
