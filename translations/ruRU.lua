@@ -20,7 +20,7 @@ T["Return\nAngleur Visual"] = "Вернуть\nвизуал Angleur"
 T["Double Click"] = "Двойной клик"
 T["Redo Tutorial"] = "Повторить обучение"
 T["Wake!"] = "Проснись!"
-T["Create\n  Add"] = "Создать\n  Добавить"
+T["Create\n  Add"] = "Добавить"
 T["Update"] = "Обновить"
 T["Please select a toy using Left Mouse Click"] = "Пожалуйста, выберите игрушку левым кликом мыши"
 T["Make sure this box is checked!"] = "Убедитесь, что эта галочка отмечена!"
@@ -32,12 +32,12 @@ T["Okay"] = "ОК"
 
 --extra.lua
 
-T["Extra Toys"] = "Дополнительные игрушки"
+T["Extra Toys"] = "Доп. игрушки"
 T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
 .. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Нажмите ") .. "любую из кнопок выше,\nзатем выберите игрушку левым кликом из\n" 
     .. colorYello:WrapTextInColorCode("Коллекции игрушек ") .. "которая появится."
 
-T["Extra Items / Macros"] = "Дополнительные предметы / макросы"
+T["Extra Items / Macros"] = "Доп. предметы / макросы"
 
 T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
     colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Перетащите ") .. "используемый " .. colorYello:WrapTextInColorCode("предмет ") .. "или " .. 
@@ -46,11 +46,11 @@ T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:
 --standard.lua
 
 T["Raft"] = "Плот"
-T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено плотов \n в коллекции игрушек, функция отключена"
+T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено в коллекции,\n функция отключена"
 T["Oversized Bobber"] = "Гигантский поплавок"
-T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден \n гигантский поплавок в \n коллекции игрушек, функция отключена"
+T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден коллекции,\n функция отключена"
 T["Crate of Bobbers"] = "Ящик с поплавками"
-T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Не найдено \n ящиков с поплавками \n в коллекции игрушек, функция отключена"
+T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Не найдено в коллекции,\n функция отключена"
 T["Crate Bobbers"] = "Поплавки из ящика"
 T["Audio"] = "Звук"
 T["Temp. Auto Loot "] = "Временный авто-лут "
@@ -61,7 +61,7 @@ T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorC
 .. colorYello:WrapTextInColorCode("Авто-лут") .. ", затем выключит его после подсечки.\n\n" 
 .. colorGrae:WrapTextInColorCode("Если у вас уже включен ") .. colorYello:WrapTextInColorCode("Авто-лут ")
 .. colorGrae:WrapTextInColorCode(", эта функция автоматически отключится.")
-T["(Already on)"] = "(Уже включено)"
+T["(Already on)"] = "(Уже вкл.)"
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " 
 .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."] = colorBlu:WrapTextInColorCode("Angleur: ") 
@@ -69,7 +69,7 @@ T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with
 T["Rafts"] = "Плоты"
 T["Random Bobber"] = "Случайный поплавок"
 T["Preferred Mouse Button"] = "Предпочитаемая кнопка мыши"
-T["Right Click"] = "ПКМ"
+T["Right Click"] = "Правый клик"
 
 --tabs-general.lua
 
