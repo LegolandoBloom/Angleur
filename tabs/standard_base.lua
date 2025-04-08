@@ -4,6 +4,7 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 local retail = AngleurStandardPanelRetail
+local cata = AngleurStandardPanelCata
 
 function Angleur_SetTab1(self)
     local gameVersion = Angleur_CheckVersion()

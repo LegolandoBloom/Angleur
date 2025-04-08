@@ -51,10 +51,10 @@ end
 --**************************[1]****************************
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
-    if event == "ADDON_LOADED" and unit == "AngleurCata" then
+    if event == "ADDON_LOADED" and unit == "Angleur" then
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
-        self.visual.texture:SetTexture("Interface/AddOns/AngleurCata/imagesClassic/UI_Profession_Fishing")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
         local color1 = CreateColor(1.0, 0.82, 0.0)
@@ -462,7 +462,7 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
     if midFishing then
         SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-        self.visual.texture:SetTexture("Interface/AddOns/AngleurCata/imagesClassic/misc_arrowlup")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
         Angleur_SetCursorForGamePad(true)
     elseif swimming then
         --print("I am swimming")
@@ -516,11 +516,11 @@ function Angleur_ActionHandler(self)
                 --ALREADY HANDLED WITHIN THE FUNCTION
             elseif iceFishing then
                 SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-                self.visual.texture:SetTexture("Interface/AddOns/AngleurCata/imagesClassic/misc_arrowlup")
+                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
                 Angleur_SetCursorForGamePad(true)
             else
                 SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-                self.visual.texture:SetTexture("Interface/AddOns/AngleurCata/imagesClassic/UI_Profession_Fishing")
+                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
             end
         end
     end
@@ -640,7 +640,7 @@ function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then
         --no need to do combat delay, angleur clears override bindings when entering combat anyway
         if not InCombatLockdown() then ClearOverrideBindings(Angleur) end
-        Angleur.visual.texture:SetTexture("Interface/AddOns/AngleurCata/imagesClassic/UI_Profession_Fishing")
+        Angleur.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
         Angleur.visual.texture:SetDesaturated(true)
         Angleur.configPanel.tab1:DesaturateHierarchy(1)
         Angleur.configPanel.tab2:DesaturateHierarchy(1)

@@ -19,7 +19,7 @@
                                 <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER"/>
                             </Anchors>
                         </Texture>
-                        <FontString name="$parent_DragText" parentKey="dragText" hidden="true" text="You can drag and place this anywhere on your screen" inherits="GameFontNormalLarge">
+                        <FontString name="$parent_DragText" parentKey="dragText" hidden="true" inherits="GameFontNormalLarge">
                             <Anchors>
                                 <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" y="40"/>
                             </Anchors>
@@ -142,7 +142,8 @@
                 <Scripts>
                     <OnLoad>
                         tinsert(UISpecialFrames, self:GetName())
-                        self.TitleText:SetText("Angleur Configuration")
+                        self.TitleText:SetText(Angleur_Translate["Angleur Configuration"])
+                        self.wakeUpButton.text:SetText(Angleur_Translate["Wake!"])
                         self:SetMovable(true)
                         self:RegisterForDrag("LeftButton")
                     </OnLoad>
@@ -173,7 +174,7 @@
                 </Scripts>
                 <Layers>
                     <Layer level="OVERLAY">
-                        <Texture name="$parent_Decoration" parentKey="decoration" file="Interface/AddOns/AngleurCata/images/angwithout.png" alpha="0.5">
+                        <Texture name="$parent_Decoration" parentKey="decoration" file="Interface/AddOns/Angleur/images/angwithout.png" alpha="0.5">
                             <Anchors>
                                 <Anchor point="CENTER" x="8" y="13"/>
                             </Anchors>
@@ -223,7 +224,7 @@
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
-                                                <FontString name="$parent_Title" parentKey="title" text="Ultra Focus:" inherits="GameFontNormal">
+                                                <FontString name="$parent_Title" parentKey="title" inherits="GameFontNormal">
                                                     <Anchors>
                                                         <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="0" y="0"/>
                                                     </Anchors>
@@ -250,7 +251,7 @@
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
-                                                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "QuestFont_Outline_Huge" text= "FISHING METHOD:">
+                                                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "QuestFont_Outline_Huge">
                                                     <Color r="0.61" g=".85" b="0.92"/>
                                                     <Anchors>
                                                         <Anchor point="TOP" relativeTo="$parent" relativePoint="TOP"/>
@@ -285,7 +286,7 @@
                                                 </Scripts>
                                                 <Layers>
                                                     <Layer level="ARTWORK">
-                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/AngleurCata/images/ExtraButtonWater.png" alpha="0.8">
+                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/Angleur/images/ExtraButtonWater.png" alpha="0.8">
                                                             <Size x="105" y="105"/>
                                                             <Anchors>
                                                                 <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="-1" y="2"/>
@@ -314,18 +315,18 @@
                                                                 </Anchors>
                                                                 <Layers>
                                                                     <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal" text= "One Key">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal">
                                                                             <Color r="1" g="1" b="1"/>
                                                                             <Anchors>
                                                                                 <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
                                                                             </Anchors>
                                                                         </FontString>
-                                                                        <FontString name="$parent_Disclaimer" parentKey="disclaimer" inherits= "SystemFont_Outline" text="The next key you press&#xA;will be set as Angleur Key" hidden="true">
+                                                                        <FontString name="$parent_Disclaimer" parentKey="disclaimer" inherits= "SystemFont_Outline" hidden="true">
                                                                             <Anchors>
                                                                                 <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="35" y="0"/>
                                                                             </Anchors>
                                                                         </FontString>
-                                                                        <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" text= "Please set a keybind&#xA; to use the One Key&#xA;Fishing Method by&#xA; using the the&#xA;button above" hidden="true">
+                                                                        <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" hidden="true">
                                                                             <Color r="1"/>
                                                                             <Anchors>
                                                                                 <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
@@ -355,7 +356,7 @@
                                                                                 self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
                                                                                 self:SetPropagateKeyboardInput(false)
                                                                                 self.disclaimer:Show()
-                                                                                self.disclaimer:SetText("The next key you press\nwill be set as Angleur Key")
+                                                                                self.disclaimer:SetText(Angleur_Translate["The next key you press\nwill be set as Angleur Key"])
                                                                                 self.warning:Hide()
                                                                             end
                                                                         elseif button == "RightButton" then
@@ -402,7 +403,7 @@
                                                 </Scripts>
                                                 <Layers>
                                                     <Layer level="ARTWORK">
-                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/AngleurCata/images/ExtraButtonWater.png" alpha="0.8">
+                                                        <Texture name="$parent_SelectedTexture" parentKey="selectedTexture" file="Interface/AddOns/Angleur/images/ExtraButtonWater.png" alpha="0.8">
                                                             <Size x="105" y="105"/>
                                                             <Anchors>
                                                                 <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="-1" y="2"/>
@@ -423,7 +424,7 @@
                                                                 </Anchors>
                                                                 <Layers>
                                                                     <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal" text= "Double Click">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal">
                                                                             <Color r="1" g="1" b="1"/>
                                                                             <Anchors>
                                                                                 <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
@@ -438,7 +439,7 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
-                                    <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" text="Return&#xA;Angleur Visual" hidden="true">
+                                    <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
                                             <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
@@ -454,7 +455,7 @@
                                         </Scripts>
                                         <Layers>
                                             <Layer level="ARTWORK">
-                                                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/AngleurCata/images/returnbuttonholder.png">
+                                                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/returnbuttonholder.png">
                                                     <Size x="52" y="52"/>
                                                     <Anchors>
                                                         <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT" y="0"/>
@@ -470,7 +471,7 @@
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
-                                                <Texture name="$parent_Logo" parentKey="logo" file="Interface/AddOns/AngleurCata/images/discord.png">
+                                                <Texture name="$parent_Logo" parentKey="logo" file="Interface/AddOns/Angleur/images/discord.png">
                                                     <Size x="16" y="16"/>
                                                     <Anchors>
                                                         <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT" x="-6" y="0"/>
@@ -641,14 +642,14 @@
                                         <Scripts>
                                             <OnLoad>
                                                 local problemsbackground = self:CreateTexture("$parent_Texture", "ARTWORK")
-                                                problemsbackground:SetTexture("Interface/AddOns/AngleurCata/images/extratoysproblems.png")
+                                                problemsbackground:SetTexture("Interface/AddOns/Angleur/images/extratoysproblems.png")
                                                 problemsbackground:SetPoint("CENTER")
                                                 problemsbackground:SetSize("250", "48")
 
                                                 local problemstext = self:CreateFontString("$parent_Text", "ARTWORK", "Game15Font")
                                                 problemstext:SetPoint("CENTER")
                                                 local color = CreateColor(1.0, 0.82, 0.0)
-                                                problemstext:SetText(color:WrapTextInColorCode("Having Problems?"))
+                                                problemstext:SetText(color:WrapTextInColorCode(Angleur_Translate["Having Problems?"]))
                                             </OnLoad>
                                             <OnEnter>
                                                 if not self:IsDragging() then
@@ -714,7 +715,7 @@
                                                 </Anchors>
                                                 <Layers>
                                                     <Layer level="ARTWORK">
-                                                        <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/AngleurCata/images/returnbuttonholder.png">
+                                                        <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/returnbuttonholder.png">
                                                             <Size x="65" y="65"/>
                                                             <Anchors>
                                                                 <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
@@ -753,7 +754,7 @@
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
-                                                <FontString inherits="FriendsFont_Normal" text="Redo Tutorial">
+                                                <FontString inherits="FriendsFont_Normal" parentKey="title">
                                                     <Anchors>
                                                         <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="3" y="0"/>
                                                     </Anchors>
@@ -784,13 +785,13 @@
                         </Scripts>
                         <Layers>
                             <Layer level="ARTWORK">
-                                <Texture name="$parent_Lego" parentKey="lego" file="Interface/AddOns/AngleurCata/images/legosleep.png">
+                                <Texture name="$parent_Lego" parentKey="lego" file="Interface/AddOns/Angleur/images/legosleep.png">
                                     <Size x="48" y="48"/>
                                     <Anchors>
                                         <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-5" y="0"/>
                                     </Anchors>
                                 </Texture>
-                                <FontString inherits="QuestFont_Outline_Huge" text="Wake!">
+                                <FontString parentKey="text" inherits="QuestFont_Outline_Huge">
                                     <Anchors>
                                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-2" y="6"/>
                                     </Anchors>
@@ -832,25 +833,25 @@
         </Anchors>
         <Layers>
             <Layer level="ARTWORK">
-                <Texture name="$parent_DefaultTexture" parentKey="defaultTexture" file="Interface/Addons/AngleurCata/images/armorequipyellowplus.png">
+                <Texture name="$parent_DefaultTexture" parentKey="defaultTexture" file="Interface/Addons/Angleur/images/armorequipyellowplus.png">
                     <Size x="72" y="72"/>
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
                     </Anchors>
                 </Texture>
-                <FontString name="$parent_DefaultText" parentKey="defaultText" text="Create&#xA;  Add" inherits="Fancy12Font">
+                <FontString name="$parent_DefaultText" parentKey="defaultText" inherits="Fancy12Font">
                     <Color r="1" g="0.82" b="0"/>
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="0"/>
                     </Anchors>
                 </FontString>
-                <Texture name="$parent_CheckedTexture" parentKey="checkedTexture" file="Interface/Addons/AngleurCata/images/armorequipgreencheck.png" hidden="true">
+                <Texture name="$parent_CheckedTexture" parentKey="checkedTexture" file="Interface/Addons/Angleur/images/armorequipgreencheck.png" hidden="true">
                     <Size x="72" y="72"/>
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
                     </Anchors>
                 </Texture>
-                <FontString name="$parent_CheckedText" parentKey="checkedText" text="Update" inherits="Fancy12Font" hidden="true">
+                <FontString name="$parent_CheckedText" parentKey="checkedText" inherits="Fancy12Font" hidden="true">
                     <Color r="0" g="1" b="0"/>
                     <Anchors>
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="5"/>
@@ -859,6 +860,10 @@
             </Layer>
         </Layers>
         <Scripts>
+            <OnLoad>
+                self.defaultText:SetText(Angleur_Translate["Create\n  Add"])
+                self.checkedText:SetText(Angleur_Translate["Update"])
+            </OnLoad>
             <OnClick>
                 if InCombatLockdown() then return end
                 self:Disable()
@@ -914,13 +919,13 @@
         <Size x="100" y="100"/>
         <Layers>
             <Layer level="OVERLAY">
-                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/AngleurCata/images/croppedblue.png" hidden="false">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/croppedblue.png" hidden="false">
                     <Size x="512" y="512"/>
                 </Texture>
-                <Texture name="$parent_TextBackground" parentKey="textBackground" file="Interface/AddOns/AngleurCata/images/croppedtextbackground.png" hidden="false">
+                <Texture name="$parent_TextBackground" parentKey="textBackground" file="Interface/AddOns/Angleur/images/croppedtextbackground.png" hidden="false">
                     <Size x="475" y="60"/>
                 </Texture>
-                <FontString name="$parent_Text" parentKey="text" inherits= "Game20Font" height="100" text="Please select a toy using Left Mouse Click" hidden="false">
+                <FontString name="$parent_Text" parentKey="text" inherits= "Game20Font" height="100" hidden="false">
                     <Anchors>
                         <Anchor point="CENTER" relativePoint="CENTER"/>
                     </Anchors>
@@ -940,19 +945,19 @@
         </Anchors>
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="$parent_MainText" text="Make sure this box is checked!" parentKey="mainText" inherits="GameFontHighlight">
+                <FontString name="$parent_MainText" parentKey="mainText" inherits="GameFontHighlight">
                     <Color r="1" g="0.82" b="0"/>
                     <Anchors>
                         <Anchor point="TOP" x="0" y="-170"/>
                     </Anchors>
                 </FontString>
-                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/AngleurCata/images/platerinteractionangleur.png">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/platerinteractionangleur.png">
                     <Size x="390" y="195"/>
                     <Anchors>
                         <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="6" y="-25"/>
                     </Anchors>
                 </Texture>
-                <FontString name="$parent_OtherText" text="Located in Plater->Advanced->General Settings.&#xA;Otherwise you won't be able to use Angleur's&#xA;soft-interact reel." parentKey="otherText" inherits="SpellFont_Small">
+                <FontString name="$parent_OtherText" parentKey="otherText" inherits="SpellFont_Small">
                     <Color r="0.8" g="0.8" b="0.8"/>
                     <Anchors>
                         <Anchor point="BOTTOM" x="0" y="40"/>
@@ -976,9 +981,10 @@
         <Scripts>
             <OnLoad>
                 tinsert(UISpecialFrames, self:GetName())
-                self.TitleText:SetText("Angleur Warning: Plater")
+                self.TitleText:SetText(Angleur_Translate["Angleur Warning: Plater"])
+                self.mainText:SetText(Angleur_Translate["Make sure this box is checked!"])
                 local colorYellow = CreateColor(1.0, 0.82, 0.0)
-                self.okayButton:SetText(colorYellow:WrapTextInColorCode("Okay"))
+                self.okayButton:SetText(colorYellow:WrapTextInColorCode(Angleur_Translate["Okay"]))
             </OnLoad>
             <OnHide>
                 if C_AddOns.IsAddOnLoaded("Plater") then
@@ -988,5 +994,3 @@
         </Scripts>
     </Frame>
 </Ui>
-
-

@@ -18,7 +18,7 @@ local function BaitDropDownOnClick(self)
     AngleurConfig.chosenBait.dropDownID = self:GetID()
     --AngleurConfig.chosenBait.name = angleurItems.ownedBait[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenBait.itemID = angleurItems.ownedBait[self:GetID()].itemID
-    SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
+    Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
 end
 
 local baitTitleSet = false
@@ -28,8 +28,8 @@ local function InitializeDropDownBait(self, level)
         baitTitleSet = true
         return
     end
-    CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
-    SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
+    Angleur_CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
+    Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
     --Contents
     for i, bait in pairs(angleurItems.ownedBait) do
         info = UIDropDownMenu_CreateInfo()

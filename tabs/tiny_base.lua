@@ -4,9 +4,14 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 local retail = AngleurTinyPanelRetail
+local cata = AngleurTinyPanelCata
 
 function Angleur_SetTab3(self)
-    retail:ExtraButtons(self)
+    if gameVersion == 1 then
+        retail:ExtraButtons(self)
+    elseif gameVersion == 2 or gameVersion == 3 then
+        --nothing
+    end
     
     self.dismount.text:SetText(T["Dismount With Key"])
     --self.dismount.text:SetFontObject(SpellFont_Small)
@@ -103,7 +108,7 @@ function Angleur_SetTab3(self)
     if gameVersion == 1 then
         retail:SetDefaultsButtonScript(self)
     elseif gameVersion == 2 or gameVersion == 3 then
-
+        cata:SetDefaultsButtonScript(self)
     end
 
 
