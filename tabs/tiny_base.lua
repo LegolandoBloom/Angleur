@@ -7,6 +7,7 @@ local retail = AngleurTinyPanelRetail
 local cata = AngleurTinyPanelCata
 
 function Angleur_SetTab3(self)
+    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         retail:ExtraButtons(self)
     elseif gameVersion == 2 or gameVersion == 3 then
@@ -104,7 +105,6 @@ function Angleur_SetTab3(self)
     self.defaults.text = self.defaults:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "Game12Font_o1")
     self.defaults.text:SetPoint("CENTER", self.defaults, "CENTER", 2, -2)
     self.defaults.text:SetText(colorYello:WrapTextInColorCode("Defaults"))
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         retail:SetDefaultsButtonScript(self)
     elseif gameVersion == 2 or gameVersion == 3 then

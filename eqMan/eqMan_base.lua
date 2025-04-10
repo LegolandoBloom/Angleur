@@ -41,6 +41,17 @@ function Angleur_CreateSetAndAdd_UpdateState()
 end
 
 function Angleur_CreateEquipmentSet()
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 3 then
+        if checkSlottedExtraItems() == false then
+            print("Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first.")
+            print("This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set.")
+            deleteAngleurSet()
+            return
+        end
+    end
+
+
     local setID 
     if not C_EquipmentSet.GetEquipmentSetID("Angleur") then
         local iconID
@@ -143,11 +154,31 @@ local function checkSlottedExtraItems()
     for i, slot in pairs(Angleur_SlottedExtraItems) do
         if slot.itemID ~= 0 then
             if C_Item.IsEquippableItem(slot.itemID) then 
-                return true 
+                ---------------------------
+                --Needed for Classic(Era)--
+                ---------------------------
+                if not (C_Item.GetItemCount(slot.itemID) >= 1) then
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
+                else
+                    return true
+                end
+                ---------------------------
+                ---------------------------
+                ---------------------------
             end
         elseif slot.macroItemID ~= 0 then
             if C_Item.IsEquippableItem(slot.macroItemID) then 
-                return true
+                ---------------------------
+                --Needed for Classic(Era)--
+                ---------------------------
+                if not (C_Item.GetItemCount(slot.macroItemID) >= 1) then
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
+                else
+                    return true
+                end
+                ---------------------------
+                ---------------------------
+                ---------------------------
             end
         end
     end

@@ -152,35 +152,40 @@ function Angleur_FirstInstall()
                 angleurHelpTip:CompletePartWithAction(5)
             end
         end)
+        
+        local index = 6
+        local gameVersion = Angleur_CheckVersion()
+        if gameVersion == 1 or gameVersion == 2 then
+            angleurHelpTip.parts[6] = {
+                text = colorPurple:WrapTextInColorCode("Extra Toys\n\n")  .. "You can select a toy from the " .. colorYellow:WrapTextInColorCode("Toy Box ") 
+                .. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n"
+                .. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!",
+                relativeRegion = Angleur.configPanel.tab2.contents.extraToys,
+                buttonStyle = 5,
+                alignment = 2,
+                targetPoint = HelpTip.Point.RightEdgeCenter,
+                highlightTextureSizeMultiplierX = 1,
+                highlightTextureSizeMultiplierY = 1
+            }
+            Angleur_ExtraToys_First:HookScript("OnClick", function(self, button, down)
+                if button == "LeftButton" and down == false then
+                    angleurHelpTip:CompletePartWithAction(4)
+                end
+            end)
+            Angleur_ExtraToys_Second:HookScript("OnClick", function(self, button, down)
+                if button == "LeftButton" and down == false then
+                    angleurHelpTip:CompletePartWithAction(4)
+                end
+            end)
+            Angleur_ExtraToys_Third:HookScript("OnClick", function(self, button, down)
+                if button == "LeftButton" and down == false then
+                    angleurHelpTip:CompletePartWithAction(4)
+                end
+            end)
+            index = index + 1
+        end
 
-        angleurHelpTip.parts[6] = {
-            text = colorPurple:WrapTextInColorCode("Extra Toys\n\n")  .. "You can select a toy from the " .. colorYellow:WrapTextInColorCode("Toy Box ") 
-            .. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n"
-            .. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!",
-            relativeRegion = Angleur.configPanel.tab2.contents.extraToys,
-            buttonStyle = 5,
-            alignment = 2,
-            targetPoint = HelpTip.Point.RightEdgeCenter,
-            highlightTextureSizeMultiplierX = 1,
-            highlightTextureSizeMultiplierY = 1
-        }
-        Angleur_ExtraToys_First:HookScript("OnClick", function(self, button, down)
-            if button == "LeftButton" and down == false then
-                angleurHelpTip:CompletePartWithAction(4)
-            end
-        end)
-        Angleur_ExtraToys_Second:HookScript("OnClick", function(self, button, down)
-            if button == "LeftButton" and down == false then
-                angleurHelpTip:CompletePartWithAction(4)
-            end
-        end)
-        Angleur_ExtraToys_Third:HookScript("OnClick", function(self, button, down)
-            if button == "LeftButton" and down == false then
-                angleurHelpTip:CompletePartWithAction(4)
-            end
-        end)
-
-        angleurHelpTip.parts[7] = {
+        angleurHelpTip.parts[index] = {
             text = colorBrown:WrapTextInColorCode("Extra Items/Macros\n\n")  .. "You can " .. colorYellow:WrapTextInColorCode("Drag ") 
             .. "items or macros here to add them to your Angleur rotation.\n\n" .. "These can be fishing hats, throwable fish, spells...\n\n" 
             .. "You can even set custom timers for them by clicking the " .. colorYellow:WrapTextInColorCode("stopwatch ") 
@@ -192,8 +197,9 @@ function Angleur_FirstInstall()
             highlightTextureSizeMultiplierX = 1,
             highlightTextureSizeMultiplierY = 1
         }
-        
-        angleurHelpTip.parts[8] = {
+        index = index + 1
+
+        angleurHelpTip.parts[index] = {
             text = "Click here if you need an example & explanation of use of macros for Angleur!",
             relativeRegion = Angleur_ConfigPanel_Tab2_Contents_AdvancedButton,
             buttonStyle = 5,
@@ -202,8 +208,9 @@ function Angleur_FirstInstall()
             highlightTextureSizeMultiplierX = 1.2,
             highlightTextureSizeMultiplierY = 1.2
         }
+        index = index + 1
 
-        angleurHelpTip.parts[9] = {
+        angleurHelpTip.parts[index] = {
             text = "And lastly, the " .. colorYellow:WrapTextInColorCode("Create & Add ") .. "button Creates an item set for you and automatically adds your " 
             .. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " 
             .. colorYellow:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " .. colorYellow:WrapTextInColorCode("sleep."),
@@ -215,7 +222,6 @@ function Angleur_FirstInstall()
             highlightTextureSizeMultiplierX = 1.2,
             highlightTextureSizeMultiplierY = 1.2
         }
-        
         alreadySet = true
     end
     

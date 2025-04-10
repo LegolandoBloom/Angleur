@@ -42,7 +42,7 @@ eqMan\eqMan_base.lua
 tabs\tabs-general.lua
 tabs\standard_cata.lua
 tabs\standard_base.lua
-tabs\extra.lua
+tabs\extra_with.lua
 tabs\tiny_cata.lua
 tabs\tiny_base.lua
 
