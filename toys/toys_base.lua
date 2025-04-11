@@ -2,6 +2,7 @@ local T = Angleur_Translate
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
 local retail = AngleurToysRetail
+local cata = AngleurToysCata
 
 angleurToys = {
     --the 111111's are a placeholder to make sure the check works
@@ -126,6 +127,10 @@ function Angleur_SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer
 end
 
 function Angleur_LoadExtraToys(extraToyButtons)
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 2 or gameVersion == 3 then
+        cata:AdjustCloseButton(extraToyButtons)
+    end
     for i, slot in pairs(Angleur_SlottedExtraToys) do
         Angleur_SlottedExtraToys[i].loaded = false
         --extraToyButtons[i].name = Angleur_SlottedExtraToys[i].name
