@@ -43,6 +43,7 @@ end
 
 function cata:ExtraButtons(tab1contents)
     tab1contents.baitEnable.text:SetText("Bait")
+    tab1contents.baitEnable:reposition()
     tab1contents.baitEnable.disabledText:SetText("Couldn't find any bait \n in your bags, feature disabled")
     tab1contents.baitEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
