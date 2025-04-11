@@ -4,9 +4,9 @@ local T = Angleur_Translate
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorWhite = CreateColor(1, 1, 1)
 
 --Angleur.xml
-
 T["Ultra Focus:"] = "Ultra Focus:"
 T["You can drag and place this anywhere on your screen"] = "You can drag and place this anywhere on your screen"
 T["FISHING METHOD:"] = "FISHING METHOD:"
@@ -27,6 +27,47 @@ T["The next key you press\nwill be set as Angleur Key"] = "The next key you pres
 T["Having Problems?"] = "Having Problems?"
 T["Angleur Warning: Plater"] = "Angleur Warning: Plater"
 T["Okay"] = "Okay"
+    --Angleur.xml->Tooltips
+    T["Angleur Visual Button"] = "Angleur Visual Button"
+    T["Shows what your next key press\nwill do. Not meant to be clicked."] = "Shows what your next key press\nwill do. Not meant to be clicked."
+    T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")] = "Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")
+    T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")] = "Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")
+    T["One-Key NOT SET! To set,\nopen config menu with:"] = "One-Key NOT SET! To set,\nopen config menu with:"
+    T[" or\n"] = " or\n"
+    T["Right Click to temporarily put Angleur to sleep. zzz..."] = "Right Click to temporarily put Angleur to sleep. zzz..."
+    T["Sleeping. Zzz...\n"] = "Sleeping. Zzz...\n"
+    T["\nRight-Click"] = "\nRight-Click"
+    T["\nto wake Angleur!"] = "\nto wake Angleur!"
+    T["One-Key Fishing Mode"] = "One-Key Fishing Mode"
+    T["Fish, reel, cast toys using \none button!\n"] = "Fish, reel, cast toys using \none button!\n"
+    T["Set your desired key by: "] = "Set your desired key by: "
+    T["Clicking on the button\nthat appears below\nonce this option is selected."] = "Clicking on the button\nthat appears below\nonce this option is selected."
+    T["Double-Click Fishing Mode"] = "Double-Click Fishing Mode"
+    T["Fish, reel, cast toys using double mouse clicks!\n"] = "Fish, reel, cast toys using double mouse clicks!\n"
+    T["Select which mouse button by:"] = "Select which mouse button by:"
+    T["Clicking on the box that appears below once this option is selected.\n"] = "Clicking on the box that appears below once this option is selected.\n"
+    T["Not every toy will work!"] = "Not every toy will work!"
+    T["Extra Toys is a feature meant to provide flexible user customization, but not every toy is" 
+    .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine."
+    .. " Test them out, experiment and have fun!\n"] = "Extra Toys is a feature meant to provide flexible user customization, but not every toy is" 
+    .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine."
+    .. " Test them out, experiment and have fun!\n"
+    T["Fun toy recommendations from mod author, Legolando:"] = "Fun toy recommendations from mod author, Legolando:"
+    T["1) Tents such as Gnoll Tent to protect yourself from the sun as you fish."
+    .. "\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably."
+    .. "\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!"] = "1) Tents such as Gnoll Tent to protect yourself from the sun as you fish."
+    .. "\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably."
+    .. "\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!"
+    T["Beta: " .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
+    .. "/reload."] = "Beta: " .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
+    .. "/reload."
+    T["Reset Angleur Set"] = "Reset Angleur Set"
+    --Cata
+    T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")] = colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")
+    T["\nor"] = "\nor"
+    T["Note for Cata:"] = "Note for Cata:"
+    T["Mouseover the bobber\nto reel consistently."] = "Mouseover the bobber\nto reel consistently."
+    T["(If it lands too far, the\nsoft-interact will miss it.)"] = "(If it lands too far, the\nsoft-interact will miss it.)"
 
 
 --extra.lua
