@@ -15,6 +15,7 @@ function Angleur_SetTab3(self)
     end
     
     self.dismount.text:SetText(T["Dismount With Key"])
+    self.dismount:reposition()
     --self.dismount.text:SetFontObject(SpellFont_Small)
     self.dismount.text.tooltip = T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ")
     .. "when you use OneKey/DoubleClick.\n\n" .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")]
@@ -60,6 +61,7 @@ function Angleur_SetTab3(self)
 
 
     self.loginMessages.text:SetText(T["Login Messages"])
+    self.loginMessages:reposition()
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
     self.loginMessages:SetScript("OnClick", function(self)
         if InCombatLockdown() then
@@ -81,6 +83,7 @@ function Angleur_SetTab3(self)
 
 
     self.debugMode.text:SetText("Debug Mode")
+    self.debugMode:reposition()
     --self.debugMode.text:SetFontObject(SpellFont_Small)
     self.debugMode:SetScript("OnClick", function(self)
         if InCombatLockdown() then

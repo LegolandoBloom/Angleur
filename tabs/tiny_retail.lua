@@ -8,6 +8,7 @@ local retail = AngleurTinyPanelRetail
 
 function retail:ExtraButtons(tab3_contents)
     tab3_contents.offInteract.text:SetText(T["Disable Soft Interact"])
+    tab3_contents.offInteract:reposition()
     --tab3_contents.offInteract.text:SetFontObject(SpellFont_Small)
     tab3_contents.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
     .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")]
@@ -31,6 +32,7 @@ function retail:ExtraButtons(tab3_contents)
     end
 
     tab3_contents.softIconOff.text:SetText(T["Disable Soft Icon"])
+    tab3_contents.softIconOff:reposition()
     --tab3_contents.softIconOff.text:SetFontObject(SpellFont_Small)
     tab3_contents.softIconOff.text.tooltip = T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."]
     tab3_contents.softIconOff:SetScript("OnClick", function(self)

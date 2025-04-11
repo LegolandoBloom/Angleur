@@ -205,7 +205,7 @@
                                 <Frames>
                                     <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="45" y="-43"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-43"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -217,12 +217,12 @@
                                     </CheckButton>
                                     <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent_RaftCheckBox" relativePoint="BOTTOMLEFT" x="83" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-72"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent_OversizedBobberCheckBox" relativePoint="BOTTOMLEFT" x="-8" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-100"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -235,7 +235,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent_CrateBobberCheckBox" relativePoint="BOTTOMLEFT" x="-100" y="-10"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-134"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -262,7 +262,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent_UltraFocus" relativePoint="BOTTOMLEFT" x="0" y="-10"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-192"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -711,17 +711,17 @@
                                 <Frames>
                                     <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="142" y="-35"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="23" y="-35"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_OffInteract" relativePoint="BOTTOM" x="-6" y="0"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-59"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_SoftIconOff" parentKey="softIconOff" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_Dismount" relativePoint="BOTTOM" x="-15" y="0"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-83"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="OVERLAY">
@@ -744,12 +744,12 @@
                                     </CheckButton>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_SoftIconOff" relativePoint="BOTTOM" x="-28" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-112"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_DoubleClickWindow" relativePoint="BOTTOM" x="0" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-152"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_ButtonHolder" parentKey="buttonHolder">
@@ -772,23 +772,23 @@
                                     </Frame>
                                     <Frame name= "$parent_UltraFocusMaster" parentKey="ultraFocusMaster" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_VisualSize" relativePoint="BOTTOM" x="8" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-230"/>
                                         </Anchors>
                                     </Frame>
                                     <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_UltraFocusMaster" relativePoint="BOTTOM" x="18" y="-10"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-279"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_LoginMessages" relativePoint="BOTTOM" x="-17" y="-5"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-308"/>
                                         </Anchors>
                                     </CheckButton>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
                                         <Size x="72" y="42"/>
                                         <Anchors>
-                                            <Anchor point="TOP" relativeTo="$parent_DebugMode" relativePoint="BOTTOM" x="135" y="20"/>
+                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="65"/>
                                         </Anchors>
                                     </Button>
                                     <Button name="$parent_RedoTutorial" parentKey="redoTutorial" inherits="UIPanelSquareButton">

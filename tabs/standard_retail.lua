@@ -85,6 +85,7 @@ end
 
 function retail:ExtraButtons(tab1contents)
     tab1contents.raftEnable.text:SetText(T["Raft"])
+    tab1contents.raftEnable:reposition()
     tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
     tab1contents.raftEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
@@ -107,6 +108,7 @@ function retail:ExtraButtons(tab1contents)
     DropDown_CreateTitle(tab1contents.raftEnable.dropDown, "Rafts")
     
     tab1contents.oversizedBobberEnable.text:SetText(T["Oversized Bobber"])
+    tab1contents.oversizedBobberEnable:reposition()
     tab1contents.oversizedBobberEnable.disabledText:SetText(T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"])
     tab1contents.oversizedBobberEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
@@ -120,6 +122,7 @@ function retail:ExtraButtons(tab1contents)
     end
     
     tab1contents.crateBobberEnable.text:SetText(T["Crate of Bobbers"])
+    tab1contents.crateBobberEnable:reposition()
     tab1contents.crateBobberEnable.disabledText:SetText(T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"])
     tab1contents.crateBobberEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then

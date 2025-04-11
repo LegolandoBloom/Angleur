@@ -12,6 +12,12 @@ function Angleur_CheckboxMixin:greyOut()
     end
 end
 
+function Angleur_CheckboxMixin:reposition()
+    local width, height = self.text:GetSize()
+    local _, _, _, offsetX, offsetY = self:GetPoint()
+    self:AdjustPointsOffset(width, 0)
+end
+
 Angleur_CombatWeaponSwapButtonMixin = {};
 
 function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
