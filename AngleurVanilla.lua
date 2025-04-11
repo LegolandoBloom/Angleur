@@ -1,101 +1,7 @@
+local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
-local auraIDHolders = {
-    raft,
-    oversizedBobber,
-    crateBobber
-}
-
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
-
-angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
-    frame:ClearAllPoints()
-    frame:SetScript("OnUpdate", nil)
-    frame:Hide()
-end)
-
-AngleurConfig = {
-    angleurKey,
-    angleurKeyModifier,
-    angleurKeyMain,
-    raftEnabled,
-    chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
-    baitEnabled,
-    chosenBait = {itemID = 0, name = 0, dropDownID = 0},
-    oversizedEnabled,
-    crateEnabled,
-    chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
-    chosenMethod,
-    doubleClickChosenID = 2,
-    visualHidden,
-    visualLocation,
-    ultraFocusAudioEnabled,
-    ultraFocusAutoLootEnabled,
-    ultraFocusTurnOffInteract,
-    ultraFocusingAudio,
-    ultraFocusingAutoLoot,
-}
-
-AngleurCharacter = {
-    sleeping = false,
-    angleurSet = false
-}
-
-Angleur_CVars = {
-    ultraFocus = {musicOn, ambienceOn, dialogOn, effectsOn,  effectsVolume, masterOn, masterVolume, backgroundOn},
-    autoLoot
-}
-
-AngleurMinimapButton = {
-    hide
-}
-
-local function Init_AngleurSavedVariables()
-    if AngleurConfig.ultraFocusAudioEnabled == nil then
-        AngleurConfig.ultraFocusAudioEnabled = false
-    end
-    if AngleurConfig.ultraFocusAutoLootEnabled == nil then
-        AngleurConfig.ultraFocusAutoLootEnabled = false
-    end
-    if AngleurConfig.chosenBait == nil then
-        AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
-    end
-    
-
-    if AngleurCharacter.sleeping == nil then
-        AngleurCharacter.sleeping = false
-    end
-
-    if Angleur_TinyOptions.turnOffSoftInteract == nil then
-        Angleur_TinyOptions.turnOffSoftInteract = false
-    end
-    if Angleur_TinyOptions.allowDismount == nil then
-        Angleur_TinyOptions.allowDismount = false
-    end
-    if Angleur_TinyOptions.doubleClickWindow == nil then
-        Angleur_TinyOptions.doubleClickWindow = 0.4
-    end
-    if Angleur_TinyOptions.visualScale == nil then
-        Angleur_TinyOptions.visualScale = 1
-    end
-    if Angleur_TinyOptions.ultraFocusMaster == nil then
-        Angleur_TinyOptions.ultraFocusMaster = 1
-    end
-    if Angleur_TinyOptions.loginDisabled == nil then
-        Angleur_TinyOptions.loginDisabled = false
-    end
-    if Angleur_TinyOptions.errorsDisabled == nil then
-        Angleur_TinyOptions.errorsDisabled = true
-    end
-
-    if AngleurMinimapButton.hide == nil then
-        AngleurMinimapButton.hide = false
-    end
-
-    if AngleurTutorial.part == nil then
-        AngleurTutorial.part = 1
-    end
-end
 
 local function SetOverrideBinding_Custom(owner, isPriority, key, command)
     if not key then return end
@@ -111,13 +17,6 @@ local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
     if not key then return end
     SetOverrideBindingSpell(owner, isPriority, key, spell)
 end
-
-
-function Angleur_RaiseError(value)
-    error("Angleur ERROR pertaining to:")
-    DevTools_Dump(value)
-end
-
 
 function Angleur_OnLoad(self)
     self.toyButton:SetAttribute("type", "macro")
@@ -155,7 +54,7 @@ function Angleur_EventLoader(self, event, unit, ...)
     if event == "ADDON_LOADED" and unit == "Angleur" then
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
-        self.visual.texture:SetTexture("Interface/AddOns/AngleurClassic/imagesClassic/UI_Profession_Fishing")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
         local color1 = CreateColor(1.0, 0.82, 0.0)
@@ -440,6 +339,13 @@ logicVarFrame:SetScript("OnEvent", Angleur_LogicVariableHandler)
 --***********[~]**********
 --**Functions that check Auras**
 --***********[~]**********
+
+local auraIDHolders = {
+    raft,
+    oversizedBobber,
+    crateBobber
+}
+
 local rafted = false
 local oversizedBobbered = false
 local crateBobbered = false
@@ -544,7 +450,7 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
     if midFishing then
         SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-        self.visual.texture:SetTexture("Interface/AddOns/AngleurClassic/imagesClassic/misc_arrowlup")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
         Angleur_SetCursorForGamePad(true)
     elseif swimming then
         --print("I am swimming")
@@ -571,11 +477,11 @@ function Angleur_ActionHandler(self)
                 --ALREADY HANDLED WITHIN THE FUNCTION
             elseif iceFishing then
                 SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-                self.visual.texture:SetTexture("Interface/AddOns/AngleurClassic/imagesClassic/misc_arrowlup")
+                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
                 Angleur_SetCursorForGamePad(true)
             else
                 SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-                self.visual.texture:SetTexture("Interface/AddOns/AngleurClassic/imagesClassic/UI_Profession_Fishing")
+                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
             end
         end
     end
@@ -677,7 +583,7 @@ function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then
         --no need to do combat delay, angleur clears override bindings when entering combat anyway
         if not InCombatLockdown() then ClearOverrideBindings(Angleur) end
-        Angleur.visual.texture:SetTexture("Interface/AddOns/AngleurClassic/imagesClassic/UI_Profession_Fishing")
+        Angleur.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
         Angleur.visual.texture:SetDesaturated(true)
         Angleur.configPanel.tab1:DesaturateHierarchy(1)
         Angleur.configPanel.tab2:DesaturateHierarchy(1)
@@ -780,92 +686,3 @@ end
         Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
     end
 ]]--
-    
-function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame, cycleFunk, endFunk)
-    delayFrame:SetScript("OnUpdate", function(self, elapsed)
-        timeElapsed = timeElapsed + elapsed
-        if timeElapsed > elapsedThreshhold then
-            if cycleFunk then
-                if cycleFunk() == true then
-                    print("Breaking delayer")
-                    self:SetScript("OnUpdate", nil)
-                    return
-                end
-            end
-            delay = delay - timeElapsed
-            timeElapsed = 0
-        end
-        
-        if delay <= 0 then
-            self:SetScript("OnUpdate", nil)
-            endFunk()
-            return
-        end
-    end)
-end
-
-angleurCombatDelayFrame = CreateFrame("Frame")
-angleurCombatDelayFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-angleurFunctionsQueueTable = {}
-function Angleur_CombatDelayer(funk)
-    if InCombatLockdown() then
-        --print("triggered")
-        table.insert(angleurFunctionsQueueTable, funk)
-        angleurCombatDelayFrame:SetScript("OnEvent", function()
-            for i, funktion in pairs(angleurFunctionsQueueTable) do
-                funktion()
-                --print("executed: ", funktion)
-            end
-            angleurFunctionsQueueTable = {}
-            angleurCombatDelayFrame:SetScript("OnEvent", nil)
-        end)
-    else
-        funk()
-    end
-end
-
-function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePool, cycleFunk, endFunk)
-    local delayFrame = delayFramePool:Acquire()
-    delayFrame:Show()
-    delayFrame:SetScript("OnUpdate", function(self, elapsed)
-        timeElapsed = timeElapsed + elapsed
-        if timeElapsed > elapsedThreshhold then 
-            if cycleFunk then 
-                if cycleFunk() == true then  
-                    delayFramePool:Release(self)
-                    return
-                end
-            end
-            delay = delay - timeElapsed
-            timeElapsed = 0
-        end
-        if delay <= 0 then
-            if endFunk then endFunk() end
-            delayFramePool:Release(self)
-            return
-        end
-    end)
-end
-
-function Angleur_BetaPrint(text, ...)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        print(text, ...)
-    end
-end
-
-function Angleur_BetaDump(dump)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        DevTools_Dump(dump)
-    end
-end
-
-function Angleur_BetaTableToString(tbl)
-    if Angleur_TinyOptions.errorsDisabled == false then
-        local tableToString = ""
-        for i, v in pairs(tbl) do
-            local element = "[" .. tostring(i) .. ":" .. tostring(v) .. "]"
-            tableToString = tableToString .. "  " .. element
-        end
-        print(tableToString)
-    end
-end

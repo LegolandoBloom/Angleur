@@ -1,6 +1,18 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
 
+AngleurItemsCata = {}
+local cata = AngleurItemsCata
+
+function cata:AdjustCloseButton(extraItemsFrame)
+    extraItemsFrame.first.closeButton:SetSize(29, 31)
+    extraItemsFrame.first.closeButton:AdjustPointsOffset(2, 2)
+    extraItemsFrame.second.closeButton:SetSize(29, 31)
+    extraItemsFrame.second.closeButton:AdjustPointsOffset(2, 2)
+    extraItemsFrame.third.closeButton:SetSize(29, 31)
+    extraItemsFrame.third.closeButton:AdjustPointsOffset(2, 2)
+end
+
 angleurItems = {
     baitPossibilities = {
         {itemID = 111111}, 
@@ -22,46 +34,12 @@ angleurItems = {
     selectedBaitTable = {name = 0, itemID = 0, icon = 0, hasItem = false, loaded = false, dropDownID = 0}
 }
 
-function Angleur_LoadItems()
-    GetTimePreciseSec()
-    Angleur_RequestItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
-end
-
-
-function Angleur_RequestItems(selectedItemTable, ownedItemsTable, possibilityTable)
-    local requestFrame = CreateFrame("Frame")
-    requestFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
-    requestFrame:SetScript("OnEvent", function(self, event, itemID, success) 
-        if event ~= "ITEM_DATA_LOAD_RESULT" then return end
-        local allTrue = true
-        for i, item in pairs(possibilityTable) do
-            if item.itemID == itemID then
-                item.loaded = true
-            end
-            if item.loaded ~= true then
-                allTrue = false
-            end
-        end
-        if allTrue == true then
-            self:SetScript("OnEvent", nil)
-            Angleur_CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
-            Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
-        end
-    end)
-    for i, item in pairs(possibilityTable) do
-        item.loaded = false
-        C_Item.RequestLoadItemDataByID(item.itemID)
-    end
-    --if foundUsableItem == false then print("NOTHING FOUND") end
-    return foundUsableItem
-end
-
 local function clearTable(table)
     for i, v in pairs(table) do
         table[i] = nil
     end
 end
-function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
+local function checkOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
     clearTable(ownedItemsTable)
     for i, item in pairs(possibilityTable) do
         if C_Item.IsItemDataCachedByID(item.itemID) then
@@ -74,8 +52,7 @@ function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibility
         end
     end
 end
-
-function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
+local function setSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
     local selection = {}
     local dropDownID
     for i, ownedItem in pairs(ownedItemsTable) do
@@ -94,3 +71,37 @@ function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPla
     selectedItemTable.spellID = selection.spellID
     selectedItemTable.icon = selection.icon
 end
+local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable)
+    local requestFrame = CreateFrame("Frame")
+    requestFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+    requestFrame:SetScript("OnEvent", function(self, event, itemID, success) 
+        if event ~= "ITEM_DATA_LOAD_RESULT" then return end
+        local allTrue = true
+        for i, item in pairs(possibilityTable) do
+            if item.itemID == itemID then
+                item.loaded = true
+            end
+            if item.loaded ~= true then
+                allTrue = false
+            end
+        end
+        if allTrue == true then
+            self:SetScript("OnEvent", nil)
+            checkOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
+            setSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
+        end
+    end)
+    for i, item in pairs(possibilityTable) do
+        item.loaded = false
+        C_Item.RequestLoadItemDataByID(item.itemID)
+    end
+    --if foundUsableItem == false then print("NOTHING FOUND") end
+    return foundUsableItem
+end
+
+function Angleur_LoadItems()
+    GetTimePreciseSec()
+    requestItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
+end
+
+

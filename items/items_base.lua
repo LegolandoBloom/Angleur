@@ -1,6 +1,8 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
 
+local cata = AngleurItemsCata
+
 Angleur_SlottedExtraItems = {
     first = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0, 
@@ -40,6 +42,10 @@ local function initializeSavedItems()
 end
 
 function Angleur_LoadExtraItems(self)
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 2 or gameVersion == 3 then
+        cata:AdjustCloseButton(self)
+    end
     initializeSavedItems()
     for i, slot in pairs(Angleur_SlottedExtraItems) do
         Angleur_SlottedExtraItems[i].loaded = false

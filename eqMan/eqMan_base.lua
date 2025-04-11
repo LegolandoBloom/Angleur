@@ -40,6 +40,40 @@ function Angleur_CreateSetAndAdd_UpdateState()
     end
 end
 
+local function checkSlottedExtraItems()
+    for i, slot in pairs(Angleur_SlottedExtraItems) do
+        if slot.itemID ~= 0 then
+            if C_Item.IsEquippableItem(slot.itemID) then 
+                ---------------------------
+                --Needed for Classic(Era)--
+                ---------------------------
+                if not (C_Item.GetItemCount(slot.itemID) >= 1) then
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
+                else
+                    return true
+                end
+                ---------------------------
+                ---------------------------
+                ---------------------------
+            end
+        elseif slot.macroItemID ~= 0 then
+            if C_Item.IsEquippableItem(slot.macroItemID) then
+                ---------------------------
+                --Needed for Classic(Era)--
+                ---------------------------
+                if not (C_Item.GetItemCount(slot.macroItemID) >= 1) then
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
+                else
+                    return true
+                end
+                ---------------------------
+                ---------------------------
+                ---------------------------
+            end
+        end
+    end
+    return false
+end
 function Angleur_CreateEquipmentSet()
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 3 then
@@ -51,11 +85,9 @@ function Angleur_CreateEquipmentSet()
         end
     end
 
-
     local setID 
     if not C_EquipmentSet.GetEquipmentSetID("Angleur") then
         local iconID
-        local gameVersion = Angleur_CheckVersion()
         if gameVersion == 1 then
             iconID = 4620674
         elseif gameVersion == 2 or gameVersion == 3 then
@@ -77,6 +109,9 @@ function Angleur_CreateEquipmentSet()
         print("For passive items you'd like to add to your fishing gear, you can use the game's " 
         .. colorYellow:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set")
         AngleurCharacter.angleurSet = true
+    end
+    if gameVersion == 3 then
+        Angleur_AddToEquipmentSet()
     end
 end
 
@@ -114,11 +149,13 @@ end
 --**********************[1]************************
 
 local function showAndPlayAnimation()
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 3 then return end
     if not CharacterFrame:IsShown() then
         ToggleCharacter("PaperDollFrame")
     end
     PaperDollFrame_SetSidebar(PaperDollFrame, 3)
-    if Angleur_CheckVersion() == 1 then retail:showShiny() end
+    if gameVersion == 1 then retail:showShiny() end
 end
 -- When player manually changes items, add them to the 'Angleur_SwapoutItemsSaved' regardless of sleep state
 local updatingSet = false
@@ -150,40 +187,7 @@ equipmentChangeTrackFrame:SetScript("OnEvent", function(self, event, slot, empty
 end)
 
 
-local function checkSlottedExtraItems()
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
-        if slot.itemID ~= 0 then
-            if C_Item.IsEquippableItem(slot.itemID) then 
-                ---------------------------
-                --Needed for Classic(Era)--
-                ---------------------------
-                if not (C_Item.GetItemCount(slot.itemID) >= 1) then
-                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
-                else
-                    return true
-                end
-                ---------------------------
-                ---------------------------
-                ---------------------------
-            end
-        elseif slot.macroItemID ~= 0 then
-            if C_Item.IsEquippableItem(slot.macroItemID) then 
-                ---------------------------
-                --Needed for Classic(Era)--
-                ---------------------------
-                if not (C_Item.GetItemCount(slot.macroItemID) >= 1) then
-                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("checkSlottedExtraItems ") .. ": not in bags")
-                else
-                    return true
-                end
-                ---------------------------
-                ---------------------------
-                ---------------------------
-            end
-        end
-    end
-    return false
-end
+
 
 -- Will periodically call 'Equip Item' for items in wantToEquip until it's empty(all items have been equipped)
 local wantToEquip = {}
