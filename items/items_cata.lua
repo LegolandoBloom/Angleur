@@ -39,7 +39,7 @@ local function clearTable(table)
         table[i] = nil
     end
 end
-local function checkOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
+function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
     clearTable(ownedItemsTable)
     for i, item in pairs(possibilityTable) do
         if C_Item.IsItemDataCachedByID(item.itemID) then
@@ -52,7 +52,7 @@ local function checkOwnedItems(selectedItemTable, ownedItemsTable, possibilityTa
         end
     end
 end
-local function setSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
+function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
     local selection = {}
     local dropDownID
     for i, ownedItem in pairs(ownedItemsTable) do
@@ -87,8 +87,8 @@ local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable
         end
         if allTrue == true then
             self:SetScript("OnEvent", nil)
-            checkOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
-            setSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
+            Angleur_CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
+            Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
         end
     end)
     for i, item in pairs(possibilityTable) do

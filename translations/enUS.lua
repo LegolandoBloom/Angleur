@@ -4,9 +4,12 @@ local T = Angleur_Translate
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorWhite = CreateColor(1, 1, 1)
+local colorGreen = CreateColor(0, 1, 0)
+local colorPurple = CreateColor(0.64, 0.3, 0.71)
+local colorBrown = CreateColor(0.67, 0.41, 0)
 
 --Angleur.xml
-
 T["Ultra Focus:"] = "Ultra Focus:"
 T["You can drag and place this anywhere on your screen"] = "You can drag and place this anywhere on your screen"
 T["FISHING METHOD:"] = "FISHING METHOD:"
@@ -27,10 +30,69 @@ T["The next key you press\nwill be set as Angleur Key"] = "The next key you pres
 T["Having Problems?"] = "Having Problems?"
 T["Angleur Warning: Plater"] = "Angleur Warning: Plater"
 T["Okay"] = "Okay"
+T["  Extra  "] = "  Extra  "
+T["  Tiny  "] = "  Tiny  "
+T["Standard"] = "Standard"
+    --Angleur.xml->Tooltips
+    T["Angleur Visual Button"] = "Angleur Visual Button"
+    T["Shows what your next key press\nwill do. Not meant to be clicked."] = "Shows what your next key press\nwill do. Not meant to be clicked."
+    T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")] = "Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")
+    T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")] = "Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")
+    T["One-Key NOT SET! To set,\nopen config menu with:"] = "One-Key NOT SET! To set,\nopen config menu with:"
+    T[" or\n"] = " or\n"
+    T["Right Click to temporarily put Angleur to sleep. zzz..."] = "Right Click to temporarily put Angleur to sleep. zzz..."
+    T["Sleeping. Zzz...\n"] = "Sleeping. Zzz...\n"
+    T["\nRight-Click"] = "\nRight-Click"
+    T["\nto wake Angleur!"] = "\nto wake Angleur!"
+    T["One-Key Fishing Mode"] = "One-Key Fishing Mode"
+    
+    T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+    .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
+    .. "using \none button."] = colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+    .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
+    .. "using \none button."
+    
+    T["Set your desired key by: "] = "Set your desired key by: "
+    T["Clicking on the button\nthat appears below\nonce this option is selected."] = "Clicking on the button\nthat appears below\nonce this option is selected."
+    T["Double-Click Fishing Mode"] = "Double-Click Fishing Mode"
+    T["Fish, reel, cast toys, items & macros using double mouse clicks!\n"] = "Fish, reel, cast toys, items & macros using double mouse clicks!\n"
+    T["Select which mouse button by:"] = "Select which mouse button by:"
+    T["Not every toy will work!"] = "Not every toy will work!"
+    T["Extra Toys is a feature meant to provide flexible user customization, but not every toy is" 
+    .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine."
+    .. " Test them out, experiment and have fun!\n"] = "Extra Toys is a feature meant to provide flexible user customization, but not every toy is" 
+    .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine."
+    .. " Test them out, experiment and have fun!\n"
+    T["Fun toy recommendations from mod author, Legolando:"] = "Fun toy recommendations from mod author, Legolando:"
+    T["1) Tents such as Gnoll Tent to protect yourself from the sun as you fish."
+    .. "\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably."
+    .. "\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!"] = "1) Tents such as Gnoll Tent to protect yourself from the sun as you fish."
+    .. "\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably."
+    .. "\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!"
+    T["Beta: " .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
+    .. "/reload."] = "Beta: " .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
+    .. "/reload."
+    T["Reset Angleur Set"] = "Reset Angleur Set"
+    --Cata
+    T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"] = colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"
+    T["\nor"] = "\nor"
+    T["Note for Cata:"] = "Note for Cata:"
+    T["Mouseover the bobber\nto reel consistently."] = "Mouseover the bobber\nto reel consistently."
+    T["(If it lands too far, the\nsoft-interact will miss it.)"] = "(If it lands too far, the\nsoft-interact will miss it.)"
+    T["Key set to "] = "Key set to "
+    --Vanilla
+    T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+    .. "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") 
+    .. "using \none button."] = colorBlu:WrapTextInColorCode("Cast ") .. ", "
+    .. colorBlu:WrapTextInColorCode("Reel ") .. "and " 
+    .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") .. "using \none button."
 
+    T["Note for Classic:"] = "Note for Classic:"
+    T[colorBlu:WrapTextInColorCode("Cast ") .. "your rod and " .. colorBlu:WrapTextInColorCode("use Items/Macros ") 
+    .. "using\ndouble mouse clicks!\n"] = colorBlu:WrapTextInColorCode("Cast ") .. "your rod and "
+    .. colorBlu:WrapTextInColorCode("use Items/Macros ") .. "using\ndouble mouse clicks!\n"
 
 --extra.lua
-
 T["Extra Toys"] = "Extra Toys"
 T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
 .. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
@@ -44,7 +106,6 @@ T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:
 
 
 --standard.lua
-
 T["Raft"] = "Raft"
 T["Couldn't find any rafts \n in toybox, feature disabled"] = "Couldn't find any rafts \n in toybox, feature disabled"
 T["Oversized Bobber"] = "Oversized Bobber"
@@ -74,7 +135,6 @@ T["Right Click"] = "Right Click"
 
 
 --tabs-general.lua
-
 T[colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."] = colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."
 T["You can re-enable it from the"] = "You can re-enable it from the"
 T[colorYello:WrapTextInColorCode("Config Menu ") .. "accessed by: " 
@@ -86,7 +146,6 @@ T[colorYello:WrapTextInColorCode("Config Menu ") .. "accessed by: "
 
 
 --tiny.lua
-
 T["Disable Soft Interact"] = "Disable Soft Interact"
 
 T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
@@ -122,3 +181,63 @@ T["Double Click Window"] = "Double Click Window"
 T["Visual Size"] = "Visual Size"
 T["Master Volume(Ultra Focus)"] = "Master Volume(Ultra Focus)"
 T["Login Messages"] = "Login Messages"
+
+
+--firstInstall
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ")
+.. "detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."
+
+T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") .. "General Settings" 
+.. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"] = "Plater " .. colorYello:WrapTextInColorCode("-> ") 
+.. "Advanced " .. colorYello:WrapTextInColorCode("-> ") .. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"
+
+T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") 
+.. "for Angleur to function properly."] = "Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to function properly."
+
+T[colorYello:WrapTextInColorCode("To Get Started:\n\n") .. "Choose your desired\n"
+.. colorBlu:WrapTextInColorCode("Fishing Method") .. " by\nclicking one of these buttons.\n\n"] = colorYello:WrapTextInColorCode("To Get Started:\n\n") 
+.. "Choose your desired\n" .. colorBlu:WrapTextInColorCode("Fishing Method") .. " by\nclicking one of these buttons.\n\n"
+
+T[colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Visual:\n\n") .. "Shows what your next input will do.\n" 
+.. "Drag and place it anywhere you might like.\n\n" .. "You can also hide it by clicking its close button."] = colorBlu:WrapTextInColorCode("Angleur ") 
+.. colorYello:WrapTextInColorCode("Visual:\n\n") .. "Shows what your next input will do.\n" 
+.. "Drag and place it anywhere you might like.\n\n" .. "You can also hide it by clicking its close button."
+
+T["Angleur works on a " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "system, so you don't have to reload your UI after you're done fishing.\n\n"
+.. colorBlu:WrapTextInColorCode("Right Click ")
+.. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button."] = "Angleur works on a " 
+.. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "system, so you don't have to reload your UI after you're done fishing.\n\n"
+.. colorBlu:WrapTextInColorCode("Right Click ") .. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button."
+
+T["You can enable\n\nRafts,\n\nBobbers,\n\nand Ultra Focus(Audio/Temporary Auto Loot)\n\nby checking these boxes."] = "You can enable\n\nRafts,\n\nBobbers,\n\nand Ultra Focus(Audio/Temporary Auto Loot)\n\nby checking these boxes."
+
+T["Now, let's move to the " .. colorYello:WrapTextInColorCode("Extra ") .. "Tab. Click here."] = "Now, let's move to the " 
+.. colorYello:WrapTextInColorCode("Extra ") .. "Tab. Click here."
+
+T[colorPurple:WrapTextInColorCode("Extra Toys\n\n")  .. "You can select a toy from the " .. colorYello:WrapTextInColorCode("Toy Box ") 
+.. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n"
+.. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!"] = colorPurple:WrapTextInColorCode("Extra Toys\n\n")  
+.. "You can select a toy from the " .. colorYello:WrapTextInColorCode("Toy Box ") 
+.. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n"
+.. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!"
+
+T[colorBrown:WrapTextInColorCode("Extra Items/Macros\n\n")  .. "You can " .. colorYello:WrapTextInColorCode("Drag ") 
+.. "items or macros here to add them to your Angleur rotation.\n\n" .. "These can be fishing hats, throwable fish, spells...\n\n" 
+.. "You can even set custom timers for them by clicking the " .. colorYello:WrapTextInColorCode("stopwatch ") 
+.. "icon that appears once you slot an item/macro.\n\nClick " 
+.. colorYello:WrapTextInColorCode("Okay ") .. "to move on."] = colorBrown:WrapTextInColorCode("Extra Items/Macros\n\n")  
+.. "You can " .. colorYello:WrapTextInColorCode("Drag ") .. "items or macros here to add them to your Angleur rotation.\n\n" 
+.. "These can be fishing hats, throwable fish, spells...\n\n" .. "You can even set custom timers for them by clicking the "
+.. colorYello:WrapTextInColorCode("stopwatch ") .. "icon that appears once you slot an item/macro.\n\nClick "
+.. colorYello:WrapTextInColorCode("Okay ") .. "to move on."
+
+T["Click here if you need an example & explanation of use of macros for Angleur!"] = "Click here if you need an example & explanation of use of macros for Angleur!"
+
+T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "button Creates an item set for you and automatically adds your " 
+.. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " 
+.. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " 
+.. colorYello:WrapTextInColorCode("sleep.")] = "And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") 
+.. "button Creates an item set for you and automatically adds your " 
+.. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " 
+.. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " 
+.. colorYello:WrapTextInColorCode("sleep.")
