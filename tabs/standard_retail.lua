@@ -105,7 +105,7 @@ function retail:ExtraButtons(tab1contents)
         tab1contents.raftEnable:SetChecked(true)
         tab1contents.raftEnable.dropDown:Show()
     end
-    DropDown_CreateTitle(tab1contents.raftEnable.dropDown, "Rafts")
+    DropDown_CreateTitle(tab1contents.raftEnable.dropDown, T["Rafts"])
     
     tab1contents.oversizedBobberEnable.text:SetText(T["Oversized Bobber"])
     tab1contents.oversizedBobberEnable:reposition()
