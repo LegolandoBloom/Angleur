@@ -55,7 +55,7 @@ T["Standard"] = "Standard"
     T["Set your desired key by: "] = "Set your desired key by: "
     T["Clicking on the button\nthat appears below\nonce this option is selected."] = "Clicking on the button\nthat appears below\nonce this option is selected."
     T["Double-Click Fishing Mode"] = "Double-Click Fishing Mode"
-    T["Fish, reel, cast toys, items & macros using double mouse clicks!\n"] = "Fish, reel, cast toys, items & macros using double mouse clicks!\n"
+    T["Fish, Reel, cast Toys, Items and Macros using double mouse clicks!\n"] = "Fish, Reel, cast Toys, Items and Macros using double mouse clicks!\n"
     T["Select which mouse button by:"] = "Select which mouse button by:"
     T["Not every toy will work!"] = "Not every toy will work!"
     T["Extra Toys is a feature meant to provide flexible user customization, but not every toy is" 
@@ -80,6 +80,7 @@ T["Standard"] = "Standard"
     T["Mouseover the bobber\nto reel consistently."] = "Mouseover the bobber\nto reel consistently."
     T["(If it lands too far, the\nsoft-interact will miss it.)"] = "(If it lands too far, the\nsoft-interact will miss it.)"
     T["Key set to "] = "Key set to "
+    T["Fish, cast Toys, Items and Macros using double mouse clicks!\n"] = "Fish, cast Toys, Items and Macros using double mouse clicks!\n"
     --Vanilla
     T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
     .. "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") 

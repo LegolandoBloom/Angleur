@@ -412,8 +412,7 @@
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
                                                             GameTooltip:SetPadding(400, 300)
                                                             GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(T["Fish, reel, cast toys using double mouse clicks!\n"], 1, 1, 1, true)
-                                                            GameTooltip:Show()
+                                                            GameTooltip:AddLine(T["Fish, Reel, cast Toys, Items and Macros using double mouse clicks!\n"], 1, 1, 1, true)                                                            GameTooltip:Show()
                                                         end
                                                     </OnEnter>
                                                     <OnLeave>
