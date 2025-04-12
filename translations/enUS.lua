@@ -255,3 +255,10 @@ T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "butt
 .. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " 
 .. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " 
 .. colorYello:WrapTextInColorCode("sleep.")
+
+--thanks
+T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi ")
+.. "or " .. colorYello:WrapTextInColorCode("Patreon!")] = "You can support the project\nby donating on " 
+.. colorYello:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYello:WrapTextInColorCode("Patreon!")
+
+T["THANK YOU!"] = "THANK YOU!"

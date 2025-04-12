@@ -1,4 +1,4 @@
-
+local T = Angleur_Translate
 
 local logoTable = {
     youtube = "Interface/AddOns/Angleur/images/youtube.png",
@@ -51,8 +51,8 @@ function Angleur_Thanks_OnLoad(self)
         self.thanksFrame:Hide()
     end)
     local colorYellow = CreateColor(1.0, 0.82, 0.0)
-    self.thanksFrame.title:SetText("THANK YOU!")
-    self.thanksFrame.supportMe:SetText("You can support the project\nby donating on " .. colorYellow:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYellow:WrapTextInColorCode("Patreon!"))
+    self.thanksFrame.title:SetText(T["THANK YOU!"])
+    self.thanksFrame.supportMe:SetText(T["You can support the project\nby donating on " .. colorYellow:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYellow:WrapTextInColorCode("Patreon!")])
     self.thanksFrame.supportMe:SetJustifyH("LEFT")
     iterateAndAdd(self.thanksFrame, self.thanksFrame.supporters)
     --self.thanksFrame.supporters:SetText("T3chnological")
