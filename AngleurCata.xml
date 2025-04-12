@@ -394,7 +394,6 @@
                                                     <OnEnter>
                                                         if not self:IsDragging() then
                                                             local T = Angleur_Translate
-                                                            local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
                                                             GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
                                                             GameTooltip:AddLine(T["Fish, cast Toys, Items and Macros using double mouse clicks!\n"], 1, 1, 1, true)
