@@ -291,7 +291,7 @@
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             local colorPurple = CreateColor(0.64, 0.3, 0.71)
                                                             GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+                                                            GameTooltip:AddLine(T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
                                                             .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
                                                             .. "using \none button."], 1, 1, 1, true)
                                                             GameTooltip:AddLine(T["Set your desired key by: "], 0.6, 0.85, 0.91, true)
