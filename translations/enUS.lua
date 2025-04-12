@@ -105,6 +105,12 @@ T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:
     colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
     colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."
 
+T["Set Timer"] = "Set Timer"
+T["Toggle Equipment"] = "Toggle Equipment"
+T["Toggle Bags"] = "Toggle Bags"
+T["Open Macros"] = "Open Macros"
+
+
 
 --standard.lua
 T["Raft"] = "Raft"

@@ -154,6 +154,9 @@
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-3" y="4"/>
                 </Anchors>
+                <KeyValues>
+                    <KeyValue key="tooltipText" value="Set Timer" type="string"/>
+                </KeyValues>
                 <Scripts>
                     <OnLoad>
                         self.icon:SetTexture("Interface/AddOns/Angleur/images/timeIcon.png")
@@ -165,7 +168,7 @@
                         self.inputBoxes:Show()
                         self.inputBoxes:Raise()
                         GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
-                        GameTooltip:AddLine("Set Timer", 1, 0.82, 0)
+                        GameTooltip:AddLine(self.tooltipText, 1, 0.82, 0)
                         GameTooltip:Show()
                     </OnEnter>
                     <OnLeave>

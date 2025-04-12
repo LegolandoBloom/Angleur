@@ -549,7 +549,7 @@
                                             <KeyValue key="iconSize" value="26" type="number"/>
                                             <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
                                             <KeyValue key="tooltipAnchor" value="ANCHOR_BOTTOMRIGHT" type="string"/>
-				                            <KeyValue key="tooltipText" value="Open Equipment" type="string"/>
+				                            <KeyValue key="tooltipText" value="Toggle Equipment" type="string"/>
                                         </KeyValues>
                                         <Scripts>
                                             <OnClick>
