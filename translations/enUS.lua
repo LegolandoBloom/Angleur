@@ -182,9 +182,16 @@ T["Double Click Window"] = "Double Click Window"
 T["Visual Size"] = "Visual Size"
 T["Master Volume(Ultra Focus)"] = "Master Volume(Ultra Focus)"
 T["Login Messages"] = "Login Messages"
+T["Debug Mode"] = "Debug Mode"
 
 
 --firstInstall
+T["Angleur Warning"] = "Angleur Warning"
+T["Are you sure you want to abandon the tutorial?"] = "Are you sure you want to abandon the tutorial?"
+T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"] = "(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"
+T["Yes"] = "Yes"
+T["No"] = "No"
+
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ")
 .. "detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."
 

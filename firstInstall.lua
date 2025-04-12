@@ -63,9 +63,15 @@ end
 local alreadySet = false
 function Angleur_FirstInstall()
     if alreadySet == false then
+        
         angleurHelpTip = CreateFrame("Frame", "Angleur_HelpTip", Angleur.configPanel, "Angleur_HelpTipTemplate")
-
+        
         angleurHelpTipCloseWarning = CreateFrame("Frame", "Angleur_HelpTip_CloseWarning", UIParent, "Angleur_HelpTipCloseWarning")
+        angleurHelpTipCloseWarning.TitleText:SetText(T["Angleur Warning"])
+        angleurHelpTipCloseWarning.mainText:SetText(T["Are you sure you want to abandon the tutorial?"])
+        angleurHelpTipCloseWarning.otherText:SetText(T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"])
+        angleurHelpTipCloseWarning.yesButton:SetText(colorYellow:WrapTextInColorCode(T["Yes"]))
+        angleurHelpTipCloseWarning.noButton:SetText(colorYellow:WrapTextInColorCode(T["No"]))
         angleurHelpTip:AttachWarning(angleurHelpTipCloseWarning)
 
         angleurHelpTip.savedTable = AngleurTutorial

@@ -1,10 +1,16 @@
 Angleur_HelpTipCloseButtonMixin = CreateFromMixins(ButtonStateBehaviorMixin);
 
+local atlas
+if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
+	atlas = "uitools-icon-close"
+elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+	atlas = "simplecheckout-close-normal-1x"
+end
 function Angleur_HelpTipCloseButtonMixin:GetAtlas()
 	if self:IsDown() then
-		return "uitools-icon-close";
+		return atlas;
 	end
-	return "uitools-icon-close";
+	return atlas;
 end
 
 function Angleur_HelpTipCloseButtonMixin:OnButtonStateChanged()

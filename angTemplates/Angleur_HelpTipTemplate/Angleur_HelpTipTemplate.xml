@@ -7,12 +7,12 @@
         </Anchors>
         <Scripts>
             <OnLoad>
-                self.TitleText:SetText("Angleur Warning")
+                <!-- self.TitleText:SetText("Angleur Warning")
                 self.mainText:SetText("Are you sure you want to abandon the tutorial?")
                 self.otherText:SetText("(You can redo it later by clicking the Redo Button\nin the Tiny Panel)")
                 local colorYellow = CreateColor(1.0, 0.82, 0.0)
                 self.yesButton:SetText(colorYellow:WrapTextInColorCode("Yes"))
-                self.noButton:SetText(colorYellow:WrapTextInColorCode("No"))
+                self.noButton:SetText(colorYellow:WrapTextInColorCode("No")) -->
             </OnLoad>
         </Scripts>
     </Frame>
