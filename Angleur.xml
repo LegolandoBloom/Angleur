@@ -187,7 +187,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "Standard"
+                                self.tabText = Angleur_Translate["Standard"]
                                 self:OnLoad()
                                 self:SetSelected(true)
                                 Angleur_TabSystem(self)
@@ -288,8 +288,12 @@
                                                             local T = Angleur_Translate
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
                                                             GameTooltip:SetPadding(200, 300)
+                                                            local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                                                            local colorPurple = CreateColor(0.64, 0.3, 0.71)
                                                             GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(T["Fish, reel, cast toys using \none button!\n"], 1, 1, 1, true)
+                                                            GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+                                                            .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
+                                                            .. "using \none button."], 1, 1, 1, true)
                                                             GameTooltip:AddLine(T["Set your desired key by: "], 0.6, 0.85, 0.91, true)
                                                             GameTooltip:AddLine(T["Clicking on the button\nthat appears below\nonce this option is selected."], 1, 1, 1, true)
                                                             GameTooltip:Show()
@@ -409,8 +413,6 @@
                                                             GameTooltip:SetPadding(400, 300)
                                                             GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
                                                             GameTooltip:AddLine(T["Fish, reel, cast toys using double mouse clicks!\n"], 1, 1, 1, true)
-                                                            GameTooltip:AddLine(T["Select which mouse button by:"], 0.6, 0.85, 0.91, true)
-                                                            GameTooltip:AddLine(T["Clicking on the box that appears below once this option is selected.\n"], 1, 1, 1, true)
                                                             GameTooltip:Show()
                                                         end
                                                     </OnEnter>
@@ -512,7 +514,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Extra  "
+                                self.tabText = Angleur_Translate["  Extra  "]
                                 self:OnLoad()
                                 Angleur_SetTab2(self)
                             </OnLoad>
@@ -696,7 +698,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Tiny  "
+                                self.tabText = Angleur_Translate["  Tiny  "]
                                 self:OnLoad()
                             </OnLoad>
                             <OnClick>

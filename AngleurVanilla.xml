@@ -30,33 +30,34 @@
                     <OnEnter>
                         self.closeButton:Show()
                         if not self:IsDragging() then
+                            local T = Angleur_Translate
                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                             local colorWhite = CreateColor(1, 1, 1)
                             if AngleurCharacter.sleeping == false then
-                                GameTooltip:AddLine("Angleur Visual Button", 0.6, 0.85, 0.91)
-                                GameTooltip:AddLine("Shows what your next key press\nwill do. Not meant to be clicked.", 1, 1, 1, true)
+                                GameTooltip:AddLine(T["Angleur Visual Button"], 0.6, 0.85, 0.91)
+                                GameTooltip:AddLine(T["Shows what your next key press\nwill do. Not meant to be clicked."], 1, 1, 1, true)
                                 GameTooltip:AddLine(" ")
                                 if AngleurConfig.chosenMethod == "doubleClick" then
-                                    GameTooltip:AddLine("Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n"), 1, 1, 1)
+                                    GameTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")], 1, 1, 1)
                                 elseif AngleurConfig.chosenMethod == "oneKey" then
-                                    GameTooltip:AddLine("Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key"), 1, 1, 1)
+                                    GameTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")], 1, 1, 1)
                                     if AngleurConfig.angleurKey then
-                                        GameTooltip:AddLine(colorWhite:WrapTextInColorCode("Key set to ") .. AngleurConfig.angleurKey .. "\n ")
+                                        GameTooltip:AddLine(colorWhite:WrapTextInColorCode(T["Key set to "]) .. AngleurConfig.angleurKey .. "\n ")
                                     else
-                                        GameTooltip:AddLine("One-Key NOT SET! To set,\nopen config menu with:", 1, 0, 0, true)
+                                        GameTooltip:AddLine(T["One-Key NOT SET! To set,\nopen config menu with:"], 1, 0, 0, true)
                                         GameTooltip:AddLine("/angleur")
-                                        GameTooltip:AddLine(" or\n", 1, 1, 1, true)
+                                        GameTooltip:AddLine(T[" or\n"], 1, 1, 1, true)
                                         GameTooltip:AddLine("/angang\n ")
                                     end
                                 end
-                                GameTooltip:AddLine("Right Click to temporarily put Angleur to sleep. zzz...", 0.8, 0.8, 0.8, true)
+                                GameTooltip:AddLine(T["Right Click to temporarily put Angleur to sleep. zzz..."], 0.8, 0.8, 0.8, true)
                             elseif AngleurCharacter.sleeping == true then
-                                GameTooltip:AddLine("Sleeping. Zzz...\n", 1, 1, 1, true)
-                                GameTooltip:AddLine(colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")
-                                GameTooltip:AddLine("\nor", 1, 1, 1)
-                                GameTooltip:AddLine("\nRight-Click")
-                                GameTooltip:AddLine("\nto wake Angleur!", 1, 1, 1, true)
+                                GameTooltip:AddLine(T["Sleeping. Zzz...\n"], 1, 1, 1, true)
+                                GameTooltip:AddLine(T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"])
+                                GameTooltip:AddLine(T["\nor"], 1, 1, 1)
+                                GameTooltip:AddLine(T["\nRight-Click"])
+                                GameTooltip:AddLine(T["\nto wake Angleur!"], 1, 1, 1, true)
                                 self.sleep:SetPoint("TOPRIGHT", "GameTooltip", "TOPRIGHT", -15, 0)
                                 self.sleep:Show()
                             end
@@ -188,7 +189,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "Standard"
+                                self.tabText = Angleur_Translate["Standard"]
                                 self:OnLoad()
                                 self:SetSelected(true)
                                 Angleur_TabSystem(self)
@@ -269,14 +270,15 @@
                                                     <OnClick function="Angleur_FishingMethodOnClick"/>
                                                     <OnEnter>
                                                         if not self:IsDragging() then
+                                                            local T = Angleur_Translate
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
-                                                            GameTooltip:AddLine("One-Key Fishing Mode", 1.0, 0.82, 0.0, true)
+                                                            GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
                                                             GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") .. 
                                                             "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") .. "using \none button.", 1, 1, 1)
-                                                            GameTooltip:AddLine("Note for Classic:")
-                                                            GameTooltip:AddLine("Mouseover the bobber\nto reel consistently.", 1, 1, 1)
-                                                            GameTooltip:AddLine("(If it lands too far, the\nsoft-interact will miss it.)", 0.8, 0.8, 0.8)
+                                                            GameTooltip:AddLine(T["Note for Classic:"])
+                                                            GameTooltip:AddLine(T["Mouseover the bobber\nto reel consistently."], 1, 1, 1)
+                                                            GameTooltip:AddLine(T["(If it lands too far, the\nsoft-interact will miss it.)"], 0.8, 0.8, 0.8)
                                                             GameTooltip:Show()
                                                         end
                                                     </OnEnter>
@@ -389,11 +391,11 @@
                                                     <OnClick function="Angleur_FishingMethodOnClick"/>
                                                     <OnEnter>
                                                         if not self:IsDragging() then
+                                                            local T = Angleur_Translate
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
-                                                            GameTooltip:AddLine("Double-Click Fishing Mode", 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. "your rod and " .. colorBlu:WrapTextInColorCode("use Items/Macros ") .. "using\ndouble mouse clicks!\n", 1, 1, 1, true)
-                                                            local color = CreateColor(1, 0, 0)
+                                                            GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
+                                                            GameTooltip:AddLine(T[colorBlu:WrapTextInColorCode("Cast ") .. "your rod and " .. colorBlu:WrapTextInColorCode("use Items/Macros ") .. "using\ndouble mouse clicks!\n"], 1, 1, 1, true)
                                                             GameTooltip:Show()
                                                         end
                                                     </OnEnter>
@@ -495,7 +497,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Extra  "
+                                self.tabText = Angleur_Translate["  Extra  "]
                                 self:OnLoad()
                                 Angleur_SetTab2(self)
                             </OnLoad>
@@ -618,7 +620,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Tiny  "
+                                self.tabText = Angleur_Translate["  Tiny  "]
                                 self:OnLoad()
                             </OnLoad>
                             <OnClick>
@@ -812,9 +814,9 @@
             <OnEnter>
                 GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 70)
                 local colorWhite = CreateColor(1, 1, 1)
-                GameTooltip:AddLine("Beta: " 
+                GameTooltip:AddLine(Angleur_Translate["Beta: " 
                 .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
-                .. "/reload.", 1.0, 0.82, 0.0)
+                .. "/reload."], 1.0, 0.82, 0.0)
                 GameTooltip:Show()
             </OnEnter>
             <OnLeave>
@@ -843,7 +845,7 @@
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
-                        GameTooltip:AddLine("Reset Angleur Set", 1.0, 0.82, 0.0)
+                        GameTooltip:AddLine(Angleur_Translate["Reset Angleur Set"], 1.0, 0.82, 0.0)
                         GameTooltip:Show()
                     </OnEnter>
                     <OnLeave>

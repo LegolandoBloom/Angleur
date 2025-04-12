@@ -61,7 +61,7 @@ T["Okay"] = "Okay"
     .. "/reload."
     T["Reset Angleur Set"] = "Reset Angleur Set"
     --Cata
-    T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")] = colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")
+    T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"] = colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"
     T["\nor"] = "\nor"
     T["Note for Cata:"] = "Note for Cata:"
     T["Mouseover the bobber\nto reel consistently."] = "Mouseover the bobber\nto reel consistently."

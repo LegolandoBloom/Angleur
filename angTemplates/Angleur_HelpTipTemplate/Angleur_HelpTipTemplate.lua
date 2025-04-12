@@ -2,9 +2,9 @@ Angleur_HelpTipCloseButtonMixin = CreateFromMixins(ButtonStateBehaviorMixin);
 
 function Angleur_HelpTipCloseButtonMixin:GetAtlas()
 	if self:IsDown() then
-		return "common-icon-yellowx-down";
+		return "uitools-icon-close";
 	end
-	return "common-icon-yellowx";
+	return "uitools-icon-close";
 end
 
 function Angleur_HelpTipCloseButtonMixin:OnButtonStateChanged()

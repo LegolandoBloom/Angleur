@@ -34,6 +34,7 @@
                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                             local colorWhite = CreateColor(1, 1, 1)
+                            if AngleurCharacter.sleeping == false then
                                 GameTooltip:AddLine(T["Angleur Visual Button"], 0.6, 0.85, 0.91)
                                 GameTooltip:AddLine(T["Shows what your next key press\nwill do. Not meant to be clicked."], 1, 1, 1, true)
                                 GameTooltip:AddLine(" ")
@@ -53,7 +54,7 @@
                                 GameTooltip:AddLine(T["Right Click to temporarily put Angleur to sleep. zzz..."], 0.8, 0.8, 0.8, true)
                             elseif AngleurCharacter.sleeping == true then
                                 GameTooltip:AddLine(T["Sleeping. Zzz...\n"], 1, 1, 1, true)
-                                GameTooltip:AddLine(T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n")
+                                GameTooltip:AddLine(T[colorWhite:WrapTextInColorCode("\nEquip a ") .. "Fishing Pole\n"])
                                 GameTooltip:AddLine(T["\nor"], 1, 1, 1)
                                 GameTooltip:AddLine(T["\nRight-Click"])
                                 GameTooltip:AddLine(T["\nto wake Angleur!"], 1, 1, 1, true)
@@ -188,7 +189,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "Standard"
+                                self.tabText = Angleur_Translate["Standard"]
                                 self:OnLoad()
                                 self:SetSelected(true)
                                 Angleur_TabSystem(self)
@@ -271,9 +272,12 @@
                                                         if not self:IsDragging() then
                                                             local T = Angleur_Translate
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                                                            local colorPurple = CreateColor(0.64, 0.3, 0.71)
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
                                                             GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(T["Fish, reel, cast toys using \none button!\n"], 1, 1, 1, true)
+                                                            GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
+                                                            .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
+                                                            .. "using \none button."], 1, 1, 1)
                                                             GameTooltip:AddLine(T["Note for Cata:"])
                                                             GameTooltip:AddLine(T["Mouseover the bobber\nto reel consistently."], 1, 1, 1)
                                                             GameTooltip:AddLine(T["(If it lands too far, the\nsoft-interact will miss it.)"], 0.8, 0.8, 0.8)
@@ -389,12 +393,11 @@
                                                     <OnClick function="Angleur_FishingMethodOnClick"/>
                                                     <OnEnter>
                                                         if not self:IsDragging() then
+                                                            local T = Angleur_Translate
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
                                                             GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
-                                                            GameTooltip:AddLine(T["Fish, reel, cast toys using double mouse clicks!\n"], 1, 1, 1, true)
-                                                            GameTooltip:AddLine(T["Select which mouse button by:"], 0.6, 0.85, 0.91, true)
-                                                            GameTooltip:AddLine(T["Clicking on the box that appears below once this option is selected.\n"], 1, 1, 1, true)
+                                                            GameTooltip:AddLine(T["Fish, reel, cast toys, items & macros using double mouse clicks!\n"], 1, 1, 1, true)
                                                             GameTooltip:Show()
                                                         end
                                                     </OnEnter>
@@ -496,7 +499,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Extra  "
+                                self.tabText = Angleur_Translate["  Extra  "]
                                 self:OnLoad()
                                 Angleur_SetTab2(self)
                             </OnLoad>
@@ -680,7 +683,7 @@
                         </Anchors>
                         <Scripts>
                             <OnLoad>
-                                self.tabText = "  Tiny  "
+                                self.tabText = Angleur_Translate["  Tiny  "]
                                 self:OnLoad()
                             </OnLoad>
                             <OnClick>
