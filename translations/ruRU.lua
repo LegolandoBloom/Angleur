@@ -262,37 +262,38 @@ T["THANK YOU!"] = "СПАСИБО!"
 
 
 --advancedAngling
-T["HOW?"] = "HOW?"
-T["Advanced Angling"] = "Advanced Angling"
+--advancedAngling
+T["HOW?"] = "КАК?"
+T["Advanced Angling"] = "Продвинутая рыбалка"
 
 T[colorBlu:WrapTextInColorCode("Angleur ") 
-.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."
+.. "заставит вас использовать перетаскиваемый предмет/макрос,\nесли все перечисленные ниже условия будут выполнены."] = colorBlu:WrapTextInColorCode("Angleur ") 
+.. "заставит вас использовать перетаскиваемый предмет/макрос,\nесли все перечисленные ниже условия будут выполнены."
 
-T[colorYello:WrapTextInColorCode("Items:\n") .. 
-"- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
-.. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") 
-.. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") 
-.. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
-.. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") 
-.. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") 
-.. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") 
-.. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") 
-.. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
-.. "_____________________________________________"] = colorYello:WrapTextInColorCode("Items:\n") .. 
-"- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
-.. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") 
-.. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") 
-.. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
-.. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") 
-.. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n")
-.. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") 
-.. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") 
-.. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
+T[colorYello:WrapTextInColorCode("Предметы:\n") .. 
+"- Любой используемый предмет из ваших сумок или экипировки персонажа. " .. "\n\n Условия:\n\n   1) "
+.. colorYello:WrapTextInColorCode("Не на перезарядке\n") .. "   2) " .. colorYello:WrapTextInColorCode("Аура не активна") 
+.. " (если присутствует)\n" .. colorYello:WrapTextInColorCode("\nМакросы:\n") 
+.. "- Любой валидный макрос, содержащий заклинание или используемый предмет - /cast или /use. " 
+.. "\n\n Условия:\n\n   1) ".. colorYello:WrapTextInColorCode("Условия макроса ") 
+.. "выполнены\n" .. "   2) Заклинание/предмет " .. colorYello:WrapTextInColorCode("не на перезарядке\n") 
+.. "                    и их\n   3) " .. colorYello:WrapTextInColorCode("Ауры не активны") 
+.. " (если присутствуют)\n\n" .. colorYello:WrapTextInColorCode("ВАЖНО: ") 
+.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот.\n" 
+.. "_____________________________________________"] = colorYello:WrapTextInColorCode("Предметы:\n") .. 
+"- Любой используемый предмет из ваших сумок или экипировки персонажа. " .. "\n\n Условия:\n\n   1) "
+.. colorYello:WrapTextInColorCode("Не на перезарядке\n") .. "   2) " .. colorYello:WrapTextInColorCode("Аура не активна") 
+.. " (если присутствует)\n" .. colorYello:WrapTextInColorCode("\nМакросы:\n") 
+.. "- Любой валидный макрос, содержащий заклинание или используемый предмет - /cast или /use. " 
+.. "\n\n Условия:\n\n   1) ".. colorYello:WrapTextInColorCode("Условия макроса ") 
+.. "выполнены\n" .. "   2) Заклинание/предмет " .. colorYello:WrapTextInColorCode("не на перезарядке\n")
+.. "                    и их\n   3) " .. colorYello:WrapTextInColorCode("Ауры не активны") 
+.. " (если присутствуют)\n\n" .. colorYello:WrapTextInColorCode("ВАЖНО: ") 
+.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот.\n" 
 .. "_____________________________________________"
 
-T["Spell/Item has no Cooldown/Aura?\n"
-.. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "Spell/Item has no Cooldown/Aura?\n" 
-.. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")
+T["У заклинания/предмета нет перезарядки/ауры?\n"
+.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить таймер вручную.\n" 
+.. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")] = "У заклинания/предмета нет перезарядки/ауры?\n" 
+.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить таймер вручную.\n" 
+.. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")
