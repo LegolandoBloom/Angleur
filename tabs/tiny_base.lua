@@ -82,7 +82,7 @@ function Angleur_SetTab3(self)
     end
 
 
-    self.debugMode.text:SetText("Debug Mode")
+    self.debugMode.text:SetText(T["Debug Mode"])
     self.debugMode:reposition()
     --self.debugMode.text:SetFontObject(SpellFont_Small)
     self.debugMode:SetScript("OnClick", function(self)

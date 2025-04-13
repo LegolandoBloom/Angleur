@@ -9,7 +9,7 @@ function AngleurUI_AdvancedAngling()
     end)
     advancedButton.text = advancedButton:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "SplashHeaderFont")
     advancedButton.text:SetPoint("CENTER", advancedButton, "CENTER", 2, -2)
-    advancedButton.text:SetText("HOW?")
+    advancedButton.text:SetText(T["HOW?"])
 
     local advancedPanel = CreateFrame("Frame", "Angleur_AdvancedAnglingPanel", UIParent, "BasicFrameTemplateWithInset")
     tinsert(UISpecialFrames, "Angleur_AdvancedAnglingPanel")
@@ -27,7 +27,7 @@ function AngleurUI_AdvancedAngling()
     advancedPanel:SetScript("OnMouseDown", function(self)
         self:Raise()
     end)
-    advancedPanel.TitleText:SetText("Advanced Angling")
+    advancedPanel.TitleText:SetText(T["Advanced Angling"])
     advancedPanel:SetFrameStrata("HIGH")
     advancedPanel:SetToplevel(true)
     advancedPanel:SetScript("OnShow", function(self)
@@ -48,7 +48,7 @@ function AngleurUI_AdvancedAngling()
     title:SetWordWrap(true)
     title:SetJustifyH("LEFT")
     title:SetJustifyV("TOP")
-    title:SetText(colorBlu:WrapTextInColorCode("Angleur ") .. "will have you cast the dragged item/macro\nif all of their below listed conditions are met.")
+    title:SetText(T[colorBlu:WrapTextInColorCode("Angleur ") .. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."])
 
     local explanation = advancedPanel:CreateFontString(nil, "OVERLAY", "Game15Font")
     explanation:SetPoint("TOPLEFT", title, "BOTTOMLEFT", 0, -20)
@@ -56,15 +56,17 @@ function AngleurUI_AdvancedAngling()
     explanation:SetJustifyH("LEFT")
     explanation:SetJustifyV("TOP")
     explanation:SetSize(380, 1000)
-    explanation:SetText(colorYellow:WrapTextInColorCode("Items:\n") .. 
-    "- Any usable item from your bags or character equipment. " ..
-    "\n\n Whenever:\n\n   1) ".. colorYellow:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYellow:WrapTextInColorCode("Aura Inactive") .. " (if present)\n"
-     .. colorYellow:WrapTextInColorCode("\nMacros:\n") .. 
-     "- Any valid macro that contains a spell or a usable item - /cast or /use. " ..
-    "\n\n Whenever:\n\n   1) ".. colorYellow:WrapTextInColorCode("Macro Conditions ") .. "are met\n" .. "   2) Spell/Item is " .. colorYellow:WrapTextInColorCode("Off-Cooldown\n") 
-    .. "                    and their\n   3) " .. colorYellow:WrapTextInColorCode("Auras Inactive") .. " (if present)\n\n" ..
-    colorYellow:WrapTextInColorCode("IMPORTANT: ") .. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" .. 
-    "_____________________________________________")
+    explanation:SetText(T[colorYellow:WrapTextInColorCode("Items:\n")
+    .. "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
+    .. colorYellow:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYellow:WrapTextInColorCode("Aura Inactive") 
+    .. " (if present)\n" .. colorYellow:WrapTextInColorCode("\nMacros:\n") 
+    .. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
+    .. "\n\n Whenever:\n\n   1) ".. colorYellow:WrapTextInColorCode("Macro Conditions ") 
+    .. "are met\n" .. "   2) Spell/Item is " .. colorYellow:WrapTextInColorCode("Off-Cooldown\n") 
+    .. "                    and their\n   3) " .. colorYellow:WrapTextInColorCode("Auras Inactive") 
+    .. " (if present)\n\n" .. colorYellow:WrapTextInColorCode("IMPORTANT: ") 
+    .. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
+    .. "_____________________________________________"])
 
     local clock = advancedPanel:CreateTexture("Angleur_AdvancedAnglingPanel_TimerTexture", "OVERLAY")
     clock:SetSize(64, 64)
@@ -76,7 +78,8 @@ function AngleurUI_AdvancedAngling()
     clockText:SetWordWrap(true)
     clockText:SetJustifyH("LEFT")
     clockText:SetJustifyV("TOP")
-    clockText:SetText("Spell/Item has no Cooldown/Aura?\n" ..
-    "Click " .. colorYellow:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" .. colorYellow:WrapTextInColorCode("                                                 (minutes:seconds)"))
+    clockText:SetText(T["Spell/Item has no Cooldown/Aura?\n" 
+    .. "Click " .. colorYellow:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
+    .. colorYellow:WrapTextInColorCode("                                                 (minutes:seconds)")])
 
 end

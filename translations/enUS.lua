@@ -118,7 +118,7 @@ T["Couldn't find any rafts \n in toybox, feature disabled"] = "Couldn't find any
 T["Oversized Bobber"] = "Oversized Bobber"
 T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Couldn't find \n Oversized Bobber in \n toybox, feature disabled"
 T["Crate of Bobbers"] = "Crate of Bobbers"
-T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"
+T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "\nCouldn't find \n any Crate Bobbers \n in toybox, feature disabled"
 T["Crate Bobbers"] = "Crate Bobbers"
 T["Ultra Focus:"] = "Ultra Focus:"
 T["Audio"] = "Audio"
@@ -189,6 +189,7 @@ T["Visual Size"] = "Visual Size"
 T["Master Volume(Ultra Focus)"] = "Master Volume(Ultra Focus)"
 T["Login Messages"] = "Login Messages"
 T["Debug Mode"] = "Debug Mode"
+T["Defaults"] = "Defaults"
 
 
 --firstInstall
@@ -262,3 +263,40 @@ T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCo
 .. colorYello:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYello:WrapTextInColorCode("Patreon!")
 
 T["THANK YOU!"] = "THANK YOU!"
+
+
+--advancedAngling
+T["HOW?"] = "HOW?"
+T["Advanced Angling"] = "Advanced Angling"
+
+T[colorBlu:WrapTextInColorCode("Angleur ") 
+.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("Angleur ") 
+.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."
+
+T[colorYello:WrapTextInColorCode("Items:\n") .. 
+"- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
+.. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") 
+.. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") 
+.. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
+.. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") 
+.. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") 
+.. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") 
+.. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") 
+.. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
+.. "_____________________________________________"] = colorYello:WrapTextInColorCode("Items:\n") .. 
+"- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
+.. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") 
+.. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") 
+.. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
+.. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") 
+.. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n")
+.. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") 
+.. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") 
+.. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
+.. "_____________________________________________"
+
+T["Spell/Item has no Cooldown/Aura?\n" 
+.. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
+.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "Spell/Item has no Cooldown/Aura?\n" 
+.. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
+.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")

@@ -143,7 +143,7 @@ function Angleur_SetTab3(self)
 
     self.defaults.text = self.defaults:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "Game12Font_o1")
     self.defaults.text:SetPoint("CENTER", self.defaults, "CENTER", 2, -2)
-    self.defaults.text:SetText(colorYello:WrapTextInColorCode("Defaults"))
+    self.defaults.text:SetText(colorYello:WrapTextInColorCode(T["Defaults"]))
     self.defaults:SetScript("OnClick", function()
         Angleur_TinyOptions.turnOffSoftInteract = false
         Angleur_TinyOptions.allowDismount = false
