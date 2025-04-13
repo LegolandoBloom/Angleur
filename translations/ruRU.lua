@@ -1,6 +1,6 @@
-if (GAME_LOCALE or GetLocale()) ~= "ruRU" then
-  return
-end
+-- if (GAME_LOCALE or GetLocale()) ~= "ruRU" then
+--   return
+-- end
 
 local T = Angleur_Translate
 
@@ -33,8 +33,8 @@ T["The next key you press\nwill be set as Angleur Key"] = "Следующая н
 T["Having Problems?"] = "Возникли проблемы?"
 T["Angleur Warning: Plater"] = "Предупреждение Angleur: Plater"
 T["Okay"] = "Окей"
-T["  Extra  "] = "  Дополнительно  "
-T["  Tiny  "] = "  Мини  "
+T["  Extra  "] = "Дополнительно"
+T["  Tiny  "] = "Мини"
 T["Standard"] = "Стандарт"
     --Angleur.xml->Tooltips
     T["Angleur Visual Button"] = "Визуальная кнопка Angleur"
@@ -114,9 +114,9 @@ T["Open Macros"] = "Открыть макросы"
 
 --standard.lua
 T["Raft"] = "Плот"
-T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено плотов \n в коллекции, функция отключена"
+T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено плотов в коллекции,\nфункция отключена"
 T["Oversized Bobber"] = "Увеличенный поплавок"
-T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден \n увеличенный поплавок в \n коллекции, функция отключена"
+T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден увеличенный\nпоплавок в коллекции,\nфункция отключена"
 T["Crate of Bobbers"] = "Ящик с поплавками"
 T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "Не найдено \n ящиков с поплавками \n в коллекции, функция отключена"
 T["Crate Bobbers"] = "Ящики с поплавками"
