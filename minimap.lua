@@ -12,34 +12,34 @@ function Angleur_InitMinimapButton()
         OnClick = function(self, b) 
             if b == "RightButton" then
                 if InCombatLockdown() then
-                    print("Can't change sleep state in combat.")
+                    print(T["Can't change sleep state in combat."])
                     return
                 end
                 if AngleurCharacter.sleeping == true then
                     AngleurCharacter.sleeping = false
                     Angleur_SetSleep()
                     Angleur_EquipAngleurSet(true)
-                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake.")
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
                 elseif AngleurCharacter.sleeping == false then
                     AngleurCharacter.sleeping = true
                     Angleur_SetSleep()
                     Angleur_UnequipAngleurSet(true)
-                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping.")
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
                 end
             elseif b == "LeftButton" then
                 Angleur.configPanel:Show()
             elseif b == "MiddleButton" then
                 self:Hide()
                 AngleurMinimapButton.hide = true
-                print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " .. colorYello:WrapTextInColorCode("/angmini ") .. "to show.")
+                print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " .. colorYello:WrapTextInColorCode("/angmini ") .. "to show."])
             end
         end,
         OnEnter = function(self)
             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
             GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Angleur"))
-            GameTooltip:AddLine("Left Click: " .. colorYello:WrapTextInColorCode("Config Panel"), 1, 1, 1)
-            GameTooltip:AddLine("Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake"), 1, 1, 1)
-            GameTooltip:AddLine("Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon"), 1, 1, 1)
+            GameTooltip:AddLine(T["Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")], 1, 1, 1)
+            GameTooltip:AddLine(T["Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")], 1, 1, 1)
+            GameTooltip:AddLine(T["Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")], 1, 1, 1)
             GameTooltip:Show()
         end,
         OnLeave = function(self)
@@ -56,7 +56,7 @@ function Angleur_InitMinimapButton()
     Angleur_SetMinimapSleep()
 end
 
-SLASH_ANGLEURMINIMAP1 = "/angmini"
+SLASH_ANGLEURMINIMAP1 = T["/angmini"]
 SlashCmdList["ANGLEURMINIMAP"] = function()
     if minimapButtonCreated == false then 
         Angleur_InitMinimapButton()

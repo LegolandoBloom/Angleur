@@ -17,7 +17,7 @@ angleurOneKey = {
 function Angleur_KeyGetterOnUp(self, key)
     if angleurOneKey.modifiedListening == key then
         angleurOneKey.modifiedListening = nil
-        self.disclaimer:SetText("The next key you press\nwill be set as Angleur Key")
+        self.disclaimer:SetText(T["The next key you press\nwill be set as Angleur Key"])
         self:SetText(AngleurConfig.angleurKey)
         self:SetScript("OnKeyUp", nil)
         self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
@@ -45,12 +45,12 @@ function Angleur_KeyGetterMouse(self, button)
             AngleurConfig.angleurKeyModifier = angleurOneKey.modifiedListening
             AngleurConfig.angleurKeyMain = buttonName
             angleurOneKey.modifiedListening = nil
-            print("OneKey set to: " .. AngleurConfig.angleurKey)
+            print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
         else
             AngleurConfig.angleurKey = buttonName
             AngleurConfig.angleurKeyModifier = nil
             AngleurConfig.angleurKeyMain = nil
-            print("OneKey set to: " .. AngleurConfig.angleurKey)
+            print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
         end
         self.disclaimer:Hide()
         self:SetSelected(false)
@@ -77,7 +77,7 @@ function Angleur_KeyGetterGamePad(self, button)
     AngleurConfig.angleurKeyModifier = nil
     AngleurConfig.angleurKeyMain = nil
     self:SetText(AngleurConfig.angleurKey)
-    print("OneKey set to: " .. AngleurConfig.angleurKey)
+    print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
 end
 
 function Angleur_KeyGetterWheel(self, delta)
@@ -97,15 +97,15 @@ function Angleur_KeyGetterWheel(self, delta)
         AngleurConfig.angleurKeyModifier = angleurOneKey.modifiedListening
         AngleurConfig.angleurKeyMain = scroll
         angleurOneKey.modifiedListening = nil
-        print("OneKey set to: " .. AngleurConfig.angleurKey)
-        print(colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Modifier Keys ") 
+        print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Modifier Keys ") 
         .. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
-        .. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers.")
+        .. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers."])
     else
         AngleurConfig.angleurKey = scroll
         AngleurConfig.angleurKeyModifier = nil
         AngleurConfig.angleurKeyMain = nil
-        print("OneKey set to: " .. AngleurConfig.angleurKey)
+        print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
     end
     self.disclaimer:Hide()
     self:SetSelected(false)
@@ -126,7 +126,7 @@ function Angleur_KeyGetterModified(self, key)
     elseif angleurOneKey.modifierKeys[key] then
         self:SetText(key .. "-" .. "?")
         angleurOneKey.modifiedListening = key
-        self.disclaimer:SetText("Modifier key " .. key .. "down,\nawaiting additional key press.")
+        self.disclaimer:SetText(T["Modifier key "] .. key .. T["down,\nawaiting additional key press."])
         self:SetScript("OnKeyUp", Angleur_KeyGetterOnUp)
         self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
         self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
@@ -144,7 +144,7 @@ function Angleur_KeyGetterModified(self, key)
         AngleurConfig.angleurKeyModifier = angleurOneKey.modifiedListening
         AngleurConfig.angleurKeyMain = key
         self:SetText(AngleurConfig.angleurKey)
-        print("OneKey set to: " .. AngleurConfig.angleurKeyMain .. ", with modifier " .. AngleurConfig.angleurKeyModifier)
+        print(T["OneKey set to: "] .. AngleurConfig.angleurKeyMain .. T[", with modifier "] .. AngleurConfig.angleurKeyModifier)
         angleurOneKey.modifiedListening = nil
     else
         self:SetScript("OnKeyUp", nil)
@@ -159,7 +159,7 @@ function Angleur_KeyGetterModified(self, key)
         AngleurConfig.angleurKeyModifier = nil
         AngleurConfig.angleurKeyMain = nil
         self:SetText(AngleurConfig.angleurKey)
-        print("OneKey set to: " .. AngleurConfig.angleurKey)
+        print(T["OneKey set to: "] .. AngleurConfig.angleurKey)
     end 
 end
 
@@ -185,5 +185,5 @@ function Angleur_Unbind(self)
     Angleur.visual.texture:SetTexture(nil)
     ClearOverrideBindings(Angleur)
     self:SetText(AngleurConfig.angleurKey)
-    print("OneKey removed")
+    print(T["OneKey removed"])
 end

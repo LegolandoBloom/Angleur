@@ -26,34 +26,34 @@ SlashCmdList["ANGLEURRESET"] = function()
     Angleur_FirstInstall()
 end
 
-SLASH_ANGLEURSLEEP1 = "/angsleep"
+SLASH_ANGLEURSLEEP1 = T["/angsleep"]
 SlashCmdList["ANGLEURSLEEP"] = function()
     if InCombatLockdown() then
-        print("Can't change sleep state in combat.")
+        print(Angleur_Translate["Can't change sleep state in combat."])
         return
     end
     local colorBlu = CreateColor(0.61, 0.85, 0.92)
     if AngleurCharacter.sleeping == false then
         AngleurCharacter.sleeping = true
-        print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping.")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
         Angleur_SetSleep()
         Angleur_UnequipAngleurSet(true)
     elseif AngleurCharacter.sleeping == true then
         AngleurCharacter.sleeping = false
-        print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake.")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
         Angleur_SetSleep()
         Angleur_EquipAngleurSet(true)
     end
 end
 
-SLASH_ANGLEURSETTINGS1 = "/angleur"
-SLASH_ANGLEURSETTINGS2 = "/angang"
+SLASH_ANGLEURSETTINGS1 = T["/angleur"]
+SLASH_ANGLEURSETTINGS2 = T["/angang"]
 SlashCmdList["ANGLEURSETTINGS"] = function() 
     if InCombatLockdown() then
-        local color1 = CreateColor(1.0, 0.82, 0.0)
-        local color2 = CreateColor(0.61, 0.85, 0.92)
-        print(color2:WrapTextInColorCode("Angleur: ") .. "cannot open " .. color1:WrapTextInColorCode("Config Panel ") .. "in combat.")
-        print("Please try again after combat ends.")
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
+        local colorBlu = CreateColor(0.61, 0.85, 0.92)
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "cannot open " .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."])
+        print(T["Please try again after combat ends."])
         return
     end
     if not Angleur.configPanel:IsShown() then 

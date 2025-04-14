@@ -11,6 +11,7 @@ local colorWhite = CreateColor(1, 1, 1)
 local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
+local colorGrae = CreateColor(0.5, 0.5, 0.5)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ультра Фокус:"
@@ -297,3 +298,49 @@ T["Spell/Item has no Cooldown/Aura?\n"
 .. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "У заклинания/предмета нет перезарядки/ауры?\n" 
 .. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить таймер вручную.\n" 
 .. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")
+
+
+T["Angleur Warning"] = "Angleur Warning"
+T["This will restart the tutorial, are you sure?"] = "This will restart the tutorial, are you sure?"
+T["First install tutorial restarting."] = "First install tutorial restarting."
+T["/angsleep"] = "/angsleep"
+T["/angleur"] = "/angleur"
+T["/angang"] = "/angang"
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "cannot open " 
+.. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "cannot open " .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."
+
+T["Please try again after combat ends."] = "Please try again after combat ends."
+
+
+--minimap
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " 
+.. colorYello:WrapTextInColorCode("/angmini ") .. "to show."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " 
+.. colorYello:WrapTextInColorCode("/angmini ") .. "to show."
+
+T["Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")] = "Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")
+T["Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")] = "Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")
+T["Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")] = "Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")
+
+T["/angmini"] = "/angmini"
+
+T["Can't change sleep state in combat."] = "Can't change sleep state in combat."
+
+--onekey
+T["The next key you press\nwill be set as Angleur Key"] = "The next key you press\nwill be set as Angleur Key"
+T["OneKey set to: "] = "OneKey set to: "
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Modifier Keys ") 
+.. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
+.. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. colorYello:WrapTextInColorCode("Modifier Keys ") .. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
+.. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers."
+
+T["Modifier key "] = "Modifier key "
+T["down,\nawaiting additional key press."] = "down,\nawaiting additional key press."
+T[", with modifier "] = ", with modifier "
+T["OneKey removed"] = "OneKey removed"
