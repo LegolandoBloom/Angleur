@@ -186,7 +186,7 @@ T["Visual Size"] = "Размер визуала"
 T["Master Volume(Ultra Focus)"] = "Громкость (Ультра Фокус)"
 T["Login Messages"] = "Сообщения при входе"
 T["Debug Mode"] = "Режим отладки"
-T["Defaults"] = "Defaults"
+T["Defaults"] = "По умолчанию"
 
 --firstInstall
 T["Angleur Warning"] = "Предупреждение Angleur"
