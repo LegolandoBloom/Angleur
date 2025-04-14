@@ -11,9 +11,7 @@ local colorWhite = CreateColor(1, 1, 1)
 local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
-local colorGrae = CreateColor(0.5, 0.5, 0.5)
 
---Angleur.xml
 --Angleur.xml
 T["Ultra Focus:"] = "Ультра Фокус:"
 T["You can drag and place this anywhere on your screen"] = "Вы можете перетащить и разместить это в любом месте экрана"
@@ -264,7 +262,6 @@ T["THANK YOU!"] = "СПАСИБО!"
 
 
 --advancedAngling
---advancedAngling
 T["HOW?"] = "КАК?"
 T["Advanced Angling"] = "Продвинутая рыбалка"
 
@@ -291,59 +288,56 @@ T[colorYello:WrapTextInColorCode("Items:\n") ..
 .. "выполнены\n" .. "      2) Заклинание/предмет " .. colorYello:WrapTextInColorCode("не на перезарядке\n")
 .. "                    и их\n      3) " .. colorYello:WrapTextInColorCode("Ауры не активны") 
 .. " (если присутствуют)\n\n" .. colorYello:WrapTextInColorCode("      ВАЖНО: ") 
-.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот." 
-.. "\n                    _____________________________________"
+.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот.\n" 
+.. "                     _____________________________________"
 
 T["Spell/Item has no Cooldown/Aura?\n" 
 .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-
-.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "\nУ заклинания/предмета нет перезарядки/ауры?\n" 
-.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер") .. ", чтобы установить\n таймер вручную." 
-.. colorYello:WrapTextInColorCode("(минуты:секунды)")
-
+.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "\n\nУ заклинания/предмета нет перезарядки/ауры?\n" 
+.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить\n таймер вручную.\n" 
+.. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")
 
 
-T["Angleur Warning"] = "Angleur Warning"
-T["This will restart the tutorial, are you sure?"] = "This will restart the tutorial, are you sure?"
-T["First install tutorial restarting."] = "First install tutorial restarting."
+T["Angleur Warning"] = "Предупреждение Angleur"
+T["This will restart the tutorial, are you sure?"] = "Это перезапустит обучение. Вы уверены?"
+T["First install tutorial restarting."] = "Перезапуск обучения для первой установки."
 T["/angsleep"] = "/angsleep"
 T["/angleur"] = "/angleur"
 T["/angang"] = "/angang"
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "cannot open " 
 .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "cannot open " .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."
+.. "нельзя открыть " .. colorYello:WrapTextInColorCode("Панель настроек ") .. "в бою."
 
-T["Please try again after combat ends."] = "Please try again after combat ends."
-
+T["Please try again after combat ends."] = "Пожалуйста, попробуйте снова после окончания боя."
 
 --minimap
-T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."
-T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Активен."
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Спит."
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " 
-.. colorYello:WrapTextInColorCode("/angmini ") .. "to show."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " 
-.. colorYello:WrapTextInColorCode("/angmini ") .. "to show."
+.. colorYello:WrapTextInColorCode("/angmini ") .. "to show."] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Иконка миникарты скрыта, " 
+.. colorYello:WrapTextInColorCode("/angmini ") .. "чтобы показать."
 
-T["Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")] = "Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")
-T["Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")] = "Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")
-T["Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")] = "Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")
+T["Left Click: " .. colorYello:WrapTextInColorCode("Config Panel")] = "ЛКМ: " .. colorYello:WrapTextInColorCode("Панель настроек")
+T["Right Click: " .. colorYello:WrapTextInColorCode("Sleep/Wake")] = "ПКМ: " .. colorYello:WrapTextInColorCode("Сон/Пробуждение")
+T["Middle Button: " .. colorYello:WrapTextInColorCode("Hide Minimap Icon")] = "СКМ: " .. colorYello:WrapTextInColorCode("Скрыть иконку миникарты")
 
 T["/angmini"] = "/angmini"
 
-T["Can't change sleep state in combat."] = "Can't change sleep state in combat."
+T["Can't change sleep state in combat."] = "Нельзя изменить состояние сна в бою."
 
 --onekey
-T["The next key you press\nwill be set as Angleur Key"] = "The next key you press\nwill be set as Angleur Key"
-T["OneKey set to: "] = "OneKey set to: "
+T["The next key you press\nwill be set as Angleur Key"] = "Следующая нажатая клавиша\nбудет назначена как клавиша Angleur"
+T["OneKey set to: "] = "OneKey установлен на: "
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Modifier Keys ") 
 .. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
 .. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers."] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. colorYello:WrapTextInColorCode("Modifier Keys ") .. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
-.. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers."
+.. colorYello:WrapTextInColorCode("Модификаторы ") .. "не распознаются, когда игра в " .. colorGrae:WrapTextInColorCode("фоновом режиме. ") 
+.. "Если вы используете колесо прокрутки для этой цели, назначьте его отдельно, без модификаторов."
 
-T["Modifier key "] = "Modifier key "
-T["down,\nawaiting additional key press."] = "down,\nawaiting additional key press."
-T[", with modifier "] = ", with modifier "
-T["OneKey removed"] = "OneKey removed"
+T["Modifier key "] = "Клавиша-модификатор "
+T["down,\nawaiting additional key press."] = "нажата,\nожидание дополнительной клавиши."
+T[", with modifier "] = ", с модификатором "
+T["OneKey removed"] = "OneKey удалён"
