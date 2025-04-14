@@ -90,7 +90,7 @@ function Angleur_LoadExtraItems(self)
 end
 
 function Angleur_RemoveExtraItem(self)
-    local colorYellow = CreateColor(1.0, 0.82, 0.0)
+    local colorYello = CreateColor(1.0, 0.82, 0.0)
     local colorBlu = CreateColor(0.61, 0.85, 0.92)
     local parent = self:GetParent()
     local keyofParent = parent:GetParentKey()
@@ -110,7 +110,9 @@ function Angleur_RemoveExtraItem(self)
     Angleur_SlottedExtraItems[keyofParent].lastUsed = 0
     if Angleur_SlottedExtraItems[keyofParent].equipLoc ~= 0 then
         Angleur_SlottedExtraItems[keyofParent].equipLoc = 0
-        print("Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") .. colorYellow:WrapTextInColorCode("Equipment Set ") .. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it.")
+        print(T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") 
+        .. colorYello:WrapTextInColorCode("Equipment Set ") 
+        .. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."])
     end
     Angleur_SlottedExtraItems[keyofParent].forceEquip = false
     local grandParent = parent:GetParent()
@@ -153,14 +155,14 @@ local warningHats = {
 local function checkForHats(itemID)
     if warningHats[itemID] ~= nil then
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYellow = CreateColor(1.0, 0.82, 0.0)
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
         local colorRed = CreateColor(1, 0, 0)
         local colorGrae = CreateColor(0.85, 0.85, 0.85)
         print(" ")
         print(" ")
         print(" ")
-        print(colorBlu:WrapTextInColorCode("Angleur: ") .. colorYellow:WrapTextInColorCode("Fishing Hat") .. " detected.")
-        print("For it to work properly, please make sure to add it as a macro like so: ")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Fishing Hat") .. " detected."])
+        print(T["For it to work properly, please make sure to add it as a macro like so: "])
         print(colorGrae:WrapTextInColorCode("      _____________________"))
         print(colorGrae:WrapTextInColorCode("     I"))
         print("        /use " .. warningHats[itemID])
@@ -172,16 +174,16 @@ local function checkForHats(itemID)
         
         print(colorGrae:WrapTextInColorCode("      _____________________I"))
         print(" ")
-        print("Otherwise, you will have to manually target your fishing rod every time."
+        print(T["Otherwise, you will have to manually target your fishing rod every time."
         .. "If you want to see an example of how to slot macros, click the " 
         ..  colorRed:WrapTextInColorCode("[HOW?] ") .. "button on the " 
-        .. colorYellow:WrapTextInColorCode("Extra Tab"))
+        .. colorYello:WrapTextInColorCode("Extra Tab")])
     end
 end
 function Angleur_GrabCursorItem(self)
     if InCombatLockdown() then
         ClearCursor()
-        print("Can't drag item in combat.")
+        print(T["Can't drag item in combat."])
         return
     end
     local itemLoc = C_Cursor.GetCursorItem()
@@ -189,13 +191,13 @@ function Angleur_GrabCursorItem(self)
     local link = C_Item.GetItemLink(itemLoc)
     local itemInfo = {C_Item.GetItemInfo(itemID)}
     if not C_Item.IsUsableItem(itemID) then
-        print("Please select a usable item.")
+        print(T["Please select a usable item."])
         ClearCursor()
         return
     end
     local _, spellID = C_Item.GetItemSpell(itemID)
     if spellID == nil then
-        print("This item does not have a castable spell.")
+        print(T["This item does not have a castable spell."])
         ClearCursor()
         return
     end
@@ -222,11 +224,11 @@ end
 function Angleur_GrabCursorMacro(self, macroIndex)
     if InCombatLockdown() then
         ClearCursor()
-        print("Can't drag macro in combat.")
+        print(T["Can't drag macro in combat."])
         return
     end
     local parentKey = self:GetParentKey()
-    local colorYellow = CreateColor(1.0, 0.82, 0.0)
+    local colorYello = CreateColor(1.0, 0.82, 0.0)
     local colorBlu = CreateColor(0.61, 0.85, 0.92)
     Angleur_RemoveExtraItem(self.closeButton)
     if macroIndex then 
@@ -234,13 +236,13 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         local itemName, itemLink = GetMacroItem(macroIndex)
         if spellID then
             Angleur_SlottedExtraItems[parentKey].macroSpellID = spellID
-            print("link of macro spell: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
+            print(T["link of macro spell: "] .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
         elseif itemName then
-            print("link of macro item: ", itemLink)
+            print(T["link of macro item: "], itemLink)
             local _, spellID = C_Item.GetItemSpell(itemName)
             if spellID == nil then
-                print(colorYellow:WrapTextInColorCode("Can't use Macro: ") 
-                .. "The item used in this macro doesn't have a trackable spell/aura.")
+                print(T[colorYello:WrapTextInColorCode("Can't use Macro: ") 
+                .. "The item used in this macro doesn't have a trackable spell/aura."])
                 ClearCursor()
             else
                 Angleur_SlottedExtraItems[parentKey].macroSpellID = spellID
@@ -256,13 +258,14 @@ function Angleur_GrabCursorMacro(self, macroIndex)
                 Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
             end
         else
-            print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " .. colorYellow:WrapTextInColorCode("macro conditions \n") .. 
-            "you need to drag the macro into the button frame when the conditions are met.")
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " 
+            .. colorYello:WrapTextInColorCode("macro conditions \n") 
+            .. "you need to drag the macro into the button frame when the conditions are met."])
             ClearCursor()
             return
         end
     else
-        print("Failed to get macro index")
+        print(T["Failed to get macro index"])
         return
     end
     Angleur_SlottedExtraItems[parentKey].macroName, Angleur_SlottedExtraItems[parentKey].macroIcon, Angleur_SlottedExtraItems[parentKey].macroBody = GetMacroInfo(macroIndex)
@@ -270,9 +273,10 @@ function Angleur_GrabCursorMacro(self, macroIndex)
 
     Angleur_SlottedExtraItems[parentKey].macroBody = body
     if Angleur_SlottedExtraItems[parentKey].macroBody == "" then
-        print("Macro empty")
+        print(T["Macro empty"])
     else
-        print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " .. colorYellow:WrapTextInColorCode("re-drag ") .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it.")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " 
+        .. colorYello:WrapTextInColorCode("re-drag ") .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."])
     end
     Angleur_LoadExtraItems(self:GetParent())
 end
@@ -289,7 +293,7 @@ end
 function Angleur_GetTimeFromBox(self)
     local keyOfGrandGrandParent = self:GetParent():GetParent():GetParentKey()
     Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
-    print("Timer set to: ", math.floor(Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay/60), " minutes, ", Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay%60, " seconds")
+    print(T["Timer set to: "], math.floor(Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay/60), T[" minutes, "], Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay%60, T[" seconds"])
 end
 
 local function startTimer_ItemOrMacro(self, event, unit, ...)

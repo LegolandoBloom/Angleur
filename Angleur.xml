@@ -82,12 +82,12 @@
                                     AngleurCharacter.sleeping = false
                                     Angleur_SetSleep()
                                     Angleur_EquipAngleurSet(true)
-                                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake.")
+                                    print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
                                 elseif AngleurCharacter.sleeping == false then
                                     AngleurCharacter.sleeping = true
                                     Angleur_SetSleep()
                                     Angleur_UnequipAngleurSet(true)
-                                    print(colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping.")
+                                    print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
                                 end
                                 
                         end

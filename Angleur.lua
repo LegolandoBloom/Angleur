@@ -57,29 +57,29 @@ function Angleur_EventLoader(self, event, unit, ...)
         self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
-        local color1 = CreateColor(1.0, 0.82, 0.0)
-        local color2 = CreateColor(0.61, 0.85, 0.92)
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
+        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         if unit == true then
             if AngleurCharacter.sleeping == false then
                 Angleur_EquipAngleurSet(false)
             end
             if not Angleur_TinyOptions.loginDisabled then
-                print(color2:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!")
+                print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"])
                 --print("Please report any bugs and issues you run into on the AddOn's curseforge page, or message me there directly.")
-                print("To access the configuration menu, type " .. color1:WrapTextInColorCode("/angleur ") .. "or " .. color1:WrapTextInColorCode("/angang") .. ".")
+                print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
                 if AngleurCharacter.sleeping == true then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )    
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
                 elseif AngleurCharacter.sleeping == false then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. color1:WrapTextInColorCode("/angsleep "))
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
                 end
             end
         elseif arg4 == true then
             if AngleurCharacter.sleeping == true then
                 if not Angleur_TinyOptions.loginDisabled then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
                 end
             end
         end
@@ -150,7 +150,7 @@ local function isChosenKeyDown()
             if AngleurConfig.angleurKeyMain then
                 keybind = AngleurConfig.angleurKeyMain
             else
-                print("Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know.")
+                print(T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."])
             end
         end
         if keybind == "MOUSEWHEELUP" or keybind == "MOUSEWHEELDOWN" then
@@ -175,21 +175,22 @@ local function warnPlater()
             warnedPlater = true
             return
         end
-        local colorYellow = CreateColor(1.0, 0.82, 0.0)
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
         local colorGreen = CreateColor(0, 1, 0)
         if C_AddOns.IsAddOnLoaded("Plater") then
             print("----------------------------------------------------------------------------")
-            print(colorBlu:WrapTextInColorCode("Angleur: ") .. colorYellow:WrapTextInColorCode("Plater ") .. "detected.")
-            print("Plater " .. colorYellow:WrapTextInColorCode("-> ") .. "Advanced " .. colorYellow:WrapTextInColorCode("-> ") .. "General Settings" 
-            .. colorYellow:WrapTextInColorCode(":") .. " Show soft-interact on game objects*")
-            print("Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " .. colorYellow:WrapTextInColorCode("Reel/Loot ") .. "your catches.")
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."])
+            print(T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") 
+            .. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"])
+            print(T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."])
             print("----------------------------------------------------------------------------")
         else
             print("----------------------------------------------------------------------------")
-            print(colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" .. colorYellow:WrapTextInColorCode("Soft-Interact."))
-            print("Angleur Config Panel " .. colorYellow:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYellow:WrapTextInColorCode("-> ") .. "Disable Soft-Interact") 
-            print("Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly.")
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" .. colorYello:WrapTextInColorCode("Soft-Interact.")])
+            print(T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
+            .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"]) 
+            print(T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."])
             print("----------------------------------------------------------------------------")
         end
         warnedPlater = true

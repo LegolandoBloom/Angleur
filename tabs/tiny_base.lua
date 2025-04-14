@@ -71,10 +71,10 @@ function Angleur_SetTab3(self)
         end
         if self:GetChecked() then
             Angleur_TinyOptions.loginDisabled = false
-            print("login messages re-enabled")
+            print(T["login messages re-enabled"])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.loginDisabled = true
-            print("login messages disabled")
+            print(T["login messages disabled"])
         end
     end)
     if Angleur_TinyOptions.loginDisabled == false then
@@ -88,15 +88,15 @@ function Angleur_SetTab3(self)
     self.debugMode:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
-            print("Can't change in combat.")
+            print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
             Angleur_TinyOptions.errorsDisabled = false
-            print("debug mode active")
+            print(T["debug mode active"])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.errorsDisabled = true
-            print("debug mode deactivated")
+            print(T["debug mode deactivated"])
         end
     end)
     if Angleur_TinyOptions.errorsDisabled == false then
@@ -107,7 +107,7 @@ function Angleur_SetTab3(self)
 
     self.defaults.text = self.defaults:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "Game12Font_o1")
     self.defaults.text:SetPoint("CENTER", self.defaults, "CENTER", 2, -2)
-    self.defaults.text:SetText(colorYello:WrapTextInColorCode("Defaults"))
+    self.defaults.text:SetText(colorYello:WrapTextInColorCode(T["Defaults"]))
     if gameVersion == 1 then
         retail:SetDefaultsButtonScript(self)
     elseif gameVersion == 2 or gameVersion == 3 then

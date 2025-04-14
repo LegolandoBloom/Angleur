@@ -41,7 +41,7 @@ function AngleurUI_AdvancedAngling()
 
     local colorBlu = CreateColor(0.61, 0.85, 0.92)
     local colorWhite = CreateColor(1, 1, 1)
-    local colorYellow = CreateColor(1.0, 0.82, 0.0)
+    local colorYello = CreateColor(1.0, 0.82, 0.0)
 
     local title = advancedPanel:CreateFontString(nil, "OVERLAY", "Game15Font")
     title:SetPoint("TOP", advancedPanel, "TOP", 320, -50)
@@ -56,15 +56,15 @@ function AngleurUI_AdvancedAngling()
     explanation:SetJustifyH("LEFT")
     explanation:SetJustifyV("TOP")
     explanation:SetSize(380, 1000)
-    explanation:SetText(T[colorYellow:WrapTextInColorCode("Items:\n")
+    explanation:SetText(T[colorYello:WrapTextInColorCode("Items:\n")
     .. "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
-    .. colorYellow:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYellow:WrapTextInColorCode("Aura Inactive") 
-    .. " (if present)\n" .. colorYellow:WrapTextInColorCode("\nMacros:\n") 
+    .. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") 
+    .. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") 
     .. "- Any valid macro that contains a spell or a usable item - /cast or /use. " 
-    .. "\n\n Whenever:\n\n   1) ".. colorYellow:WrapTextInColorCode("Macro Conditions ") 
-    .. "are met\n" .. "   2) Spell/Item is " .. colorYellow:WrapTextInColorCode("Off-Cooldown\n") 
-    .. "                    and their\n   3) " .. colorYellow:WrapTextInColorCode("Auras Inactive") 
-    .. " (if present)\n\n" .. colorYellow:WrapTextInColorCode("IMPORTANT: ") 
+    .. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") 
+    .. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") 
+    .. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") 
+    .. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") 
     .. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" 
     .. "_____________________________________________"])
 
@@ -79,7 +79,7 @@ function AngleurUI_AdvancedAngling()
     clockText:SetJustifyH("LEFT")
     clockText:SetJustifyV("TOP")
     clockText:SetText(T["Spell/Item has no Cooldown/Aura?\n" 
-    .. "Click " .. colorYellow:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-    .. colorYellow:WrapTextInColorCode("                                                 (minutes:seconds)")])
+    .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
+    .. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")])
 
 end

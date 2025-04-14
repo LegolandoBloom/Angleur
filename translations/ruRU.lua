@@ -341,3 +341,130 @@ T["Modifier key "] = "Клавиша-модификатор "
 T["down,\nawaiting additional key press."] = "нажата,\nожидание дополнительной клавиши."
 T[", with modifier "] = ", с модификатором "
 T["OneKey removed"] = "OneKey удалён"
+
+
+--eqMan
+T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."] = "Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."
+T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."
+T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "] = "Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "
+T["All unslotted items in the set have been set to <ignore slot>."] = "All unslotted items in the set have been set to <ignore slot>."
+
+T["For passive items you'd like to add to your fishing gear, you can use the game's " 
+.. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. "set"] = "For passive items you'd like to add to your fishing gear, you can use the game's " 
+.. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. "set"
+
+T["Couldn't equip slotted item in time before combat"] = "Couldn't equip slotted item in time before combat"
+
+T["Slotted items successfully updated for your " 
+.. colorYello:WrapTextInColorCode("Angleur Equipment Set.")] = "Slotted items successfully updated for your " 
+.. colorYello:WrapTextInColorCode("Angleur Equipment Set.")
+
+T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " 
+.. colorYello:WrapTextInColorCode"Extra Items " .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") 
+.. ", and creates one if there isn't already.\n\nIf you want to " .. colorRed:WrapTextInColorCode("remove ") 
+.. "previously saved slotted items, you need to click the " .. colorRed:WrapTextInColorCode("Delete ") 
+.. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " 
+.. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") 
+.. "manually, and Angleur will swap them in and out like the rest."] = "   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") 
+.. "Button automatically adds equippable items in your " .. colorYello:WrapTextInColorCode"Extra Items " 
+.. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") .. ", and creates one if there isn't already.\n\nIf you want to " 
+.. colorRed:WrapTextInColorCode("remove ") .. "previously saved slotted items, you need to click the " 
+.. colorRed:WrapTextInColorCode("Delete ") .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " 
+.. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") 
+.. "manually, and Angleur will swap them in and out like the rest."
+
+T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."] = "ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."
+T["Equipping of the Angleur set disrupted due to sudden combat"] = "Equipping of the Angleur set disrupted due to sudden combat"
+
+
+--items
+T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Equipment Set ") 
+.. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."] = "Unslotted " 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Equipment Set ") 
+.. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Fishing Hat") 
+.. " detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Fishing Hat") .. " detected."
+
+T["For it to work properly, please make sure to add it as a macro like so: "] = "For it to work properly, please make sure to add it as a macro like so: "
+
+T["Otherwise, you will have to manually target your fishing rod every time."
+.. "If you want to see an example of how to slot macros, click the " 
+..  colorRed:WrapTextInColorCode("[HOW?] ") .. "button on the " 
+.. colorYello:WrapTextInColorCode("Extra Tab")] = "Otherwise, you will have to manually target your fishing rod every time."
+.. "If you want to see an example of how to slot macros, click the " 
+..  colorRed:WrapTextInColorCode("[HOW?] ") .. "button on the " 
+.. colorYello:WrapTextInColorCode("Extra Tab")
+
+T["Can't drag item in combat."] = "Can't drag item in combat."
+T["Please select a usable item."] = "Please select a usable item."
+T["This item does not have a castable spell."] = "This item does not have a castable spell."
+T["Can't drag macro in combat."] = "Can't drag macro in combat."
+T["link of macro spell: "] = "link of macro spell: "
+T["link of macro item: "] = "link of macro item: "
+
+T[colorYello:WrapTextInColorCode("Can't use Macro: ") 
+.. "The item used in this macro doesn't have a trackable spell/aura."] = colorYello:WrapTextInColorCode("Can't use Macro: ") 
+.. "The item used in this macro doesn't have a trackable spell/aura."
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " 
+.. colorYello:WrapTextInColorCode("macro conditions \n") 
+.. "you need to drag the macro into the button frame when the conditions are met."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "Failed to get macro spell/item. If you are using " .. colorYello:WrapTextInColorCode("macro conditions \n") 
+.. "you need to drag the macro into the button frame when the conditions are met."
+
+T["Failed to get macro index"] = "Failed to get macro index"
+
+T["Macro empty"] = "Macro empty"
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " 
+.. colorYello:WrapTextInColorCode("re-drag ") 
+.. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "Macro successfully slotted. If you make changes to it, you need to " .. colorYello:WrapTextInColorCode("re-drag ") 
+.. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."
+
+T["Timer set to: "] = "Timer set to: "
+T[" minutes, "] = " minutes, "
+T[" seconds"] = " seconds"
+
+
+--tiny_cata
+T["Default tiny settings restored"] = "Default tiny settings restored"
+
+
+--Angleur
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"
+T["or "] = "or "
+T["To access the configuration menu, type "] = "To access the configuration menu, type "
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " 
+.. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"] = colorBlu:WrapTextInColorCode("Angleur: ")
+.. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"
+
+T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."] = "or "
+.. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " 
+.. colorYello:WrapTextInColorCode("/angsleep ")] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")
+
+T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."] = "Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."
+
+T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " 
+.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "Must be " 
+.. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " 
+.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" 
+.. colorYello:WrapTextInColorCode("Soft-Interact.")] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "You are running an addon that interferes with" .. colorYello:WrapTextInColorCode("Soft-Interact.")
+
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
+.. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"] = "Angleur Config Panel " 
+.. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
+.. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"
+
+T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."] = "Must be " 
+.. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."

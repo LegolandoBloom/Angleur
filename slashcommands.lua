@@ -29,7 +29,7 @@ end
 SLASH_ANGLEURSLEEP1 = T["/angsleep"]
 SlashCmdList["ANGLEURSLEEP"] = function()
     if InCombatLockdown() then
-        print(Angleur_Translate["Can't change sleep state in combat."])
+        print(T["Can't change sleep state in combat."])
         return
     end
     local colorBlu = CreateColor(0.61, 0.85, 0.92)

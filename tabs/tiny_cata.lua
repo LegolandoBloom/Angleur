@@ -22,6 +22,6 @@ function cata:SetDefaultsButtonScript(tab3_contents)
         tab3_contents.ultraFocusMaster:SetValue(100)
         tab3_contents.loginMessages:SetChecked(true)
         tab3_contents.debugMode:SetChecked(false)
-        print("Default tiny settings restored")
+        print(T["Default tiny settings restored"])
     end)
 end

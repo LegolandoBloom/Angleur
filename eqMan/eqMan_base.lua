@@ -78,8 +78,8 @@ function Angleur_CreateEquipmentSet()
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 3 then
         if checkSlottedExtraItems() == false then
-            print("Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first.")
-            print("This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set.")
+            print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
+            print(T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
             deleteAngleurSet()
             return
         end
@@ -103,11 +103,11 @@ function Angleur_CreateEquipmentSet()
         Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Angleur_CreateEquipmentSet ") .. ": Ignored Slots:")
         Angleur_BetaTableToString(C_EquipmentSet.GetIgnoredSlots(setID))
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYellow = CreateColor(1.0, 0.82, 0.0)
-        print("Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : ", setID)
-        print("All unslotted items in the set have been set to <ignore slot>.")
-        print("For passive items you'd like to add to your fishing gear, you can use the game's " 
-        .. colorYellow:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set")
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
+        print(T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "], setID)
+        print(T["All unslotted items in the set have been set to <ignore slot>."])
+        print(T["For passive items you'd like to add to your fishing gear, you can use the game's " 
+        .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set"])
         AngleurCharacter.angleurSet = true
     end
     if gameVersion == 3 then
@@ -202,7 +202,7 @@ local function OnUpdate_AttemptEquip(self, elapsed)
     if InCombatLockdown() then
         wantToEquip = {}
         self:SetScript("OnUpdate", nil)
-        print("Couldn't equip slotted item in time before combat")
+        print(T["Couldn't equip slotted item in time before combat"])
         return
     end
     erapusuCounter = 0
@@ -243,20 +243,20 @@ local function OnUpdate_AttemptEquip(self, elapsed)
             Angleur_UnequipAngleurSet(true)
         end
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYellow = CreateColor(1.0, 0.82, 0.0)
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
         local colorRed = CreateColor(1, 0, 0)
         local colorGrae = CreateColor(0.85, 0.85, 0.85)
         if checkSlottedExtraItems() == true then
-            print("Slotted items successfully updated for your " .. colorYellow:WrapTextInColorCode("Angleur Equipment Set."))
+            print(T["Slotted items successfully updated for your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set.")])
         elseif checkSlottedExtraItems() == false then
             print(colorBlu:WrapTextInColorCode("----------------------------------------------------------------------------------------------------"))
-            print("   The " .. colorYellow:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " 
-            .. colorYellow:WrapTextInColorCode"Extra Items " .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") 
+            print(T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " 
+            .. colorYello:WrapTextInColorCode"Extra Items " .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") 
             .. ", and creates one if there isn't already.\n\nIf you want to " .. colorRed:WrapTextInColorCode("remove ") 
             .. "previously saved slotted items, you need to click the " .. colorRed:WrapTextInColorCode("Delete ") 
             .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " 
             .. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your "
-            .. colorBlu:WrapTextInColorCode("Angleur Set ") .. "manually, and Angleur will swap them in and out like the rest.")
+            .. colorBlu:WrapTextInColorCode("Angleur Set ") .. "manually, and Angleur will swap them in and out like the rest."])
             print(colorBlu:WrapTextInColorCode("----------------------------------------------------------------------------------------------------"))
         end
         Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("OnUpdate_AttemptEquip ") .. ": item table empty, removing script")
@@ -272,7 +272,7 @@ end
 local function isEligible(itemID)
     if not C_Item.IsEquippableItem(itemID) then return false end
     if not (C_Item.GetItemCount(itemID) >= 1) then
-        print("ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO.")
+        print(T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."])
         return false
     end
     return true
@@ -532,7 +532,7 @@ function Angleur_EquipAngleurSet(overrideSwapoutItems)
         end
         erapusuCounterSet = 0
         if InCombatLockdown() then
-            print("Equipping of the Angleur set disrupted due to sudden combat")
+            print(T["Equipping of the Angleur set disrupted due to sudden combat"])
             self:SetScript("OnUpdate", nil)
             self:SetScript("OnEvent", nil)
             return
