@@ -25,7 +25,7 @@ T["Redo Tutorial"] = "Повторить обучение"
 T["Wake!"] = "Проснись!"
 T["Create\n  Add"] = "Добавить"
 T["Update"] = "Обновить"
-T["Please select a toy using Left Mouse Click"] = "Пожалуйста, выберите игрушку левым кликом мыши"
+T["Please select a toy using Left Mouse Click"] = "Пожалуйста, выберите игрушку нажав ЛКМ"
 T["Make sure this box is checked!"] = "Убедитесь, что эта галочка установлена!"
 T["Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."] = "Находится в Plater->Дополнительно->Основные настройки.\n\nИначе Angleur не сможет подсекать рыбу."
 T["Angleur Configuration"] = "Настройки Angleur"
@@ -43,9 +43,9 @@ T["Standard"] = "Стандарт"
     T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")] = "Режим рыбалки: " .. colorBlu:WrapTextInColorCode("Одна клавиша")
     T["One-Key NOT SET! To set,\nopen config menu with:"] = "Клавиша НЕ НАЗНАЧЕНА! Для настройки\nоткройте меню конфигурации:"
     T[" or\n"] = " или\n"
-    T["Right Click to temporarily put Angleur to sleep. zzz..."] = "Правый клик, чтобы временно усыпить Angleur. zzz..."
+    T["Right Click to temporarily put Angleur to sleep. zzz..."] = "ПКМ, чтобы временно усыпить Angleur. zzz..."
     T["Sleeping. Zzz...\n"] = "Спит. Zzz...\n"
-    T["\nRight-Click"] = "\nПравый клик"
+    T["\nRight-Click"] = "\nПКМ"
     T["\nto wake Angleur!"] = "\nчтобы разбудить Angleur!"
     T["One-Key Fishing Mode"] = "Режим рыбалки \"Одна клавиша\""
 
@@ -98,7 +98,7 @@ T["Standard"] = "Стандарт"
 --extra.lua
 T["Extra Toys"] = "Доп. игрушки"
 T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " 
-.. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Нажмите ") .. "на любую из кнопок выше,\nзатем выберите игрушку левым кликом из\nпоявившейся " 
+.. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("Нажмите ") .. "на любую из кнопок выше,\nзатем выберите игрушку ЛКМ из\nпоявившейся " 
     .. colorYello:WrapTextInColorCode("коллекции игрушек") .. "."
 
 T["Extra Items / Macros"] = "Доп. предметы / макросы"
@@ -138,7 +138,7 @@ T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with
 T["Rafts"] = "Плоты"
 T["Random Bobber"] = "Случайный поплавок"
 T["Preferred Mouse Button"] = "Предпочитаемая кнопка мыши"
-T["Right Click"] = "Правый клик"
+T["Right Click"] = "ПКМ"
 
 --tabs-general.lua
 T[colorBlu:WrapTextInColorCode("Angleur visual ") .. "is now hidden."] = colorBlu:WrapTextInColorCode("Визуал Angleur ") .. "теперь скрыт."
@@ -218,7 +218,7 @@ T["Angleur works on a " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "sys
 .. colorBlu:WrapTextInColorCode("Right Click ")
 .. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button."] = "Angleur работает по системе " 
 .. colorYello:WrapTextInColorCode("Сон/Пробуждение ") .. ", поэтому вам не нужно перезагружать интерфейс после рыбалки.\n\n"
-.. colorBlu:WrapTextInColorCode("Правый клик ") .. "усыпляет Angleur и будит его. Также можно использовать правый клик по кнопке у мини-карты."
+.. colorBlu:WrapTextInColorCode("ПКМ ") .. "усыпляет Angleur и будит его. Также можно использовать ПКМ по кнопке у мини-карты."
 
 T["You can enable\n\nRafts,\n\nBobbers,\n\nand Ultra Focus(Audio/Temporary Auto Loot)\n\nby checking these boxes."] = "Вы можете включить\n\nПлоты,\n\nПоплавки,\n\nи Ультра Фокус (Звук/Временный авто-лут)\n\nустановив эти галочки."
 
@@ -268,7 +268,7 @@ T["Advanced Angling"] = "Продвинутая рыбалка"
 
 T[colorBlu:WrapTextInColorCode("Angleur ") 
 .. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "заставит вас использовать перетаскиваемый предмет/макрос,\nесли все перечисленные ниже условия будут выполнены."
+.. "заставит вас исп. перетаскиваемый предмет/макрос,\nесли все перечисленные ниже условия будут выполнены."
 
 T[colorYello:WrapTextInColorCode("Items:\n") .. 
 "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
@@ -289,11 +289,11 @@ T[colorYello:WrapTextInColorCode("Items:\n") ..
 .. "выполнены\n" .. "      2) Заклинание/предмет " .. colorYello:WrapTextInColorCode("не на перезарядке\n")
 .. "                    и их\n      3) " .. colorYello:WrapTextInColorCode("Ауры не активны") 
 .. " (если присутствуют)\n\n" .. colorYello:WrapTextInColorCode("      ВАЖНО: ") 
-.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот.\n" 
-.. "   _____________________________________________"
+.. "Если вы используете условные выражения в макросах, они должны быть АКТИВНЫ, когда вы перетаскиваете макрос в слот." 
+.. "\n                    _____________________________________"
 
 T["Spell/Item has no Cooldown/Aura?\n" 
 .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "У заклинания/предмета нет перезарядки/ауры?\n" 
-.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить таймер вручную.\n" 
-.. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")
+.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "\nУ заклинания/предмета нет перезарядки/ауры?\n" 
+.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер") .. ", чтобы установить\n таймер вручную." 
+.. colorYello:WrapTextInColorCode("(минуты:секунды)")
