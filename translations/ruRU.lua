@@ -296,14 +296,11 @@ T[colorYello:WrapTextInColorCode("Items:\n") ..
 
 T["Spell/Item has no Cooldown/Aura?\n" 
 .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
-<<<<<<< patch-6
+
 .. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "\nУ заклинания/предмета нет перезарядки/ауры?\n" 
 .. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер") .. ", чтобы установить\n таймер вручную." 
 .. colorYello:WrapTextInColorCode("(минуты:секунды)")
-=======
-.. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "У заклинания/предмета нет перезарядки/ауры?\n" 
-.. "Нажмите " .. colorYello:WrapTextInColorCode("на секундомер ") .. ", чтобы установить таймер вручную.\n" 
-.. colorYello:WrapTextInColorCode("                                                 (минуты:секунды)")
+
 
 
 T["Angleur Warning"] = "Angleur Warning"
