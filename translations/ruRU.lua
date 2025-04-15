@@ -485,3 +485,7 @@ T["please choose the toy with left click so that angleur can function properly"]
 T["you do not own this toy. please select another"] = "you do not own this toy. please select another"
 T["Selected extra toy: "] = "Selected extra toy: "
 T["Toy selection deactivated"] = "Toy selection deactivated"
+
+--Cata extra lines
+T["Bait"] = "Bait"
+T["Couldn't find any bait \n in your bags, feature disabled"] = "Couldn't find any bait \n in your bags, feature disabled"

@@ -24,7 +24,7 @@ end
 local baitTitleSet = false
 local function InitializeDropDownBait(self, level)
     if not baitTitleSet then
-        DropDown_CreateTitle(self, "Bait")
+        DropDown_CreateTitle(self, T["Bait"])
         baitTitleSet = true
         return
     end
@@ -42,9 +42,9 @@ local function InitializeDropDownBait(self, level)
 end
 
 function cata:ExtraButtons(tab1contents)
-    tab1contents.baitEnable.text:SetText("Bait")
+    tab1contents.baitEnable.text:SetText(T["Bait"])
     tab1contents.baitEnable:reposition()
-    tab1contents.baitEnable.disabledText:SetText("Couldn't find any bait \n in your bags, feature disabled")
+    tab1contents.baitEnable.disabledText:SetText(T["Couldn't find any bait \n in your bags, feature disabled"])
     tab1contents.baitEnable:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.baitEnabled = true
@@ -64,5 +64,5 @@ function cata:ExtraButtons(tab1contents)
         tab1contents.baitEnable:SetChecked(true)
         tab1contents.baitEnable.dropDown:Show()
     end
-    DropDown_CreateTitle(tab1contents.baitEnable.dropDown, "Bait")
+    DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
 end

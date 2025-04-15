@@ -4,13 +4,16 @@ local colorDebug = CreateColor(1, 0.41, 0) -- orange
 AngleurItemsCata = {}
 local cata = AngleurItemsCata
 
+local done = false
 function cata:AdjustCloseButton(extraItemsFrame)
+    if done then return end
     extraItemsFrame.first.closeButton:SetSize(29, 31)
     extraItemsFrame.first.closeButton:AdjustPointsOffset(2, 2)
     extraItemsFrame.second.closeButton:SetSize(29, 31)
     extraItemsFrame.second.closeButton:AdjustPointsOffset(2, 2)
     extraItemsFrame.third.closeButton:SetSize(29, 31)
     extraItemsFrame.third.closeButton:AdjustPointsOffset(2, 2)
+    done = true
 end
 
 angleurItems = {

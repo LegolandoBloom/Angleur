@@ -481,6 +481,8 @@ T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to
 .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."
 
 
+
+
 T["Nat's Hat"] = "Nat's Hat"
 T["Nat's Drinking Hat"] = "Nat's Drinking Hat"
 T["Weather-Beaten Fishing Hat"] = "Weather-Beaten Fishing Hat"
@@ -490,3 +492,7 @@ T["please choose the toy with left click so that angleur can function properly"]
 T["you do not own this toy. please select another"] = "you do not own this toy. please select another"
 T["Selected extra toy: "] = "Selected extra toy: "
 T["Toy selection deactivated"] = "Toy selection deactivated"
+
+--Cata extra lines
+T["Bait"] = "Bait"
+T["Couldn't find any bait \n in your bags, feature disabled"] = "Couldn't find any bait \n in your bags, feature disabled"
