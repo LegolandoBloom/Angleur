@@ -1,3 +1,4 @@
+-- Translator ZamestoTV
 -- if (GAME_LOCALE or GetLocale()) ~= "ruRU" then
 --   return
 -- end
@@ -115,11 +116,11 @@ T["Open Macros"] = "Открыть макросы"
 
 --standard.lua
 T["Raft"] = "Плот"
-T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено плотов в коллекции,\nфункция отключена"
+T["Couldn't find any rafts \n in toybox, feature disabled"] = "Не найдено плотов в коллекции.\nфункция отключена."
 T["Oversized Bobber"] = "Увеличенный поплавок"
-T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден увеличенный\nпоплавок в коллекции,\nфункция отключена"
+T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "Не найден поплавок\n в коллекции.\nФункция отключена."
 T["Crate of Bobbers"] = "Ящик с поплавками"
-T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "\nНе найденоящиков с\nпоплавкамив коллекции,\nфункция отключена"
+T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"] = "\nНе найдено ящиков с\nпоплавками в коллекции.\nФункция отключена."
 T["Crate Bobbers"] = "Ящики с поплавками"
 T["Ultra Focus:"] = "Ультра Фокус:"
 T["Audio"] = "Звук"
@@ -131,7 +132,7 @@ T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorC
 .. colorYello:WrapTextInColorCode("Авто-лут") .. ", а затем выключит его после подсечки.\n\n" 
 .. colorGrae:WrapTextInColorCode("Если у вас уже включен ") .. colorYello:WrapTextInColorCode("Авто-лут ")
 .. colorGrae:WrapTextInColorCode(", эта функция автоматически отключится.")
-T["(Already on)"] = "(Включено)"
+T["(Already on)"] = "(Вкл.)"
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " 
 .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."] = colorBlu:WrapTextInColorCode("Angleur: ") 
@@ -187,7 +188,7 @@ T["Visual Size"] = "Размер визуала"
 T["Master Volume(Ultra Focus)"] = "Громкость (Ультра Фокус)"
 T["Login Messages"] = "Сообщения при входе"
 T["Debug Mode"] = "Режим отладки"
-T["Defaults"] = "По умолчанию"
+T["Defaults"] = "Сбросить"
 
 --firstInstall
 T["Angleur Warning"] = "Предупреждение Angleur"
@@ -473,19 +474,18 @@ T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to
 
 
 
-T["login messages disabled"] = "login messages disabled"
-T["login messages re-enabled"] = "login messages re-enabled"
+T["login messages disabled"] = "сообщения при входе отключены"
+T["login messages re-enabled"] = "сообщения при входе снова включены"
 
-T["Nat's Hat"] = "Nat's Hat"
-T["Nat's Drinking Hat"] = "Nat's Drinking Hat"
-T["Weather-Beaten Fishing Hat"] = "Weather-Beaten Fishing Hat"
+T["Nat's Hat"] = "Шляпа Ната"
+T["Nat's Drinking Hat"] = "Питейная шляпа Ната"
+T["Weather-Beaten Fishing Hat"] = "Видавшая виды рыболовная шапка"
 
-
-T["please choose the toy with left click so that angleur can function properly"] = "please choose the toy with left click so that angleur can function properly"
-T["you do not own this toy. please select another"] = "you do not own this toy. please select another"
-T["Selected extra toy: "] = "Selected extra toy: "
-T["Toy selection deactivated"] = "Toy selection deactivated"
+T["please choose the toy with left click so that angleur can function properly"] = "пожалуйста, выберите игрушку нажав ЛКМ, чтобы angleur работал корректно"
+T["you do not own this toy. please select another"] = "у вас нет этой игрушки. пожалуйста, выберите другую"
+T["Selected extra toy: "] = "Выбрана дополнительная игрушка: "
+T["Toy selection deactivated"] = "Выбор игрушки деактивирован"
 
 --Cata extra lines
-T["Bait"] = "Bait"
-T["Couldn't find any bait \n in your bags, feature disabled"] = "Couldn't find any bait \n in your bags, feature disabled"
+T["Bait"] = "Наживка"
+T["Couldn't find any bait \n in your bags, feature disabled"] = "Наживка не найдена \n в ваших сумках, функция отключена"
