@@ -217,9 +217,9 @@ function Angleur_FirstInstall()
         index = index + 1
 
         angleurHelpTip.parts[index] = {
-            text = "And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "button Creates an item set for you and automatically adds your " 
+            text = T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "button Creates an item set for you and automatically adds your " 
             .. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " 
-            .. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " .. colorYello:WrapTextInColorCode("sleep."),
+            .. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " .. colorYello:WrapTextInColorCode("sleep.")],
             relativeRegion = Angleur_CreateSetAndAdd,
             buttonStyle = 4,
             alignment = 1,
