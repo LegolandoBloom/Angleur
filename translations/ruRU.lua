@@ -345,22 +345,22 @@ T["OneKey removed"] = "OneKey удалён"
 
 
 --eqMan
-T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."] = "Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."
-T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."
-T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "] = "Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "
-T["All unslotted items in the set have been set to <ignore slot>."] = "All unslotted items in the set have been set to <ignore slot>."
+T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."] = "Невозможно создать набор экипировки без предметов в слотах. Поместите используемый и экипируемый предмет в слоты для дополнительных предметов."
+T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "Это ограничение Classic (в Cata и Retail его нет), так как здесь нет встроенного менеджера экипировки для добавления пассивных предметов в набор Angleur."
+T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "] = "Набор экипировки для " .. colorBlu:WrapTextInColorCode("Angleur" ) .. " создан. ID: "
+T["All unslotted items in the set have been set to <ignore slot>."] = "Все предметы вне слотов в наборе помечены как <игнорировать слот>."
 
 T["For passive items you'd like to add to your fishing gear, you can use the game's " 
 .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " 
-.. colorBlu:WrapTextInColorCode("Angleur ") .. "set"] = "For passive items you'd like to add to your fishing gear, you can use the game's " 
-.. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " 
-.. colorBlu:WrapTextInColorCode("Angleur ") .. "set"
+.. colorBlu:WrapTextInColorCode("Angleur ") .. "set"] = "Для добавления пассивных предметов в рыболовную экипировку используйте " 
+.. colorYello:WrapTextInColorCode("Менеджер экипировки ") .. "и добавьте их в набор " 
+.. colorBlu:WrapTextInColorCode("Angleur")
 
-T["Couldn't equip slotted item in time before combat"] = "Couldn't equip slotted item in time before combat"
+T["Couldn't equip slotted item in time before combat"] = "Не удалось экипировать предмет до начала боя"
 
 T["Slotted items successfully updated for your " 
-.. colorYello:WrapTextInColorCode("Angleur Equipment Set.")] = "Slotted items successfully updated for your " 
-.. colorYello:WrapTextInColorCode("Angleur Equipment Set.")
+.. colorYello:WrapTextInColorCode("Angleur Equipment Set.")] = "Предметы в слотах успешно обновлены для вашего " 
+.. colorYello:WrapTextInColorCode("набора экипировки Angleur.")
 
 T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " 
 .. colorYello:WrapTextInColorCode"Extra Items " .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") 
@@ -368,104 +368,104 @@ T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button a
 .. "previously saved slotted items, you need to click the " .. colorRed:WrapTextInColorCode("Delete ") 
 .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " 
 .. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") 
-.. "manually, and Angleur will swap them in and out like the rest."] = "   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") 
-.. "Button automatically adds equippable items in your " .. colorYello:WrapTextInColorCode"Extra Items " 
-.. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") .. ", and creates one if there isn't already.\n\nIf you want to " 
-.. colorRed:WrapTextInColorCode("remove ") .. "previously saved slotted items, you need to click the " 
-.. colorRed:WrapTextInColorCode("Delete ") .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " 
-.. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") 
-.. "manually, and Angleur will swap them in and out like the rest."
+.. "manually, and Angleur will swap them in and out like the rest."] = "   Кнопка " .. colorYello:WrapTextInColorCode("Обновить/Создать набор ") 
+.. "автоматически добавляет экипируемые предметы из слотов " .. colorYello:WrapTextInColorCode("Дополнительные предметы ") 
+.. "в ваш набор " .. colorBlu:WrapTextInColorCode("Angleur") .. " и создаёт его, если его нет.\n\nЧтобы " 
+.. colorRed:WrapTextInColorCode("удалить ") .. "предметы из набора, нажмите кнопку " 
+.. colorRed:WrapTextInColorCode("Удалить ") .. "вверху справа и создайте набор заново или измените его вручную.\n\nВы также можете добавить " 
+.. colorGrae:WrapTextInColorCode("пассивные предметы ") .. "в набор ".. colorBlu:WrapTextInColorCode("Angleur ") 
+.. "вручную, и Angleur будет менять их, как и остальные."
 
-T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."] = "ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."
-T["Equipping of the Angleur set disrupted due to sudden combat"] = "Equipping of the Angleur set disrupted due to sudden combat"
+T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."] = "ПРЕДМЕТ НЕ НАЙДЕН В СУМКАХ. ДЛЯ СМЕНЫ ЭКИПИРОВКИ ДОБАВЬТЕ ЕГО ВРУЧНУЮ В НАБОР ANGLEUR ИЛИ ПЕРЕТАЩИТЕ МАКРОС ЗАНОВО."
+T["Equipping of the Angleur set disrupted due to sudden combat"] = "Смена экипировки Angleur прервана из-за боя"
 
 
 --items
 T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Equipment Set ") 
-.. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."] = "Unslotted " 
-.. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Equipment Set ") 
-.. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."
+.. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."] = "Предмет вне слотов в наборе " 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("экипировки") 
+.. ". Удалите его из набора в менеджере экипировки, если не хотите, чтобы Angleur его экипировал."
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Fishing Hat") 
-.. " detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Fishing Hat") .. " detected."
+.. " detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Рыболовная шляпа") .. " обнаружена."
 
-T["For it to work properly, please make sure to add it as a macro like so: "] = "For it to work properly, please make sure to add it as a macro like so: "
+T["For it to work properly, please make sure to add it as a macro like so: "] = "Для корректной работы добавьте его в макрос следующим образом: "
 
 T["Otherwise, you will have to manually target your fishing rod every time."
 .. "If you want to see an example of how to slot macros, click the " 
 ..  colorRed:WrapTextInColorCode("[HOW?] ") .. "button on the " 
-.. colorYello:WrapTextInColorCode("Extra Tab")] = "Otherwise, you will have to manually target your fishing rod every time."
-.. "If you want to see an example of how to slot macros, click the " 
-..  colorRed:WrapTextInColorCode("[HOW?] ") .. "button on the " 
-.. colorYello:WrapTextInColorCode("Extra Tab")
+.. colorYello:WrapTextInColorCode("Extra Tab")] = "Иначе вам придётся каждый раз выбирать удочку вручную."
+.. "Пример добавления макросов можно посмотреть, нажав кнопку " 
+..  colorRed:WrapTextInColorCode("[КАК?] ") .. "на вкладке " 
+.. colorYello:WrapTextInColorCode("Дополнительно")
 
-T["Can't drag item in combat."] = "Can't drag item in combat."
-T["Please select a usable item."] = "Please select a usable item."
-T["This item does not have a castable spell."] = "This item does not have a castable spell."
-T["Can't drag macro in combat."] = "Can't drag macro in combat."
-T["link of macro spell: "] = "link of macro spell: "
-T["link of macro item: "] = "link of macro item: "
+T["Can't drag item in combat."] = "Нельзя перетаскивать предметы в бою."
+T["Please select a usable item."] = "Выберите используемый предмет."
+T["This item does not have a castable spell."] = "У этого предмета нет применяемого заклинания."
+T["Can't drag macro in combat."] = "Нельзя перетаскивать макросы в бою."
+T["link of macro spell: "] = "ссылка на заклинание макроса: "
+T["link of macro item: "] = "ссылка на предмет макроса: "
 
 T[colorYello:WrapTextInColorCode("Can't use Macro: ") 
-.. "The item used in this macro doesn't have a trackable spell/aura."] = colorYello:WrapTextInColorCode("Can't use Macro: ") 
-.. "The item used in this macro doesn't have a trackable spell/aura."
+.. "The item used in this macro doesn't have a trackable spell/aura."] = colorYello:WrapTextInColorCode("Макрос недоступен: ") 
+.. "предмет в макросе не имеет отслеживаемого заклинания/ауры."
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " 
 .. colorYello:WrapTextInColorCode("macro conditions \n") 
 .. "you need to drag the macro into the button frame when the conditions are met."] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "Failed to get macro spell/item. If you are using " .. colorYello:WrapTextInColorCode("macro conditions \n") 
-.. "you need to drag the macro into the button frame when the conditions are met."
+.. "Не удалось получить заклинание/предмет макроса. Если вы используете " .. colorYello:WrapTextInColorCode("условия в макросе\n") 
+.. "перетащите макрос в окно, когда условия будут выполнены."
 
-T["Failed to get macro index"] = "Failed to get macro index"
+T["Failed to get macro index"] = "Не удалось получить индекс макроса"
 
-T["Macro empty"] = "Macro empty"
+T["Macro empty"] = "Макрос пуст"
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " 
 .. colorYello:WrapTextInColorCode("re-drag ") 
 .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "Macro successfully slotted. If you make changes to it, you need to " .. colorYello:WrapTextInColorCode("re-drag ") 
-.. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."
+.. "Макрос успешно добавлен. Если вы измените его, " .. colorYello:WrapTextInColorCode("перетащите ") 
+.. "новую версию в слот. Вы также можете удалить макрос — Angleur запомнит его."
 
-T["Timer set to: "] = "Timer set to: "
-T[" minutes, "] = " minutes, "
-T[" seconds"] = " seconds"
+T["Timer set to: "] = "Таймер установлен на: "
+T[" minutes, "] = " минут, "
+T[" seconds"] = " секунд"
 
 
 --tiny_cata
-T["Default tiny settings restored"] = "Default tiny settings restored"
+T["Default tiny settings restored"] = "Настройки Tiny сброшены"
 
 
 --Angleur
-T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"
-T["or "] = "or "
-T["To access the configuration menu, type "] = "To access the configuration menu, type "
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Спасибо за использование Angleur!"
+T["or "] = "или "
+T["To access the configuration menu, type "] = "Для доступа к настройкам введите "
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " 
 .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"] = colorBlu:WrapTextInColorCode("Angleur: ")
-.. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"
+.. "Отключён. Для возобновления работы введите " .. colorYello:WrapTextInColorCode("/angsleep ") .. "снова,"
 
-T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."] = "or "
-.. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."
+T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."] = "или "
+.. colorYello:WrapTextInColorCode("нажмите правой кнопкой ") .. "на визуальную кнопку."
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " 
 .. colorYello:WrapTextInColorCode("/angsleep ")] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")
+.. "Активирован. Для временного отключения введите " .. colorYello:WrapTextInColorCode("/angsleep ")
 
-T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."] = "Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."
+T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."] = "Ошибка Angleur: модификатор есть, но основной клавиши нет. Сообщите автору."
 
 T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " 
-.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "Must be " 
-.. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " 
-.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."
+.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "Должно быть " 
+.. colorGreen:WrapTextInColorCode("включено ") .. "для работы клавиши " 
+.. colorYello:WrapTextInColorCode("Подсечь/Собрать ") .. "улов."
 
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" 
 .. colorYello:WrapTextInColorCode("Soft-Interact.")] = colorBlu:WrapTextInColorCode("Angleur: ") 
-.. "You are running an addon that interferes with" .. colorYello:WrapTextInColorCode("Soft-Interact.")
+.. "У вас включено аддон, который мешает работе " .. colorYello:WrapTextInColorCode("Soft-Interact.")
 
 T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
-.. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"] = "Angleur Config Panel " 
-.. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
-.. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"
+.. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"] = "Настройки Angleur " 
+.. colorYello:WrapTextInColorCode("-> ") .. "вкладка Tiny (3) "
+.. colorYello:WrapTextInColorCode("-> ") .. "Отключить Soft-Interact"
 
-T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."] = "Must be " 
-.. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."
+T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."] = "Должно быть " 
+.. colorGreen:WrapTextInColorCode("включено ") .. "для корректной работы подсечки."
