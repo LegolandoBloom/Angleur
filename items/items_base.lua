@@ -148,9 +148,9 @@ local typeToSlotID = {
 }
 
 local warningHats = {
-    [88710] = "Nat's Hat",
-    [117405] = "Nat's Drinking Hat",
-    [33820] = "Weather-Beaten Fishing Hat",
+    [88710] = T["Nat's Hat"],
+    [117405] = T["Nat's Drinking Hat"],
+    [33820] = T["Weather-Beaten Fishing Hat"],
 }
 local function checkForHats(itemID)
     if warningHats[itemID] ~= nil then

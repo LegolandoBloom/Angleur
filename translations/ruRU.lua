@@ -469,3 +469,19 @@ T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(
 
 T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."] = "Должно быть " 
 .. colorGreen:WrapTextInColorCode("включено ") .. "для корректной работы подсечки."
+
+
+
+
+T["login messages disabled"] = "login messages disabled"
+T["login messages re-enabled"] = "login messages re-enabled"
+
+T["Nat's Hat"] = "Nat's Hat"
+T["Nat's Drinking Hat"] = "Nat's Drinking Hat"
+T["Weather-Beaten Fishing Hat"] = "Weather-Beaten Fishing Hat"
+
+
+T["please choose the toy with left click so that angleur can function properly"] = "please choose the toy with left click so that angleur can function properly"
+T["you do not own this toy. please select another"] = "you do not own this toy. please select another"
+T["Selected extra toy: "] = "Selected extra toy: "
+T["Toy selection deactivated"] = "Toy selection deactivated"

@@ -209,17 +209,17 @@ end
 
 function Angleur_ToyBoxOverlay_Watch(self, button)
     if button ~= "LeftButton" then
-        print("please choose the toy with left click so that angleur can function properly")
+        print(T["please choose the toy with left click so that angleur can function properly"])
         return
     end
 
     if angleurToys.toyBoxHookActive then
         if not PlayerHasToy(self.itemID) then
-            print("you do not own this toy. please select another")
+            print(T["you do not own this toy. please select another"])
             return
         end
         
-        print("Selected extra toy: ", C_ToyBox.GetToyLink(self.itemID))
+        print(T["Selected extra toy: "], C_ToyBox.GetToyLink(self.itemID))
         local toyInfo = {C_ToyBox.GetToyInfo(self.itemID)}
         -- [1]itemID [2]toyName [3]icon
         
@@ -242,7 +242,7 @@ function Angleur_ToyBoxOverlay_Watch(self, button)
             angleurToys.extraToySlotHolder = nil
             CollectionsJournal:Hide()
         end)
-        print("Toy selection deactivated")
+        print(T["Toy selection deactivated"])
         Angleur_ToyBoxOverlay_Deactivate(self)
     end
 end

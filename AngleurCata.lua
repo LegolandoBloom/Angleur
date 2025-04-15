@@ -57,29 +57,29 @@ function Angleur_EventLoader(self, event, unit, ...)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
-        local color1 = CreateColor(1.0, 0.82, 0.0)
-        local color2 = CreateColor(0.61, 0.85, 0.92)
+        local colorYello = CreateColor(1.0, 0.82, 0.0)
+        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         if unit == true then
             if AngleurCharacter.sleeping == false then
                 Angleur_EquipAngleurSet(false)
             end
             if not Angleur_TinyOptions.loginDisabled then
-                print(color2:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!")
+                print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"])
                 --print("Please report any bugs and issues you run into on the AddOn's curseforge page, or message me there directly.")
-                print("To access the configuration menu, type " .. color1:WrapTextInColorCode("/angleur ") .. "or " .. color1:WrapTextInColorCode("/angang") .. ".")
+                print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
                 if AngleurCharacter.sleeping == true then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )    
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
                 elseif AngleurCharacter.sleeping == false then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. color1:WrapTextInColorCode("/angsleep "))
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
                 end
             end
         elseif arg4 == true then
             if AngleurCharacter.sleeping == true then
                 if not Angleur_TinyOptions.loginDisabled then
-                    print(color2:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. color1:WrapTextInColorCode("/angsleep ") .. "again,")
-                    print("or " .. color1:WrapTextInColorCode("Right-Click ") .. "the Visual Button." )
+                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
                 end
             end
         end
@@ -214,7 +214,7 @@ local function isChosenKeyDown()
             if AngleurConfig.angleurKeyMain then
                 keybind = AngleurConfig.angleurKeyMain
             else
-                print("Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know.")
+                print(T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."])
             end
         end
         if keybind == "MOUSEWHEELUP" or keybind == "MOUSEWHEELDOWN" then
