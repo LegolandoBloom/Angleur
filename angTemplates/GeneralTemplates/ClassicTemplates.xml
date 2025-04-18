@@ -1,6 +1,62 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">    
     
+    <CheckButton name="Angleur_SimplifiedActionButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="36" y="36"/>
+        </Size>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" parentKey="icon"/>
+                </Layer>
+                <Layer level="ARTWORK" textureSubLevel="1">
+                <Texture name="$parentFlash" parentKey="Flash" file="Interface\Buttons\UI-QuickslotRed" hidden="true"/>
+                <Texture name="$parentFlyoutBorder" inherits="ActionBarFlyoutButton-IconFrame" parentKey="FlyoutBorder" hidden="true">
+                    <Anchors>
+                    <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture name="$parentFlyoutBorderShadow" inherits="ActionBarFlyoutButton-IconShadow" parentKey="FlyoutBorderShadow" hidden="true">
+                    <Anchors>
+                    <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                </Layer>
+                <Layer level="ARTWORK" textureSubLevel="2">
+                <Texture name="$parentFlyoutArrow" inherits="ActionBarFlyoutButton-ArrowUp" parentKey="FlyoutArrow" hidden="true"/>
+            </Layer>
+            <Layer level="OVERLAY">
+            <FontString name="$parentName" parentKey="Name" inherits="GameFontHighlightSmallOutline">
+                <Size x="36" y="10"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" x="0" y="2"/>
+                </Anchors>
+            </FontString>
+            <Texture name="$parentBorder" file="Interface\Buttons\UI-ActionButton-Border" parentKey="Border" hidden="true" alphaMode="ADD">
+                <Size x="62" y="62"/>
+                <Anchors>
+                <Anchor point="CENTER"/>
+                </Anchors>
+            </Texture>
+            </Layer>
+        </Layers>
+        <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture" file="Interface\Buttons\UI-Quickslot2">
+            <Size>
+            <AbsDimension x="66" y="66"/>
+            </Size>
+            <Anchors>
+            <Anchor point="CENTER">
+                <Offset>
+                <AbsDimension x="0" y="-1"/>
+                </Offset>
+            </Anchor>
+            </Anchors>
+        </NormalTexture>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture alphaMode="ADD" file="Interface\Buttons\ButtonHilight-Square"/>
+        <CheckedTexture alphaMode="ADD" file="Interface\Buttons\CheckButtonHilight"/>
+    </CheckButton>
+
     <Button name="CombatWeaponSwapButtonTemplate" inherits="SecureActionButtonTemplate" frameStrata="HIGH" mixin="Angleur_CombatWeaponSwapButtonMixin" hidden="true" virtual="true">
         <Attributes>
             <Attribute name="type" value="macro"/>
