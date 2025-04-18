@@ -14,7 +14,7 @@
                     </MaskedTextures>
                 </MaskTexture>
                 <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/>
-                <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/>
+                <!-- <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/> -->
             </Layer>
             <Layer level="ARTWORK" textureSubLevel="1">
                 <Texture name="$parentFlash" parentKey="Flash" atlas="UI-HUD-ActionBar-IconFrame-Flash" useAtlasSize="true" hidden="true">
@@ -92,7 +92,7 @@
     
     
 
-    <Button name="ExtraToyButtonTemplate" inherits="ActionButtonTemplate" virtual="true">
+    <Button name="ExtraToyButtonTemplate" inherits="Angleur_SimplifiedActionButtonTemplate" virtual="true">
         <Scripts>
             <OnEnter>
                 if self.toyID ~= 0 then
@@ -118,7 +118,7 @@
         </Frames>
     </Button>
     
-    <Button name="ExtraItemButtonTemplate" inherits="ActionButtonTemplate" virtual="true">
+    <Button name="ExtraItemButtonTemplate" inherits="Angleur_SimplifiedActionButtonTemplate" virtual="true">
         <Scripts>
             <OnEnter>
                 if self.toyID ~= 0 and self.toyID then
