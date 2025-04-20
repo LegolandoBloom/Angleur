@@ -20,21 +20,27 @@ end
 
 Angleur_CombatWeaponSwapButtonMixin = {};
 
+local function isEquipItemValid(itemInfo)
+    if C_Item.IsEquippableItem(itemInfo) == false then return false end
+    if C_Item.GetItemCount(itemInfo) < 1 then return false end
+    return true
+end
+
 function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     if not swapTable or next(swapTable) == nil then return end
-    local _, firstItemID = next(swapTable)
+    local _, firstLink = next(swapTable)
     local macroBody = ""
-    for location, itemID in pairs(swapTable) do
-        local GUID = C_TooltipInfo.GetOwnedItemByID(itemID).guid
-        if GUID then
-            local name = C_Item.GetItemName(C_Item.GetItemLocation(GUID))
+    for location, link in pairs(swapTable) do
+        if isEquipItemValid(link) then
+            local name = C_Item.GetItemNameByID(link)
             Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin: ", name)
-            macroBody = macroBody .. "/equipslot " .. location .. " " .. name
+            macroBody = macroBody .. "/equipslot " .. location .. " " .. name .. "\n"
         end
     end
-    if not macroBody or not firstItemID then return end
-    self.icon:SetTexture(C_Item.GetItemIconByID(firstItemID))
+    if not macroBody or not firstLink then return end
+    self.icon:SetTexture(C_Item.GetItemIconByID(firstLink))
     self:SetAttribute("macrotext", macroBody)
     self:Show()
-    Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin:setMacro: MACRO TEXT" , macroBody)
+    local colorPurple = CreateColor(0.64, 0.3, 0.71)
+    Angleur_BetaPrint(colorPurple:WrapTextInColorCode("Angleur_CombatWeaponSwapButtonMixin: ") .. "setMacro: MACRO TEXT\n" , macroBody)
 end

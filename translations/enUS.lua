@@ -496,3 +496,11 @@ T["Toy selection deactivated"] = "Toy selection deactivated"
 --Cata extra lines
 T["Bait"] = "Bait"
 T["Couldn't find any bait \n in your bags, feature disabled"] = "Couldn't find any bait \n in your bags, feature disabled"
+
+
+
+--Eq set bug fixes
+T["Swapback item not found in bags, cannot re-equip."] = "Swapback item not found in bags, cannot re-equip."
+T["A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
+.. "Therefore, it has been deleted. If this keeps happening, please contact the Author."] = "A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
+.. "Therefore, it has been deleted. If this keeps happening, please contact the Author."
