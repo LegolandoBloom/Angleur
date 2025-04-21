@@ -1,6 +1,7 @@
 ## Interface: 110100
 ## Title: Angleur
 ## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
+## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
 ## Version: Angleur 2.1 - Auto-Equip & Tiny Panel
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
