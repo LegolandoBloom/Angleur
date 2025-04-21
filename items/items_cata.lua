@@ -19,18 +19,18 @@ end
 angleurItems = {
     baitPossibilities = {
         {itemID = 111111}, 
-        {name= "Shiny Bauble", itemID = 6529, icon = 134335},
+        {name= T["Shiny Bauble"], itemID = 6529, icon = 134335},
         {itemID = 222222},
-        {name = "Nightcrawlers", itemID = 6530, icon = 134324},
+        {name = T["Nightcrawlers"], itemID = 6530, icon = 134324},
         {itemID = 333333},
         --{name = "Aquadynamic Fish Lens", itemID = 6811, icon = 134440},
-        {name = "Bright Baubles", itemID = 6532, icon = 134139},
-        {name = "Flesh Eating Worm", itemID = 7307, icon = 134324},
-        {name = "Aquadynamic Fish Attractor", itemID = 6533, icon = 133982},
-        {name = "Feathered Lure", itemID = 62673, icon = 135992},
-        {name = "Sharpened Fish Hook", itemID = 34861, icon = 134226},
-        {name = "Glow Worm", itemID = 46006, icon = 237147},
-        {name = "Heat-Treated Spinning Lure", itemID = 68049, icon = 135811}
+        {name = T["Bright Baubles"], itemID = 6532, icon = 134139},
+        {name = T["Flesh Eating Worm"], itemID = 7307, icon = 134324},
+        {name = T["Aquadynamic Fish Attractor"], itemID = 6533, icon = 133982},
+        {name = T["Feathered Lure"], itemID = 62673, icon = 135992},
+        {name = T["Sharpened Fish Hook"], itemID = 34861, icon = 134226},
+        {name = T["Glow Worm"], itemID = 46006, icon = 237147},
+        {name = T["Heat-Treated Spinning Lure"], itemID = 68049, icon = 135811}
     },
     --baitPossibilities = {{itemID = 111111, spellID = 111111}, {itemID = 222222, spellID = 222222}, {itemID = 333333, spellID = 333333}} --filled with fake items for testing purposes, normally quoted out
     ownedBait = {},

@@ -497,3 +497,38 @@ T["Swapback item not found in bags, cannot re-equip."] = "Swapback item not foun
 T["A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
 .. "Therefore, it has been deleted. If this keeps happening, please contact the Author."] = "A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
 .. "Therefore, it has been deleted. If this keeps happening, please contact the Author."
+
+
+
+
+T["Tuskarr Dinghy"] = "Шлюпка клыкарров"
+T["Anglers Fishing Raft"] = "Плот рыболова"
+T["Gnarlwood Waveboard"] = "Криволесская доска для серфинга"
+T["Personal Fishing Barge"] = "Личная рыболовная баржа"
+
+T["Crate of Bobbers: Can of Worms"] = "Ящик поплавков: банка для червей"
+T["Crate of Bobbers: Carved Wooden Helm"] = "Ящик поплавков: резной деревянный шлем"
+T["Crate of Bobbers: Cat Head"] = "Ящик поплавков: кошачья голова"
+T["Crate of Bobbers: Demon Noggin"] = "Ящик поплавков: башка демона"
+T["Crate of Bobbers: Enchanted Bobber"] = "Ящик поплавков: заколдованный поплавок"
+T["Crate of Bobbers: Face of the Forest"] = "Ящик поплавков: лик леса"
+T["Crate of Bobbers: Floating Totem"] = "Ящик поплавков: плавающий тотем"
+T["Crate of Bobbers: Murloc Head"] = "Ящик поплавков: голова мурлока"
+T["Crate of Bobbers: Replica Gondola"] = "Ящик поплавков: модель гондолы"
+T["Crate of Bobbers: Squeaky Duck"] = "Ящик поплавков: уточка"
+T["Crate of Bobbers: Tugboat"] = "Ящик поплавков: буксир"
+T["Crate of Bobbers: Wooden Pepe"] = "Ящик поплавков: деревянный Пепе"
+T["Bat Visage Bobber"] = "Поплавок \"Нетопырь\""
+T["Limited Edition Rocket Bobber"] = "Поплавок в виде ракеты лимитированного выпуска"
+T["Artisan Beverage Goblet Bobber"] = "Поплавок в виде кубка для изысканных напитков"
+T["Organically-Sourced Wellington Bobber"] = "Поплавок в виде органической сосиски в тесте"
+
+T["Shiny Bauble"] = "Блесна"
+T["Nightcrawlers"] = "Выползки"
+T["Bright Baubles"] = "Яркая блесна"
+T["Flesh Eating Worm"] = "Кусеница"
+T["Aquadynamic Fish Attractor"] = "Аквадинамический магнит для рыбы"
+T["Feathered Lure"] = "Перьевая наживка"
+T["Sharpened Fish Hook"] = "Заостренный рыболовный крючок"
+T["Glow Worm"] = "Светлячок"
+T["Heat-Treated Spinning Lure"] = "Термостойкая вращающаяся наживка"
