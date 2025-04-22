@@ -492,11 +492,11 @@ T["Couldn't find any bait \n in your bags, feature disabled"] = "Наживка 
 
 
 
---Eq set bug fixes
-T["Swapback item not found in bags, cannot re-equip."] = "Swapback item not found in bags, cannot re-equip."
+-- Исправления ошибок для наборов экипировки
+T["Swapback item not found in bags, cannot re-equip."] = "Предмет для обратной замены не найден в сумках, невозможно переодеть."
 T["A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
-.. "Therefore, it has been deleted. If this keeps happening, please contact the Author."] = "A bug with the Angleur Set has occurred, where it is set to unequip all gear. " 
-.. "Therefore, it has been deleted. If this keeps happening, please contact the Author."
+.. "Therefore, it has been deleted. If this keeps happening, please contact the Author."] = "Произошла ошибка с набором Angleur, который приводит к снятию всей экипировки. " 
+.. "Поэтому набор был удалён. Если проблема повторяется, пожалуйста, свяжитесь с автором."
 
 
 
