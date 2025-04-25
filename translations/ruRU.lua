@@ -1,4 +1,4 @@
---Translator ZamestoTV
+--Translator: ZamestoTV
 
 if (GAME_LOCALE or GetLocale()) ~= "ruRU" then
   return
