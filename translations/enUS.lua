@@ -27,7 +27,6 @@ T["Please select a toy using Left Mouse Click"] = "Please select a toy using Lef
 T["Make sure this box is checked!"] = "Make sure this box is checked!"
 T["Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."] = "Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."
 T["Angleur Configuration"] = "Angleur Configuration"
-T["The next key you press\nwill be set as Angleur Key"] = "The next key you press\nwill be set as Angleur Key"
 T["Having Problems?"] = "Having Problems?"
 T["Angleur Warning: Plater"] = "Angleur Warning: Plater"
 T["Okay"] = "Okay"
@@ -103,8 +102,8 @@ T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above
 T["Extra Items / Macros"] = "Extra Items / Macros"
 
 T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
-    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
-    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."
+    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."] = "   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
+    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."
 
 T["Set Timer"] = "Set Timer"
 T["Toggle Equipment"] = "Toggle Equipment"

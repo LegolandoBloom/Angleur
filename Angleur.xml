@@ -218,12 +218,12 @@
                                     </CheckButton>
                                     <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-72"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-72"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-100"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-100"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -236,7 +236,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-134"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-134"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -887,10 +887,10 @@
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
                     </Anchors>
                 </Texture>
-                <FontString name="$parent_DefaultText" parentKey="defaultText" inherits="Fancy12Font">
+                <FontString name="$parent_DefaultText" parentKey="defaultText" inherits="Fancy12Font" justifyH="LEFT">
                     <Color r="1" g="0.82" b="0"/>
                     <Anchors>
-                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="0"/>
+                        <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="8" y="1"/>
                     </Anchors>
                 </FontString>
                 <Texture name="$parent_CheckedTexture" parentKey="checkedTexture" file="Interface/Addons/Angleur/images/armorequipgreencheck.png" hidden="true">
@@ -899,10 +899,10 @@
                         <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
                     </Anchors>
                 </Texture>
-                <FontString name="$parent_CheckedText" parentKey="checkedText" inherits="Fancy12Font" hidden="true">
+                <FontString name="$parent_CheckedText" parentKey="checkedText" inherits="Fancy12Font" justifyH="LEFT" hidden="true">
                     <Color r="0" g="1" b="0"/>
                     <Anchors>
-                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-25" y="5"/>
+                        <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="10" y="5"/>
                     </Anchors>
                 </FontString>
             </Layer>

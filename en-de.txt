@@ -1,0 +1,307 @@
+ You can drag and place this anywhere on your screen  =  Sie können dieses irgendwohin auf Ihrem Bildschirm schieben. 
+ FISHING METHOD:  =  ANGELMETHODE: 
+ One Key  =  Einzige Taste 
+ The next key you press will be set as Angleur Key  =  Die nächste Taste, die Sie drücken, wird als Angleur-Taste festgelegt 
+ Please set a keybind to use the One Key ishing Method by using the the button above  =  Bitte legen Sie eine Tastenbelegung fest mit Hilfe der obenen Kiste 
+ Return Angleur Visual  =  Angleur Visual Zurückstellen 
+ Double Click  =  Doppelklicken 
+ Redo Tutorial  =  Tutorial Wiederholen 
+ Wake!  =        Auf- wecken! 
+ Create   Add  =  Erstellen Hinzufügen 
+ Update  =  Update 
+ Please select a toy using Left Mouse Click  =  Wählen Sie ein Spielzeug mit linkem Klick 
+ Make sure this box is checked!  =  Sehen Sie zu, dass dieses Kontrollkästchen aktiviert ist! 
+ Located in Plater->Advanced->General Settings.  Otherwise Angleur wont be able to reel fish in.  =  Befindet sich in Plater->Advanced->General Settings. Sonst wird Angleur den Fisch nicht einholen können 
+ Angleur Configuration  =  Angleur Konfiguration 
+ Having Problems?  =  Gibt's Probleme? 
+ Angleur Warning: Plater  =  Angleur Warning: Plater 
+ Okay  =  Okay 
+   Extra    =    Extra   
+   Tiny    =    Winzig   
+ Standard  =  Standard 
+
+
+ Angleur Visual Button  =  Angleur Visual 
+ Shows what your next key press will do. Not meant to be clicked.  =  Zeigt an, was Ihr nächster Tastendruck macht. 
+ Fishing Mode: .. Double Click    =  Angelmodus: .. Doppelklick   
+ Fishing Mode: .. One Key   =  Angelmodus: .. Einzige Taste  
+ One-Key NOT SET! To set, open config menu with:  =  Einzige-Taste nicht festgelegt! Um fest zu legen, öffne die Konfig-Menü mit: 
+  or   =   oder  
+ Right Click to temporarily put Angleur to sleep. zzz... =  Klicken Sie mit der rechten Taste, um Angleur schlafen zu lassen. 
+ Sleeping. Zzz...  =  Schläft. Zzz... 
+  Right-Click  =   Rechter-Mausklick 
+  to wake Angleur!  =   um Angleur aufzuwecken! 
+ One-Key Fishing Mode  =  Einzige-Taste Angelmodus 
+
+
+ Cast, Reel .. , use .. Toys .. , ..  Items and Configured Macros .. using  one button.  
+                                                ============    
+ Auswerfen .. , .. Einholen .. , .. Spielzeuge .. , .. Items und konfigurierte Macros .. verwenden, nur mit einem Tastendruck 
+
+
+ Set your desired key by:   =  Legen Sie Ihre gewünschte Tastenbelegung, indem:  
+ Clicking on the button that appears below once this option is selected.  =  Sie auf die untene Kiste klicken das unten angezeigt wird, sobald diese Option ausgewählt ist. 
+ Double-Click Fishing Mode  =  Doppelklick Angelmodus 
+ Fish, Reel, cast Toys, Items and Macros using double mouse clicks!   =  Angeln, einholen, Spielzeuge, Items und Macros verwenden, mithilfe des Doppelklickens  
+ Not every toy will work!  =  Nicht jeder Spielzeug wird Angleur passen! 
+
+
+ Extra Toys is a feature meant to provide flexible user customization, but not every toy is  
+..  created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine. 
+..  Test them out, experiment and have fun!   
+                                                ============
+ Extra Spielzeuge ist ein Feature, das weitere Anpassung ermöglicht, aber nicht jeder Spielzeugt  
+.. funktioniert gleich. Gezielte Spielzeuge, Spielzeuge die Sie zum Schweigen bringen, ferngesteuerte Spielzeuge usw., die Angleur durcheinander bringen.  
+..  Probieren Sie sie aus, experimentieren und haben Sie spaß!   
+
+
+ Fun toy recommendations from mod author, Legolando:  =  Lustige Spielzeug-Empfehlungen von dem Mod-Autor, Legolando: 
+
+
+ 1)  Tents such as Gnoll Tent to protect yourself from the sun as you fish. 
+..  2)  Transformation toys such as Burning Defender's Medallion. 3)  Seating items like pillows so you can fish comfortably. 
+..  4)  Darkmoon whistle if you want to be annoying. And other whacky combinations!  
+                                                ============ 
+ 1)  Zelte wie das Gnollzelt, um sich vor der Sonne su beschützen. 
+..  2)  Verwandlungspielzeuge wie das Medaillon des flammenden Verteidigers. 3)  Items wie Kissen, damit Sie bequem sitzen können, während Sie angeln. 
+..  4)  Die Dunkelmond-Pfeife, wenn Sie Leute ärgern möchten. Und andere lustige Kombinationen! 
+
+
+ Beta: .. If you are having trouble, try resetting the set by clicking the reset button then refreshing the UI with    
+.. /reload.  
+                                                ============ 
+ Beta: .. Wenn es probleme gibt, versuchen Sie es zurückzusetzen, indem Sie die ' Reset Button'  klicken, und dann die UI mit /reload   
+.. aktualisieren   
+
+
+ Reset Angleur Set  =  Angleur Set Zurücksetzen 
+
+
+
+Equip a .. Fishing Pole   =  Rüsten Sie sich mit einer .. Angelrute .. aus   
+or  =   oder 
+Note for Cata:  =  Hinweis für Cata: 
+Mouseover the bobber to reel consistently.  =  ' Mouseover'  den Schwimmer um problemlos einzuholen. 
+If it lands too far, the soft-interact will miss it. = Falls er zu weit landet, das ' Soft-Interact'  System wir ihn verfehlen.  
+
+
+Key set to   =  Festgelegte Taste:  
+Fish, cast Toys, Items and Macros using double mouse clicks! =  Angeln, Toys, Items und Macros beim Doppelklicken verwenden.  
+
+
+
+Cast .. Reel .. and .. use Items und Configured Macros .. using  one button.  
+                                ============
+Auswerfen .. Einholen .. und  .. Items und konfigurierte Macros verwenden .. nur mit einem Tastendruck 
+
+
+Note for Classic:  =  Hinweis for Classic: 
+
+Cast .. your rod and .. use Items/Macros .. using double mouse clicks!   
+                                ============  
+Angelrute .. auswerfen .. und .. Items/Macros .. beim Doppelklicken verwenden. 
+
+--extra.lua
+Extra Toys  =  Extra Spielzeuge .. Click .. any of the buttons above then select a toy with left click from the .. Toy Box .. that pops up.  
+                                                            ============ 
+.. Klicken .. Sie auf irgendeine der oben stehenden Slots, dann wählen Sie ein Spielzeug aus der .. Spielzeugkiste .. mit dem rechten Mausklick. 
+
+Extra Items / Macros  =  Extra Items / Macros 
+
+.. Drag .. a usable .. Item .. or a .. 
+Macro .. into any of the boxes above.  = .. Schieben .. Sie ein verwendbares   
+.. Item .. oder .. Macro ..  in irgdeneine der oben stehenden Kiste. 
+
+Set Timer  =  Timer Einrichten 
+Toggle Equipment  =  Ausrüstung Umschalten 
+Toggle Bags  =  Rucksack Umschalten 
+Open Macros  =  Macros Öffnen 
+
+
+
+--standard.lua
+ Raft  =  Floß 
+ Couldn't find any rafts   in toybox, feature disabled  =  Keine Flöße in der Spielzeugkiste, Feature ausgeschaltet 
+ Oversized Bobber  =  Übergroßer Schwimmer 
+ Couldn't find   Oversized Bobber in   toybox, feature disabled  =  Ü.großer Schwimmer nicht gefunden, Feature ausgeschaltet 
+ Crate of Bobbers  =  Crate of Bobbers 
+ Couldn't find   any Crate Bobbers   in toybox, feature disabled  =   Keine Schwimmer-Kiste  in der Spielzeugkiste, Feature disabled 
+ Crate Bobbers  =  Schwimmer-Kiste 
+ Ultra Focus:  =  Aufmerksamkeit: 
+ Audio  =  Audio 
+ Temp. Auto Loot   =  Temp. Plündern  
+ If checked, Angleur will temporarily turn on .. Auto-Loot   
+.. , then turn it back off after you reel. .. If you have   
+.. Auto-Loot   
+.. enabled anyway, this feature will be disabled automatically.   =  Wenn aktiviert, Angleur wird vorübergehend   
+.. Schnell-Plündern .. einschalten, und dann wieder aus- nachdem Sie eingeholt haben.    
+.. Wenn .. Schnell-Plündern   
+.. schon eingeschaltet ist, dieses Feature wird automatisch deaktiviert werden.  
+  Already on   =   Schon ein  
+
+ Angleur: .. If you experience stiffness with the Double-Click, do a   
+.. /reload ..  to fix it.  =     Angleur:    
+.. Falls Sie Steifheit mit dem Doppelklicken erfahren, aktualisieren Sie die UI mit .. /reload  
+ Rafts  =  Flöße 
+ Random Bobber  =  Zufälliger Schwimmer 
+ Preferred Mouse Button  =  Vorgezogene Maustaste 
+ Right Click  =  Rechter-Mausklick 
+
+--tabs-general.lua
+ Angleur visual .. is now hidden.  =     Angleur Visual .. ist jetzt versteckt. 
+ You can re-enable it from the  =  Sie können es von der Menü wieder aktivieren. 
+ Config Menu .. accessed by:   
+.. /angleur ..  or    
+.. /angang   =     Konfig Menu    
+.. zugegriffen mit .. /angleur    
+..  oder .. /angang  
+
+--tiny.lua
+ Disable Soft Interact  =  Soft Interact Deaktivieren 
+
+ If checked, Angleur will disable .. Soft Interact .. after you stop fishing.    
+.. Intended for people who want to keep Soft Interact disabled during normal play.   =  Wenn eingeschaltet, Angleur wird   
+.. ' Soft Interact' .. deaktivieren, wenn sie einholen.   
+.. Für Nutzern die das ' Soft Interact'  während normaler Gameplay gerne deaktiviert halten  
+
+ Can't change in combat.  =  Dürfen nicht während Combat wechseln 
+
+ Angleur .. will now turn off  
+.. Soft Interact .. when you aren't fishing.  =     Angleur    
+.. wird das .. ' Soft Interact' .. deaktivieren, wenn Sie nicht angeln. 
+
+ Dismount With Key  =  Mit Taste Absitzen 
+
+ If checked, Angleur will make you .. dismount    
+.. when you use OneKey/DoubleClick.    
+.. Your key will no longer be released upon mounting.   =  Wenn aktiviert, Angleur wird Sie   
+.. durch den Einsatz von Einzige-Taste/Doppelklicken .. absitzen .. lassen.    
+.. Ihre Tastenbelegung wird nicht mehr freigegeben, als Sie aufsitzen.  
+
+ Angleur .. will now   
+.. dismount .. you  =     Angleur    
+.. wird Sie .. absitzen .. lassen. 
+
+ Disable Soft Icon  =  Soft Icon Deaktivieren 
+
+ Whether the Hook icon above the bobber is shown. Note, this affects icons for other soft target objects.  =  Ob der Angelhaken über dem Schwimmer angezeigt ist. Hinweis, dies wird sich auf andere Soft-Target Objekte auswirken. 
+
+ Soft target icon for game objects disabled.  =  Soft-Target Icon für Spielobjekte ausgeschaltet 
+ Soft target icon for game objects re-enabled.  =  Soft-Target Icon für Spielobjekte eingeschaltet 
+ Double Click Window  =  Doppelklick Zeitfenster 
+ Visual Size  =  Visual Größe 
+ Master Volume Ultra Focus   =  Gesamtlautstärke Aufmerksamkeit  
+ Login Messages  =  Einloggensnachrichten 
+ Debug Mode  =  Debug Modus 
+ Defaults  =  Standardwerte 
+
+
+--firstInstall
+ Angleur Warning  =  Angleur Warnung 
+ Are you sure you want to abandon the tutorial?  =  Das Tutorial wird beendet, sind Sie sicher? 
+  You can redo it later by clicking the Redo Button in the Tiny Panel   =   Sie können es später wiederholen, wenn Sie auf ' Tutorial Wiederholen' klicken Winzig Panel   
+ Yes  =  Ja 
+ No  =  Nein 
+
+ Angleur: .. Plater   
+.. detected.  =     Angleur: .. Plater .. erkannt. 
+
+ Plater .. -> .. Advanced .. -> .. General Settings  
+.. : ..  Show soft-interact on game objects*  =  Plater .. ->    
+.. Advanced .. -> .. General Settings .. : ..  Show soft-interact on game objects* 
+
+ Must be .. checked ON .. for Angleur to function properly.  =  Muss .. Aktiviert .. werden, für Angleur problemlos zu funktionieren. 
+
+ To Get Started: .. Choose your desired  
+.. Fishing Method ..  by clicking one of these buttons.    =     Zum Anfangen:     
+.. Wählen Sie Ihre gewünschte .. Angelmethode .. , indem Sie auf eine dieser Kästchen klicken.   
+
+ Angleur .. Visual: .. Shows what your next input will do.   
+.. Drag and place it anywhere you might like. .. You can also hide it by clicking its close button.  =     Angleur    
+.. Visual: .. Zeigt an, was Ihr nächster Tastendruck macht.  
+.. Schieben Sie es irgendwohin Sie möchten. .. Es kann auch versteckt werden, indem Sie einfach auf die ''x'' Taste daneben klicken. 
+
+ Angleur works on a .. Sleep/Wake .. system, so you don't have to reload your UI after you're done fishing.   
+.. Right Click   
+.. to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button.  =  Angleur funktioniert durch ein   
+.. Schlaf/Wach .. System, also müssen Sie Ihre UI nicht aktualisieren, wenn Sie aufhören, zu angeln.   
+.. Rechter-Mausklick .. , um Angleur schlafen zu lassen, oder aufwecken. Rechter-Mausklick auf die Minimap-Taste geht auch! 
+
+ You can enable  Rafts,  Bobbers,  and Ultra Focus Audio/Temporary Auto Loot   by checking these boxes.  =  Flöße,  Bobbers,    
+.. und  Aufmerksamkeitmodus  einschalten, indem Sie diese Kontrollkästchen aktivieren. 
+
+ Now, let's move to the .. Extra .. Tab. Click here.  =  Nun, zum   
+.. Extra .. Tab! Klicken Sie hier. 
+
+ Extra Toys  .. You can select a toy from the .. Toy Box    
+.. to add it to your Angleur rotation.   Click on an empty slot to open toy selection, or click next to move on.   
+.. Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!  =     Extra Spielzeuge      
+.. Hier können Sie Spielzeuge aus der .. Spielzeugkiste    
+.. auswählen, um die zu Ihrem Angleur-Rotation hinzuzufügen.   Klicken auf einen Slot, um die Spielzeugauswahl zu öffnen, oder ''Weiter'' für den nächsten Schritt.   
+.. Note: Nicht jedes Spielzeug ist für Angleur geeignet, manche bringen man zum Schweigen usw. Experimentieren! 
+
+ Extra Items/Macros  .. You can .. Drag    
+.. items or macros here to add them to your Angleur rotation. .. These can be fishing hats, throwable fish, spells...   
+.. You can even set custom timers for them by clicking the .. stopwatch    
+.. icon that appears once you slot an item/macro.  Click   
+.. Okay .. to move on.  =     Extra Items/Macros      
+.. Schieben .. Sie Items oder Macros herin um sie zu Ihrem Angleur-Rotation hinzuzufügen.    
+.. Fischerhüte, werfbare Fisch, Zauber... .. Zu denen können Sie sogar Timers einrichten, indem Sie auf die  
+.. Stoppuhr .. Icon klicken, das angezeigt wird, nachdem Sie ein Item/Macro schieben.   
+.. ''OK'' .. zum weitergehen. 
+
+
+ Click here if you need an example & explanation of use of macros for Angleur!  =  Hier Klicken, für ein Beispiel & genauere Erklärung für den Ersatz von Macros bei Angleur! 
+
+ And lastly, the .. Create & Add .. button Creates an item set for you and automatically adds your   
+.. slotted items to it.  Now, Angleur will automatically equip your slotted items when you   
+.. wake .. it up, and restore previous items when you put it back to   
+.. sleep.   =  Schließlich, die .. Erstellen & Hinzufügen    
+.. Taste wird für Sie ein Ausrüstungsset erstellen, und automatisch Ihre   
+.. eingelegte Items dazu hinzufügen.  Von da an, Angleur wird diese Items automatisch ausrüsten, wenn Sie es   
+.. aufwecken .. , und die vorherige abgelegte Items wiederherstellen, wenn Sie es   
+.. schlafen .. lassen. 
+
+--thanks
+ You can support the project by donating on .. Ko-Fi   
+.. or .. Patreon!   =  Sie können das Projekt unter-  stützen, indem Sie auf   
+.. Ko-Fi ..  oder .. Patreon .. spenden! 
+
+ THANK YOU!  =  DANKE! 
+
+
+--advancedAngling
+ HOW?  =  WIE? 
+ Advanced Angling  =  Fortgeschrittenes Angeln 
+
+ Angleur    
+.. will have you cast the dragged item/macro if all of their below listed conditions are met.  =     Angleur    
+.. wird Sie die geschobene Item/Macro anwenden lassen, wenn all ihre unten stehende Bedingungen erfüllt sind. 
+
+ Items: .. 
+ - Any usable item from your bags or character equipment. .. Whenever:     1   
+.. Off-Cooldown .. 2 .. Aura Inactive   
+..   if present ..  Macros:    
+.. - Any valid macro that contains a spell or a usable item - /cast or /use.   
+.. Whenever:     1 .. Macro Conditions    
+.. are met .. 2  Spell/Item is .. Off-Cooldown    
+..                  and their    3 .. Auras Inactive   
+..   if present .. IMPORTANT:    
+.. If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.   
+.. _____________________________________________  =     Items: .. 
+ - Irgendeine verwendbare Item aus Ihrem Rucksack oder Charakter-Ausrüstung. .. Wann:     1   
+.. Nicht im Cooldown .. 2 .. Aura nicht Aktiv   
+..   falls vorhanden ..  Macros:    
+.. - Irgendein gültiges Macro, das Zauber oder verwendbares Item enthält - /cast oder /use.   
+.. Wann:     1 .. Macro Bedingungen    
+.. erfüllt sind .. 2  Spell/Item ist .. nicht im Cooldown   
+..                  und ihre    3 .. Auras nicht aktiv   
+..   falls vorhanden .. WICHTIG:    
+.. Wenn Sie Macro Bedingungen nutzen, die müssen AKTIV sein, als Sie das Macro einschieben.   
+.. _____________________________________________ 
+
+ Spell/Item has no Cooldown/Aura?   
+.. Click .. the Stopwatch .. to set a manual timer.   
+..                                                   minutes:seconds    =  Zauber/Item has kein Cooldown/Aura?   
+.. Klicken auf .. die Stoppuhr .. , ein Timer einzurichten.   
+..                                               minuten:sekunden   

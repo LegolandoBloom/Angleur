@@ -1,4 +1,5 @@
 --Translator ZamestoTV
+
 if (GAME_LOCALE or GetLocale()) ~= "ruRU" then
   return
 end
@@ -31,7 +32,6 @@ T["Please select a toy using Left Mouse Click"] = "Пожалуйста, выб�
 T["Make sure this box is checked!"] = "Убедитесь, что эта галочка установлена!"
 T["Located in Plater->Advanced->General Settings.\n\nOtherwise Angleur wont be able to reel fish in."] = "Находится в Plater->Дополнительно->Основные настройки.\n\nИначе Angleur не сможет подсекать рыбу."
 T["Angleur Configuration"] = "Настройки Angleur"
-T["The next key you press\nwill be set as Angleur Key"] = "Следующая нажатая клавиша\nбудет установлена как клавиша Angleur"
 T["Having Problems?"] = "Возникли проблемы?"
 T["Angleur Warning: Plater"] = "Предупреждение Angleur: Plater"
 T["Okay"] = "Окей"

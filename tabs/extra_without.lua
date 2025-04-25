@@ -14,7 +14,7 @@ function Angleur_SetTab2(self)
     itemHowTo:SetNonSpaceWrap(false)
     itemHowTo:SetSize(250, 200)
     itemHowTo:SetText(T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
-    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."])
+    colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."])
 
     self.contents.extraItems.first.timeButton.tooltipText = T["Set Timer"]
     self.contents.extraItems.second.timeButton.tooltipText = T["Set Timer"]

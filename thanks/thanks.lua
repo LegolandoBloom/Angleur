@@ -15,6 +15,8 @@ local names = {
     {text = "xScarlife\n", smalltext = "youtube.com/@xScarlifeGaming", r = 0.94, g = 0.368, b = 0.054, logo = "youtube"},
     {text = "T3chnological", r = 1, g = 0.843, b = 0, logo = nil},
     {text = "Puco", r = 0.72, g = 0.25, b = 1},
+    {text = "Trustyulf ", r = 0.62, g = 0.52, b = 0.38, logo = "kofi"},
+    {text = "ZamestoTV\n", smalltext = "youtube.com/@ZamestoTV", r = 0.25, g = 0.78, b = 0.92, logo = "youtube"},
 }
 
 local function iterateAndAdd(parent, anchorFrame)
