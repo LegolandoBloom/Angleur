@@ -2,7 +2,7 @@
 ## Title: Angleur - Cataclysm Classic
 ## Notes: Cataclysm Version of the Ultimate One Button Fishing AddOn, Angleur!
 ## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
-## Version: Angleur Cata - Angleur 2.1 - Auto-Equip & Tiny Panel
+## Version: Angleur Cata - Angleur 2.2 - The Great Merge + Translation Support
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
