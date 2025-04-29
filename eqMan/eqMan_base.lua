@@ -33,10 +33,20 @@ end
 
 SLASH_ANGSAVEDITEMS1 = "/angsaved"
 SlashCmdList["ANGSAVEDITEMS"] = function()
-    print(colorDebug3:WrapTextInColorCode("Swapout items:"))
+    print(colorDebug3:WrapTextInColorCode("Swapout weapons:"))
     for i, v in pairs(Angleur_SwapoutWeaponsSaved) do
         print(v)
     end
+    print("\n")
+    local swapbackSetID = C_EquipmentSet.GetEquipmentSetID("Angleur_SwapbackSet")
+    if not swapbackSetID then return end
+    local itemIDs = C_EquipmentSet.GetItemIDs(swapbackSetID)
+    if not itemIDs then return end
+    print(colorDebug3:WrapTextInColorCode("Swapback Set Items:"))
+    for i, v in pairs(itemIDs) do
+        print(getItemLinkID(v))
+    end
+    print("\n")
 end
 
 SLASH_ANGTEST1 = "/angtest"
@@ -366,7 +376,9 @@ function Angleur_AddToEquipmentSet()
             wantToEquip[location] = itemID 
         end
     end
-    Angleur_CreateSwapbackSet(false)
+    if AngleurCharacter.sleeping == true then
+        Angleur_CreateSwapbackSet(false)
+    end
     checkIngores(C_EquipmentSet.GetEquipmentSetID("Angleur_SwapbackSet"))
     Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": The items that will be equipped:")
     Angleur_BetaTableToString(wantToEquip)
@@ -565,7 +577,6 @@ local function fillSwapoutTable(setID)
             local inventoryItemID = GetInventoryItemID("player", location)
             Angleur_BetaPrint(inventoryItemID)
             if inventoryItemID then
-                print("why")
                 if inventoryItemID == itemIDs[location] then
                     Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Set item was previously equipped, not overriding previous re-requip table.")
                 else
