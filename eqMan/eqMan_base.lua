@@ -34,7 +34,7 @@ end
 SLASH_ANGSAVEDITEMS1 = "/angsaved"
 SlashCmdList["ANGSAVEDITEMS"] = function()
     print(colorDebug3:WrapTextInColorCode("Swapout items:"))
-    for i, v in pairs(Angleur_SwapoutItemsSaved) do
+    for i, v in pairs(Angleur_SwapoutWeaponsSaved) do
         print(v)
     end
 end
@@ -223,30 +223,31 @@ local function showAndPlayAnimation()
     PaperDollFrame_SetSidebar(PaperDollFrame, 3)
     if gameVersion == 1 then retail:showShiny() end
 end
--- When player manually changes items, add them to the 'Angleur_SwapoutItemsSaved' regardless of sleep state
+-- When player manually changes items, add them to the 'Angleur_SwapoutWeaponsSaved' regardless of sleep state
 local updatingSet = false
-local equipmentChangeTrackFrame = CreateFrame("Frame")
-equipmentChangeTrackFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-equipmentChangeTrackFrame:SetScript("OnEvent", function(self, event, slot, empty)
+local weaponChangeTrackFrame = CreateFrame("Frame")
+weaponChangeTrackFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+weaponChangeTrackFrame:SetScript("OnEvent", function(self, event, slot, empty)
     if AngleurCharacter.angleurSet == false then return end
     if event == "PLAYER_EQUIPMENT_CHANGED" then
         if empty == true then
 
         elseif empty == false then
+            if slot ~= 16 or slot ~= 17 then return end
             local newItem = GetInventoryItemID("player", slot)
             local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(C_EquipmentSet.GetEquipmentSetID("Angleur"))
             local setItem = angleurSetItemIDs[slot]
             if not setItem or setItem == -1 then
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": No set counterpart in the slot, not overwriting")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("WeaponChangeTrack ") .. ": No set counterpart weapon in the slot, not overwriting")
                 return
             end
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": Newly Equipped Item: ", getItemLinkEquipped(slot))
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("WeaponChangeTrack ") .. ": Newly Equipped weapon: ", getItemLinkEquipped(slot), "to slot: ", slot)
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("WeaponChangeTrack ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
             if newItem == setItem then
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": The new item is the set item...")
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("WeaponChangeTrack ") .. ": The new weapon is the set item...")
             elseif updatingSet == false then
-                Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("EquipmentChangeTrack ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
+                Angleur_SwapoutWeaponsSaved[slot] = getItemLinkEquipped(slot)
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("WeaponChangeTrack ") .. ": OVERWRITTEN: ", Angleur_SwapoutWeaponsSaved[slot])
             end
         end
     end
@@ -557,17 +558,21 @@ local function fillSwapoutTable(setID)
     itemIDs = C_EquipmentSet.GetItemIDs(setID)
     Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Table ItemIDs:")
     Angleur_BetaTableToString(itemIDs)
+    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Non-weapon slots will be ignored.")
     for location = 16, 17 do
         if itemIDs[location] ~= nil and itemIDs[location] ~= -1 then
             Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Slot is set to equip item: ", itemIDs[location])
             local inventoryItemID = GetInventoryItemID("player", location)
             Angleur_BetaPrint(inventoryItemID)
             if inventoryItemID then
+                print("why")
                 if inventoryItemID == itemIDs[location] then
                     Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Set item was previously equipped, not overriding previous re-requip table.")
-                elseif Angleur_SwapoutItemsSaved[location] ~= nil and Angleur_SwapoutItemsSaved[location] ~= -1 then
-                    local _, itemLink = GetItemInfo(Angleur_SwapoutItemsSaved[location])
-                    Angleur_BetaPrint(location, itemLink)
+                else
+                    local _, itemLink = GetItemInfo(inventoryItemID)
+                    Angleur_SwapoutWeaponsSaved[location] = itemLink
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Non-set item detected. Replacing swapout table. Slot and Link:")
+                    Angleur_BetaPrint(location, Angleur_SwapoutWeaponsSaved[location])
                 end
             end
         end
@@ -606,6 +611,8 @@ function Angleur_EquipAngleurSet(overrideSwapoutItems)
 
 
     Angleur_CreateSwapbackSet(true)
+    fillSwapoutTable(setID)
+
     local swapbackSetID = C_EquipmentSet.GetEquipmentSetID("Angleur_SwapbackSet")
     local erapusuThresholdSet = 0.3
     local erapusuCounterSet = 0
