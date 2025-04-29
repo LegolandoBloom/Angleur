@@ -23,7 +23,8 @@ function Angleur_InitMinimapButton()
                 elseif AngleurCharacter.sleeping == false then
                     AngleurCharacter.sleeping = true
                     Angleur_SetSleep()
-                    Angleur_UnequipAngleurSet(true)
+                    -- Angleur_UnequipAngleurSet(true)
+                    Angleur_EquipSwapbackSet()
                     print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
                 end
             elseif b == "LeftButton" then

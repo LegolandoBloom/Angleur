@@ -1,0 +1,12 @@
+Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin: ", link)
+local len  = string.len(link)
+local half = math.floor(len/2)
+local linko = string.sub(link, 1, half).."AAAA"..string.sub(link, half, len/2 + 1)
+print(linko)
+local i, j = string.find(link, "|H", 0)
+local linku = string.sub(link, j+1, len)
+local i, j = string.find(linku, "|", 0)
+linku = string.sub(linku, 0, i)
+print(linku)
+string.gmatch (macroBody, "(%[.-%])")
+macroBody = macroBody .. "/equipslot " .. location .. " " .. linku .. " \n"

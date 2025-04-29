@@ -33,8 +33,15 @@ function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     for location, link in pairs(swapTable) do
         if isEquipItemValid(link) then
             local name = C_Item.GetItemNameByID(link)
-            Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin: ", name)
-            macroBody = macroBody .. "/equipslot " .. location .. " " .. name .. "\n"
+            Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin: ", link)
+            local len  = string.len(link)
+            local i, j = string.find(link, "|H", 1)
+            local linku = string.sub(link, j+1, len)
+            local i, j = string.find(linku, "|", 1)
+            linku = string.sub(linku, 1, i - 1)
+            print(linku)
+            string.gmatch (macroBody, "(%[.-%])")
+            macroBody = macroBody .. "/equipslot " .. location .. " " .. linku .. "\n"
         end
     end
     if not macroBody or not firstLink then return end
