@@ -107,7 +107,7 @@ T["Extra Items / Macros"] = "Доп. предметы / макросы"
 
 T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
     colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes below."] = "   " .. colorYello:WrapTextInColorCode("Перетащите ") .. "используемый " .. colorYello:WrapTextInColorCode("предмет ") .. "или " .. 
-    colorYello:WrapTextInColorCode("макрос ") .. "в любое из полей ниже."
+    colorYello:WrapTextInColorCode("макрос ") .. "в любое из полей выше."
 
 T["Set Timer"] = "Установить таймер"
 T["Toggle Equipment"] = "Переключить снаряжение"
