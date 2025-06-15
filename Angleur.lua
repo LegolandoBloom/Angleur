@@ -3,6 +3,8 @@ local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
+local undangLoaded = false
+
 local function SetOverrideBinding_Custom(owner, isPriority, key, command)
     if not key then return end
     SetOverrideBinding(owner, isPriority, key, command)
@@ -83,6 +85,8 @@ function Angleur_EventLoader(self, event, unit, ...)
                 end
             end
         end
+        --Check if the Plugin Addon Angleur_Underlight is loaded
+        undangLoaded = C_AddOns.IsAddOnLoaded("Angleur_Underlight")
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         Init_AngleurSavedVariables()
@@ -567,6 +571,7 @@ function Angleur_FishingForAttentionAura()
     end
 end
 
+
 function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then
         --no need to do combat delay, angleur clears override bindings when entering combat anyway
@@ -592,6 +597,10 @@ function Angleur_SetSleep()
         Angleur.configPanel.decoration:Show()
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(true)
+        end
+        -- Angleur's Plugin Addon, Angleur_Underlight
+        if undangLoaded then
+            AngleurUnderlight_AngleurWakeUpPing()
         end
     end
     Angleur_SetMinimapSleep()
