@@ -986,7 +986,7 @@
         </Scripts>
     </Frame>
 
-    <Frame parent="Angleur" name="AngleurSet_AlertAnim" frameStrata="TOOLTIP" toplevel="true" inherits="ActionBarButtonSpellActivationAlert" hidden="true">
+    <Frame parent="Angleur" name="AngleurSet_AlertAnim" frameStrata="TOOLTIP" toplevel="true" inherits="AngleurPorted_ActionBarButtonSpellActivationAlert" hidden="true">
         <Size x="64" y="64"/>
         <Scripts>
             <OnEnter>
