@@ -274,9 +274,9 @@ T["THANK YOU!"] = "감사합니다!"
 T["HOW?"] = "어떻게?"
 T["Advanced Angling"] = "고급 낚시"
 
-T[colorBlu:WrapTextInColorCode("낚시꾼 ") 
-.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "아래 조건이 만족되면 드래그한 아이템이나 매크로가 실행됩니다."
+T[colorBlu:WrapTextInColorCode("Angleur ") 
+.. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("낚시꾼 ") 
+.. "아래 조건이 만족되면 드래그한 아이템이나 매크로가\n실행됩니다."
 
 T[colorYello:WrapTextInColorCode("Items:\n") .. 
 "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) "
