@@ -102,11 +102,11 @@ function Init_AngleurSavedVariables()
     end
 end
 
--- 1 : Retail, 2 : Cata, 3 : Classic    (0: None, fail)
+-- 1 : Retail, 2 : Cata Classic, 3 : Classic 19 : MoP Classic    (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
         return 1
-    elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == 19 then
         return 2
     elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
         return 3

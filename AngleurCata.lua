@@ -138,7 +138,26 @@ local fishingSpellTable = {
     18248,
     33095,
     51294,
-    88868
+    88868,
+    --MoP Additions
+    110410,
+    131474,
+    131476,
+    131490,
+    --MoP Uncategorized
+    62734,
+    131475,
+    131477,
+    131478,
+    131479,
+    131480,
+    131481,
+    131482,
+    131483,
+    131484,
+    131491,
+    --MoP NPC Abilities
+    63275,
 }
 local fishingPoleTable = {
     6256,

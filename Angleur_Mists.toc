@@ -1,8 +1,8 @@
-## Interface: 40402
-## Title: Angleur - Cataclysm Classic
-## Notes: Cataclysm Version of the Ultimate One Button Fishing AddOn, Angleur!
-## Notes-ruRU: Версия Cataclysm лучшего дополнения для рыбалки одной кнопкой, Angleur!
-## Version: Angleur Cata - Angleur 2.2 - The Great Merge + Translation Support
+## Interface: 50500
+## Title: Angleur - Mists of Pandaria Classic
+## Notes: Mists of Pandaria Version of the Ultimate One Button Fishing AddOn, Angleur!
+## Notes-ruRU: Версия Mists of Pandaria лучшего дополнения для рыбалки одной кнопкой, Angleur!
+## Version: Angleur MoP - Angleur 2.3 - The Great Merge + Translation Support
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
