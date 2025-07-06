@@ -144,6 +144,8 @@ local fishingSpellTable = {
     131474,
     131476,
     131490,
+    --Skumblade Spear Fishing
+    139505,
     --MoP Uncategorized
     62734,
     131475,
@@ -160,21 +162,44 @@ local fishingSpellTable = {
     63275,
 }
 local fishingPoleTable = {
+    --Fishing Pole
     6256,
+    --Strong Fishing Pole
     6365,
+    --Darkwood Fishing Pole
     6366,
+    --Big Iron Fishing Pole
     6367,
+    --Blump Family Fishing Pole
     12225,
+    --Nat Pagle's Extreme Angler FC-5000
     19022,
+    --Arcanite Fishing Pole
     19970,
+    --Seth's Graphite Fishing Pole
     25978,
+    --Mastercraft Kalu'ak Fishing Pole
     44050,
+    --Basic Fishing Pole
     45120,
+    --Nat's Lucky Fishing Pole
     45858,
+    --Bone Fishing Pole
     45991,
+    --Jeweled Fishing Pole
     45992,
+    --Staat's Fishing Pole
     46337,
-    52678
+    --Jonathan's Fishing Pole
+    52678,
+
+    -----------------
+    --MoP Additions--
+    -----------------
+    --Dragon Fishing Pole
+    84661,
+    --Pandaren Fishing Pole
+    84660,
 }
 local function CheckTable(table ,spell)
     matchFound = false
