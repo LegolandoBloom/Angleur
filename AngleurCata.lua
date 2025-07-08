@@ -241,6 +241,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
     end
 end
 
+
 local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
         if not AngleurConfig.doubleClickChosenID then
@@ -273,11 +274,35 @@ local function isChosenKeyDown()
     end
     return false
 end
+local playerDruid
+local baseClassID
+local _, baseClassID = UnitClassBase("player")
+if baseClassID == 11 then
+    playerDruid = true
+end
+local formsTable = {
+    [29] = true, -- Flight Form
+    [27] = true, -- Swift Flight Form
+    [4] = true, -- Aquatic Form
+    [3] = true, -- Travel Form
+}
+local function checkMounted()
+    if IsMounted() then
+        return true
+    end
+    if playerDruid then
+        local form = GetShapeshiftFormID()
+        if formsTable[form] == true then
+            return true
+        end
+    end
+    return false
+end
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
     if event == "PLAYER_ENTERING_WORLD" then
-        if IsMounted() then 
+        if checkMounted() then 
             mounted = true
         else
             mounted = false
@@ -337,8 +362,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             end)
         end
         Angleur_SetCursorForGamePad(false)
-    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" then
-        if IsMounted() then 
+    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
+        if checkMounted() then 
             mounted = true
         else
             mounted = false
@@ -376,6 +401,7 @@ logicVarFrame:RegisterEvent("UNIT_SPELLCAST_FAILED")
 logicVarFrame:RegisterEvent("UNIT_SPELLCAST_FAILED_QUIET")
 logicVarFrame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")
 logicVarFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
+logicVarFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 logicVarFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 logicVarFrame:RegisterEvent("MOUNT_JOURNAL_USABILITY_CHANGED")
 logicVarFrame:RegisterEvent("UNIT_AURA")

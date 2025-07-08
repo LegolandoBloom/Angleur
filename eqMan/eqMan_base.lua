@@ -129,7 +129,7 @@ function Angleur_CreateEquipmentSet()
         if checkSlottedExtraItems() == false then
             print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
             print(T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
-            deleteAngleurSet()
+            Angleur_ForceDeleteSet()
             return
         end
     end
