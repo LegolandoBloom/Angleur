@@ -49,7 +49,10 @@ function Angleur_ForceDeleteSet()
     local setButton = Angleur_CreateSetAndAdd
     AngleurCharacter.angleurSet = false
     Angleur_CreateSetAndAdd_UpdateState()
-    C_EquipmentSet.DeleteEquipmentSet(C_EquipmentSet.GetEquipmentSetID("Angleur"))
+    local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+    if setID then
+        C_EquipmentSet.DeleteEquipmentSet(setID)
+    end
     setButton:Enable()
     setButton:ClearPushedTexture()
 end
