@@ -131,12 +131,17 @@ end
 --***********[~]**********
 --**Events watcher that determines logic variables**
 --***********[~]**********
+local _, _, playerClassID = UnitBaseClass("player")
+print(playerClassID)
 
 local iceFishing = false
 local mounted = false
 local swimming = false
 local midFishing = false
 local compressedOceanFishing = false
+local function checkMounted()
+    IsMounted()
+end
 local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
         if not AngleurConfig.doubleClickChosenID then
@@ -204,7 +209,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register
     if event == "PLAYER_ENTERING_WORLD" then
-        if IsMounted() then 
+        if checkMounted() then 
             mounted = true
         else
             mounted = false
