@@ -6,17 +6,17 @@ local cata = AngleurItemsCata
 Angleur_SlottedExtraItems = {
     first = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0, 
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUsed = 0, 
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     },
     second = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUsed = 0,
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     },
     third = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUsed = 0,
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     }
 }
@@ -35,7 +35,8 @@ local function initializeSavedItems()
         if not slot.macroSpellID then slot.macroSpellID = 0 end
         if not slot.macroItemID then slot.macroItemID = 0 end
         if not slot.delay then slot.delay = 0 end
-        if not slot.lastUsed then slot.lastUsed = 0 end
+        if not slot.lastUpdateTime then slot.lastUpdateTime = 0 end
+        if not slot.remainingTime then slot.remainingTime = 0 end
         if not slot.equipLoc then slot.equipLoc = 0 end
         if not slot.forceEquip then slot.forceEquip = false end
     end
@@ -107,7 +108,8 @@ function Angleur_RemoveExtraItem(self)
     Angleur_SlottedExtraItems[keyofParent].macroSpellID = 0
     Angleur_SlottedExtraItems[keyofParent].macroItemID = 0
     Angleur_SlottedExtraItems[keyofParent].delay = 0
-    Angleur_SlottedExtraItems[keyofParent].lastUsed = 0
+    Angleur_SlottedExtraItems[keyofParent].lastUpdateTime = 0
+    Angleur_SlottedExtraItems[keyofParent].remainingTime = 0
     if Angleur_SlottedExtraItems[keyofParent].equipLoc ~= 0 then
         Angleur_SlottedExtraItems[keyofParent].equipLoc = 0
         print(T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") 
@@ -296,19 +298,54 @@ function Angleur_GetTimeFromBox(self)
     print(T["Timer set to: "], math.floor(Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay/60), T[" minutes, "], Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay%60, T[" seconds"])
 end
 
-local function startTimer_ItemOrMacro(self, event, unit, ...)
-    local arg4, arg5 = ...
-    if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
-        for i, slot in pairs(Angleur_SlottedExtraItems) do
-            if slot.spellID == arg5 or slot.macroSpellID == arg5 then
-                slot.lastUsed = GetTime()
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting")
-                return
+local function clearCountdown(slot)
+    slot.lastUpdateTime = 0
+    slot.remainingTime = 0
+end
+function Angleur_UpdateItemsCountdown(resetUpdateTime)
+    for i, slot in pairs(Angleur_SlottedExtraItems) do
+        if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
+            local timeNow = GetTime()
+            --Used when logging in, to prevent machine timer desync
+            if resetUpdateTime then
+                slot.lastUpdateTime = timeNow
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
+            end
+            local timePassedSince = math.floor(timeNow - slot.lastUpdateTime)
+            if timePassedSince < 0 or not timePassedSince then
+                print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
+                clearCountdown(slot)
+            elseif timePassedSince == 0 then
+                --pass for now
+            elseif timePassedSince > 0 then
+                slot.remainingTime = slot.remainingTime - timePassedSince
+                slot.lastUpdateTime = timeNow
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
+            end
+            if slot.remainingTime <= 0 then
+                clearCountdown(slot)
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
             end
         end
     end
 end
 
+local function startTimer_ItemOrMacro(self, event, unit, ...)
+    local arg4, arg5 = ...
+    if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
+        for i, slot in pairs(Angleur_SlottedExtraItems) do
+            if slot.spellID == arg5 or slot.macroSpellID == arg5 then
+                slot.lastUpdateTime = GetTime()
+                slot.remainingTime = slot.delay
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
+                return
+            end
+        end
+    elseif event == "ADDON_LOADED" and unit == "Angleur" then
+        Angleur_UpdateItemsCountdown(true)
+    end
+end
 local timerFrame = CreateFrame("Frame")
 timerFrame:SetScript("OnEvent", startTimer_ItemOrMacro)
 timerFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+timerFrame:RegisterEvent("ADDON_LOADED")

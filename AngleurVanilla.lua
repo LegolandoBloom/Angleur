@@ -459,6 +459,7 @@ end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
+    Angleur_UpdateItemsCountdown(false)
     local assignKey = nil
     if AngleurConfig.chosenMethod == "oneKey" then
         if not AngleurConfig.angleurKey then
@@ -554,19 +555,9 @@ local function parseMacroConditions(macroBody)
     end
     return returnValue
 end
-local lastPrint = 0 -- only used for debug mode, so the prints aren't too frequent
 local function checkConditions(self, slot, assignKey)
-    if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUsed ~= 0 and slot.lastUsed ~= nil then
-        if (GetTime() > slot.lastUsed + slot.delay) then
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
-            slot.lastUsed = 0
-        else
-            local remaining = GetTime() - (slot.lastUsed + slot.delay)
-            remaining = string.format("%.0f", remaining)
-            if remaining ~= lastPrint then
-                lastPrint = remaining
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Delay time remaining: ", remaining)
-            end
+    if slot.delay ~= 0 and slot.delay ~= nil then
+        if slot.remainingTime ~= 0 then
             return false
         end
     end
