@@ -495,8 +495,8 @@ function Angleur_ActionHandler_ExtraToys(self, assignKey)
         local _, cooldown = C_Container.GetItemCooldown(slot.toyID)
         if slot.name ~= 0 and cooldown == 0 and slot.auraActive == false then
             local isUsableSpell = C_Spell.IsSpellUsable(slot.spellID)
-            local isUsableItem = C_Item.IsUsableItem(slot.toyID)
-            if isUsableSpell and isUsableItem then
+            local isUsableToy = C_ToyBox.IsToyUsable(slot.toyID)
+            if isUsableSpell and isUsableToy then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
                 self.visual.texture:SetTexture(slot.icon)
