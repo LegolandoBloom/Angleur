@@ -1,5 +1,9 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorRed = CreateColor(1, 0, 0)
+local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
 local cata = AngleurItemsCata
 
@@ -91,8 +95,6 @@ function Angleur_LoadExtraItems(self)
 end
 
 function Angleur_RemoveExtraItem(self)
-    local colorYello = CreateColor(1.0, 0.82, 0.0)
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
     local parent = self:GetParent()
     local keyofParent = parent:GetParentKey()
     --if Angleur_SlottedExtraItems[keyofParent].name == 0 then error("Angleur ERROR: Trying to remove extra item, but it is already removed.") end
@@ -156,10 +158,6 @@ local warningHats = {
 }
 local function checkForHats(itemID)
     if warningHats[itemID] ~= nil then
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorRed = CreateColor(1, 0, 0)
-        local colorGrae = CreateColor(0.85, 0.85, 0.85)
         print(" ")
         print(" ")
         print(" ")
@@ -230,8 +228,6 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         return
     end
     local parentKey = self:GetParentKey()
-    local colorYello = CreateColor(1.0, 0.82, 0.0)
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
     Angleur_RemoveExtraItem(self.closeButton)
     if macroIndex then 
         local spellID = GetMacroSpell(macroIndex)
@@ -304,19 +300,15 @@ local function clearCountdown(slot)
 end
 function Angleur_UpdateItemsCountdown(resetUpdateTime)
     for i, slot in pairs(Angleur_SlottedExtraItems) do
-        if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
+        if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then      
+            -- better to call GetTime() inside the if clause since most users will only have 1 timered item if any at all - instead of outside the for loop
             local timeNow = GetTime()
-            --Used when logging in, to prevent machine timer desync
-            if resetUpdateTime then
-                slot.lastUpdateTime = timeNow
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
-            end
             local timePassedSince = math.floor(timeNow - slot.lastUpdateTime)
             if timePassedSince < 0 or not timePassedSince then
                 print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
                 clearCountdown(slot)
             elseif timePassedSince == 0 then
-                --pass for now
+                -- do nothing
             elseif timePassedSince > 0 then
                 slot.remainingTime = slot.remainingTime - timePassedSince
                 slot.lastUpdateTime = timeNow
@@ -330,22 +322,32 @@ function Angleur_UpdateItemsCountdown(resetUpdateTime)
     end
 end
 
-local function startTimer_ItemOrMacro(self, event, unit, ...)
+local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
     if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
         for i, slot in pairs(Angleur_SlottedExtraItems) do
-            if slot.spellID == arg5 or slot.macroSpellID == arg5 then
-                slot.lastUpdateTime = GetTime()
-                slot.remainingTime = slot.delay
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
-                return
+            if slot.delay ~= 0 and slot.delay ~= nil then
+                if slot.spellID == arg5 or slot.macroSpellID == arg5 then
+                    slot.lastUpdateTime = GetTime()
+                    slot.remainingTime = slot.delay
+                    Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
+                    return
+                end
             end
         end
-    elseif event == "ADDON_LOADED" and unit == "Angleur" then
-        Angleur_UpdateItemsCountdown(true)
+    elseif event == "PLAYER_ENTERING_WORLD" then
+        if unit == false and arg4 == false then return end
+        -- Set extra itemslast update time to when player loads in, so the countdowns can resume properly
+        local timeNow = GetTime()
+        for i, slot in pairs(Angleur_SlottedExtraItems) do
+            if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
+                slot.lastUpdateTime = timeNow
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("items_Events: ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
+            end
+        end
     end
 end
 local timerFrame = CreateFrame("Frame")
-timerFrame:SetScript("OnEvent", startTimer_ItemOrMacro)
+timerFrame:SetScript("OnEvent", items_Events)
 timerFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
-timerFrame:RegisterEvent("ADDON_LOADED")
+timerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")

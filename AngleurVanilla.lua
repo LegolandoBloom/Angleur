@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
@@ -57,8 +59,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         if unit == true then
             if AngleurCharacter.sleeping == false then
                 Angleur_EquipAngleurSet(false)
@@ -113,7 +113,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
             Angleur_UltraFocusBackground(false)
         end
-        --Angleur_UnequipAngleurSet(false)
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         Angleur_AdvancedAnglingPanel:Hide()
@@ -409,7 +408,6 @@ end
 
 
 function Angleur_ExtraItemAuras()
-    --Checks for Extra Toy Auras
     for i, slottedItem in pairs(Angleur_SlottedExtraItems) do
         slottedItem.auraActive = false
         local spellAuraID
@@ -492,8 +490,6 @@ function Angleur_ActionHandler(self)
             ClearOverrideBindings(self)
             self.visual.texture:SetTexture("")
         else
-            --local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-            --local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
             local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
             if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
@@ -635,7 +631,6 @@ function Angleur_UltraFocusBackground(activate)
     end
 end
 
---SetCVar("Sound_EnableMusic", 0)
 function Angleur_UltraFocusAudio(activate)
     if activate == true then
         Angleur_CVars.ultraFocus.musicOn = GetCVar("Sound_EnableMusic")

@@ -1,10 +1,10 @@
 local T = Angleur_Translate
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorWhite = CreateColor(1, 1, 1)
+local colorYello = CreateColor(1.0, 0.82, 0.0)
 
 local minimapButtonCreated = false
 function Angleur_InitMinimapButton()
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
-    local colorWhite = CreateColor(1, 1, 1)
-    local colorYello = CreateColor(1.0, 0.82, 0.0)
     local mapData = LibStub("LibDataBroker-1.1"):NewDataObject("AngleurMap", {  
         type = "launcher",  
         text = "Angleur!",

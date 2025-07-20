@@ -1,6 +1,10 @@
 local T = Angleur_Translate
 
 local colorDebug = CreateColor(0.65, 1, 0) -- grass green
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorWhite = CreateColor(1, 1, 1)
+local colorGrae = CreateColor(0.5, 0.5, 0.5)
+local colorYello = CreateColor(1.0, 0.82, 0.0)
 
 angleurOneKey = {
     modifiedListening = nil,
@@ -34,7 +38,7 @@ local mouseButtons = {
 }
 function Angleur_KeyGetterMouse(self, button)
     if button == "LeftButton" or button =="RightButton" then
-        --nothing
+        -- do nothing
     else
         local buttonName = mouseButtons[button]
         if not buttonName then
@@ -89,10 +93,6 @@ function Angleur_KeyGetterWheel(self, delta)
     end
 
     if angleurOneKey.modifiedListening then
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorWhite = CreateColor(1, 1, 1)
-        local colorGrae = CreateColor(0.5, 0.5, 0.5)
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
         AngleurConfig.angleurKey = angleurOneKey.modifiedListening .. "-" .. scroll
         AngleurConfig.angleurKeyModifier = angleurOneKey.modifiedListening
         AngleurConfig.angleurKeyMain = scroll

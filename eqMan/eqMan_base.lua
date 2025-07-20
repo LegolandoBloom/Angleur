@@ -2,6 +2,10 @@ local T = Angleur_Translate
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
 local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorRed = CreateColor(1, 0, 0)
+local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
 local retail = AngleurEqManRetail
 
@@ -154,8 +158,6 @@ function Angleur_CreateEquipmentSet()
         C_EquipmentSet.ClearIgnoredSlotsForSave()
         Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Angleur_CreateEquipmentSet ") .. ": Ignored Slots:")
         Angleur_BetaTableToString(C_EquipmentSet.GetIgnoredSlots(setID))
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
         print(T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "], setID)
         print(T["All unslotted items in the set have been set to <ignore slot>."])
         print(T["For passive items you'd like to add to your fishing gear, you can use the game's " 
@@ -294,10 +296,6 @@ local function OnUpdate_AttemptEquip(self, elapsed)
         if AngleurCharacter.sleeping == true then
             Angleur_UnequipAngleurSet(true)
         end
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorRed = CreateColor(1, 0, 0)
-        local colorGrae = CreateColor(0.85, 0.85, 0.85)
         if checkSlottedExtraItems() == true then
             print(T["Slotted items successfully updated for your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set.")])
         elseif checkSlottedExtraItems() == false then
