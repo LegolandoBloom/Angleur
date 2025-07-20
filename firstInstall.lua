@@ -10,14 +10,6 @@ AngleurTutorial = {
     part = 1
 }
 
--- if C_AddOns.IsAddOnLoaded("Plater") then
---     print(colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected.")
---     print("Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") .. "General Settings" 
---     .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*")
---     print("Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to function properly.")
--- end
--- AngleurConfig.firstInstallTutorial = 2
-
 --[[
 	Angleur_HelpTipTemplateMixin.parts[i] = {
 		text,									-- also acts as a key for various API, MUST BE SET

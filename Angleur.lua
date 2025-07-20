@@ -1,5 +1,8 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorGreen = CreateColor(0, 1, 0)
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
@@ -59,8 +62,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         if unit == true then
             if AngleurCharacter.sleeping == false then
                 Angleur_EquipAngleurSet(false)
@@ -117,7 +118,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
             Angleur_UltraFocusBackground(false)
         end
-        --Angleur_UnequipAngleurSet(false)
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         Angleur_ToyBoxOverlay_Deactivate()
@@ -179,9 +179,6 @@ local function warnPlater()
             warnedPlater = true
             return
         end
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
-        local colorGreen = CreateColor(0, 1, 0)
         if C_AddOns.IsAddOnLoaded("Plater") then
             print("----------------------------------------------------------------------------")
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."])
@@ -408,6 +405,7 @@ end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
+    Angleur_UpdateItemsCountdown(false)
     local assignKey = nil
     if AngleurConfig.chosenMethod == "oneKey" then
         if not AngleurConfig.angleurKey then
@@ -535,19 +533,9 @@ local function parseMacroConditions(macroBody)
     end
     return returnValue
 end
-local lastPrint = 0 -- only used for debug mode, so the prints aren't too frequent
 local function checkConditions(self, slot, assignKey)
-    if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUsed ~= 0 and slot.lastUsed ~= nil then
-        if (GetTime() > slot.lastUsed + slot.delay) then
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
-            slot.lastUsed = 0
-        else
-            local remaining = GetTime() - (slot.lastUsed + slot.delay)
-            remaining = string.format("%.0f", remaining)
-            if remaining ~= lastPrint then
-                lastPrint = remaining
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Delay time remaining: ", remaining)
-            end
+    if slot.delay ~= 0 and slot.delay ~= nil then
+        if slot.remainingTime ~= 0 then
             return false
         end
     end

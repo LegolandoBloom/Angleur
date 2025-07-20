@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+local colorYello = CreateColor(1.0, 0.82, 0.0)
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
@@ -57,15 +59,12 @@ function Angleur_EventLoader(self, event, unit, ...)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         if unit == true then
             if AngleurCharacter.sleeping == false then
                 Angleur_EquipAngleurSet(false)
             end
             if not Angleur_TinyOptions.loginDisabled then
                 print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"])
-                --print("Please report any bugs and issues you run into on the AddOn's curseforge page, or message me there directly.")
                 print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
                 if AngleurCharacter.sleeping == true then
                     print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
@@ -115,7 +114,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
             Angleur_UltraFocusBackground(false)
         end
-        --Angleur_UnequipAngleurSet(false)
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         Angleur_ToyBoxOverlay_Deactivate()
@@ -456,7 +454,6 @@ function Angleur_Auras()
     end
 end
 function Angleur_ExtraToyAuras()
-    --Checks for Extra Toy Auras
     for i, slottedToy in pairs(Angleur_SlottedExtraToys) do
         slottedToy.auraActive = false
         if C_UnitAuras.GetPlayerAuraBySpellID(slottedToy.spellID) then
@@ -466,7 +463,6 @@ function Angleur_ExtraToyAuras()
     end
 end
 function Angleur_ExtraItemAuras()
-    --Checks for Extra Toy Auras
     for i, slottedItem in pairs(Angleur_SlottedExtraItems) do
         slottedItem.auraActive = false
         local spellAuraID
@@ -516,6 +512,7 @@ end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
+    Angleur_UpdateItemsCountdown(false)
     local assignKey = nil
     if AngleurConfig.chosenMethod == "oneKey" then
         if not AngleurConfig.angleurKey then
@@ -573,8 +570,6 @@ function Angleur_ActionHandler(self)
                     return
                 end
             end
-            --local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-            --local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
             local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
             if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
@@ -657,19 +652,9 @@ local function parseMacroConditions(macroBody)
     end
     return returnValue
 end
-local lastPrint = 0 -- only used for debug mode, so the prints aren't too frequent
 local function checkConditions(self, slot, assignKey)
-    if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUsed ~= 0 and slot.lastUsed ~= nil then
-        if (GetTime() > slot.lastUsed + slot.delay) then
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
-            slot.lastUsed = 0
-        else
-            local remaining = GetTime() - (slot.lastUsed + slot.delay)
-            remaining = string.format("%.0f", remaining)
-            if remaining ~= lastPrint then
-                lastPrint = remaining
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("checkConditions ") .. ": Delay time remaining: ", remaining)
-            end
+    if slot.delay ~= 0 and slot.delay ~= nil then
+        if slot.remainingTime ~= 0 then
             return false
         end
     end

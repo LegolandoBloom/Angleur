@@ -1,4 +1,6 @@
 local T = Angleur_Translate
+local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorYello = CreateColor(1.0, 0.82, 0.0)
 
 SLASH_ANGLEURHELPTIPFIND1 = "/anghelptip"
 SlashCmdList["ANGLEURHELPTIPFIND"] = function()
@@ -32,7 +34,6 @@ SlashCmdList["ANGLEURSLEEP"] = function()
         print(T["Can't change sleep state in combat."])
         return
     end
-    local colorBlu = CreateColor(0.61, 0.85, 0.92)
     if AngleurCharacter.sleeping == false then
         AngleurCharacter.sleeping = true
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
@@ -50,8 +51,6 @@ SLASH_ANGLEURSETTINGS1 = T["/angleur"]
 SLASH_ANGLEURSETTINGS2 = T["/angang"]
 SlashCmdList["ANGLEURSETTINGS"] = function() 
     if InCombatLockdown() then
-        local colorYello = CreateColor(1.0, 0.82, 0.0)
-        local colorBlu = CreateColor(0.61, 0.85, 0.92)
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "cannot open " .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."])
         print(T["Please try again after combat ends."])
         return
