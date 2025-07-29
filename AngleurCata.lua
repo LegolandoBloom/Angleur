@@ -2,6 +2,7 @@ local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorRed = CreateColor(1, 0.1, 0.1)
 
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
@@ -68,7 +69,7 @@ function Angleur_EventLoader(self, event, unit, ...)
                 print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
                 if AngleurCharacter.sleeping == true then
                     print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
-                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
+                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
                 elseif AngleurCharacter.sleeping == false then
                     print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
                     print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
@@ -82,6 +83,18 @@ function Angleur_EventLoader(self, event, unit, ...)
                 end
             end
         end
+        print("Welcome to " .. colorBlu:WrapTextInColorCode("Angleur Classic's ") 
+        .. "\'Bobber too far warning\' Beta. Please enable the " 
+        .. colorYello:WrapTextInColorCode("Angleur Visual ") .. "through the Config Panel to be able to test it properly.")
+        print("Whenever your cast lands too far to be caught by the game's " 
+        .. colorYello:WrapTextInColorCode("Soft Interact System ") .. ", a " .. colorRed:WrapTextInColorCode("warning sound ") 
+        .. "will be played, and a different icon will be shown in the Visual.")
+        print("The goal is to test:")
+        print(colorYello:WrapTextInColorCode("1) ") .. "When the addon doesnt give a sound warning, is it always lootable?")
+        print(colorYello:WrapTextInColorCode("2) ") .. "When the addon gives a sound warning, is it always correct, and only happens in unlootable situations?")
+        print("Let me know of any inconsistentcies/bugs on the discord server, and also suggestions. "
+        .. "If you are using the \'OneKey\' Fishing Method, you can hold down " .. colorYello:WrapTextInColorCode("left shift ") 
+        .. "and press your chosen key to recast the rod after the warning sound plays.")
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         Init_AngleurSavedVariables()
@@ -125,10 +138,10 @@ end
 --***********[~]**********
 --**Events watcher that determines logic variables**
 --***********[~]**********
-local iceFishing = false
 local mounted = false
 local swimming = false
 local midFishing = false
+local bobberWithinRange = false
 local fishingSpellTable = {
     7620,
     7731,
@@ -312,9 +325,11 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "PLAYER_SOFT_INTERACT_CHANGED" then
         if arg4 then
-            local subbed = string.gsub(arg4, "%-0%-3767%-2444%-2424%-", "")
-            if subbed then
-                --print("found first pattern")
+            local found, endo = string.find(arg4, "GameObject-\0-4458-1-54-35591-")
+            if found then
+                Angleur_BetaPrint("the bobber is within range")
+                bobberWithinRange = true
+                --[[
                 if string.match(arg4, "%-377944%-") then
                     iceFishing = true
                 elseif string.match(arg4, "%-192631%-") or string.match(arg4, "%-197596%-")then
@@ -322,9 +337,15 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 elseif string.match(arg4, "%-35591%-") then
                     midFishing = true
                 end
+                
+                ]]
+                
+            else
+                Angleur_BetaPrint("different soft target")
+                bobberWithinRange = false
             end
-        elseif iceFishing == true then
-            iceFishing = false
+        else
+            bobberWithinRange = false
         end
     elseif event == "UNIT_SPELLCAST_SENT" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg6) then return end
@@ -333,6 +354,11 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
+        Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
+            if not bobberWithinRange then
+                PlaySound(12889)
+            end
+        end)
         Angleur_ActionHandler(Angleur)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
@@ -359,6 +385,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 midFishing = false
             end)
         end
+        bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
     elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
         if checkMounted() then 
@@ -521,16 +548,27 @@ function Angleur_ActionHandler(self)
         return end
         assignKey = AngleurConfig.angleurKey
     elseif AngleurConfig.chosenMethod == "doubleClick" then
-        if angleurDoubleClick.watching then 
+        if angleurDoubleClick.watching then
             assignKey = angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]
         end
     end
     
     ClearOverrideBindings(self)
     if midFishing then
-        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-        Angleur_SetCursorForGamePad(true)
+        if bobberWithinRange then
+            SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+            self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
+            Angleur_SetCursorForGamePad(true)
+        else
+            SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+            if AngleurConfig.chosenMethod == "oneKey" then
+                SetOverrideBindingSpell_Custom(self, true, "LSHIFT-" .. assignKey, PROFESSIONS_FISHING)
+            elseif AngleurConfig.chosenMethod == "doubleClick" then
+
+            end
+            self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
+            Angleur_SetCursorForGamePad(true)
+        end
     elseif swimming then
         --print("I am swimming")
         if mounted and Angleur_TinyOptions.allowDismount == false then
@@ -579,10 +617,6 @@ function Angleur_ActionHandler(self)
                 --ALREADY HANDLED WITHIN THE FUNCTION
             elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
                 --ALREADY HANDLED WITHIN THE FUNCTION
-            elseif iceFishing then
-                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-                Angleur_SetCursorForGamePad(true)
             else
                 SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
                 self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
