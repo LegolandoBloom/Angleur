@@ -104,7 +104,7 @@ function Angleur_EventLoader(self, event, unit, ...)
             AngleurConfig.ultraFocusAutoLootEnabled = false
         end
         Init_AngleurVisual()
-        --Angleur_HandleCVars()
+        Angleur_HandleCVars()
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_LoadItems()
         Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
@@ -726,8 +726,7 @@ function Angleur_UltraFocusInteractOff(activate)
     end
 end
 
---[[ Disabled for Classic
-    function Angleur_HandleCVars()
-        Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
-    end
-]]--
+
+function Angleur_HandleCVars()
+    C_CVar.SetCVar("SoftTargetInteract", 3)
+end
