@@ -820,10 +820,11 @@ function Angleur_UltraFocusAutoLoot(activate)
     end
 end
 
+
 function Angleur_UltraFocusInteractOff(activate)
     if activate == true then
         C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false thenSoftTargetInteract
+    elseif activate == false then
         C_CVar.SetCVar("SoftTargetInteract", 1)
     end
 end
