@@ -93,9 +93,32 @@
                             </OnShow>
                         </Scripts>
                     </EditBox>
+                    <Button name="$parent_AddonUnderlight" parentKey="addonUnderlight" inherits="Legolando_AddonButtonTemplate">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="10" y="10"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="icon" value="Interface/AddOns/Angleur/images/addonunderlighticon.png" type="string"/>
+                        </KeyValues>
+                    </Button>
                 </Frames>
             </Frame>
         </Frames>
     </Button>
     
+    <Frame name="OtherAddonsTest" inherits="Legolando_OtherAddonsFrameTemplate">
+        <Anchors>
+            <Anchor point="CENTER"/>
+        </Anchors>
+        <KeyValues>
+            <!-- <KeyValue key="lines" type="number" value="2"/>
+            <KeyValue key="columns" type="number" value="3"/>
+            <KeyValue key="spaceBetweenLines" type="number" value="5"/>
+            <KeyValue key="spaceBetweenColumns" type="number" value="20"/>
+            <KeyValue key="buttonSize" type="number" value="45"/> -->
+        </KeyValues>
+        <Scripts>
+            <OnLoad function="OtherAddonsTest_OnLoad"/>
+        </Scripts>
+    </Frame>
 </Ui>

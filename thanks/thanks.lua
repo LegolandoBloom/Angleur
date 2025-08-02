@@ -59,4 +59,39 @@ function Angleur_Thanks_OnLoad(self)
     self.thanksFrame.supportMe:SetJustifyH("LEFT")
     iterateAndAdd(self.thanksFrame, self.thanksFrame.supporters)
     --self.thanksFrame.supporters:SetText("T3chnological")
+    --self.thanksFrame.addonUnderlight.icon = "Interface/AddOns/Angleur/images/otheraddonsframe.png"
+end
+
+
+local addonsTable = {
+    [1] = { number = 1,
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
+            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.gif",
+            tooltipPictureAnchor = "BOTTOMLEFT",
+            tooltipTitle = "",
+            tooltipText = "",
+    },
+    [2] = {number = 2, icon = nil},
+    [3] = {number = 3},
+    [4] = {number = 4},
+    [5] = {number = 5},
+    [6] = {number = 6},
+    [7] = {number = 7},
+    [8] = {number = 8},
+    [9] = {number = 9},
+    [10] = {number = 10},
+    [11] = {number = 11},
+    [12] = {number = 12},
+    [13] = {number = 13},
+    [14] = {number = 14},
+    [15] = {number = 15},
+    -- [16] = {number = 16},
+    -- [17] = {number = 17},
+    -- [18] = {number = 18},
+}
+function OtherAddonsTest_OnLoad(self)
+    print("which one first?")
+    self.addonsTable = addonsTable
+    self:Init()
 end

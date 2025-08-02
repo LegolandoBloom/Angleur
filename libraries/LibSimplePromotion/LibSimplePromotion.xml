@@ -1,0 +1,161 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    
+    <Script file="LibSimplePromotion.lua"/>
+
+    <!-- ____________________________________[1]______________________________________________ -->
+    <!--  Templates Ported directly from Blizzard's FrameXML, just in case it changes later on -->
+    <!-- ____________________________________[1]______________________________________________ -->
+    <Button name="Ported_CollectionsPrevPageButton" virtual="true">
+        <Size x="32" y="32" />
+        <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
+        <PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
+        <DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Disabled"/>
+        <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+    </Button>
+    
+    <Button name="Ported_CollectionsNextPageButton" virtual="true">
+        <Size x="32" y="32" />
+        <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
+        <PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
+        <DisabledTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Disabled"/>
+        <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+    </Button>
+
+    <FontString name="Ported_CollectionsPageTextTemplate" inherits="GameFontWhite" justifyH="RIGHT" virtual="true"/>
+
+    <Frame name="Ported_CollectionsPagingFrameTemplate" mixin="Ported_CollectionsPagingMixin" virtual="true">
+        <!-- why 33? it makes it so the button textures display without rounding fuzziness on my screen -->
+        <Size x="33" y="32"/>
+        <Frames>
+            <Button parentKey="PrevPageButton" inherits="Ported_CollectionsPrevPageButton">
+                <Anchors>
+                    <Anchor point="LEFT" x="0" y="0" />
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                    self:GetParent():PreviousPage();
+                    </OnClick>
+                </Scripts>
+            </Button>
+            <Button parentKey="NextPageButton" inherits="Ported_CollectionsNextPageButton">
+                <Anchors>
+                    <Anchor point="LEFT" relativePoint="RIGHT" x="3" y="0" />
+                </Anchors>
+                <Scripts>
+                    <OnClick>
+                    self:GetParent():NextPage();
+                    </OnClick>
+                </Scripts>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="PageText" inherits="Ported_CollectionsPageTextTemplate">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" x="-11" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+    <!-- ____________________________________[1]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+    <!-- ____________________________________[2]______________________________________________ -->
+    <!--        Generalized Templates made by Legolando, to be used in this library            -->
+    <!-- ____________________________________[2]______________________________________________ -->
+    <GameTooltip name= "Legolando__PictureTooltipTemplate" mixin="Legolando_PictureTooltipMixin" inherits="GameTooltipTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
+            <KeyValue key="paddingL" value="0" type="number"/>
+            <KeyValue key="paddingB" value="0" type="number"/>
+            <KeyValue key="paddingR" value="0" type="number"/>
+            <KeyValue key="paddingT" value="0" type="number"/>
+        </KeyValues>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture">
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnShow inherit="append" method="OnShow"/>
+            <OnHide inherit="append" method="OnHide"/>
+        </Scripts>
+    </GameTooltip>
+    <!-- ____________________________________[2]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+    <!-- ____________________________________[3]______________________________________________ -->
+    <!--               Templates made by Legolando, specifically for this lib                  -->
+    <!-- ____________________________________[3]______________________________________________ -->
+    <Button name="Legolando_AddonButtonTemplate" mixin="Legolando_AddonButtonMixin" inherits="IconButtonTemplate" virtual="true">
+        <Size x="64" y="64"/>
+        <KeyValues>
+            <KeyValue key="iconSize" value="36" type="number"/>
+            <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
+        </KeyValues>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_FrameTexture" parentKey="frameTexture" file="Interface/AddOns/Angleur/images/other-addons/otheraddonsframe.png">
+                    <Size x="48" y="48"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="text" inherits="GameFontNormal">
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Button>
+    
+    <GameTooltip name= "LibSimplePromotionTooltip" inherits="Legolando__PictureTooltipTemplate">
+
+    </GameTooltip>
+
+    <Frame name="Legolando_OtherAddonsFrameTemplate" mixin="Legolando_OtherAddonsFrameMixin" virtual="true">
+        <Size x="300" y="400"/>
+        <KeyValues>
+        <!--           
+          <KeyValue key="lines" type="number" value="2"/>
+          <KeyValue key="columns" type="number" value="3"/>
+          <KeyValue key="spaceBetweenLines" type="number" value="50"/>
+          <KeyValue key="spaceBetweenColumns" type="number" value="20"/> 
+          <KeyValue key="buttonSize" type="number" value="45"/> 
+        -->
+        </KeyValues>
+        <Frames>
+            <Frame parentKey="addonsFrame" setAllPoints="true">
+                <Size x="300" y="400"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="0" y="0"/>
+                </Anchors>
+                <Frames>
+                    <!-- Automatically added with Init() -->
+                </Frames>
+            </Frame>
+            <Frame parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOM" x="21" y="43"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame> 
+
+    
+    <!-- ____________________________________[3]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+</Ui>

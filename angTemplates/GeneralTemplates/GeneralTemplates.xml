@@ -2,6 +2,26 @@
 ..\FrameXML\UI.xsd">
     
     
+    <GameTooltip name= "Legolando_PictureTooltipTemplate" mixin="Legolando_PictureTooltipMixin" inherits="GameTooltipTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
+            <KeyValue key="paddingL" value="0" type="number"/>
+            <KeyValue key="paddingB" value="0" type="number"/>
+            <KeyValue key="paddingR" value="0" type="number"/>
+            <KeyValue key="paddingT" value="0" type="number"/>
+        </KeyValues>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture">
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnShow inherit="append" method="OnShow"/>
+            <OnHide inherit="append" method="OnHide"/>
+        </Scripts>
+    </GameTooltip>
+    
     <Frame name="Angleur_WarningFrame" toplevel="true" frameStrata="DIALOG" inherits="BasicFrameTemplateWithInset" hidden="true" virtual="true">
         <Size x="320" y="128"/>
         <Layers>

@@ -1,5 +1,47 @@
 local T = Angleur_Translate
 
+Legolando_PictureTooltipMixin = {}
+
+function Legolando_PictureTooltipMixin:OnShow()
+    self:SetPadding(self.paddingL, self.paddingB, self.paddingR, self.paddingT)
+end
+
+function Legolando_PictureTooltipMixin:PlaceTexture(texturePath, width, height, anchor, padOffsetX, padOffsetY)
+    if not texturePath then return end
+    self.texture:ClearAllPoints()
+    self.texture:SetTexture(texturePath)
+    self.texture:SetSize(width, height)
+    self.texture:SetPoint(anchor, self, anchor)
+    self:ResetPadding()
+    if anchor == "TOPLEFT" then
+        self.paddingL = width + padOffsetX
+        self.paddingT = height + padOffsetY
+    elseif anchor == "TOPRIGHT" then
+        self.paddingR = width + padOffsetX
+        self.paddingT = height + padOffsetY
+    elseif anchor == "BOTTOMLEFT" then
+        self.paddingL = width + padOffsetX
+        self.paddingB = height + padOffsetY
+    elseif anchor == "BOTTOMRIGHT" then
+        self.paddingR = width + padOffsetX
+        self.paddingB = height + padOffsetY
+    end
+end
+
+function Legolando_PictureTooltipMixin:ResetPadding()
+    self.paddingL = 0
+    self.paddingB = 0
+    self.paddingR = 0
+    self.paddingT = 0
+end
+
+function Legolando_PictureTooltipMixin:OnHide()
+    self.texture:SetTexture(nil)
+    self.texture:ClearAllPoints()
+    self:ResetPadding()    
+end
+
+
 Angleur_CheckboxMixin = {};
 
 function Angleur_CheckboxMixin:greyOut()
