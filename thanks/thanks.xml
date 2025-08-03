@@ -106,7 +106,7 @@
         </Frames>
     </Button>
     
-    <Frame name="OtherAddonsTest" inherits="Legolando_OtherAddonsFrameTemplate">
+    <Frame name="OtherAddonsTest" inherits="SimpleAddonPromotionTemplate">
         <Anchors>
             <Anchor point="CENTER"/>
         </Anchors>

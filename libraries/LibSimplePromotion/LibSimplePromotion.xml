@@ -1,6 +1,9 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
     <Script file="LibSimplePromotion.lua"/>
 
     <!-- ____________________________________[1]______________________________________________ -->
@@ -34,7 +37,7 @@
                 </Anchors>
                 <Scripts>
                     <OnClick>
-                    self:GetParent():PreviousPage();
+                        self:GetParent():PreviousPage();
                     </OnClick>
                 </Scripts>
             </Button>
@@ -44,7 +47,7 @@
                 </Anchors>
                 <Scripts>
                     <OnClick>
-                    self:GetParent():NextPage();
+                        self:GetParent():NextPage();
                     </OnClick>
                 </Scripts>
             </Button>
@@ -97,18 +100,18 @@
     <!-- ____________________________________[3]______________________________________________ -->
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
+    <GameTooltip name= "LibSimplePromotionTooltip" inherits="Legolando__PictureTooltipTemplate"/>
     <Button name="Legolando_AddonButtonTemplate" mixin="Legolando_AddonButtonMixin" inherits="IconButtonTemplate" virtual="true">
-        <Size x="64" y="64"/>
+        <Size x="36" y="36"/>
         <KeyValues>
             <KeyValue key="iconSize" value="36" type="number"/>
-            <KeyValue key="useIconAsHighlight" value="true" type="boolean"/>
         </KeyValues>
         <Layers>
             <Layer level="ARTWORK">
-                <Texture name="$parent_FrameTexture" parentKey="frameTexture" file="Interface/AddOns/Angleur/images/other-addons/otheraddonsframe.png">
+                <Texture parentKey="frameTexture" file="Interface/AddOns/Angleur/images/other-addons/otheraddonsframe.png">
                     <Size x="48" y="48"/>
                     <Anchors>
-                        <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
+                        <Anchor point="CENTER"/>
                     </Anchors>
                 </Texture>
                 <FontString parentKey="text" inherits="GameFontNormal">
@@ -120,11 +123,8 @@
         </Layers>
     </Button>
     
-    <GameTooltip name= "LibSimplePromotionTooltip" inherits="Legolando__PictureTooltipTemplate">
-
-    </GameTooltip>
-
-    <Frame name="Legolando_OtherAddonsFrameTemplate" mixin="Legolando_OtherAddonsFrameMixin" virtual="true">
+    <!-- See exampleUsage.lua to see how to use the template -->
+    <Frame name="SimpleAddonPromotionTemplate" mixin="SimpleAddonPromotionMixin" virtual="true">
         <Size x="300" y="400"/>
         <KeyValues>
         <!--           
@@ -133,11 +133,15 @@
           <KeyValue key="spaceBetweenLines" type="number" value="50"/>
           <KeyValue key="spaceBetweenColumns" type="number" value="20"/> 
           <KeyValue key="buttonSize" type="number" value="45"/> 
+          <KeyValue key="pageButtonsAnchor" type="string" value="Bottom"/> 
+          <KeyValue key="pageButtonsOffsetX" type="number" value="0"/> 
+          <KeyValue key="pageButtonsOffsetY" type="number" value="0"/> 
+          <KeyValue key="pageButtonsTextAnchor" type="string" value="Bottom"/> 
         -->
         </KeyValues>
         <Frames>
             <Frame parentKey="addonsFrame" setAllPoints="true">
-                <Size x="300" y="400"/>
+                <Size x="1" y="1"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" x="0" y="0"/>
                 </Anchors>
@@ -145,15 +149,13 @@
                     <!-- Automatically added with Init() -->
                 </Frames>
             </Frame>
-            <Frame parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
+            <Frame name="PAGING_FRAME" parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
                 <Anchors>
-                    <Anchor point="BOTTOM" x="21" y="43"/>
+                    <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
                 </Anchors>
             </Frame>
         </Frames>
-    </Frame> 
-
-    
+    </Frame>
     <!-- ____________________________________[3]______________________________________________ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 

@@ -64,34 +64,78 @@ end
 
 
 local addonsTable = {
-    [1] = { number = 1,
+    [1] = { 
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
             link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.gif",
-            tooltipPictureAnchor = "BOTTOMLEFT",
-            tooltipTitle = "",
-            tooltipText = "",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "TOPLEFT",
+            tooltipPicturePaddingX = 15,
+            tooltipPicturePaddingY = 8,
+            tooltipTitle = "Angleur_Underlight",
+            tooltipText = "very awesome, very cool! Angleur underlight does all the cool stuffz and is like the bestest addonz like ever so you should download it ",
     },
-    [2] = {number = 2, icon = nil},
-    [3] = {number = 3},
-    [4] = {number = 4},
-    [5] = {number = 5},
-    [6] = {number = 6},
-    [7] = {number = 7},
-    [8] = {number = 8},
-    [9] = {number = 9},
-    [10] = {number = 10},
-    [11] = {number = 11},
-    [12] = {number = 12},
-    [13] = {number = 13},
-    [14] = {number = 14},
-    [15] = {number = 15},
-    -- [16] = {number = 16},
-    -- [17] = {number = 17},
-    -- [18] = {number = 18},
+    [2] = { 
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
+            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "TOPRIGHT",
+            tooltipPicturePaddingX = 15,
+            tooltipPicturePaddingY = 8,
+            tooltipTitle = "Angleur_Underlight",
+            tooltipText = "BLALALAAAHRYYYYYYUUUUUUWWWUUWUUWUWUWUWUWuWUuUwUU",
+    },
+    [3] = { 
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
+            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "BOTTOMLEFT",
+            tooltipPicturePaddingX = 15,
+            tooltipPicturePaddingY = 8,
+            tooltipTitle = "Angleur_Underlight",
+            tooltipText = "EYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEY",
+    },
+    [4] = { 
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
+            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "BOTTOMRIGHT",
+            tooltipPicturePaddingX = 15,
+            tooltipPicturePaddingY = 8,
+            tooltipTitle = "Angleur_Underlight",
+            tooltipText = "bladabludiblablubla",
+    },
+    [5] = {},
+    [6] = {},
+    [7] = {},
+    [8] = {},
+    [9] = {},
+    [10] = {},
+    [11] = {},
+    [12] = {},
+    [13] = {},
+    [14] = {},
+    [15] = {},
+    [16] = {},
+    [17] = {},
+    [18] = {},
+    [19] = {},
+    [20] = {},
+    [21] = {},
 }
-function OtherAddonsTest_OnLoad(self)
-    print("which one first?")
-    self.addonsTable = addonsTable
-    self:Init()
-end
+-- function OtherAddonsTest_OnLoad(self)
+--     self.addonsTable = addonsTable
+--     self.lines = 1
+--     self.columns = 4
+--     self.pageButtonsTextAnchor = "Bottom"
+--     self.buttonSize = 32
+--     self:Init()
+-- end
