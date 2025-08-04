@@ -136,8 +136,14 @@ end
 -- ____________________________________[3]______________________________________________
 Legolando_AddonButtonMixin = {}
 
+function Legolando_AddonButtonMixin:OnClick()
+    self.linkBox:Show()
+end
+
 function Legolando_AddonButtonMixin:OnEnter()
-    LibSimplePromotionTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+    local size = self:GetSize()
+
+    LibSimplePromotionTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", size/10, (size/12)*14)
     LibSimplePromotionTooltip:PlaceTexture(self.tooltipPicture, self.tooltipPictureWidth, self.tooltipPictureHeight, self.tooltipPictureAnchor, self.tooltipPicturePaddingX, self.tooltipPicturePaddingY)
     LibSimplePromotionTooltip:AddLine(self.tooltipTitle)
     LibSimplePromotionTooltip:AddLine(self.tooltipText, 1, 1, 1, true)

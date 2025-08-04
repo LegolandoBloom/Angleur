@@ -121,6 +121,55 @@
                 </FontString>
             </Layer>
         </Layers>
+        <Scripts>
+            <OnClick method="OnClick"/>
+        </Scripts>
+        <Frames>
+            <EditBox parentKey="linkBox" autoFocus="true" hidden="true" inherits="InputBoxTemplate">
+                <Size x="140" y="22"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativeKey="$parent.frameTexture" relativePoint="TOPRIGHT" x="4" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad>
+                        self:RegisterEvent("GLOBAL_MOUSE_DOWN")
+                    </OnLoad>
+                    <OnEvent>
+                        if event == "GLOBAL_MOUSE_DOWN" then
+                            if not self:IsShown() then return end
+                            if not self:IsMouseOver() then
+                                self:Hide()
+                            end
+                        end
+                    </OnEvent>
+                    <OnShow>
+                        local link = self:GetParent().link
+                        if link then
+                            self:SetText(link)
+                            self:HighlightText()
+                        end
+                    </OnShow>
+                    <OnEditFocusLost>
+                        self:Hide()
+                    </OnEditFocusLost>
+                    <OnTabPressed>
+                        self:Hide()
+                    </OnTabPressed>
+                    <OnEnterPressed>
+                        self:Hide()
+                    </OnEnterPressed>
+                    <OnTextChanged>
+                        if userInput then
+                            local link = self:GetParent().link
+                            if link then
+                                self:SetText(link)
+                                self:HighlightText()
+                            end
+                        end
+                    </OnTextChanged>
+                </Scripts>
+            </EditBox>
+        </Frames>
     </Button>
     
     <!-- See exampleUsage.lua to see how to use the template -->
@@ -149,7 +198,7 @@
                     <!-- Automatically added with Init() -->
                 </Frames>
             </Frame>
-            <Frame name="PAGING_FRAME" parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
+            <Frame name="$parent_PagingFrame" parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
                 <Anchors>
                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
                 </Anchors>

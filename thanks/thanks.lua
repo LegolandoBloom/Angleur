@@ -65,6 +65,30 @@ end
 
 local addonsTable = {
     [1] = { 
+        icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
+        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+        tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+        tooltipPictureWidth = 128,
+        tooltipPictureHeight = 64,
+        tooltipPictureAnchor = "TOPRIGHT",
+        tooltipPicturePaddingX = 15,
+        tooltipPicturePaddingY = 8,
+        tooltipTitle = "Angleur_Underlight",
+        tooltipText = "BLALALAAAHRYYYYYYUUUUUUWWWUUWUUWUWUWUWUWuWUuUwUU",
+    },
+    [2] = { 
+        icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
+        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "BOTTOMLEFT",
+            tooltipPicturePaddingX = 15,
+            tooltipPicturePaddingY = 8,
+            tooltipTitle = "Angleur_Underlight",
+            tooltipText = "EYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEY",
+        },
+    [3] = { 
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
             link = "https://www.curseforge.com/wow/addons/angleur-underlight",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
@@ -76,42 +100,8 @@ local addonsTable = {
             tooltipTitle = "Angleur_Underlight",
             tooltipText = "very awesome, very cool! Angleur underlight does all the cool stuffz and is like the bestest addonz like ever so you should download it ",
     },
-    [2] = { 
-            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
-            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-            tooltipPictureWidth = 128,
-            tooltipPictureHeight = 64,
-            tooltipPictureAnchor = "TOPRIGHT",
-            tooltipPicturePaddingX = 15,
-            tooltipPicturePaddingY = 8,
-            tooltipTitle = "Angleur_Underlight",
-            tooltipText = "BLALALAAAHRYYYYYYUUUUUUWWWUUWUUWUWUWUWUWuWUuUwUU",
-    },
-    [3] = { 
-            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
-            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-            tooltipPictureWidth = 128,
-            tooltipPictureHeight = 64,
-            tooltipPictureAnchor = "BOTTOMLEFT",
-            tooltipPicturePaddingX = 15,
-            tooltipPicturePaddingY = 8,
-            tooltipTitle = "Angleur_Underlight",
-            tooltipText = "EYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEY",
-    },
     [4] = { 
-            icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
-            link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-            tooltipPictureWidth = 128,
-            tooltipPictureHeight = 64,
-            tooltipPictureAnchor = "BOTTOMRIGHT",
-            tooltipPicturePaddingX = 15,
-            tooltipPicturePaddingY = 8,
-            tooltipTitle = "Angleur_Underlight",
-            tooltipText = "bladabludiblablubla",
+    
     },
     [5] = {},
     [6] = {},
@@ -124,18 +114,21 @@ local addonsTable = {
     [13] = {},
     [14] = {},
     [15] = {},
-    [16] = {},
-    [17] = {},
-    [18] = {},
-    [19] = {},
-    [20] = {},
-    [21] = {},
+    -- [16] = {},
+    -- [17] = {},
+    -- [18] = {},
+    -- [19] = {},
+    -- [20] = {},
+    -- [21] = {},
 }
--- function OtherAddonsTest_OnLoad(self)
---     self.addonsTable = addonsTable
---     self.lines = 1
---     self.columns = 4
---     self.pageButtonsTextAnchor = "Bottom"
---     self.buttonSize = 32
---     self:Init()
--- end
+function OtherAddonsTest_OnLoad(self)
+    self.addonsTable = addonsTable
+    self.lines = 3
+    self.columns = 3
+    self.spaceBetweenColumns = 20
+    self.pageButtonsAnchor = "Top"
+    self.pageButtonsOffsetY = 15
+    self.pageButtonsTextAnchor = "Bottom"
+    self.buttonSize = 20
+    self:Init()
+end

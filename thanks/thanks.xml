@@ -108,7 +108,7 @@
     
     <Frame name="OtherAddonsTest" inherits="SimpleAddonPromotionTemplate">
         <Anchors>
-            <Anchor point="CENTER"/>
+            <Anchor point="CENTER" y="0"/>
         </Anchors>
         <KeyValues>
             <!-- <KeyValue key="lines" type="number" value="2"/>
@@ -121,4 +121,5 @@
             <OnLoad function="OtherAddonsTest_OnLoad"/>
         </Scripts>
     </Frame>
+    
 </Ui>
