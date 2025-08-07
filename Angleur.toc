@@ -1,4 +1,4 @@
-## Interface: 110107
+## Interface: 110200
 ## Title: Angleur
 ## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
 ## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
@@ -28,6 +28,7 @@ translations\translations.xml
 angTemplates\GeneralTemplates\RetailTemplates.xml
 angTemplates\GeneralTemplates\RetailTemplates.lua
 angTemplates\embeds.xml
+angTemplates\SimplePromotionTemplate\SimplePromotionTemplate.xml
 
 init.lua
 Angleur.lua

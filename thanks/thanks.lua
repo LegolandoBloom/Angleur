@@ -123,11 +123,11 @@ local addonsTable = {
 }
 function OtherAddonsTest_OnLoad(self)
     self.addonsTable = addonsTable
-    self.lines = 3
+    self.lines = 2
     self.columns = 3
     self.spaceBetweenColumns = 20
-    self.pageButtonsAnchor = "Top"
-    self.pageButtonsOffsetY = 15
+    self.pageButtonsAnchor = "Bottom"
+    self.pageButtonsOffsetY = 0
     self.pageButtonsTextAnchor = "Bottom"
     self.buttonSize = 20
     self:Init()

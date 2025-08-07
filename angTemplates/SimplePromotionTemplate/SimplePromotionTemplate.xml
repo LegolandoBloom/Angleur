@@ -4,12 +4,12 @@
     If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-    <Script file="LibSimplePromotion.lua"/>
+    <Script file="SimplePromotionTemplate.lua"/>
 
     <!-- ____________________________________[1]______________________________________________ -->
     <!--  Templates Ported directly from Blizzard's FrameXML, just in case it changes later on -->
     <!-- ____________________________________[1]______________________________________________ -->
-    <Button name="Ported_CollectionsPrevPageButton" virtual="true">
+    <Button name="Angleur_PortedCollectionsPrevPageButton" virtual="true">
         <Size x="32" y="32" />
         <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Up"/>
         <PushedTexture file="Interface\Buttons\UI-SpellbookIcon-PrevPage-Down"/>
@@ -17,7 +17,7 @@
         <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
     </Button>
     
-    <Button name="Ported_CollectionsNextPageButton" virtual="true">
+    <Button name="Angleur_PortedCollectionsNextPageButton" virtual="true">
         <Size x="32" y="32" />
         <NormalTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Up"/>
         <PushedTexture file="Interface\Buttons\UI-SpellbookIcon-NextPage-Down"/>
@@ -25,13 +25,13 @@
         <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
     </Button>
 
-    <FontString name="Ported_CollectionsPageTextTemplate" inherits="GameFontWhite" justifyH="RIGHT" virtual="true"/>
+    <FontString name="Angleur_PortedCollectionsPageTextTemplate" inherits="GameFontWhite" justifyH="RIGHT" virtual="true"/>
 
-    <Frame name="Ported_CollectionsPagingFrameTemplate" mixin="Ported_CollectionsPagingMixin" virtual="true">
+    <Frame name="Angleur_PortedCollectionsPagingFrameTemplate" mixin="Angleur_PortedCollectionsPagingMixin" virtual="true">
         <!-- why 33? it makes it so the button textures display without rounding fuzziness on my screen -->
         <Size x="33" y="32"/>
         <Frames>
-            <Button parentKey="PrevPageButton" inherits="Ported_CollectionsPrevPageButton">
+            <Button parentKey="PrevPageButton" inherits="Angleur_PortedCollectionsPrevPageButton">
                 <Anchors>
                     <Anchor point="LEFT" x="0" y="0" />
                 </Anchors>
@@ -41,7 +41,7 @@
                     </OnClick>
                 </Scripts>
             </Button>
-            <Button parentKey="NextPageButton" inherits="Ported_CollectionsNextPageButton">
+            <Button parentKey="NextPageButton" inherits="Angleur_PortedCollectionsNextPageButton">
                 <Anchors>
                     <Anchor point="LEFT" relativePoint="RIGHT" x="3" y="0" />
                 </Anchors>
@@ -54,7 +54,7 @@
         </Frames>
         <Layers>
             <Layer level="ARTWORK">
-                <FontString parentKey="PageText" inherits="Ported_CollectionsPageTextTemplate">
+                <FontString parentKey="PageText" inherits="Angleur_PortedCollectionsPageTextTemplate">
                     <Anchors>
                         <Anchor point="RIGHT" relativePoint="LEFT" x="-11" y="0"/>
                     </Anchors>
@@ -73,7 +73,7 @@
     <!-- ____________________________________[2]______________________________________________ -->
     <!--        Generalized Templates made by Legolando, to be used in this library            -->
     <!-- ____________________________________[2]______________________________________________ -->
-    <GameTooltip name= "Legolando__PictureTooltipTemplate" mixin="Legolando_PictureTooltipMixin" inherits="GameTooltipTemplate" virtual="true">
+    <GameTooltip name= "Angleur_LegolandoPictureTooltipTemplate" mixin="Angleur_LegolandoPictureTooltipMixin" inherits="GameTooltipTemplate" virtual="true">
         <KeyValues>
             <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
             <KeyValue key="paddingL" value="0" type="number"/>
@@ -100,8 +100,8 @@
     <!-- ____________________________________[3]______________________________________________ -->
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
-    <GameTooltip name= "LibSimplePromotionTooltip" inherits="Legolando__PictureTooltipTemplate"/>
-    <Button name="Legolando_AddonButtonTemplate" mixin="Legolando_AddonButtonMixin" inherits="IconButtonTemplate" virtual="true">
+    <GameTooltip name= "Angleur_SimplePromotionTooltip" inherits="Angleur_LegolandoPictureTooltipTemplate"/>
+    <Button name="Angleur_LegolandoAddonButtonTemplate" mixin="Angleur_LegolandoAddonButtonMixin" inherits="IconButtonTemplate" virtual="true">
         <Size x="36" y="36"/>
         <KeyValues>
             <KeyValue key="iconSize" value="36" type="number"/>
@@ -173,7 +173,7 @@
     </Button>
     
     <!-- See exampleUsage.lua to see how to use the template -->
-    <Frame name="SimpleAddonPromotionTemplate" mixin="SimpleAddonPromotionMixin" virtual="true">
+    <Frame name="Angleur_SimplePromotionTemplate" mixin="Angleur_SimplePromotionMixin" virtual="true">
         <Size x="300" y="400"/>
         <KeyValues>
         <!--           
@@ -198,7 +198,7 @@
                     <!-- Automatically added with Init() -->
                 </Frames>
             </Frame>
-            <Frame name="$parent_PagingFrame" parentKey="PagingFrame" inherits="Ported_CollectionsPagingFrameTemplate">
+            <Frame name="$parent_PagingFrame" parentKey="PagingFrame" inherits="Angleur_PortedCollectionsPagingFrameTemplate">
                 <Anchors>
                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
                 </Anchors>

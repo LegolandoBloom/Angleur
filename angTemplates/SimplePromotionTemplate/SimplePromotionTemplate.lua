@@ -4,13 +4,13 @@
 -- ____________________________________[1]______________________________________________
 --  Templates Mixins Ported directly from Blizzard's FrameXML, just in case it changes later on
 -- ____________________________________[1]______________________________________________
-Ported_CollectionsPagingMixin = { };
-function Ported_CollectionsPagingMixin:OnLoad()
+Angleur_PortedCollectionsPagingMixin = { };
+function Angleur_PortedCollectionsPagingMixin:OnLoad()
 	self.currentPage = 1;
 	self.maxPages = 1;
 	self:Update();
 end
-function Ported_CollectionsPagingMixin:SetMaxPages(maxPages)
+function Angleur_PortedCollectionsPagingMixin:SetMaxPages(maxPages)
 	maxPages = math.max(maxPages, 1);
 	if ( self.maxPages == maxPages ) then
 		return;
@@ -21,10 +21,10 @@ function Ported_CollectionsPagingMixin:SetMaxPages(maxPages)
 	end
 	self:Update();
 end
-function Ported_CollectionsPagingMixin:GetMaxPages()
+function Angleur_PortedCollectionsPagingMixin:GetMaxPages()
 	return self.maxPages;
 end
-function Ported_CollectionsPagingMixin:SetCurrentPage(page, userAction)
+function Angleur_PortedCollectionsPagingMixin:SetCurrentPage(page, userAction)
 	page = Clamp(page, 1, self.maxPages);
 	if ( self.currentPage ~= page ) then
 		self.currentPage = page;
@@ -34,16 +34,16 @@ function Ported_CollectionsPagingMixin:SetCurrentPage(page, userAction)
 		end
 	end
 end
-function Ported_CollectionsPagingMixin:GetCurrentPage()
+function Angleur_PortedCollectionsPagingMixin:GetCurrentPage()
 	return self.currentPage;
 end
-function Ported_CollectionsPagingMixin:NextPage()
+function Angleur_PortedCollectionsPagingMixin:NextPage()
 	self:SetCurrentPage(self.currentPage + self:GetPageDelta(), true);
 end
-function Ported_CollectionsPagingMixin:PreviousPage()
+function Angleur_PortedCollectionsPagingMixin:PreviousPage()
 	self:SetCurrentPage(self.currentPage - self:GetPageDelta(), true);
 end
-function Ported_CollectionsPagingMixin:GetPageDelta()
+function Angleur_PortedCollectionsPagingMixin:GetPageDelta()
 	local delta = 1;
 	if self.canUseShiftKey and IsShiftKeyDown() then
 		delta = 10;
@@ -53,14 +53,14 @@ function Ported_CollectionsPagingMixin:GetPageDelta()
 	end
 	return delta;
 end
-function Ported_CollectionsPagingMixin:OnMouseWheel(delta)
+function Angleur_PortedCollectionsPagingMixin:OnMouseWheel(delta)
 	if ( delta > 0 ) then
 		self:PreviousPage();
 	else
 		self:NextPage();
 	end
 end
-function Ported_CollectionsPagingMixin:Update()
+function Angleur_PortedCollectionsPagingMixin:Update()
 	self.PageText:SetFormattedText(COLLECTION_PAGE_NUMBER, self.currentPage, self.maxPages);
 	if ( self.currentPage <= 1 ) then
 		self.PrevPageButton:Disable();
@@ -81,13 +81,13 @@ end
 -- ____________________________________[2]______________________________________________
 --  Generalized Templates made by Legolando, to be used in this library
 -- ____________________________________[2]______________________________________________
-Legolando_PictureTooltipMixin = {}
+Angleur_LegolandoPictureTooltipMixin = {}
 
-function Legolando_PictureTooltipMixin:OnShow()
+function Angleur_LegolandoPictureTooltipMixin:OnShow()
     self:SetPadding(self.paddingL, self.paddingB, self.paddingR, self.paddingT)
 end
 
-function Legolando_PictureTooltipMixin:PlaceTexture(texturePath, width, height, anchor, padOffsetX, padOffsetY)
+function Angleur_LegolandoPictureTooltipMixin:PlaceTexture(texturePath, width, height, anchor, padOffsetX, padOffsetY)
     if not texturePath then return end
     self.texture:ClearAllPoints()
     self.texture:SetTexture(texturePath)
@@ -113,14 +113,14 @@ function Legolando_PictureTooltipMixin:PlaceTexture(texturePath, width, height, 
     end
 end
 
-function Legolando_PictureTooltipMixin:ResetPadding()
+function Angleur_LegolandoPictureTooltipMixin:ResetPadding()
     self.paddingL = 0
     self.paddingB = 0
     self.paddingR = 0
     self.paddingT = 0
 end
 
-function Legolando_PictureTooltipMixin:OnHide()
+function Angleur_LegolandoPictureTooltipMixin:OnHide()
     self.texture:SetTexture(nil)
     self.texture:ClearAllPoints()
     self:ResetPadding()    
@@ -134,28 +134,28 @@ end
 -- ____________________________________[3]______________________________________________
 --  Templates made by Legolando, specifically for this lib
 -- ____________________________________[3]______________________________________________
-Legolando_AddonButtonMixin = {}
+Angleur_LegolandoAddonButtonMixin = {}
 
-function Legolando_AddonButtonMixin:OnClick()
+function Angleur_LegolandoAddonButtonMixin:OnClick()
     self.linkBox:Show()
 end
 
-function Legolando_AddonButtonMixin:OnEnter()
+function Angleur_LegolandoAddonButtonMixin:OnEnter()
     local size = self:GetSize()
 
-    LibSimplePromotionTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", size/10, (size/12)*14)
-    LibSimplePromotionTooltip:PlaceTexture(self.tooltipPicture, self.tooltipPictureWidth, self.tooltipPictureHeight, self.tooltipPictureAnchor, self.tooltipPicturePaddingX, self.tooltipPicturePaddingY)
-    LibSimplePromotionTooltip:AddLine(self.tooltipTitle)
-    LibSimplePromotionTooltip:AddLine(self.tooltipText, 1, 1, 1, true)
-    LibSimplePromotionTooltip:Show()
+    Angleur_SimplePromotionTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", size/10, (size/12)*14)
+    Angleur_SimplePromotionTooltip:PlaceTexture(self.tooltipPicture, self.tooltipPictureWidth, self.tooltipPictureHeight, self.tooltipPictureAnchor, self.tooltipPicturePaddingX, self.tooltipPicturePaddingY)
+    Angleur_SimplePromotionTooltip:AddLine(self.tooltipTitle)
+    Angleur_SimplePromotionTooltip:AddLine(self.tooltipText, 1, 1, 1, true)
+    Angleur_SimplePromotionTooltip:Show()
 end
 
 
-function Legolando_AddonButtonMixin:OnLeave()
-    LibSimplePromotionTooltip:Hide()
+function Angleur_LegolandoAddonButtonMixin:OnLeave()
+    Angleur_SimplePromotionTooltip:Hide()
 end
 
-function Legolando_AddonButtonMixin:Clear()
+function Angleur_LegolandoAddonButtonMixin:Clear()
     self.text:SetText(nil)
     self.Icon:SetTexture(nil)
     self.link = nil
@@ -169,7 +169,7 @@ function Legolando_AddonButtonMixin:Clear()
     self.tooltipText = nil
 end
 
-function Legolando_AddonButtonMixin:Update()
+function Angleur_LegolandoAddonButtonMixin:Update()
     local grandParent = self:GetParent():GetParent()
     local index = (grandParent.PagingFrame:GetCurrentPage() - 1) * grandParent.addonsPerPage + self:GetID()
     local addonsTable = grandParent.addonsTable
@@ -194,7 +194,7 @@ function Legolando_AddonButtonMixin:Update()
 end
 
 
-SimpleAddonPromotionMixin = {}
+Angleur_SimplePromotionMixin = {}
 
 
 local buttonAnchorTable = {
@@ -209,7 +209,7 @@ local textAnchorTable = {
     ["Top"] = {point = "BOTTOM", relativePoint = "TOP", offsetX = 16, offsetY = 0},
     ["Bottom"] = {point = "TOP", relativePoint = "BOTTOM", offsetX = 17, offsetY = 0},
 }
-function SimpleAddonPromotionMixin:ResizeAndReplace()
+function Angleur_SimplePromotionMixin:ResizeAndReplace()
     local resizeX = ((self.columns - 1) * self.spaceBetweenColumns) + (self.columns * self.buttonSize)
     local resizeY = ((self.lines - 1) * self.spaceBetweenLines) + (self.lines * self.buttonSize)
     self:SetSize(resizeX, resizeY)
@@ -225,7 +225,7 @@ function SimpleAddonPromotionMixin:ResizeAndReplace()
     end
 end
 
-function SimpleAddonPromotionMixin:SetupButtons()
+function Angleur_SimplePromotionMixin:SetupButtons()
     local lines = self.lines
     local columns = self.columns
     local spaceBetweenLines = self.spaceBetweenLines
@@ -237,7 +237,7 @@ function SimpleAddonPromotionMixin:SetupButtons()
         for j = 1, columns do
             local id = (i-1)*columns + j
             local parentKey = "addonButton" .. id
-            addonsFrame[parentKey] = CreateFrame("Button", nil, addonsFrame, "Legolando_AddonButtonTemplate", id)
+            addonsFrame[parentKey] = CreateFrame("Button", nil, addonsFrame, "Angleur_LegolandoAddonButtonTemplate", id)
             addonsFrame[parentKey]:SetPoint("TOPLEFT", addonsFrame, "TOPLEFT", (j-1)*(buttonSize + spaceBetweenColumns), -1*(i-1)*(buttonSize + spaceBetweenLines))
             addonsFrame[parentKey]:SetSize(buttonSize, buttonSize)
             addonsFrame[parentKey].Icon:SetSize(buttonSize, buttonSize)
@@ -246,21 +246,21 @@ function SimpleAddonPromotionMixin:SetupButtons()
 	end
 end
 
-function SimpleAddonPromotionMixin:UpdateButtons()
+function Angleur_SimplePromotionMixin:UpdateButtons()
     local addonsFrame = self.addonsFrame
     for i = 1, self.addonsPerPage do
 	    local button = addonsFrame["addonButton"..i];
 		button:Update()
 	end
 end
-function SimpleAddonPromotionMixin:UpdatePages()
+function Angleur_SimplePromotionMixin:UpdatePages()
     local addonCount = #self.addonsTable
     local pageCount = math.ceil(addonCount/self.addonsPerPage)
     self.PagingFrame:SetMaxPages(pageCount)
     if self.PagingFrame:GetMaxPages() < 2 then self.PagingFrame:Hide() end
 end
 
-function SimpleAddonPromotionMixin:Init()
+function Angleur_SimplePromotionMixin:Init()
     if not self.lines then self.lines = 2 end
     if not self.columns then self.columns = 3 end
     if not self.spaceBetweenLines then self.spaceBetweenLines = 10 end
@@ -274,7 +274,7 @@ function SimpleAddonPromotionMixin:Init()
     self:UpdateButtons()
     self:ResizeAndReplace()
     if not self.addonsTable or next(self.addonsTable) == nil then 
-        print("SimpleAddonPromotionMixin:OnLoad(): No valid addon table.")
+        print("Angleur_SimplePromotionMixin:OnLoad(): No valid addon table.")
         return
     end
     self:UpdatePages()
