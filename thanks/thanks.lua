@@ -100,35 +100,36 @@ local addonsTable = {
             tooltipTitle = "Angleur_Underlight",
             tooltipText = "very awesome, very cool! Angleur underlight does all the cool stuffz and is like the bestest addonz like ever so you should download it ",
     },
-    [4] = { 
+    -- [4] = { 
     
-    },
-    [5] = {},
-    [6] = {},
-    [7] = {},
-    [8] = {},
-    [9] = {},
-    [10] = {},
-    [11] = {},
-    [12] = {},
-    [13] = {},
-    [14] = {},
-    [15] = {},
-    -- [16] = {},
-    -- [17] = {},
-    -- [18] = {},
-    -- [19] = {},
-    -- [20] = {},
-    -- [21] = {},
+    -- },
+    -- [5] = {},
+    -- [6] = {},
+    -- [7] = {},
+    -- [8] = {},
+    -- [9] = {},
+    -- [10] = {},
+    -- [11] = {},
+    -- [12] = {},
+    -- [13] = {},
+    -- [14] = {},
+    -- [15] = {},
+    -- -- [16] = {},
+    -- -- [17] = {},
+    -- -- [18] = {},
+    -- -- [19] = {},
+    -- -- [20] = {},
+    -- -- [21] = {},
 }
 function OtherAddonsTest_OnLoad(self)
+    self.title:SetText("My Other Addons!")
     self.addonsTable = addonsTable
-    self.lines = 2
+    self.lines = 1
     self.columns = 3
     self.spaceBetweenColumns = 20
     self.pageButtonsAnchor = "Bottom"
-    self.pageButtonsOffsetY = 0
+    self.pageButtonsOffsetY = 5
     self.pageButtonsTextAnchor = "Bottom"
-    self.buttonSize = 20
+    self.buttonSize = 36
     self:Init()
 end

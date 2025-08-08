@@ -241,7 +241,7 @@ function Angleur_SimplePromotionMixin:SetupButtons()
             addonsFrame[parentKey]:SetPoint("TOPLEFT", addonsFrame, "TOPLEFT", (j-1)*(buttonSize + spaceBetweenColumns), -1*(i-1)*(buttonSize + spaceBetweenLines))
             addonsFrame[parentKey]:SetSize(buttonSize, buttonSize)
             addonsFrame[parentKey].Icon:SetSize(buttonSize, buttonSize)
-            addonsFrame[parentKey].frameTexture:SetSize((buttonSize/3)*4, (buttonSize/3)*4)
+            addonsFrame[parentKey].frameTexture:SetSize((buttonSize/2)*3, (buttonSize/2)*3)
         end
 	end
 end

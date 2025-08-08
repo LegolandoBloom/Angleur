@@ -98,9 +98,9 @@
         </Frames>
     </Button>
     
-    <Frame name="OtherAddonsTest" inherits="Angleur_SimplePromotionTemplate">
+    <Frame parent="Angleur_ThanksButton_ThanksFrame" name="OtherAddonsTest" inherits="Angleur_SimplePromotionTemplate">
         <Anchors>
-            <Anchor point="CENTER" y="200"/>
+            <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" x="25" y="20"/>
         </Anchors>
         <KeyValues>
             <!-- <KeyValue key="lines" type="number" value="2"/>
@@ -109,6 +109,16 @@
             <KeyValue key="spaceBetweenColumns" type="number" value="20"/>
             <KeyValue key="buttonSize" type="number" value="45"/> -->
         </KeyValues>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="title" inherits="QuestTitleFontBlackShadow">
+                    <Color r="0.74" g="0.52" b="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="12"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
         <Scripts>
             <OnLoad function="OtherAddonsTest_OnLoad"/>
         </Scripts>

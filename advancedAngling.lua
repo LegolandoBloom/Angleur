@@ -81,5 +81,4 @@ function AngleurUI_AdvancedAngling()
     clockText:SetText(T["Spell/Item has no Cooldown/Aura?\n" 
     .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" 
     .. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")])
-
 end

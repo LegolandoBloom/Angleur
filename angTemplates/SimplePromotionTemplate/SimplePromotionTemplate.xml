@@ -111,7 +111,7 @@
                 <Texture parentKey="frameTexture" file="Interface/AddOns/Angleur/images/other-addons/otheraddonsframe.png">
                     <Size x="48" y="48"/>
                     <Anchors>
-                        <Anchor point="CENTER"/>
+                        <Anchor point="CENTER" x="-1"/>
                     </Anchors>
                 </Texture>
                 <FontString parentKey="text" inherits="GameFontNormal">
