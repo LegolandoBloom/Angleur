@@ -542,3 +542,13 @@ T["Feathered Lure"] = "깃털장식 미끼"
 T["Sharpened Fish Hook"] = "날카로운 낚싯바늘"
 T["Glow Worm"] = "빛나는 벌레"
 T["Heat-Treated Spinning Lure"] = "열처리 회전 미끼"
+
+
+
+-- Other addon promotion
+T["My Other Addons!"] = "My Other Addons!"
+T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."] = "Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\n"
+.. "Equip " .. colorUnderlight:WrapTextInColorCode("Underlight_Angler ") .. "when swimming, re-equip your \'Main\' Fishing Rod when not."
+T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."
+T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop " 
+.. colorYello:WrapTextInColorCode("Macro Maker.")

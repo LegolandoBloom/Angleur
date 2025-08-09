@@ -58,71 +58,43 @@ function Angleur_Thanks_OnLoad(self)
     self.thanksFrame.supportMe:SetText(T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYello:WrapTextInColorCode("Patreon!")])
     self.thanksFrame.supportMe:SetJustifyH("LEFT")
     iterateAndAdd(self.thanksFrame, self.thanksFrame.supporters)
-    --self.thanksFrame.supporters:SetText("T3chnological")
-    --self.thanksFrame.addonUnderlight.icon = "Interface/AddOns/Angleur/images/otheraddonsframe.png"
 end
 
 
 local addonsTable = {
     [1] = { 
-        icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
-        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-        tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-        tooltipPictureWidth = 128,
-        tooltipPictureHeight = 64,
-        tooltipPictureAnchor = "TOPRIGHT",
-        tooltipPicturePaddingX = 15,
-        tooltipPicturePaddingY = 8,
-        tooltipTitle = "Angleur_Underlight",
-        tooltipText = "BLALALAAAHRYYYYYYUUUUUUWWWUUWUUWUWUWUWUWuWUuUwUU",
-    },
-    [2] = { 
-        icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
-        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-            tooltipPictureWidth = 128,
-            tooltipPictureHeight = 64,
-            tooltipPictureAnchor = "BOTTOMLEFT",
-            tooltipPicturePaddingX = 15,
-            tooltipPicturePaddingY = 8,
-            tooltipTitle = "Angleur_Underlight",
-            tooltipText = "EYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEYEYEYEYEYEYYEY",
-        },
-    [3] = { 
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
             link = "https://www.curseforge.com/wow/addons/angleur-underlight",
-            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.png",
-            tooltipPictureWidth = 128,
-            tooltipPictureHeight = 64,
-            tooltipPictureAnchor = "TOPLEFT",
-            tooltipPicturePaddingX = 15,
-            tooltipPicturePaddingY = 8,
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.jpg",
+            tooltipPictureWidth = 240,
+            tooltipPictureHeight = 120,
+            tooltipPictureAnchor = "BOTTOMLEFT",
             tooltipTitle = "Angleur_Underlight",
-            tooltipText = "very awesome, very cool! Angleur underlight does all the cool stuffz and is like the bestest addonz like ever so you should download it ",
+            tooltipText = T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."],
     },
-    -- [4] = { 
-    
-    -- },
-    -- [5] = {},
-    -- [6] = {},
-    -- [7] = {},
-    -- [8] = {},
-    -- [9] = {},
-    -- [10] = {},
-    -- [11] = {},
-    -- [12] = {},
-    -- [13] = {},
-    -- [14] = {},
-    -- [15] = {},
-    -- -- [16] = {},
-    -- -- [17] = {},
-    -- -- [18] = {},
-    -- -- [19] = {},
-    -- -- [20] = {},
-    -- -- [21] = {},
+    [2] = { 
+        icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
+        link = "https://www.curseforge.com/wow/addons/thievery",
+        tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-thievery.jpg",
+        tooltipPictureWidth = 256,
+        tooltipPictureHeight = 64,
+        tooltipPictureAnchor = "TOPLEFT",
+        tooltipTitle = "Thievery",
+        tooltipText = T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."],
+    },
+    [3] = { 
+        icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
+        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-trueform.jpg",
+            tooltipPictureWidth = 128,
+            tooltipPictureHeight = 128,
+            tooltipPictureAnchor = "TOPRIGHT",
+            tooltipTitle = "TrueForm",
+            tooltipText = T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."],
+        },
 }
 function OtherAddonsTest_OnLoad(self)
-    self.title:SetText("My Other Addons!")
+    self.title:SetText(T["My Other Addons!"])
     self.addonsTable = addonsTable
     self.lines = 1
     self.columns = 3

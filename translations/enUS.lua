@@ -9,6 +9,7 @@ local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
+local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ultra Focus:"
@@ -536,3 +537,13 @@ T["Feathered Lure"] = "Feathered Lure"
 T["Sharpened Fish Hook"] = "Sharpened Fish Hook"
 T["Glow Worm"] = "Glow Worm"
 T["Heat-Treated Spinning Lure"] = "Heat-Treated Spinning Lure"
+
+
+
+-- Other addon promotion
+T["My Other Addons!"] = "My Other Addons!"
+T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."] = "Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\n"
+.. "Equip " .. colorUnderlight:WrapTextInColorCode("Underlight_Angler ") .. "when swimming, re-equip your \'Main\' Fishing Rod when not."
+T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."
+T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop " 
+.. colorYello:WrapTextInColorCode("Macro Maker.")

@@ -100,7 +100,7 @@
     <!-- ____________________________________[3]______________________________________________ -->
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
-    <GameTooltip name= "Angleur_SimplePromotionTooltip" inherits="Angleur_LegolandoPictureTooltipTemplate"/>
+    <GameTooltip name= "Angleur_SimplePromotionTooltip" scale="0.8" inherits="Angleur_LegolandoPictureTooltipTemplate"/>
     <Button name="Angleur_LegolandoAddonButtonTemplate" mixin="Angleur_LegolandoAddonButtonMixin" inherits="IconButtonTemplate" virtual="true">
         <Size x="36" y="36"/>
         <KeyValues>

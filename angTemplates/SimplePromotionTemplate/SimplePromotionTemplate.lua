@@ -84,46 +84,39 @@ end
 Angleur_LegolandoPictureTooltipMixin = {}
 
 function Angleur_LegolandoPictureTooltipMixin:OnShow()
-    self:SetPadding(self.paddingL, self.paddingB, self.paddingR, self.paddingT)
+
 end
 
-function Angleur_LegolandoPictureTooltipMixin:PlaceTexture(texturePath, width, height, anchor, padOffsetX, padOffsetY)
+function Angleur_LegolandoPictureTooltipMixin:PlaceTexture(texturePath, pictureWidth, pictureHeight, anchor)
     if not texturePath then return end
     self.texture:ClearAllPoints()
     self.texture:SetTexture(texturePath)
-    self.texture:SetSize(width, height)
-    self.texture:SetPoint(anchor, self, anchor, padOffsetX, padOffsetY)
-    self:ResetPadding()
+    self.texture:SetSize(pictureWidth, pictureHeight)
+    self.texture:SetPoint(anchor, self, anchor)
+    local width, height = self:GetSize()
+    local extraWidth = 0
+    local extraHeight = 0
+    -- + 16 is needed due to the offset of 8 in SetPoint
+    if pictureWidth + 16 > width then extraWidth = pictureWidth - width + 16 end
+    if pictureHeight + 16 > height then extraHeight = pictureHeight - height + 16 end
     if anchor == "TOPLEFT" then
-        self.texture:SetPoint(anchor, self, anchor, padOffsetX, -1 * padOffsetY)
-        -- self.paddingL = width + padOffsetX
-        self.paddingT = height + padOffsetY
+        self.texture:SetPoint(anchor, self, anchor, 8, -8)
+        self:SetPadding(extraWidth, 0, 0, pictureHeight)
     elseif anchor == "TOPRIGHT" then
-        self.texture:SetPoint(anchor, self, anchor, -1 * padOffsetX, -1 * padOffsetY)
-        -- self.paddingR = width + padOffsetX
-        self.paddingT = height + padOffsetY
+        self.texture:SetPoint(anchor, self, anchor, -8, -8)
+        self:SetPadding(pictureWidth, extraHeight, 0, 0)
     elseif anchor == "BOTTOMLEFT" then
-        self.texture:SetPoint(anchor, self, anchor, padOffsetX, padOffsetY)
-        -- self.paddingL = width + padOffsetX
-        self.paddingB = height + padOffsetY
+        self.texture:SetPoint(anchor, self, anchor, 8, 8)
+        self:SetPadding(extraWidth, pictureHeight, 0, 0)
     elseif anchor == "BOTTOMRIGHT" then
-        self.texture:SetPoint(anchor, self, anchor, -1 * padOffsetX, padOffsetY)
-        -- self.paddingR = width + padOffsetX
-        self.paddingB = height + padOffsetY
+        self.texture:SetPoint(anchor, self, anchor, -8, 8)
+        self:SetPadding(pictureWidth, extraHeight, 0, 0)
     end
-end
-
-function Angleur_LegolandoPictureTooltipMixin:ResetPadding()
-    self.paddingL = 0
-    self.paddingB = 0
-    self.paddingR = 0
-    self.paddingT = 0
 end
 
 function Angleur_LegolandoPictureTooltipMixin:OnHide()
     self.texture:SetTexture(nil)
     self.texture:ClearAllPoints()
-    self:ResetPadding()    
 end
 -- ____________________________________[2]______________________________________________
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -142,12 +135,11 @@ end
 
 function Angleur_LegolandoAddonButtonMixin:OnEnter()
     local size = self:GetSize()
-
     Angleur_SimplePromotionTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", size/10, (size/12)*14)
-    Angleur_SimplePromotionTooltip:PlaceTexture(self.tooltipPicture, self.tooltipPictureWidth, self.tooltipPictureHeight, self.tooltipPictureAnchor, self.tooltipPicturePaddingX, self.tooltipPicturePaddingY)
     Angleur_SimplePromotionTooltip:AddLine(self.tooltipTitle)
     Angleur_SimplePromotionTooltip:AddLine(self.tooltipText, 1, 1, 1, true)
     Angleur_SimplePromotionTooltip:Show()
+    Angleur_SimplePromotionTooltip:PlaceTexture(self.tooltipPicture, self.tooltipPictureWidth, self.tooltipPictureHeight, self.tooltipPictureAnchor)
 end
 
 
@@ -163,8 +155,6 @@ function Angleur_LegolandoAddonButtonMixin:Clear()
     self.tooltipPictureWidth = nil
     self.tooltipPictureHeight = nil
     self.tooltipPictureAnchor = nil
-    self.tooltipPicturePaddingX = nil
-    self.tooltipPicturePaddingY = nil
     self.tooltipTitle = nil
     self.tooltipText = nil
 end
@@ -182,8 +172,6 @@ function Angleur_LegolandoAddonButtonMixin:Update()
         self.tooltipPictureWidth = addon.tooltipPictureWidth
         self.tooltipPictureHeight = addon.tooltipPictureHeight
         self.tooltipPictureAnchor = addon.tooltipPictureAnchor
-        self.tooltipPicturePaddingX = addon.tooltipPicturePaddingX
-        self.tooltipPicturePaddingY = addon.tooltipPicturePaddingY
         self.tooltipTitle = addon.tooltipTitle
         self.tooltipText = addon.tooltipText
         self:Show()
