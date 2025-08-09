@@ -28,6 +28,7 @@ translations\translations.xml
 angTemplates\GeneralTemplates\ClassicTemplates.lua
 angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
+angTemplates\SimplePromotionTemplate\SimplePromotionTemplate.xml
 
 init.lua
 AngleurVanilla.lua
