@@ -1,7 +1,5 @@
 local T = Angleur_Translate
 
-local version = Angleur_CheckVersion()
-
 local logoTable = {
     youtube = "Interface/AddOns/Angleur/images/youtube.png",
     kofi = "Interface/AddOns/Angleur/images/kofi.png",
