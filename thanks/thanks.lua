@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 
+local version = Angleur_CheckVersion()
+
 local logoTable = {
     youtube = "Interface/AddOns/Angleur/images/youtube.png",
     kofi = "Interface/AddOns/Angleur/images/kofi.png",
@@ -94,6 +96,12 @@ local addonsTable = {
         },
 }
 function OtherAddonsTest_OnLoad(self)
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 1 then
+        --do nothing
+    elseif gameVersion == 2 or gameVersion == 3 then
+        addonsTable[2].tooltipPictureAnchor = "TOPLEFT"
+    end
     self.title:SetText(T["My Other Addons!"])
     self.addonsTable = addonsTable
     self.lines = 1
