@@ -98,7 +98,7 @@ function OtherAddonsTest_OnLoad(self)
     if gameVersion == 1 then
         --do nothing
     elseif gameVersion == 2 or gameVersion == 3 then
-        addonsTable[2].tooltipPictureAnchor = "TOPLEFT"
+        addonsTable[2].tooltipPictureAnchor = "BOTTOMLEFT"
     end
     self.title:SetText(T["My Other Addons!"])
     self.addonsTable = addonsTable
