@@ -14,6 +14,7 @@ local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
+local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
 
 --Angleur.xml
 T["You can drag and place this anywhere on your screen"] = "Sie können dieses irgendwohin auf Ihrem Bildschirm schieben."
