@@ -9,7 +9,22 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
 local retail = AngleurEqManRetail
 
+local gameVersion = Angleur_CheckVersion()
+
 local updatingSet = false
+
+local fishingPoleTableMoP = AngleurMoP_FishingPoleTable
+local fishingPoleTableVanilla = AngleurVanilla_FishingPoleTable
+local function CheckTable(teeburu, itemID)
+    matchFound = false
+    for i, value in pairs(teeburu) do
+        if itemID == value then
+            matchFound = true
+            break
+        end
+    end
+    return matchFound
+end
 
 local function getItemLinkID(itemID)
     local _, link = C_Item.GetItemInfo(itemID)
@@ -146,7 +161,6 @@ local function checkSlottedExtraItems()
     return false
 end
 function Angleur_CreateEquipmentSet()
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 3 then
         if checkSlottedExtraItems() == false then
             print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
@@ -246,8 +260,14 @@ ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
             if newItem == setItem then
                 Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item is the set item...")
             elseif updatingSet == false then
-                Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
+                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
+                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
+                else
+                    Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
+                end
             end
         end
     end
@@ -593,12 +613,19 @@ local function fillSwapoutTable(setID)
             Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Slot " .. location .. " is set to equip item " .. "[" .. itemIDs[location] .. "]")
             local itemLink = getItemLinkEquipped(location)
             if itemLink then
+                local inventoryItemID = GetInventoryItemID("player", location)
                 Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": item " .. "[" .. itemLink .. "]" .. " in Slot " .. location .. " is set to be unequipped.")
                 if inventoryItemID == itemIDs[location] then
                     Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Set item was previously equipped, not overriding previous re-requip table.")
                 else
-                    Angleur_SwapoutItemsSaved[location] = itemLink
-                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": adding item " .. "[" .. itemLink .. "]" .. " to Swapouts.\n\n")
+                    if gameVersion == 2 and CheckTable(fishingPoleTableMoP, inventoryItemID) then
+                        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
+                    elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, inventoryItemID) then
+                        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
+                    else
+                        Angleur_SwapoutItemsSaved[location] = itemLink
+                        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": adding item " .. "[" .. itemLink .. "]" .. " to Swapouts.\n\n")
+                    end
                 end
             end
         end

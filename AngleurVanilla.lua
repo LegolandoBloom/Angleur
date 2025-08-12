@@ -127,32 +127,8 @@ local iceFishing = false
 local mounted = false
 local swimming = false
 local midFishing = false
-local fishingSpellTable = {
-    7620,
-    7731,
-    7732,
-    18248,
-    33095,
-    51294,
-    88868
-}
-local fishingPoleTable = {
-    6256,
-    6365,
-    6366,
-    6367,
-    12225,
-    19022,
-    19970,
-    25978,
-    44050,
-    45120,
-    45858,
-    45991,
-    45992,
-    46337,
-    52678
-}
+
+
 local function CheckTable(table ,spell)
     matchFound = false
     for i, value in pairs(table) do
@@ -164,6 +140,7 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
+local fishingPoleTable = AngleurVanilla_FishingPoleTable
 function AngleurClassic_CheckFishingPoleEquipped()
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
@@ -249,6 +226,7 @@ local function checkMounted()
     end
     return false
 end
+local fishingSpellTable = AngleurVanilla_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.

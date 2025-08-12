@@ -20,6 +20,7 @@ local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
     SetOverrideBindingSpell(owner, isPriority, key, spell)
 end
 
+
 function Angleur_OnLoad(self)
     self.toyButton:SetAttribute("type", "macro")
     self.toyButton:RegisterForClicks("AnyDown", "AnyUp")
@@ -129,76 +130,8 @@ local iceFishing = false
 local mounted = false
 local swimming = false
 local midFishing = false
-local fishingSpellTable = {
-    7620,
-    7731,
-    7732,
-    18248,
-    33095,
-    51294,
-    88868,
-    --MoP Additions
-    110410,
-    131474,
-    131476,
-    131490,
-    --Skumblade Spear Fishing
-    139505,
-    --MoP Uncategorized
-    62734,
-    131475,
-    131477,
-    131478,
-    131479,
-    131480,
-    131481,
-    131482,
-    131483,
-    131484,
-    131491,
-    --MoP NPC Abilities
-    63275,
-}
-local fishingPoleTable = {
-    --Fishing Pole
-    6256,
-    --Strong Fishing Pole
-    6365,
-    --Darkwood Fishing Pole
-    6366,
-    --Big Iron Fishing Pole
-    6367,
-    --Blump Family Fishing Pole
-    12225,
-    --Nat Pagle's Extreme Angler FC-5000
-    19022,
-    --Arcanite Fishing Pole
-    19970,
-    --Seth's Graphite Fishing Pole
-    25978,
-    --Mastercraft Kalu'ak Fishing Pole
-    44050,
-    --Basic Fishing Pole
-    45120,
-    --Nat's Lucky Fishing Pole
-    45858,
-    --Bone Fishing Pole
-    45991,
-    --Jeweled Fishing Pole
-    45992,
-    --Staat's Fishing Pole
-    46337,
-    --Jonathan's Fishing Pole
-    52678,
 
-    -----------------
-    --MoP Additions--
-    -----------------
-    --Dragon Fishing Pole
-    84661,
-    --Pandaren Fishing Pole
-    84660,
-}
+
 local function CheckTable(table ,spell)
     matchFound = false
     for i, value in pairs(table) do
@@ -210,18 +143,23 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
+local fishingPoleTable = AngleurMoP_FishingPoleTable
+local wasEquipped = false
 function AngleurClassic_CheckFishingPoleEquipped()
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        if wasEquipped == true then
+            Angleur_UnequipAngleurSet(true)
+        end
         return 
     end
     local id = C_Item.GetItemID(itemLoc)
     --local name = C_Item.GetItemName(itemLoc)
     --print(id, name)
     if CheckTable(fishingPoleTable, id)  then 
+        wasEquipped = true
         if AngleurCharacter.sleeping == true then
             AngleurCharacter.sleeping = false
             Angleur_SetSleep()
@@ -235,7 +173,10 @@ function AngleurClassic_CheckFishingPoleEquipped()
     else
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        if wasEquipped == true then
+            Angleur_UnequipAngleurSet(true)
+        end
+        wasEquipped = false
     end
 end
 
@@ -296,6 +237,7 @@ local function checkMounted()
     end
     return false
 end
+local fishingSpellTable = AngleurMoP_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
