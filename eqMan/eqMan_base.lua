@@ -247,7 +247,9 @@ ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
 
         elseif empty == false then
             local newItem = GetInventoryItemID("player", slot)
-            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(C_EquipmentSet.GetEquipmentSetID("Angleur"))
+            local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+            if not setID then return end
+            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(setID)
             local setItem = angleurSetItemIDs[slot]
             if not setItem or setItem == -1 then
                 local setsMainhandItem = angleurSetItemIDs[INVSLOT_MAINHAND]
