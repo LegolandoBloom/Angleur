@@ -18,6 +18,9 @@ local updatingSet = false
 
 local fishingPoleTableMoP = AngleurMoP_FishingPoleTable
 local fishingPoleTableVanilla = AngleurVanilla_FishingPoleTable
+
+-- _____________________________________________________________ General Functions__________________________________________________________________________________________
+-- _________________________________________________________Used many times throughout eqMan________________________________________________________________________________
 local function CheckTable(teeburu, itemID)
     matchFound = false
     for i, value in pairs(teeburu) do
@@ -33,7 +36,6 @@ local function getItemLinkID(itemID)
     local _, link = C_Item.GetItemInfo(itemID)
     return link
 end
-
 local itemLocation = ItemLocation:CreateEmpty()
 local function getItemLinkBag(bagID, slotIndex)
     itemLocation:SetBagAndSlot(bagID, slotIndex)
@@ -41,7 +43,6 @@ local function getItemLinkBag(bagID, slotIndex)
     itemLocation:Clear()
     return link
 end
-
 local function getItemLinkEquipped(equipmentSlotIndex)
     local inventoryItemID = GetInventoryItemID("player", equipmentSlotIndex)
     if not inventoryItemID then return nil end
@@ -58,7 +59,6 @@ function getItemGUIDEquiped(equipmentSlotIndex)
     itemLocation:Clear()
     return guid
 end
-
 function Angleur_ToggleLockInventory(slot)
     local guid = getItemGUIDEquiped(slot)
     if IsInventoryItemLocked(slot) then
@@ -88,7 +88,6 @@ SlashCmdList["ANGTEST"] = function()
     -- DevTools_Dump(C_EquipmentSet.GetIgnoredSlots(setID))
     Angleur_ToggleLockInventory(16)
 end
-
 function Angleur_ForceDeleteSet()
     local setButton = Angleur_CreateSetAndAdd
     AngleurCharacter.angleurSet = false
@@ -100,44 +99,37 @@ function Angleur_ForceDeleteSet()
     setButton:Enable()
     setButton:ClearPushedTexture()
 end
-
 function Angleur_IsEquipItemValid(itemInfo)
     if C_Item.IsEquippableItem(itemInfo) == false then return false end
     if C_Item.GetItemCount(itemInfo) < 1 then return false end
     return true
 end
 
-function Angleur_EquipmentManager()
-    if not Angleur_SwapoutItemsSaved then
-        Angleur_SwapoutItemsSaved = {}
+-- Sets all item slots in the Equipment Manager to ignore
+local function setIgnores(setID)
+    local isIgnored = C_EquipmentSet.GetIgnoredSlots(setID)
+    if not isIgnored then
+        print("setIgnores: Angleur error: Equip set ID not found")
+        return
     end
-    if not AngleurCharacter.angleurSet then
-        AngleurCharacter.angleurSet = false
+    local Debug_Ignores = ""
+    for i, ignore in pairs(isIgnored) do
+        if ignore == true then
+            C_EquipmentSet.IgnoreSlotForSave(i)
+            Debug_Ignores = Debug_Ignores .. " | " .. i
+        end
     end
-    Angleur_CreateSetAndAdd_UpdateState()
-    Angleur_CreateWeaponSwapFrames()
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("setIgnores "), ": ", Debug_Ignores, " are ignored")
 end
-
-
-
-function Angleur_CreateSetAndAdd_UpdateState()
-    if AngleurCharacter.angleurSet == true then
-        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultTexture:Hide()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultText:Hide()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedTexture:Show()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedText:Show()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.disableAndDelete:Show()
-    elseif AngleurCharacter.angleurSet == false then
-        Angleur_SwapoutItemsSaved = {}
-        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedTexture:Hide()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedText:Hide()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultTexture:Show()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultText:Show()
-        Angleur.configPanel.tab2.contents.createSetAndAdd.disableAndDelete:Hide()
+local function isSetEquipped(setID)
+    if next(C_EquipmentSet.GetItemIDs(setID)) == nil then
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EMPTY SET")
+        return true
     end
-    Angleur.configPanel.tab2.contents.createSetAndAdd:Enable()
+    local _, _, _, equipped = C_EquipmentSet.GetEquipmentSetInfo(setID)
+    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EQUIPPED: ", equipped)
+    return equipped
 end
-
 local function checkSlottedExtraItems()
     for i, slot in pairs(Angleur_SlottedExtraItems) do
         if slot.itemID ~= 0 then
@@ -172,129 +164,6 @@ local function checkSlottedExtraItems()
     end
     return false
 end
-function Angleur_CreateEquipmentSet()
-    if gameVersion == 3 then
-        if checkSlottedExtraItems() == false then
-            print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
-            print(T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
-            Angleur_ForceDeleteSet()
-            return
-        end
-    end
-
-    local setID 
-    if not C_EquipmentSet.GetEquipmentSetID("Angleur") then
-        local iconID
-        if gameVersion == 1 then
-            iconID = 4620674
-        elseif gameVersion == 2 or gameVersion == 3 then
-            iconID = 136245
-        end
-        C_EquipmentSet.CreateEquipmentSet("Angleur", iconID)
-        for i = 1, 19, 1 do
-            C_EquipmentSet.IgnoreSlotForSave(i)
-        end
-        setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
-        C_EquipmentSet.SaveEquipmentSet(setID)
-        C_EquipmentSet.ClearIgnoredSlotsForSave()
-        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Angleur_CreateEquipmentSet ") .. ": Ignored Slots:")
-        Angleur_BetaTableToString(C_EquipmentSet.GetIgnoredSlots(setID))
-        print(T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "], setID)
-        print(T["All unslotted items in the set have been set to <ignore slot>."])
-        print(T["For passive items you'd like to add to your fishing gear, you can use the game's " 
-        .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set"])
-        AngleurCharacter.angleurSet = true
-    end
-    if gameVersion == 3 then
-        Angleur_AddToEquipmentSet()
-    end
-end
-
--- Sets all item slots in the Equipment Manager to ignore
-local function setIgnores(setID)
-    local isIgnored = C_EquipmentSet.GetIgnoredSlots(setID)
-    if not isIgnored then
-        print("setIgnores: Angleur error: Equip set ID not found")
-        return
-    end
-    local Debug_Ignores = ""
-    for i, ignore in pairs(isIgnored) do
-        if ignore == true then
-            C_EquipmentSet.IgnoreSlotForSave(i)
-            Debug_Ignores = Debug_Ignores .. " | " .. i
-        end
-    end
-    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("setIgnores "), ": ", Debug_Ignores, " are ignored")
-end
-
-local function isSetEquipped(setID)
-    if next(C_EquipmentSet.GetItemIDs(setID)) == nil then
-        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EMPTY SET")
-        return true
-    end
-    local _, _, _, equipped = C_EquipmentSet.GetEquipmentSetInfo(setID)
-    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("isSetEquipped ") .. ": EQUIPPED: ", equipped)
-    return equipped
-end
-
-
--- _____________________________________________________________ MANUAL EQUIP TRACKER__________________________________________________________________________________________
--- When player manually changes items, regardless of sleep state, add the EQUIPPED items to 'Angleur_SwapoutItemsSaved' (if they have a counterpart in the Angleur Set)
-local function handleEquip2HanderAndOffhand(setsMainhandItem, slot)
-    if slot == INVSLOT_OFFHAND then
-        --                                                                                                      17 is INVTYPE_2HWEAPON for C_Item.GetItemInventoryTypeByID
-        if setsMainhandItem and setsMainhandItem ~= -1 and C_Item.GetItemInventoryTypeByID(setsMainhandItem) == 17 then
-            local itemLink = getItemLinkEquipped(INVSLOT_OFFHAND)
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item, " .. itemLink .. " is equipped to offhand, and the Set Main Hand is a 2-Hander. Adding to Swapout Table.")
-            Angleur_SwapoutItemsSaved[INVSLOT_OFFHAND] = itemLink
-        end
-    end
-end
-local ManualEquipTracker = CreateFrame("Frame")
-ManualEquipTracker:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
-    if AngleurCharacter.angleurSet == false then return end
-    if event == "PLAYER_EQUIPMENT_CHANGED" then
-        if empty == true then
-
-        elseif empty == false then
-            local newItem = GetInventoryItemID("player", slot)
-            local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
-            if not setID then return end
-            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(setID)
-            local setItem = angleurSetItemIDs[slot]
-            if not setItem or setItem == -1 then
-                local setsMainhandItem = angleurSetItemIDs[INVSLOT_MAINHAND]
-                handleEquip2HanderAndOffhand(setsMainhandItem, slot)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": No set counterpart in the slot, not overwriting")
-                return
-            end
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Newly Equipped Item: ", getItemLinkEquipped(slot))
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
-            if newItem == setItem then
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item is the set item...")
-            elseif updatingSet == false then
-                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
-                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
-                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
-                else
-                    Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
-                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
-                end
-            end
-        end
-    end
-end)
---_________________________________________________________________________________________________________________________________________________________________________
-
-
-
-
---**********************[1]************************
---* Automatically adding slotted items to the set *
---**********************[1]************************
--- Play a glow animation around the "Angleur" Equipment Set in the Equipment Manager menu
 local function showAndPlayAnimation()
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 3 then return end
@@ -304,10 +173,13 @@ local function showAndPlayAnimation()
     PaperDollFrame_SetSidebar(PaperDollFrame, 3)
     if gameVersion == 1 then retail:showShiny() end
 end
+--____________________________________________________________________________________________________________________________________________________________________________
 
 
 
--- Will periodically call 'Equip Item' for items in wantToEquip until it's empty(all items have been equipped)
+-- _____________________________________________________________ Cycle/End Functions__________________________________________________________________________________________
+-- ________________________________________________Used in Equip/Unequip functions throughout eqMan___________________________________________________________________________
+-- used when automatically adding slottted extra items to the Angleur Set
 local wantToEquip = {}
 local equipFrame = CreateFrame("Frame")
 local function End_AttemptEquip()
@@ -409,6 +281,195 @@ local function Cycle_AttemptEquip()
     end
 end
 
+-- Attempts to unequip until the swapout table is emptied
+local function End_SwapoutSet()
+    Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
+    Angleur_SwapoutItemsSaved = {}
+end
+local function Cycle_SwapoutSet()
+    if InCombatLockdown() then 
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Couldn't re-equip all items before combat in time.")
+        Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
+        return true
+    end
+    for location, itemID in pairs(Angleur_SwapoutItemsSaved) do
+        if itemID then
+            if not Angleur_IsEquipItemValid(itemID) then
+                Angleur_SwapoutItemsSaved[location] = nil
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": item isn't valid, removing from swapout table.")
+            elseif C_Item.IsEquippedItem(itemID) then
+                Angleur_SwapoutItemsSaved[location] = nil
+                Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": " , itemID, "equipped back successfully")
+            elseif IsInventoryItemLocked(location) then
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": LOCKEDLOCKEDLOCKEDLOCKED")
+            else
+                C_Item.EquipItemByName(itemID)
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Attempting to swapout item")
+            end
+        else
+            Angleur_SwapoutItemsSaved[location] = nil
+        end
+    end
+    if next(Angleur_SwapoutItemsSaved) == nil then
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": swapback complete, removing script")
+        return true
+    end
+end
+
+local combatSwapped = false
+local swapWepTable = {}
+local function Cycle_SwapWeaponsCombat(self, elapsed)
+    if InCombatLockdown() then 
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Couldn't equip combat weapon in time")
+        return true
+    end
+    for location, itemID in pairs(swapWepTable) do
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Weapon Location ", location)
+        if C_Item.IsEquippedItem(itemID) then
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": equipped weapon slot successfully: ", itemID)
+            swapWepTable[location] = nil
+        elseif not IsInventoryItemLocked(location) then
+            C_Item.EquipItemByName(itemID, location)
+            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": trying to equip item")
+            Angleur_BetaPrint(itemID, location)
+        end
+    end
+    if next(swapWepTable) == nil then
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": weapon swap complete, removing script")
+        return true
+    end
+end
+--____________________________________________________________________________________________________________________________________________________________________________
+
+
+-- _____________________________________________________________ Creation/Initialisation _____________________________________________________________________________________
+-- ________________________________________________Functions relating to initialising variables, creating frames etc__________________________________________________________
+function Angleur_EquipmentManager()
+    if not Angleur_SwapoutItemsSaved then
+        Angleur_SwapoutItemsSaved = {}
+    end
+    if not AngleurCharacter.angleurSet then
+        AngleurCharacter.angleurSet = false
+    end
+    Angleur_CreateSetAndAdd_UpdateState()
+    Angleur_CreateWeaponSwapFrames()
+end
+
+function Angleur_CreateSetAndAdd_UpdateState()
+    if AngleurCharacter.angleurSet == true then
+        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultTexture:Hide()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultText:Hide()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedTexture:Show()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedText:Show()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.disableAndDelete:Show()
+    elseif AngleurCharacter.angleurSet == false then
+        Angleur_SwapoutItemsSaved = {}
+        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedTexture:Hide()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.checkedText:Hide()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultTexture:Show()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.defaultText:Show()
+        Angleur.configPanel.tab2.contents.createSetAndAdd.disableAndDelete:Hide()
+    end
+    Angleur.configPanel.tab2.contents.createSetAndAdd:Enable()
+end
+
+function Angleur_CreateEquipmentSet()
+    if gameVersion == 3 then
+        if checkSlottedExtraItems() == false then
+            print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
+            print(T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
+            Angleur_ForceDeleteSet()
+            return
+        end
+    end
+
+    local setID 
+    if not C_EquipmentSet.GetEquipmentSetID("Angleur") then
+        local iconID
+        if gameVersion == 1 then
+            iconID = 4620674
+        elseif gameVersion == 2 or gameVersion == 3 then
+            iconID = 136245
+        end
+        C_EquipmentSet.CreateEquipmentSet("Angleur", iconID)
+        for i = 1, 19, 1 do
+            C_EquipmentSet.IgnoreSlotForSave(i)
+        end
+        setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+        C_EquipmentSet.SaveEquipmentSet(setID)
+        C_EquipmentSet.ClearIgnoredSlotsForSave()
+        Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Angleur_CreateEquipmentSet ") .. ": Ignored Slots:")
+        Angleur_BetaTableToString(C_EquipmentSet.GetIgnoredSlots(setID))
+        print(T["Created equipment set for " .. colorBlu:WrapTextInColorCode("Angleur" ) .. ". ID is : "], setID)
+        print(T["All unslotted items in the set have been set to <ignore slot>."])
+        print(T["For passive items you'd like to add to your fishing gear, you can use the game's " 
+        .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set"])
+        AngleurCharacter.angleurSet = true
+    end
+    if gameVersion == 3 then
+        Angleur_AddToEquipmentSet()
+    end
+end
+--____________________________________________________________________________________________________________________________________________________________________________
+
+
+-- _____________________________________________________________ MANUAL EQUIP TRACKER__________________________________________________________________________________________
+-- When player manually changes items, regardless of sleep state, add the EQUIPPED items to 'Angleur_SwapoutItemsSaved' (if they have a counterpart in the Angleur Set)
+local function handleEquip2HanderAndOffhand(setsMainhandItem, slot)
+    if slot == INVSLOT_OFFHAND then
+        --                                                                                                      17 is INVTYPE_2HWEAPON for C_Item.GetItemInventoryTypeByID
+        if setsMainhandItem and setsMainhandItem ~= -1 and C_Item.GetItemInventoryTypeByID(setsMainhandItem) == 17 then
+            local itemLink = getItemLinkEquipped(INVSLOT_OFFHAND)
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item, " .. itemLink .. " is equipped to offhand, and the Set Main Hand is a 2-Hander. Adding to Swapout Table.")
+            Angleur_SwapoutItemsSaved[INVSLOT_OFFHAND] = itemLink
+        end
+    end
+end
+local ManualEquipTracker = CreateFrame("Frame")
+ManualEquipTracker:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
+    if AngleurCharacter.angleurSet == false then return end
+    if event == "PLAYER_EQUIPMENT_CHANGED" then
+        if empty == true then
+
+        elseif empty == false then
+            local newItem = GetInventoryItemID("player", slot)
+            local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+            if not setID then return end
+            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(setID)
+            local setItem = angleurSetItemIDs[slot]
+            if not setItem or setItem == -1 then
+                local setsMainhandItem = angleurSetItemIDs[INVSLOT_MAINHAND]
+                handleEquip2HanderAndOffhand(setsMainhandItem, slot)
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": No set counterpart in the slot, not overwriting")
+                return
+            end
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Newly Equipped Item: ", getItemLinkEquipped(slot))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
+            if newItem == setItem then
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item is the set item...")
+            elseif updatingSet == false then
+                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
+                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
+                else
+                    Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
+                end
+            end
+        end
+    end
+end)
+--_________________________________________________________________________________________________________________________________________________________________________
+
+
+
+--**********************[1]************************
+--* Automatically adding slotted items to the set *
+--**********************[1]************************
+-- Play a glow animation around the "Angleur" Equipment Set in the Equipment Manager menu
+
 
 local function isEligible(itemID)
     if not C_Item.IsEquippableItem(itemID) then return false end
@@ -477,30 +538,6 @@ end
 --**********************[2]************************
 --************** Combat Weapon Swap ***************
 --**********************[2]************************
-local combatSwapped = false
-local swapWepTable = {}
-local function Cycle_SwapWeaponsCombat(self, elapsed)
-    if InCombatLockdown() then 
-        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Couldn't equip combat weapon in time")
-        return true
-    end
-    for location, itemID in pairs(swapWepTable) do
-        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Weapon Location ", location)
-        if C_Item.IsEquippedItem(itemID) then
-            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": equipped weapon slot successfully: ", itemID)
-            swapWepTable[location] = nil
-        elseif not IsInventoryItemLocked(location) then
-            C_Item.EquipItemByName(itemID, location)
-            Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": trying to equip item")
-            Angleur_BetaPrint(itemID, location)
-        end
-    end
-    if next(swapWepTable) == nil then
-        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": weapon swap complete, removing script")
-        return true
-    end
-end
-
 local function wepSwapFrame_OnEvent(self, event, unit, ...)
     if AngleurCharacter.sleeping == true then return end
     local arg4, arg5 = ...
@@ -553,7 +590,6 @@ weaponSwapFrames:RegisterEvent("PLAYER_REGEN_DISABLED")
 weaponSwapFrames:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 weaponSwapFrames:SetScript("OnEvent", wepSwapFrame_OnEvent)
 
-
 -- Creates hidden overlay force-equip macro secureactionbuttons onto the minimap button and visual
 function Angleur_CreateWeaponSwapFrames()
     if weaponSwapFrames.visual == nil then Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("CreateWeaponSwapFrames ") .. ": it do be nil") end
@@ -590,8 +626,6 @@ function Angleur_RepositionWeaponSwapFrames()
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
 end
-
-
 --**********************[2]************************
 --|||||||||||||||||||||||||||||||||||||||||||||||||
 --**********************[2]************************
@@ -642,7 +676,6 @@ local function fillSwapoutTable(setID)
         end
     end
 end
-
 local function checkSetBug()
     local bugOccurred = true
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
@@ -708,43 +741,6 @@ end
 --**********************[4]************************
 --***************** Unequip Set *******************
 --**********************[4]************************
-local function End_SwapoutSet()
-    Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
-    Angleur_SwapoutItemsSaved = {}
-end
-
--- Attempts to unequip until the temporary copied table is emptied
-local function Cycle_SwapoutSet()
-    if InCombatLockdown() then 
-        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Couldn't re-equip all items before combat in time.")
-        Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
-        return true
-    end
-    for location, itemID in pairs(Angleur_SwapoutItemsSaved) do
-        if itemID then
-            if not Angleur_IsEquipItemValid(itemID) then
-                Angleur_SwapoutItemsSaved[location] = nil
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": item isn't valid, removing from swapout table.")
-            elseif C_Item.IsEquippedItem(itemID) then
-                Angleur_SwapoutItemsSaved[location] = nil
-                Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": " , itemID, "equipped back successfully")
-            elseif IsInventoryItemLocked(location) then
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": LOCKEDLOCKEDLOCKEDLOCKED")
-            else
-                C_Item.EquipItemByName(itemID)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Attempting to swapout item")
-            end
-        else
-            Angleur_SwapoutItemsSaved[location] = nil
-        end
-    end
-    if next(Angleur_SwapoutItemsSaved) == nil then
-        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": swapback complete, removing script")
-        return true
-    end
-end
-
--- Main unequip function, kicks off periodical calling of SwapoutSet
 function Angleur_UnequipAngleurSet()
     equipFrameSet:SetScript("OnEvent", nil)
     equipFrameSet:SetScript("OnUpdate", nil)
