@@ -86,7 +86,7 @@
                                 elseif AngleurCharacter.sleeping == false then
                                     AngleurCharacter.sleeping = true
                                     Angleur_SetSleep()
-                                    Angleur_UnequipAngleurSet(true)
+                                    Angleur_UnequipAngleurSet()
                                     print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
                                 end
                                 

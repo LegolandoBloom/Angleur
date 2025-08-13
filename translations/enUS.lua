@@ -547,3 +547,7 @@ T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Ang
 T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."
 T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop " 
 .. colorYello:WrapTextInColorCode("Macro Maker.")
+
+
+-- Major rework to eqMan
+T["The following slotted items could not be added to your Angleur Equipment Set:"] = "The following slotted items could not be added to your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set ") .. ":"

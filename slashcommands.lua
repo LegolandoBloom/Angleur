@@ -38,7 +38,7 @@ SlashCmdList["ANGLEURSLEEP"] = function()
         AngleurCharacter.sleeping = true
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        Angleur_UnequipAngleurSet()
     elseif AngleurCharacter.sleeping == true then
         AngleurCharacter.sleeping = false
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])

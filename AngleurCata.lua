@@ -151,7 +151,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
         if wasEquipped == true then
-            Angleur_UnequipAngleurSet(true)
+            Angleur_UnequipAngleurSet()
         end
         return 
     end
@@ -174,7 +174,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
         if wasEquipped == true then
-            Angleur_UnequipAngleurSet(true)
+            Angleur_UnequipAngleurSet()
         end
         wasEquipped = false
     end

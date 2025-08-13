@@ -538,3 +538,7 @@ T["Feathered Lure"] = "Feathered Lure"
 T["Sharpened Fish Hook"] = "Sharpened Fish Hook"
 T["Glow Worm"] = "Glow Worm"
 T["Heat-Treated Spinning Lure"] = "Heat-Treated Spinning Lure"
+
+
+-- Major rework to eqMan
+T["The following slotted items could not be added to your Angleur Equipment Set: "] = "The following slotted items could not be added to your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set ") .. ":"

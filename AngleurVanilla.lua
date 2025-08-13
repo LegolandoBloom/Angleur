@@ -146,7 +146,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        Angleur_UnequipAngleurSet()
         return 
     end
     local id = C_Item.GetItemID(itemLoc)
@@ -166,7 +166,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
     else
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        Angleur_UnequipAngleurSet()
     end
 end
 
