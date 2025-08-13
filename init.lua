@@ -204,7 +204,7 @@ function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame
         if timeElapsed > elapsedThreshhold then
             if cycleFunk then
                 if cycleFunk() == true then
-                    -- If cycleFunk returns true the delayer is stopped, and the script set to nil. endFunk is not executed.
+                    -- If cycleFunk returns true the delayer is stopped, and the script set to nil. endFunk is not executed..
                     self:SetScript("OnUpdate", nil)
                     return
                 end
@@ -215,7 +215,7 @@ function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame
         
         if delay <= 0 then
             self:SetScript("OnUpdate", nil)
-            endFunk()
+            if endFunk then endFunk() end
             return
         end
     end)
