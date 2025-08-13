@@ -903,8 +903,6 @@
                         AngleurCharacter.angleurSet = false
                         Angleur_CreateSetAndAdd_UpdateState()
                         C_EquipmentSet.DeleteEquipmentSet(C_EquipmentSet.GetEquipmentSetID("Angleur"))
-                        self:GetParent():Enable()
-                        self:GetParent():ClearPushedTexture()
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)
