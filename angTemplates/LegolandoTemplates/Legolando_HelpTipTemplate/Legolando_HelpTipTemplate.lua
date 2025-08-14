@@ -1,4 +1,4 @@
-Angleur_HelpTipCloseButtonMixin = CreateFromMixins(ButtonStateBehaviorMixin);
+Legolando_HelpTipCloseButtonMixin = CreateFromMixins(ButtonStateBehaviorMixin);
 
 local atlas
 if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
@@ -6,14 +6,14 @@ if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
 elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
 	atlas = "simplecheckout-close-normal-1x"
 end
-function Angleur_HelpTipCloseButtonMixin:GetAtlas()
+function Legolando_HelpTipCloseButtonMixin:GetAtlas()
 	if self:IsDown() then
 		return atlas;
 	end
 	return atlas;
 end
 
-function Angleur_HelpTipCloseButtonMixin:OnButtonStateChanged()
+function Legolando_HelpTipCloseButtonMixin:OnButtonStateChanged()
 	self.Texture:SetAtlas(self:GetAtlas(), TextureKitConstants.UseAtlasSize);
 end
 
@@ -109,21 +109,21 @@ HelpTip.halfWidth = HelpTip.width / 2;
 
 
 
-Angleur_HelpTipTemplateMixin = {};
+Legolando_HelpTipTemplateMixin = {};
 
-Angleur_HelpTipTemplateMixin.warningFrame = nil
+Legolando_HelpTipTemplateMixin.warningFrame = nil
 
-Angleur_HelpTipTemplateMixin.acknowledgeThisHide = false
+Legolando_HelpTipTemplateMixin.acknowledgeThisHide = false
 
-Angleur_HelpTipTemplateMixin.savedTable = nil
+Legolando_HelpTipTemplateMixin.savedTable = nil
 
-Angleur_HelpTipTemplateMixin.partActive = nil
+Legolando_HelpTipTemplateMixin.partActive = nil
 
-Angleur_HelpTipTemplateMixin.onSkipCallback = nil
+Legolando_HelpTipTemplateMixin.onSkipCallback = nil
 
-Angleur_HelpTipTemplateMixin.parts = {}
+Legolando_HelpTipTemplateMixin.parts = {}
 --[[
-	Angleur_HelpTipTemplateMixin.parts[i] = {
+	Legolando_HelpTipTemplateMixin.parts[i] = {
 		text,									-- also acts as a key for various API, MUST BE SET
 		textColor = HIGHLIGHT_FONT_COLOR,
 		textJustifyH = "LEFT",
@@ -154,7 +154,7 @@ Angleur_HelpTipTemplateMixin.parts = {}
 	}
 ]]--
 
-function Angleur_HelpTipTemplateMixin:OnLoad()
+function Legolando_HelpTipTemplateMixin:OnLoad()
 	self.Arrow.Arrow:ClearAllPoints();
 	self.Arrow.Arrow:SetPoint("CENTER");
 	self.Arrow.Glow:ClearAllPoints();
@@ -171,18 +171,18 @@ function Angleur_HelpTipTemplateMixin:OnLoad()
 	end)
 end
 
-function Angleur_HelpTipTemplateMixin:OnHide()
+function Legolando_HelpTipTemplateMixin:OnHide()
 	if self.warningFrame then
 		self.warningFrame:Hide()
 	end
 	if not self.acknowledgeThisHide then return end
 	if not self.partActive then 
-        assert("Angleur: Unexpected Error, no active part found when hiding")
+        assert("Legolando_Helptip: Unexpected Error, no active part found when hiding")
         return
     end
     local thisPart = self.parts[self.partActive]
     if not thisPart then
-        assert("Angleur: Unexpected Error, data table of this part could not be found")
+        assert("Legolando_Helptip: Unexpected Error, data table of this part could not be found")
         return
     end
     if thisPart.onHideCallback then
@@ -197,7 +197,7 @@ function Angleur_HelpTipTemplateMixin:OnHide()
     self:GoToNextPart()
 end
 
-function Angleur_HelpTipTemplateMixin:AttachWarning(warningFrame)
+function Legolando_HelpTipTemplateMixin:AttachWarning(warningFrame)
 	self.warningFrame = warningFrame
 
 	warningFrame.noButton:SetScript("OnClick", function()
@@ -208,7 +208,7 @@ function Angleur_HelpTipTemplateMixin:AttachWarning(warningFrame)
 	end)
 end
 
-function Angleur_HelpTipTemplateMixin:SkipTutorial()
+function Legolando_HelpTipTemplateMixin:SkipTutorial()
 	Angleur_BetaPrint("Skipping Tutorial")
 	self.partActive = #self.parts + 1
 	if self.savedTable then
@@ -219,8 +219,7 @@ function Angleur_HelpTipTemplateMixin:SkipTutorial()
 		self.onSkipCallback()
 	end
 end
-
-function Angleur_HelpTipTemplateMixin:CompletePartWithAction(part)
+function Legolando_HelpTipTemplateMixin:CompletePartWithAction(part)
 	if part == self.partActive then
 		self.acknowledgeThisHide = true
 		self:Hide()
@@ -228,7 +227,7 @@ function Angleur_HelpTipTemplateMixin:CompletePartWithAction(part)
 	end
 end
 
-function Angleur_HelpTipTemplateMixin:Activate(startingPart)
+function Legolando_HelpTipTemplateMixin:Activate(startingPart)
 	if startingPart > #self.parts then 
 		Angleur_BetaPrint("Tutorial has already been completed.")
 		return 
@@ -238,7 +237,7 @@ function Angleur_HelpTipTemplateMixin:Activate(startingPart)
     self:ShowActivePart()
 end
 
-function Angleur_HelpTipTemplateMixin:GoToNextPart()
+function Legolando_HelpTipTemplateMixin:GoToNextPart()
     Angleur_BetaPrint("Going to next part: ")
 	self.partActive = self.partActive + 1
 	if self.savedTable then
@@ -252,7 +251,7 @@ function Angleur_HelpTipTemplateMixin:GoToNextPart()
     end
 end
 
-function Angleur_HelpTipTemplateMixin:ShowActivePart()
+function Legolando_HelpTipTemplateMixin:ShowActivePart()
 	thisPart = self.parts[self.partActive]
 	Angleur_BetaPrint("ShowActivePart: ", thisPart.text)
     self:AnchorAndRotate(thisPart)
@@ -260,15 +259,15 @@ function Angleur_HelpTipTemplateMixin:ShowActivePart()
     self:Show()
 end
 
-function Angleur_HelpTipTemplateMixin.GetTargetPoint(targetPoint)
+function Legolando_HelpTipTemplateMixin.GetTargetPoint(targetPoint)
 	return targetPoint or HelpTip.Point.BottomEdgeCenter;
 end
 
-function Angleur_HelpTipTemplateMixin.GetAlignment(alignment)
+function Legolando_HelpTipTemplateMixin.GetAlignment(alignment)
 	return alignment or HelpTip.Alignment.Center;
 end
 
-function Angleur_HelpTipTemplateMixin.GetButtonInfo(buttonStyle)
+function Legolando_HelpTipTemplateMixin.GetButtonInfo(buttonStyle)
 	local buttonStyle = buttonStyle or HelpTip.ButtonStyle.None;
 	return HelpTip.Buttons[buttonStyle];
 end
@@ -283,7 +282,7 @@ end
 		offsetY = offsetY * rotationInfo.modOffsetY;
 		return offsetX, offsetY;
 	end
-function Angleur_HelpTipTemplateMixin:AnchorAndRotate(partTable, overrideTargetPoint, overrideAlignment)
+function Legolando_HelpTipTemplateMixin:AnchorAndRotate(partTable, overrideTargetPoint, overrideAlignment)
 	local baseTargetPoint = self.GetTargetPoint(partTable.targetPoint);
 	local targetPoint = overrideTargetPoint or baseTargetPoint;
 	local alignment = overrideAlignment or self.GetAlignment(partTable.alignment);
@@ -321,12 +320,12 @@ function Angleur_HelpTipTemplateMixin:AnchorAndRotate(partTable, overrideTargetP
 	partTable.appliedTargetPoint = targetPoint;
 end
 
-function Angleur_HelpTipTemplateMixin.GetHighlightTextureSize(partTable)
+function Legolando_HelpTipTemplateMixin.GetHighlightTextureSize(partTable)
 	if not partTable.highlightTextureSizeMultiplierX then partTable.highlightTextureSizeMultiplierX = 1 end
 	if not partTable.highlightTextureSizeMultiplierY then partTable.highlightTextureSizeMultiplierY = 1 end
 end
 
-function Angleur_HelpTipTemplateMixin:Layout(partTable)
+function Legolando_HelpTipTemplateMixin:Layout(partTable)
 	local targetPoint = self.GetTargetPoint(partTable.targetPoint);
 	local pointInfo = HelpTip.PointInfo[targetPoint];
 	local buttonInfo = self.GetButtonInfo(partTable.buttonStyle);
@@ -374,7 +373,7 @@ function Angleur_HelpTipTemplateMixin:Layout(partTable)
 	self:SetHeight(height);
 end
 
-function Angleur_HelpTipTemplateMixin:SetHighlightTexture(partTable)
+function Legolando_HelpTipTemplateMixin:SetHighlightTexture(partTable)
 	if partTable.hideHighlightTexture == true then return end
 	local multiX = partTable.highlightTextureSizeMultiplierX
 	local multiY = partTable.highlightTextureSizeMultiplierY
@@ -392,7 +391,7 @@ function Angleur_HelpTipTemplateMixin:SetHighlightTexture(partTable)
 	self.featureHighlight:Show()
 end
 
-function Angleur_HelpTipTemplateMixin:ApplyText(partTable)
+function Legolando_HelpTipTemplateMixin:ApplyText(partTable)
 	local info = partTable;
 	self.Text:SetText(partTable.text);
 	local color = info.textColor or HIGHLIGHT_FONT_COLOR;
@@ -408,14 +407,14 @@ function Angleur_HelpTipTemplateMixin:ApplyText(partTable)
 	self.Text:SetJustifyH(justifyH);
 end
 
-function Angleur_HelpTipTemplateMixin:AnchorArrow(rotationInfo, alignment)
+function Legolando_HelpTipTemplateMixin:AnchorArrow(rotationInfo, alignment)
 	local arrowAnchor = rotationInfo.anchors[alignment];
 	local offsetX, offsetY = transformOffsetsForRotation(HelpTip.ArrowOffsets[alignment], rotationInfo);
 	self.Arrow:ClearAllPoints();
 	self.Arrow:SetPoint("CENTER", self, arrowAnchor, offsetX, offsetY);
 end
 
-function Angleur_HelpTipTemplateMixin:RotateArrow(rotation)
+function Legolando_HelpTipTemplateMixin:RotateArrow(rotation)
 	if self.Arrow.rotation == rotation then
 		return;
 	end

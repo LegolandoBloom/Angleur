@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     <!-- Needs Angleur_WarningFrame to work, located in GeneralTemplates -->
-    <Frame name="Angleur_HelpTipCloseWarning" toplevel="true" frameStrata="DIALOG" inherits="Angleur_WarningFrame" virtual="true" hidden="true">
+    <Frame name="Legolando_HelpTipCloseWarning" toplevel="true" frameStrata="DIALOG" inherits="Angleur_WarningFrame" virtual="true" hidden="true">
         <Anchors>
             <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER" x="0" y="100"/>
         </Anchors>
@@ -17,11 +17,11 @@
         </Scripts>
     </Frame>
 
-    <Frame name="Angleur_HelpTipTemplate" inherits="GlowBoxTemplate" hidden="true" mixin="Angleur_HelpTipTemplateMixin" toplevel="true" virtual="true" enableMouse="true" flattenRenderLayers="true">
+    <Frame name="Legolando_HelpTipTemplate" inherits="GlowBoxTemplate" hidden="true" mixin="Legolando_HelpTipTemplateMixin" toplevel="true" virtual="true" enableMouse="true" flattenRenderLayers="true">
         <Size x="226" y="10"/>
         <Layers>
             <Layer level="OVERLAY">
-                <Texture name="$parent_FeatureHighlight" parentKey="featureHighlight" file="Interface/AddOns/Angleur/Images/ListButtons-glowy.png" hidden="true">
+                <Texture name="$parent_FeatureHighlight" parentKey="featureHighlight" file="Interface/AddOns/Angleur/angTemplates/LegolandoTemplates/Legolando_HelpTipTemplate/ListButtons-glowy.png" hidden="true">
                     
                 </Texture>
                 <FontString parentKey="Text" inherits="GameFontHighlightLeft" justifyH="LEFT" justifyV="TOP">
@@ -42,7 +42,7 @@
                     <Anchor point="TOPLEFT" x="-17" y="-9"/>
                 </Anchors>
             </Frame>
-            <Button parentKey="CloseButton" mixin="Angleur_HelpTipCloseButtonMixin" hidden="false" frameLevel="100">
+            <Button parentKey="CloseButton" mixin="Legolando_HelpTipCloseButtonMixin" hidden="false" frameLevel="100">
                 <Size x="18" y="18"/>
                 <Anchors>
                     <Anchor point="TOPRIGHT" x="-2" y="-2"/>

@@ -312,73 +312,11 @@
                                                             </OnShow>
                                                         </Scripts>
                                                         <Frames>
-                                                            <Button name="$parent_AngleurKey" parentkey="angleurKey" inherits="KeyBindingFrameBindingButtonTemplate">
+                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Legolando_KeybindButtonTemplate">
                                                                 <Size x="100" y="22"/>
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>
                                                                 </Anchors>
-                                                                <Layers>
-                                                                    <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal">
-                                                                            <Color r="1" g="1" b="1"/>
-                                                                            <Anchors>
-                                                                                <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                        <FontString name="$parent_Disclaimer" parentKey="disclaimer" inherits= "SystemFont_Outline" hidden="true">
-                                                                            <Anchors>
-                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="35" y="0"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                        <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" hidden="true">
-                                                                            <Color r="1"/>
-                                                                            <Anchors>
-                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                    </Layer>
-                                                                </Layers>
-                                                                <Scripts>
-                                                                    <OnLoad>
-                                                                        self.SelectedHighlight:SetWidth(self:GetWidth())
-                                                                        self:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-                                                                        self:RegisterEvent("PLAYER_REGEN_DISABLED")
-                                                                        self:RegisterEvent("PLAYER_REGEN_ENABLED")
-                                                                        self:SetPropagateKeyboardInput(true)
-                                                                    </OnLoad>
-                                                                    <OnClick>
-                                                                        if InCombatLockdown() then return end
-                                                                        if button == "LeftButton" then
-                                                                            if self.selected then
-                                                                                Angleur_KeyGetterStopWatching()
-                                                                            else
-                                                                                self.selected = true
-                                                                                self:SetSelected(true)
-                                                                                self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
-                                                                                self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
-                                                                                self:SetScript("OnMouseDown", Angleur_KeyGetterMouse)
-                                                                                self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
-                                                                                self:SetPropagateKeyboardInput(false)
-                                                                                self.disclaimer:Show()
-                                                                                self.disclaimer:SetText(Angleur_Translate["The next key you press\nwill be set as Angleur Key"])
-                                                                                self.warning:Hide()
-                                                                            end
-                                                                        elseif button == "RightButton" then
-                                                                            Angleur_Unbind(self)
-                                                                        end
-                                                                    </OnClick>
-                                                                    <OnEvent>
-                                                                            if event == "PLAYER_REGEN_DISABLED" then
-                                                                                Angleur_KeyGetterStopWatching()
-                                                                                self:Disable()
-                                                                            elseif event =="PLAYER_REGEN_ENABLED" then
-                                                                                self:Enable()
-                                                                            end
-                                                                    </OnEvent>
-                                                                    <OnHide>
-                                                                        Angleur_KeyGetterStopWatching()
-                                                                    </OnHide>
-                                                                </Scripts>
                                                             </Button>
                                                         </Frames>
                                                     </Frame>

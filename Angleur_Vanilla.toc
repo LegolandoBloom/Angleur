@@ -46,7 +46,6 @@ tabs\tiny_cata.lua
 tabs\tiny_base.lua
 
 doubleClick.lua
-oneKey.lua
 firstInstall.lua
 advancedAngling.lua
 slashcommands.lua

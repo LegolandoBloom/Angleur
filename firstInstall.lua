@@ -11,7 +11,7 @@ AngleurTutorial = {
 }
 
 --[[
-	Angleur_HelpTipTemplateMixin.parts[i] = {
+	Legolando_HelpTipTemplateMixin.parts[i] = {
 		text,									-- also acts as a key for various API, MUST BE SET
 		textColor = HIGHLIGHT_FONT_COLOR,
 		textJustifyH = "LEFT",
@@ -56,9 +56,9 @@ local alreadySet = false
 function Angleur_FirstInstall()
     if alreadySet == false then
         
-        angleurHelpTip = CreateFrame("Frame", "Angleur_HelpTip", Angleur.configPanel, "Angleur_HelpTipTemplate")
+        angleurHelpTip = CreateFrame("Frame", "Angleur_HelpTip", Angleur.configPanel, "Legolando_HelpTipTemplate")
         
-        angleurHelpTipCloseWarning = CreateFrame("Frame", "Angleur_HelpTip_CloseWarning", UIParent, "Angleur_HelpTipCloseWarning")
+        angleurHelpTipCloseWarning = CreateFrame("Frame", "Angleur_HelpTip_CloseWarning", UIParent, "Legolando_HelpTipCloseWarning")
         angleurHelpTipCloseWarning.TitleText:SetText(T["Angleur Warning"])
         angleurHelpTipCloseWarning.mainText:SetText(T["Are you sure you want to abandon the tutorial?"])
         angleurHelpTipCloseWarning.otherText:SetText(T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"])
