@@ -561,6 +561,8 @@ local function wepSwapFrame_OnEvent(self, event, unit, ...)
         end
         self:Show()
     elseif event == "PLAYER_REGEN_ENABLED" then
+        if self.minimap then self.minimap:Hide() end
+        if self.visual then self.visual:Hide() end
         self:Hide()
         local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
         if not setID then 
@@ -621,6 +623,7 @@ function Angleur_RepositionWeaponSwapFrames()
         weaponSwapFrames.visual:SetScale(Angleur.visual:GetEffectiveScale())
         weaponSwapFrames.visual:ClearAllPoints()
         weaponSwapFrames.visual:SetPoint("BOTTOMLEFT", UIParent, Angleur.visual:GetLeft(), Angleur.visual:GetBottom())
+        weaponSwapFrames.visual:Show()
     else
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
@@ -632,6 +635,7 @@ function Angleur_RepositionWeaponSwapFrames()
         weaponSwapFrames.minimap:SetScale(LibDBIcon10_AngleurMap:GetEffectiveScale() * minimapScaler)
         weaponSwapFrames.minimap:ClearAllPoints()
         weaponSwapFrames.minimap:SetPoint("BOTTOMLEFT", UIParent, LibDBIcon10_AngleurMap:GetLeft() / minimapScaler, LibDBIcon10_AngleurMap:GetBottom() / minimapScaler)
+        weaponSwapFrames.minimap:Show()
     else
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
