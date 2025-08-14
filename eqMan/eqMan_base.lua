@@ -342,6 +342,59 @@ end
 --____________________________________________________________________________________________________________________________________________________________________________
 
 
+
+-- _____________________________________________________________ MANUAL EQUIP TRACKER__________________________________________________________________________________________
+-- When player manually changes items, regardless of sleep state, add the EQUIPPED items to 'Angleur_SwapoutItemsSaved' (if they have a counterpart in the Angleur Set)
+local function handleEquip2HanderAndOffhand(setsMainhandItem, slot)
+    if slot == INVSLOT_OFFHAND then
+        --                                                                                                      17 is INVTYPE_2HWEAPON for C_Item.GetItemInventoryTypeByID
+        if setsMainhandItem and setsMainhandItem ~= -1 and C_Item.GetItemInventoryTypeByID(setsMainhandItem) == 17 then
+            local itemLink = getItemLinkEquipped(INVSLOT_OFFHAND)
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item, " .. itemLink .. " is equipped to offhand, and the Set Main Hand is a 2-Hander. Adding to Swapout Table.")
+            Angleur_SwapoutItemsSaved[INVSLOT_OFFHAND] = itemLink
+        end
+    end
+end
+local ManualEquipTracker = CreateFrame("Frame")
+ManualEquipTracker:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
+ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
+    if AngleurCharacter.angleurSet == false then return end
+    if event == "PLAYER_EQUIPMENT_CHANGED" then
+        if empty == true then
+
+        elseif empty == false then
+            local newItem = GetInventoryItemID("player", slot)
+            local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+            if not setID then return end
+            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(setID)
+            local setItem = angleurSetItemIDs[slot]
+            if not setItem or setItem == -1 then
+                local setsMainhandItem = angleurSetItemIDs[INVSLOT_MAINHAND]
+                handleEquip2HanderAndOffhand(setsMainhandItem, slot)
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": No set counterpart in the slot, not overwriting")
+                return
+            end
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Newly Equipped Item: ", getItemLinkEquipped(slot))
+            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
+            if newItem == setItem then
+                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item is the set item...")
+            elseif updatingSet == false then
+                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
+                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
+                else
+                    Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
+                end
+            end
+        end
+    end
+end)
+--____________________________________________________________________________________________________________________________________________________________________________
+
+
+
 -- _____________________________________________________________ Creation/Initialisation _____________________________________________________________________________________
 -- ________________________________________________Functions relating to initialising variables, creating frames etc__________________________________________________________
 function Angleur_EquipmentManager()
@@ -413,55 +466,6 @@ end
 --____________________________________________________________________________________________________________________________________________________________________________
 
 
--- _____________________________________________________________ MANUAL EQUIP TRACKER__________________________________________________________________________________________
--- When player manually changes items, regardless of sleep state, add the EQUIPPED items to 'Angleur_SwapoutItemsSaved' (if they have a counterpart in the Angleur Set)
-local function handleEquip2HanderAndOffhand(setsMainhandItem, slot)
-    if slot == INVSLOT_OFFHAND then
-        --                                                                                                      17 is INVTYPE_2HWEAPON for C_Item.GetItemInventoryTypeByID
-        if setsMainhandItem and setsMainhandItem ~= -1 and C_Item.GetItemInventoryTypeByID(setsMainhandItem) == 17 then
-            local itemLink = getItemLinkEquipped(INVSLOT_OFFHAND)
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item, " .. itemLink .. " is equipped to offhand, and the Set Main Hand is a 2-Hander. Adding to Swapout Table.")
-            Angleur_SwapoutItemsSaved[INVSLOT_OFFHAND] = itemLink
-        end
-    end
-end
-local ManualEquipTracker = CreateFrame("Frame")
-ManualEquipTracker:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
-ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
-    if AngleurCharacter.angleurSet == false then return end
-    if event == "PLAYER_EQUIPMENT_CHANGED" then
-        if empty == true then
-
-        elseif empty == false then
-            local newItem = GetInventoryItemID("player", slot)
-            local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
-            if not setID then return end
-            local angleurSetItemIDs = C_EquipmentSet.GetItemIDs(setID)
-            local setItem = angleurSetItemIDs[slot]
-            if not setItem or setItem == -1 then
-                local setsMainhandItem = angleurSetItemIDs[INVSLOT_MAINHAND]
-                handleEquip2HanderAndOffhand(setsMainhandItem, slot)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": No set counterpart in the slot, not overwriting")
-                return
-            end
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Newly Equipped Item: ", getItemLinkEquipped(slot))
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": Angleur Set Counterpart: ", getItemLinkID(setItem))
-            if newItem == setItem then
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": The new item is the set item...")
-            elseif updatingSet == false then
-                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
-                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
-                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
-                else
-                    Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
-                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("ManualEquipTracker ") .. ": OVERWRITTEN: ", Angleur_SwapoutItemsSaved[slot])
-                end
-            end
-        end
-    end
-end)
---_________________________________________________________________________________________________________________________________________________________________________
 
 
 
@@ -501,8 +505,14 @@ function Angleur_AddToEquipmentSet()
             wantToEquip[location] = itemID
             local currentlyEquipped = GetInventoryItemID("player", location)
             if itemID ~= currentlyEquipped then
-                Angleur_SwapoutItemsSaved[location] = getItemLinkEquipped(location)
-                Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": This is the item to re-equip(swapout list): ", Angleur_SwapoutItemsSaved[location])
+                if gameVersion == 2 and CheckTable(fishingPoleTableMoP, currentlyEquipped) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
+                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, currentlyEquipped) then
+                    Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
+                else
+                    Angleur_SwapoutItemsSaved[location] = getItemLinkEquipped(location)
+                    Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": This is the item to re-equip(swapout list): ", Angleur_SwapoutItemsSaved[location])
+                end
             else
                 Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("AddToEquipmentSet ") .. ": Equipped item same as new, not overwriting Swapout.")
             end
