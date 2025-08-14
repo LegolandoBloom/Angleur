@@ -6,8 +6,6 @@ end)
 
 AngleurConfig = {
     angleurKey,
-    angleurKeyModifier,
-    angleurKeyMain,
     raftEnabled,
     chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
     baitEnabled,
@@ -100,6 +98,9 @@ function Init_AngleurSavedVariables()
     if AngleurTutorial.part == nil then
         AngleurTutorial.part = 1
     end
+
+    Angleur_AngleurKey.savedVarTable = AngleurConfig
+    Angleur_AngleurKey.savedVarKey = "angleurKey"
 end
 
 AngleurVanilla_FishingPoleTable = {

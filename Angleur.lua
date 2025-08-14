@@ -150,13 +150,6 @@ local function isChosenKeyDown()
             return false
         end
         local keybind = AngleurConfig.angleurKey
-        if AngleurConfig.angleurKeyModifier then
-            if AngleurConfig.angleurKeyMain then
-                keybind = AngleurConfig.angleurKeyMain
-            else
-                print(T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."])
-            end
-        end
         if keybind == "MOUSEWHEELUP" or keybind == "MOUSEWHEELDOWN" then
             return false
         end
