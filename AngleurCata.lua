@@ -146,6 +146,7 @@ end
 local fishingPoleTable = AngleurMoP_FishingPoleTable
 local wasEquipped = false
 function AngleurClassic_CheckFishingPoleEquipped()
+    if InCombatLockdown() then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
