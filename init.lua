@@ -6,6 +6,7 @@ end)
 
 AngleurConfig = {
     angleurKey,
+    angleurKey_Base,
     raftEnabled,
     chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
     baitEnabled,
@@ -106,10 +107,10 @@ function Init_AngleurSavedVariables()
 
     Angleur_AngleurKey.savedVarTable = AngleurConfig
     Angleur_AngleurKey.keybindRef = "angleurKey"
-    Angleur_AngleurKey.baseRef = "angleurKeyBase"
+    Angleur_AngleurKey.baseRef = "angleurKey_Base"
 
     Angleur_RecastKey.savedVarTable = AngleurConfig
-    Angleur_RecastKey.savedVarKey = "recastKey"
+    Angleur_RecastKey.keybindRef = "recastKey"
 end
 
 AngleurVanilla_FishingPoleTable = {

@@ -79,6 +79,25 @@ function Angleur_SetTab1(self)
     self.fishingMethod.doubleClick.contents.dropDownMenu.menuTitle:SetText(T["Double Click"])
     Angleur_FishingMethodSetSelected(self.fishingMethod)
 
+
+    self.recastEnable.text:SetText(T["Enable Recast Key"])
+    self.recastEnable:reposition()
+    self.recastEnable.disabledText:SetText(T[""])
+    self.recastEnable:SetScript("OnClick", function()
+        if self.recastEnable:GetChecked() then
+            AngleurConfig.recastEnabled = true
+            self.recastEnable.recastKey:Show()
+        elseif self.recastEnable:GetChecked() == false then
+            AngleurConfig.recastEnabled = false
+            self.recastEnable.recastKey:Hide()
+        end
+    end)
+    if AngleurConfig.recastEnabled == true then
+        self.recastEnable:SetChecked(true)
+        self.recastEnable.recastKey:Show()
+    end
+
+
     self.returnButton:SetText(T["Return\nAngleur Visual"])
 end
 

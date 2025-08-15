@@ -150,6 +150,9 @@ local function isChosenKeyDown()
             return false
         end
         local keybind = AngleurConfig.angleurKey
+        if AngleurConfig.angleurKey_Base then
+            keybind = AngleurConfig.angleurKey_Base
+        end
         if keybind == "MOUSEWHEELUP" or keybind == "MOUSEWHEELDOWN" then
             return false
         end
@@ -416,6 +419,9 @@ function Angleur_ActionHandler(self)
     if midFishing then
         SetOverrideBinding_Custom(self, true, assignKey, "INTERACTTARGET")
         self.visual.texture:SetTexture("Interface/ICONS/misc_arrowlup")
+        if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
+            SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+        end
     elseif swimming then
         --print("I am swimming")
         if mounted and Angleur_TinyOptions.allowDismount == false then

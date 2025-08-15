@@ -551,3 +551,8 @@ T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nF
 
 -- Major rework to eqMan
 T["The following slotted items could not be added to your Angleur Equipment Set:"] = "The following slotted items could not be added to your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set ") .. ":"
+
+
+
+-- Recast Key
+T["Enable Recast Key"] = "Enable Recast Key"
