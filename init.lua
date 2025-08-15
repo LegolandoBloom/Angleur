@@ -1,3 +1,5 @@
+local T = Angleur_Translate
+
 angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
     frame:ClearAllPoints()
     frame:SetScript("OnUpdate", nil)
@@ -105,16 +107,16 @@ function Init_AngleurSavedVariables()
         AngleurTutorial.part = 1
     end
 
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||
-    -- cleanup for older versions, may delete in a month
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+    -- cleanup for older version's saved variables, may delete in a month
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
     if AngleurConfig.angleurKeyModifier then
         AngleurConfig.angleurKeyModifier = nil
         AngleurConfig.angleurKeyMain = nil
         AngleurConfig.angleurKey = nil
-        print("Angleur: Version updated, please re-set your \'OneKey\' from the Config Panel.")
+        print(T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."])
     end
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
     
     Angleur_AngleurKey.savedVarTable = AngleurConfig

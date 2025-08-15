@@ -556,3 +556,5 @@ T["The following slotted items could not be added to your Angleur Equipment Set:
 
 -- Recast Key
 T["Enable Recast Key"] = "Enable Recast Key"
+T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = "Angleur: " 
+.. colorRed:WrapTextInColorCode("VERSION UPDATED. ") .. "Please re-set your " .. colorYello:WrapTextInColorCode("\'OneKey\' ") .. "from the " .. colorYello:WrapTextInColorCode("Config Panel.")
