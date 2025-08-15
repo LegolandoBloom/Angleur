@@ -15,6 +15,8 @@ AngleurConfig = {
     chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
     chosenMethod,
     doubleClickChosenID = 2,
+    recastEnabled,
+    recastKey,
     visualHidden,
     visualLocation,
     ultraFocusAudioEnabled,
@@ -59,6 +61,9 @@ function Init_AngleurSavedVariables()
     if AngleurConfig.chosenBait == nil then
         AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
     end
+    if AngleurConfig.recastEnabled == nil then
+        AngleurConfig.recastEnabled = false
+    end
 
     
 
@@ -101,6 +106,9 @@ function Init_AngleurSavedVariables()
 
     Angleur_AngleurKey.savedVarTable = AngleurConfig
     Angleur_AngleurKey.savedVarKey = "angleurKey"
+
+    Angleur_RecastKey.savedVarTable = AngleurConfig
+    Angleur_RecastKey.savedVarKey = "recastKey"
 end
 
 AngleurVanilla_FishingPoleTable = {
