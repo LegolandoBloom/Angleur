@@ -35,7 +35,7 @@
         <Size x="100" y="22"/>
         <Layers>
             <Layer level="ARTWORK">
-                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline">
+                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormal">
                     <Color r="1" g="1" b="1"/>
                     <Anchors>
                         <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
@@ -68,11 +68,11 @@
                     if event == "PLAYER_ENTERING_WORLD" then
                         local isInitialLogin, isReloadingUi = ...
                         if isInitialLogin or isReloadingUi then
-                            if self:checkTableAndReference() then
+                            <!-- if self:checkTableAndReference() then
                                 if self.savedVarTable[self.savedVarKey] then
                                     self:SetText(self.savedVarTable[self.savedVarKey])
                                 end
-                            end
+                            end -->
                         end
                     elseif event == "PLAYER_REGEN_DISABLED" then
                         self:StopWatching()
