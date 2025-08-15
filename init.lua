@@ -105,6 +105,17 @@ function Init_AngleurSavedVariables()
         AngleurTutorial.part = 1
     end
 
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||
+    -- cleanup for older versions, may delete in a month
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||
+    if AngleurConfig.angleurKeyModifier then
+        AngleurConfig.angleurKeyModifier = nil
+        AngleurConfig.angleurKeyMain = nil
+        AngleurConfig.angleurKey = nil
+    end
+    --|||||||||||||||||||||||||||||||||||||||||||||||||||
+
+    
     Angleur_AngleurKey.savedVarTable = AngleurConfig
     Angleur_AngleurKey.keybindRef = "angleurKey"
     Angleur_AngleurKey.baseRef = "angleurKey_Base"

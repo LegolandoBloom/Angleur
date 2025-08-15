@@ -379,6 +379,19 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
+                                    <CheckButton name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Angleur_LegolandoKeybindButtonTemplate" hidden="true">
+                                                <Size x="100" y="22"/>
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </CheckButton>
                                     <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
