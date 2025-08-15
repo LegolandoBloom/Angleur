@@ -105,7 +105,8 @@ function Init_AngleurSavedVariables()
     end
 
     Angleur_AngleurKey.savedVarTable = AngleurConfig
-    Angleur_AngleurKey.savedVarKey = "angleurKey"
+    Angleur_AngleurKey.keybindRef = "angleurKey"
+    Angleur_AngleurKey.baseRef = "angleurKeyBase"
 
     Angleur_RecastKey.savedVarTable = AngleurConfig
     Angleur_RecastKey.savedVarKey = "recastKey"

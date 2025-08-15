@@ -4,7 +4,7 @@
     If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-    <Script file="LegolandoKeybindButtonTemplate.lua"/>
+    <Script file="Angleur_LegolandoKeybindButtonTemplate.lua"/>
 
     <!-- ____________________________________[1]______________________________________________ -->
     <!--  Templates Ported directly from Blizzard's FrameXML, just in case it changes later on -->
@@ -31,7 +31,7 @@
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
     
-    <Button name="Legolando_KeybindButtonTemplate" mixin="Legolando_KeybindButtonMixin" inherits="KeyBindingFrameBindingButtonTemplate" virtual="true">
+    <Button name="Angleur_LegolandoKeybindButtonTemplate" mixin="Angleur_LegolandoKeybindButtonMixin" inherits="KeyBindingFrameBindingButtonTemplate" virtual="true">
         <Size x="100" y="22"/>
         <Layers>
             <Layer level="ARTWORK">
@@ -68,11 +68,11 @@
                     if event == "PLAYER_ENTERING_WORLD" then
                         local isInitialLogin, isReloadingUi = ...
                         if isInitialLogin or isReloadingUi then
-                            <!-- if self:checkTableAndReference() then
-                                if self.savedVarTable[self.savedVarKey] then
-                                    self:SetText(self.savedVarTable[self.savedVarKey])
+                            if self:checkTableAndReference() then
+                                if self.savedVarTable[self.keybindRef] then
+                                    self:SetText(self.savedVarTable[self.keybindRef])
                                 end
-                            end -->
+                            end
                         end
                     elseif event == "PLAYER_REGEN_DISABLED" then
                         self:StopWatching()

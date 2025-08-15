@@ -57,6 +57,7 @@ end
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
     if event == "ADDON_LOADED" and unit == "Angleur" then
+        Init_AngleurSavedVariables()
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
         self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
@@ -90,7 +91,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         undangLoaded = C_AddOns.IsAddOnLoaded("Angleur_Underlight")
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        Init_AngleurSavedVariables()
         if GetCVar("autoLootDefault") == "1" then
             Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
             AngleurConfig.ultraFocusAutoLootEnabled = false

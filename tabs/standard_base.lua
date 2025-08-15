@@ -59,9 +59,7 @@ function Angleur_SetTab1(self)
 
 
     self.fishingMethod.menuTitle:SetText(T["FISHING METHOD:"])
-    if AngleurConfig.angleurKey then 
-        self.fishingMethod.oneKey.contents.angleurKey:SetText(AngleurConfig.angleurKey)
-    elseif AngleurTutorial.part > 1 then
+    if not AngleurConfig.angleurKey and AngleurTutorial.part > 1 then
         self.fishingMethod.oneKey.contents.angleurKey.warning:Show()
     end
 

@@ -26,9 +26,9 @@
 --  Templates made by Legolando, specifically for this lib
 -- ____________________________________[3]______________________________________________
 
-Legolando_KeybindButtonMixin = {}
+Angleur_LegolandoKeybindButtonMixin = {}
 
-Legolando_KeybindButtonMixin.Modifiers = {
+Angleur_LegolandoKeybindButtonMixin.Modifiers = {
     modifiedListening = nil,
     modifierKeys = {
         LSHIFT = {"LSHIFT"},
@@ -40,27 +40,45 @@ Legolando_KeybindButtonMixin.Modifiers = {
     }
 }
 
-function Legolando_KeybindButtonMixin:CallOnBindFunction()
+function Angleur_LegolandoKeybindButtonMixin:CallOnBindFunction()
     if self.onBindFunction then
         self.onBindFunction()
     end
 end
 
-function Legolando_KeybindButtonMixin:checkTableAndReference()
+function Angleur_LegolandoKeybindButtonMixin:checkTableAndReference()
     local teeburu = self.savedVarTable
+    local keybindRef = self.keybindRef
     if not teeburu then
         print("no saved variable table linked to keybind frame")
         return false
     end
-    local key = self.savedVarKey
-    if not self.savedVarKey then
-        print("no reference key for the saved var table")
+    if not keybindRef then
+        print("no reference key for keybind in the saved var table")
         return false
     end
     return true
 end
 
-function Legolando_KeybindButtonMixin.OnClick(self, button, down)
+function Angleur_LegolandoKeybindButtonMixin:UpdateSavedVariables(base, modifier)
+    local teeburu = self.savedVarTable
+    if not self.keybindRef then return end
+    if modifier then
+        teeburu[self.keybindRef] = modifier .. "-" .. base
+        if self.modifierRef then teeburu[self.modifierRef] = modifier end
+        if self.baseRef then teeburu[self.baseRef] = base end
+    elseif base then
+        teeburu[self.keybindRef] = base
+        if self.modifierRef then teeburu[self.modifierRef] = nil end
+        if self.baseRef then teeburu[self.baseRef] = nil end
+    else
+        teeburu[self.keybindRef] = nil
+        if self.modifierRef then teeburu[self.modifierRef] = nil end
+        if self.baseRef then teeburu[self.baseRef] = nil end
+    end
+end
+
+function Angleur_LegolandoKeybindButtonMixin.OnClick(self, button, down)
     if self:checkTableAndReference() == false then return end
     if InCombatLockdown() then return end
     if button == "LeftButton" then
@@ -69,12 +87,12 @@ function Legolando_KeybindButtonMixin.OnClick(self, button, down)
         else
             self.selected = true
             self:SetSelected(true)
-            self:SetScript("OnKeyDown", Legolando_KeybindFrame_Modified)
-            self:SetScript("OnMouseWheel", Legolando_KeybindFrame_MouseWheel)
-            self:SetScript("OnMouseDown", Legolando_KeybindFrame_Mouse)
-            self:SetScript("OnGamePadButtonDown", Legolando_KeybindFrame_GamePad)
+            self:SetScript("OnKeyDown", self.Modified)
+            self:SetScript("OnMouseWheel", self.MouseWheel)
+            self:SetScript("OnMouseDown", self.Mouse)
+            self:SetScript("OnGamePadButtonDown", self.GamePad)
             self:SetPropagateKeyboardInput(false)
-            if self.disclaimerText then 
+            if self.disclaimerText then
                 self.disclaimer:Show()
                 self.disclaimer:SetText(self.disclaimerText)
             end
@@ -85,18 +103,20 @@ function Legolando_KeybindButtonMixin.OnClick(self, button, down)
     end
 end
 
-function Legolando_KeybindFrame_OnUp(self, key)
+function Angleur_LegolandoKeybindButtonMixin.OnUp(self, key)
     if self.Modifiers.modifiedListening == key then
+        local teeburu = self.savedVarTable
+        local keybindRef = self.keybindRef
         self.Modifiers.modifiedListening = nil
-        if self.disclaimerText then 
+        if self.disclaimerText then
             self.disclaimer:SetText(self.disclaimerText)
         end
-        self:SetText(self.savedVarTable[self.savedVarKey])
+        self:SetText(teeburu[keybindRef])
         self:SetScript("OnKeyUp", nil)
-        self:SetScript("OnKeyDown", Legolando_KeybindFrame_Modified)
-        self:SetScript("OnMouseWheel", Legolando_KeybindFrame_MouseWheel)
-        self:SetScript("OnMouseDown", Legolando_KeybindFrame_Mouse)
-        self:SetScript("OnGamePadButtonDown", Legolando_KeybindFrame_GamePad)
+        self:SetScript("OnKeyDown", self.Modified)
+        self:SetScript("OnMouseWheel", self.MouseWheel)
+        self:SetScript("OnMouseDown", self.Mouse)
+        self:SetScript("OnGamePadButtonDown", self.GamePad)
     end
 end
 
@@ -105,23 +125,23 @@ local mouseButtons = {
     ["Button4"] = "BUTTON4",
     ["Button5"] = "BUTTON5",
 }
-function Legolando_KeybindFrame_Mouse(self, button)
+function Angleur_LegolandoKeybindButtonMixin.Mouse(self, button)
     if button == "LeftButton" or button =="RightButton" then
         --nothing
     else
         local buttonName = mouseButtons[button]
         local teeburu = self.savedVarTable
-        local refKey = self.savedVarKey
+        local keybindRef = self.keybindRef
         if not buttonName then
             print("Unregistered mouse button, please contact the addon author")
         end
         if self.Modifiers.modifiedListening then
-            self.savedVarTable[self.savedVarKey] = self.Modifiers.modifiedListening .. "-" .. buttonName
+            self:UpdateSavedVariables(buttonName, self.Modifiers.modifiedListening)
             self.Modifiers.modifiedListening = nil
-            print("Key set to: " .. teeburu[refKey])
+            print("Key set to: " .. teeburu[keybindRef])
         else
-            teeburu[refKey] = buttonName
-            print("Key set to: " .. teeburu[refKey])
+            self:UpdateSavedVariables(buttonName, nil)
+            print("Key set to: " .. teeburu[keybindRef])
         end
         self.disclaimer:Hide()
         self:SetSelected(false)
@@ -131,14 +151,14 @@ function Legolando_KeybindFrame_Mouse(self, button)
         self:SetScript("OnMouseWheel", nil)
         self:SetScript("OnMouseDown", nil)
         self:SetScript("OnGamePadButtonDown", nil)
-        self:SetText(teeburu[refKey])
+        self:SetText(teeburu[keybindRef])
         self:CallOnBindFunction()
     end
 end
 
-function Legolando_KeybindFrame_GamePad(self, button)
+function Angleur_LegolandoKeybindButtonMixin.GamePad(self, button)
     local teeburu = self.savedVarTable
-    local refKey = self.savedVarKey
+    local keybindRef = self.keybindRef
     self:SetScript("OnKeyUp", nil)
     self:SetScript("OnKeyDown", nil)
     self:SetScript("OnMouseWheel", nil)
@@ -147,13 +167,13 @@ function Legolando_KeybindFrame_GamePad(self, button)
     self.disclaimer:Hide()
     self:SetSelected(false)
     self.selected = false
-    teeburu[refKey] = button
-    self:SetText(teeburu[refKey])
-    print("Key set to: " .. teeburu[refKey])
+    self:UpdateSavedVariables(button, nil)
+    self:SetText(teeburu[keybindRef])
+    print("Key set to: " .. teeburu[keybindRef])
     self:CallOnBindFunction()
 end
 
-function Legolando_KeybindFrame_MouseWheel(self, delta)
+function Angleur_LegolandoKeybindButtonMixin.MouseWheel(self, delta)
     local scroll
     if delta == 1 then
         scroll = "MOUSEWHEELUP"
@@ -161,21 +181,21 @@ function Legolando_KeybindFrame_MouseWheel(self, delta)
         scroll = "MOUSEWHEELDOWN"
     end
     local teeburu = self.savedVarTable
-    local refKey = self.savedVarKey
+    local keybindRef = self.keybindRef
     if self.Modifiers.modifiedListening then
         local colorBlu = CreateColor(0.61, 0.85, 0.92)
         local colorWhite = CreateColor(1, 1, 1)
         local colorGrae = CreateColor(0.5, 0.5, 0.5)
         local colorYello = CreateColor(1.0, 0.82, 0.0)
-        teeburu[refKey] = self.Modifiers.modifiedListening .. "-" .. scroll
+        self:UpdateSavedVariables(scroll, self.Modifiers.modifiedListening)
         self.Modifiers.modifiedListening = nil
-        print("Key set to: " .. teeburu[refKey])
+        print("Key set to: " .. teeburu[keybindRef])
         print(colorBlu:WrapTextInColorCode("Note: ") .. colorYello:WrapTextInColorCode("Modifier Keys ") 
         .. "won't be recognized when the game is in the " .. colorGrae:WrapTextInColorCode("background. ") 
         .. "If you are using the scroll wheel for that purpose. Just bind the wheel alone instead, without modifiers.")
     else
-        teeburu[refKey] = scroll
-        print("Key set to: ".. teeburu[refKey])
+        self:UpdateSavedVariables(scroll, nil)
+        print("Key set to: ".. teeburu[keybindRef])
     end
     self.disclaimer:Hide()
     self:SetSelected(false)
@@ -185,13 +205,13 @@ function Legolando_KeybindFrame_MouseWheel(self, delta)
     self:SetScript("OnMouseWheel", nil)
     self:SetScript("OnMouseDown", nil)
     self:SetScript("OnGamePadButtonDown", nil)
-    self:SetText(teeburu[refKey])
+    self:SetText(teeburu[keybindRef])
     self:CallOnBindFunction()
 end
 
-function Legolando_KeybindFrame_Modified(self, key)
+function Angleur_LegolandoKeybindButtonMixin.Modified(self, key)
     local teeburu = self.savedVarTable
-    local refKey = self.savedVarKey
+    local keybindRef = self.keybindRef
     if key == "ENTER" then
 
     elseif key == "ESCAPE" then
@@ -202,10 +222,10 @@ function Legolando_KeybindFrame_Modified(self, key)
         if self.disclaimerTextModified then
             self.disclaimer:SetText(self.disclaimerTextModified .. key)
         end
-        self:SetScript("OnKeyUp", Legolando_KeybindFrame_OnUp)
-        self:SetScript("OnKeyDown", Legolando_KeybindFrame_Modified)
-        self:SetScript("OnMouseWheel", Legolando_KeybindFrame_MouseWheel)
-        self:SetScript("OnMouseDown", Legolando_KeybindFrame_Mouse)
+        self:SetScript("OnKeyUp", self.OnUp)
+        self:SetScript("OnKeyDown", self.Modified)
+        self:SetScript("OnMouseWheel", self.MouseWheel)
+        self:SetScript("OnMouseDown", self.Mouse)
     elseif self.Modifiers.modifiedListening then
         self:SetScript("OnKeyUp", nil)
         self:SetScript("OnKeyDown", nil)
@@ -215,8 +235,8 @@ function Legolando_KeybindFrame_Modified(self, key)
         self.disclaimer:Hide()
         self:SetSelected(false)
         self.selected = false
-        teeburu[refKey] = self.Modifiers.modifiedListening .. "-" .. key
-        self:SetText(teeburu[refKey])
+        self:UpdateSavedVariables(key, self.Modifiers.modifiedListening)
+        self:SetText(teeburu[keybindRef])
         print("Key set to: " .. key .. ", with modifier " .. self.Modifiers.modifiedListening)
         self.Modifiers.modifiedListening = nil
         self:CallOnBindFunction()
@@ -229,16 +249,16 @@ function Legolando_KeybindFrame_Modified(self, key)
         self.disclaimer:Hide()
         self:SetSelected(false)
         self.selected = false
-        teeburu[refKey] = key
-        self:SetText(teeburu[refKey])
-        print("Key set to: " .. teeburu[refKey])
+        self:UpdateSavedVariables(key, nil)
+        self:SetText(teeburu[keybindRef])
+        print("Key set to: " .. teeburu[keybindRef])
         self:CallOnBindFunction()
     end 
 end
 
-function Legolando_KeybindButtonMixin:StopWatching()
+function Angleur_LegolandoKeybindButtonMixin:StopWatching()
     local teeburu = self.savedVarTable
-    local refKey = self.savedVarKey
+    local keybindRef = self.keybindRef
     self.Modifiers.secondPressListening = false
     self.Modifiers.modifiedListening = nil
     self:SetScript("OnKeyUp", nil)
@@ -246,17 +266,17 @@ function Legolando_KeybindButtonMixin:StopWatching()
     self:SetScript("OnMouseWheel", nil)
     self:SetScript("OnMouseDown", nil)
     self:SetScript("OnGamePadButtonDown", nil)
-    self:SetText(teeburu[refKey])
+    self:SetText(teeburu[keybindRef])
     self.disclaimer:Hide()
     self.selected = false
     self:SetSelected(false)
 end
 
-function Legolando_KeybindButtonMixin:Unbind(self)
+function Angleur_LegolandoKeybindButtonMixin:Unbind(self)
     local teeburu = self.savedVarTable
-    local refKey = self.savedVarKey
-    teeburu[refKey] = nil
-    self:SetText(self.savedVarTable[self.savedVarKey])
+    local keybindRef = self.keybindRef
+    self:UpdateSavedVariables(nil, nil)
+    self:SetText(teeburu[keybindRef])
     self:CallOnBindFunction()
     print("Keybind removed")
 end

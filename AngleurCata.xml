@@ -312,7 +312,7 @@
                                                             </OnShow>
                                                         </Scripts>
                                                         <Frames>
-                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Legolando_KeybindButtonTemplate">
+                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Angleur_LegolandoKeybindButtonTemplate">
                                                                 <Size x="100" y="22"/>
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>

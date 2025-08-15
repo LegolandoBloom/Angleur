@@ -206,7 +206,7 @@
                                 <Frames>
                                     <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-43"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-38"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -218,12 +218,12 @@
                                     </CheckButton>
                                     <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-72"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-67"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-100"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-95"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -236,7 +236,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-134"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-129"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -263,7 +263,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-182"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-177"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -327,7 +327,7 @@
                                                             </OnShow>
                                                         </Scripts>
                                                         <Frames>
-                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Legolando_KeybindButtonTemplate">
+                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Angleur_LegolandoKeybindButtonTemplate">
                                                                 <Size x="100" y="22"/>
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>
@@ -395,10 +395,23 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
+                                    <CheckButton name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Angleur_LegolandoKeybindButtonTemplate" hidden="true">
+                                                <Size x="100" y="22"/>
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </CheckButton>
                                     <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
-                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-13"/>
                                         </Anchors>
                                         <Scripts>
                                             <OnClick>

@@ -6,6 +6,6 @@
 
     <Include file="SimplePromotionTemplate\SimplePromotionTemplate.xml"/>
 
-    <Include file="LegolandoKeybindButtonTemplate\LegolandoKeybindButtonTemplate.xml"/>
+    <Include file="Angleur_LegolandoKeybindButtonTemplate\Angleur_LegolandoKeybindButtonTemplate.xml"/>
     
 </Ui>
