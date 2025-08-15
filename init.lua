@@ -112,7 +112,7 @@ function Init_AngleurSavedVariables()
         AngleurConfig.angleurKeyModifier = nil
         AngleurConfig.angleurKeyMain = nil
         AngleurConfig.angleurKey = nil
-        print("Angleur: Version updated, please re-set your \'OneKey\' from the menu.")
+        print("Angleur: Version updated, please re-set your \'OneKey\' from the Config Panel.")
     end
     --|||||||||||||||||||||||||||||||||||||||||||||||||||
 
