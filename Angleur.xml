@@ -380,7 +380,7 @@
                                                                 </Anchors>
                                                                 <Layers>
                                                                     <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "Game15Font">
                                                                             <Color r="1" g="1" b="1"/>
                                                                             <Anchors>
                                                                                 <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
