@@ -65,4 +65,19 @@ function cata:ExtraButtons(tab1contents)
         tab1contents.baitEnable.dropDown:Show()
     end
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
+
+
+
+    tab1contents.softInteract.text:SetText(T["Enable Soft Interact"])
+    tab1contents.softInteract:reposition()
+    -- tab1contents.softInteract.disabledText:SetText(T[])
+    tab1contents.softInteract:SetScript("OnClick", function(self)
+        if self:GetChecked() then
+            AngleurConfig.baitEnabled = true
+            self.dropDown:Show()
+        elseif self:GetChecked() == false then
+            AngleurConfig.baitEnabled = false
+            self.dropDown:Hide()
+        end
+    end)
 end

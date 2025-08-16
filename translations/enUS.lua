@@ -558,3 +558,7 @@ T["The following slotted items could not be added to your Angleur Equipment Set:
 T["Enable Recast Key"] = "Enable Recast Key"
 T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur: ") 
 .. "VERSION UPDATED. " .. "Please re-set your " .. colorYello:WrapTextInColorCode("\'OneKey\' ") .. "from the " .. colorYello:WrapTextInColorCode("Config Panel.")
+
+
+-- New soft interact system for classic
+T["Enable Soft Interact"] = "Enable Soft Interact"

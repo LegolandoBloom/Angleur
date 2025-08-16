@@ -208,7 +208,7 @@
                                 <Frames>
                                     <CheckButton name="$parent_BaitCheckBox" parentKey="baitEnable" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-43"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-38"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -221,7 +221,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-85"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-71"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -240,15 +240,37 @@
                                             </CheckButton>
                                             <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0"/>
+                                                    <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0" y="3"/>
                                                 </Anchors>
                                             </CheckButton>
                                         </Frames>
                                     </Frame>
+                                    <CheckButton name="$parent_SoftInteract" parentKey="softInteract" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="26" y="-110"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <CheckButton name="$parent_RangeIndicator" parentKey="rangeIndicator" inherits="MyCheckboxTemplate">
+                                                <Anchors>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="0"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton name="$parent_WarningSound" parentKey="warningSound" inherits="MyCheckboxTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_RangeIndicator" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                            <CheckButton name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="MyCheckboxTemplate">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent_WarningSound" relativePoint="RIGHT" x="0" y="0"/>
+                                                </Anchors>
+                                            </CheckButton>
+                                        </Frames>
+                                    </CheckButton>
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-155"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-175"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -396,7 +418,7 @@
                                     <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
-                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-13"/>
                                         </Anchors>
                                         <Scripts>
                                             <OnClick>

@@ -29,6 +29,15 @@ AngleurConfig = {
     ultraFocusingAutoLoot,
 }
 
+AngleurClassicConfig = {
+    softInteract = {
+        enabled = false,
+        rangeIndicator = false,
+        warningSound = false,
+        recastWhenOOB = false,
+    },
+}
+
 AngleurCharacter = {
     sleeping = false,
     angleurSet = false
@@ -68,6 +77,27 @@ function Init_AngleurSavedVariables()
         AngleurConfig.recastEnabled = false
     end
 
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 2 or gameVersion == 3 then
+        if AngleurClassicConfig == nil then
+            AngleurClassicConfig = {}
+        end
+        if AngleurClassicConfig.softInteract == nil then
+            AngleurClassicConfig.softInteract = {}
+        end
+        if AngleurClassicConfig.softInteract.enabled == nil then
+            AngleurClassicConfig.softInteract.enabled = false
+        end
+        if AngleurClassicConfig.softInteract.rangeIndicator == nil then
+            AngleurClassicConfig.softInteract.rangeIndicator = false
+        end
+        if AngleurClassicConfig.softInteract.rangeIndicator == nil then
+            AngleurClassicConfig.softInteract.rangeIndicator = false
+        end
+        if AngleurClassicConfig.softInteract.recastWhenOOB == nil then
+            AngleurClassicConfig.softInteract.recastWhenOOB = false
+        end
+    end
     
 
     if AngleurCharacter.sleeping == nil then

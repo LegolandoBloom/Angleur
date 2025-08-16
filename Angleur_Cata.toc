@@ -4,7 +4,7 @@
 ## Notes-ruRU: Версия Cataclysm лучшего дополнения для рыбалки одной кнопкой, Angleur!
 ## Version: Angleur Cata - Angleur 2.2 - The Great Merge + Translation Support
 ## Author: LegolandoBloom
-## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
