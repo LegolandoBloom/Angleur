@@ -276,6 +276,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " 
         .. colorYello:WrapTextInColorCode("re-drag ") .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."])
     end
+    ClearCursor()
     Angleur_LoadExtraItems(self:GetParent())
 end
 

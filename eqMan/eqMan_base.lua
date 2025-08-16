@@ -96,6 +96,7 @@ function Angleur_ForceDeleteSet()
     if setID then
         C_EquipmentSet.DeleteEquipmentSet(setID)
     end
+    Angleur_SwapoutItemsSaved = {}
     setButton:Enable()
     setButton:ClearPushedTexture()
 end
@@ -318,7 +319,7 @@ end
 
 local combatSwapped = false
 local swapWepTable = {}
-local function Cycle_SwapWeaponsCombat(self, elapsed)
+local function Cycle_SwapWeaponsCombat()
     if InCombatLockdown() then 
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Couldn't equip combat weapon in time")
         return true
@@ -555,18 +556,19 @@ local function wepSwapFrame_OnEvent(self, event, unit, ...)
     if event == "PLAYER_REGEN_DISABLED" then
         swapWepTable[INVSLOT_MAINHAND] = Angleur_SwapoutItemsSaved[INVSLOT_MAINHAND]
         swapWepTable[INVSLOT_OFFHAND] = Angleur_SwapoutItemsSaved[INVSLOT_OFFHAND]
+        if next(swapWepTable) == nil then return end
         Angleur_RepositionWeaponSwapFrames()
         for i, child in pairs(children) do
             child:setMacro(swapWepTable)
         end
         self:Show()
     elseif event == "PLAYER_REGEN_ENABLED" then
-        if self.minimap then self.minimap:Hide() end
+        if self.minimap then self.minimap:Hide() print("what") end
         if self.visual then self.visual:Hide() end
         self:Hide()
         local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
         if not setID then 
-            return 
+            return
         end
         local setItems = C_EquipmentSet.GetItemIDs(setID)
         if setItems[INVSLOT_MAINHAND] and setItems[INVSLOT_MAINHAND] ~= -1 then
@@ -627,8 +629,8 @@ function Angleur_RepositionWeaponSwapFrames()
     else
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
-
-    if weaponSwapFrames.minimap ~= nil and LibDBIcon10_AngleurMap and LibDBIcon10_AngleurMap:IsShown() then 
+    print("is visible: ", LibDBIcon10_AngleurMap:IsVisible())
+    if weaponSwapFrames.minimap ~= nil and LibDBIcon10_AngleurMap and LibDBIcon10_AngleurMap:IsShown() and LibDBIcon10_AngleurMap:IsVisible() then 
         local frameX, frameY = LibDBIcon10_AngleurMap:GetSize()
         local selfX, selfY = weaponSwapFrames.minimap:GetSize()
         local minimapScaler = 0.7
