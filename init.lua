@@ -47,6 +47,9 @@ Angleur_CVars = {
     ultraFocus = {musicOn, ambienceOn, dialogOn, effectsOn,  effectsVolume, masterOn, masterVolume, backgroundOn},
     autoLoot
 }
+AngleurClassic_CVars = {
+    softInteract,
+}
 
 AngleurMinimapButton = {
     hide

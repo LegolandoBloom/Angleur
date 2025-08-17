@@ -562,3 +562,12 @@ T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel
 
 -- New soft interact system for classic
 T["Enable Soft Interact"] = "Enable Soft Interact"
+
+T["Range Indicator"] = "Range Indicator"
+T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."
+
+T["Warning Sound"] = "Warning Sound"
+T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Plays a warning sound when the bobber lands too far for the soft interact system to capture."
+
+T["Recast When OOB"] = "Recast When OOB"
+T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."

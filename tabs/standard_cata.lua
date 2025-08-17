@@ -73,11 +73,77 @@ function cata:ExtraButtons(tab1contents)
     -- tab1contents.softInteract.disabledText:SetText(T[])
     tab1contents.softInteract:SetScript("OnClick", function(self)
         if self:GetChecked() then
-            AngleurConfig.baitEnabled = true
-            self.dropDown:Show()
+            AngleurClassicConfig.softInteract.enabled = true
+            self.rangeIndicator:Show()
+            self.warningSound:Show()
+            self.recastWhenOOB:Show()
         elseif self:GetChecked() == false then
-            AngleurConfig.baitEnabled = false
-            self.dropDown:Hide()
+            AngleurClassicConfig.softInteract.enabled = false
+            AngleurClassic_ToggleSoftInteract(false)
+            self.rangeIndicator:Hide()
+            self.warningSound:Hide()
+            self.recastWhenOOB:Hide()
         end
     end)
+    if AngleurClassicConfig.softInteract.enabled == true then
+        tab1contents.softInteract:SetChecked(true)
+        tab1contents.softInteract.rangeIndicator:Show()
+        tab1contents.softInteract.warningSound:Show()
+        tab1contents.softInteract.recastWhenOOB:Show()
+    else
+        tab1contents.softInteract.rangeIndicator:Hide()
+        tab1contents.softInteract.warningSound:Hide()
+        tab1contents.softInteract.recastWhenOOB:Hide()
+    end
+
+    
+    tab1contents.softInteract.rangeIndicator.text:SetText(T["Range Indicator"])
+    tab1contents.softInteract.rangeIndicator.text:SetFontObject(SpellFont_Small)
+    tab1contents.softInteract.rangeIndicator:greyOut()
+    tab1contents.softInteract.rangeIndicator.text.tooltip = T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."]
+    tab1contents.softInteract.rangeIndicator:reposition()
+    -- tab1contents.softInteract.disabledText:SetText(T[])
+    tab1contents.softInteract.rangeIndicator:SetScript("OnClick", function(self)
+        if self:GetChecked() then
+            AngleurClassicConfig.softInteract.rangeIndicator = true
+        elseif self:GetChecked() == false then
+            AngleurClassicConfig.softInteract.rangeIndicator = false
+        end
+    end)
+    if AngleurClassicConfig.softInteract.rangeIndicator == true then
+        tab1contents.softInteract.rangeIndicator:SetChecked(true)
+    end
+
+    tab1contents.softInteract.warningSound.text:SetText(T["Warning Sound"])
+    tab1contents.softInteract.warningSound.text:SetFontObject(SpellFont_Small)
+    tab1contents.softInteract.warningSound.text.tooltip = T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."]
+    tab1contents.softInteract.warningSound:reposition()
+    -- tab1contents.softInteract.disabledText:SetText(T[])
+    tab1contents.softInteract.warningSound:SetScript("OnClick", function(self)
+        if self:GetChecked() then
+            AngleurClassicConfig.softInteract.warningSound = true
+        elseif self:GetChecked() == false then
+            AngleurClassicConfig.softInteract.warningSound = false
+        end
+    end)
+    if AngleurClassicConfig.softInteract.warningSound == true then
+        tab1contents.softInteract.warningSound:SetChecked(true)
+    end
+
+    tab1contents.softInteract.recastWhenOOB.text:SetText(T["Recast When OOB"])
+    tab1contents.softInteract.recastWhenOOB.text:SetFontObject(SpellFont_Small)
+    tab1contents.softInteract.recastWhenOOB.text.tooltip = T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."]
+    tab1contents.softInteract.recastWhenOOB:reposition()
+    -- tab1contents.softInteract.disabledText:SetText(T[])
+    tab1contents.softInteract.recastWhenOOB:SetScript("OnClick", function(self)
+        if self:GetChecked() then
+            AngleurClassicConfig.softInteract.recastWhenOOB = true
+        elseif self:GetChecked() == false then
+            AngleurClassicConfig.softInteract.recastWhenOOB = false
+        end
+    end)
+    if AngleurClassicConfig.softInteract.recastWhenOOB == true then
+        tab1contents.softInteract.recastWhenOOB:SetChecked(true)
+    end
+
 end

@@ -136,7 +136,7 @@
                 </Scripts>
             </Button>
             <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
-                <Size x="300" y="420"/>
+                <Size x="300" y="430"/>
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="UIParent" relativePoint="LEFT" x="500" y="100"/>
                 </Anchors>
@@ -201,7 +201,7 @@
                         </Scripts>
                         <Frames>
                             <Frame name="$parent_Contents" parentKey="contents" hidden="false">
-                                <Size x="300" y="420"/>
+                                <Size x="300" y="430"/>
                                 <Anchors>
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
@@ -252,17 +252,17 @@
                                         <Frames>
                                             <CheckButton name="$parent_RangeIndicator" parentKey="rangeIndicator" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="0"/>
+                                                    <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="14" y="-4"/>
                                                 </Anchors>
                                             </CheckButton>
                                             <CheckButton name="$parent_WarningSound" parentKey="warningSound" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_RangeIndicator" relativePoint="RIGHT" x="0" y="0"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_RangeIndicator" relativePoint="RIGHT" x="15" y="0"/>
                                                 </Anchors>
                                             </CheckButton>
                                             <CheckButton name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_WarningSound" relativePoint="RIGHT" x="0" y="0"/>
+                                                    <Anchor point="TOP" relativeTo="$parent_RangeIndicator" relativePoint="BOTTOM" x="-40" y="3"/>
                                                 </Anchors>
                                             </CheckButton>
                                         </Frames>
@@ -270,7 +270,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-175"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-185"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -482,7 +482,7 @@
                         </Scripts>
                         <Frames>
                             <Frame name="$parent_Contents" parentKey="contents" hidden="true">
-                                <Size x="300" y="420"/>
+                                <Size x="300" y="430"/>
                                 <Anchors>
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
@@ -665,7 +665,7 @@
                         </Scripts>
                         <Frames>
                             <Frame name="$parent_Contents" parentKey="contents" hidden="true">
-                                <Size x="300" y="420"/>
+                                <Size x="300" y="430"/>
                                 <Anchors>
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
