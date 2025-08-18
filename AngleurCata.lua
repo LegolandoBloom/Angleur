@@ -497,15 +497,18 @@ function Angleur_ActionHandler(self)
     
     ClearOverrideBindings(self)
     if midFishing then
-        if AngleurClassicConfig.softInteract.enabled and bobberWithinRange == false then
-            SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-            self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
-            if AngleurClassicConfig.softInteract.rangeIndicator then
-                --
+        if AngleurClassicConfig.softInteract.enabled then
+            if bobberWithinRange == false then
+                self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
+                if AngleurClassicConfig.softInteract.recastWhenOOB then
+                    SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+                else
+                    SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+                end 
+            else
+                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
+                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
             end
-            if AngleurClassicConfig.softInteract.recastWhenOOB then
-                SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-            end 
         else
             --Always set doubleClick to recast on Classic(When soft interact is off)
             if chosenMethod == "doubleClick" then
