@@ -563,7 +563,7 @@ local function wepSwapFrame_OnEvent(self, event, unit, ...)
         end
         self:Show()
     elseif event == "PLAYER_REGEN_ENABLED" then
-        if self.minimap then self.minimap:Hide() print("what") end
+        if self.minimap then self.minimap:Hide() end
         if self.visual then self.visual:Hide() end
         self:Hide()
         local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
