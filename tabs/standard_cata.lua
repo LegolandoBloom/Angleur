@@ -67,8 +67,21 @@ function cata:ExtraButtons(tab1contents)
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
 
 
-
+    
     tab1contents.softInteract.text:SetText(T["Enable Soft Interact"])
+    local pictureTooltip = CreateFrame("GameTooltip", "AngleurSoftInteract_PictureTooltip", UIParent, "Angleur_LegolandoPictureTooltipTemplate")
+    tab1contents.softInteract.text:SetScript("OnEnter", function()
+        pictureTooltip:SetOwner(tab1contents.softInteract.text, "ANCHOR_BOTTOMRIGHT")
+        pictureTooltip:AddLine(T["Soft Interact in Classic:"])
+        pictureTooltip:AddLine(T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fail to catch the bobber when it lands too far.(Demonstrated in the picture)" 
+        .. "\n\nAngleur is designed to provide workarounds for this. Once enabled, please check out the options that appear below."], 1, 1, 1, true)
+        pictureTooltip:Show()
+        pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/imagesClassic/icontoofar.png", 128, 128, "TOPRIGHT")
+    
+    end)
+    tab1contents.softInteract.text:SetScript("OnLeave", function()
+        pictureTooltip:Hide()
+    end)
     tab1contents.softInteract:reposition()
     -- tab1contents.softInteract.disabledText:SetText(T[])
     tab1contents.softInteract:SetScript("OnClick", function(self)

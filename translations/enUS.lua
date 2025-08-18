@@ -567,7 +567,15 @@ T["Range Indicator"] = "Range Indicator"
 T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."
 
 T["Warning Sound"] = "Warning Sound"
-T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Plays a warning sound when the bobber lands too far for the soft interact system to capture."
+T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Plays a " .. colorYello:WrapTextInColorCode("warning sound ") .. "when the bobber lands too far for the soft interact system to capture."
 
 T["Recast When OOB"] = "Recast When OOB"
-T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."
+T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Sets the " 
+.. colorRed:WrapTextInColorCode("OneKey") .. " / " .. colorRed:WrapTextInColorCode("Double-Click ") .. "to " .. colorYello:WrapTextInColorCode("Recast ") .. "when the bobber lands too far for the soft interact system to capture."
+
+T["Soft Interact in Classic:"] = "Soft Interact in Classic:"
+
+T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fail to catch the bobber when it lands too far.(Demonstrated in the picture)" 
+.. "\n\nAngleur is designed to provide workarounds for this. Once enabled, please check out the options that appear below."] = "Due to a limitation in Classic,\nthe " .. colorYello:WrapTextInColorCode("\'soft interact system\' ") 
+.. "can sometimes fail to catch the bobber when it lands too far." .. colorGrae:WrapTextInColorCode("\n(Demonstrated in the picture)") .. colorBlu:WrapTextInColorCode("\n\nAngleur ") 
+.. "is designed to provide workarounds for this. Once enabled, please check out the " .. colorYello:WrapTextInColorCode("options that appear below.")
