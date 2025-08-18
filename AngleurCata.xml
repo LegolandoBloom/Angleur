@@ -968,4 +968,22 @@
             </OnHide>
         </Scripts>
     </Frame>
+
+    <!-- <Frame name="AngleurClassic_TooFar" parent="UIParent">
+        <Size x="128" y="128"/>
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="CENTER" x="50" y="150"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="AngleurClassic_TooFarTexture" parentKey="tooFarTexture" file="Interface/Addons/Angleur/imagesClassic/icontoofar.png" hidden="false" alpha="0.5">
+                    <Size x="128" y="128"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Frame> -->
+
 </Ui>

@@ -20,7 +20,6 @@ local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
     SetOverrideBindingSpell(owner, isPriority, key, spell)
 end
 
-
 function Angleur_OnLoad(self)
     self.toyButton:SetAttribute("type", "macro")
     self.toyButton:RegisterForClicks("AnyDown", "AnyUp")
@@ -282,11 +281,20 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
-        Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
-            if not bobberWithinRange then
-                PlaySound(12889)
-            end
-        end)
+        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
+            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
+                if not bobberWithinRange then
+                    PlaySound(12889)
+                end
+            end)
+        end
+        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
+            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
+                if not bobberWithinRange then
+                    PlaySound(12889)
+                end
+            end)
+        end
         Angleur_ActionHandler(Angleur)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
