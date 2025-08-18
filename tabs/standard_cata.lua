@@ -100,7 +100,7 @@ function cata:ExtraButtons(tab1contents)
     tab1contents.softInteract.rangeIndicator.text:SetText(T["Range Indicator"])
     tab1contents.softInteract.rangeIndicator.text:SetFontObject(SpellFont_Small)
     tab1contents.softInteract.rangeIndicator:greyOut()
-    tab1contents.softInteract.rangeIndicator.text.tooltip = T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."]
+    tab1contents.softInteract.rangeIndicator.text.tooltip = "IN DEVELOPMENT"
     tab1contents.softInteract.rangeIndicator:reposition()
     -- tab1contents.softInteract.disabledText:SetText(T[])
     tab1contents.softInteract.rangeIndicator:SetScript("OnClick", function(self)
