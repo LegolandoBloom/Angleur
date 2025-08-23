@@ -350,7 +350,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
     elseif event == "UNIT_AURA" and unit == "player" then
-        --Angleur_Auras()
+        Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItemAuras()
     elseif event == "UNIT_INVENTORY_CHANGED" and unit == "player" then
@@ -397,25 +397,6 @@ function Angleur_Auras()
             rafted = true
             auraIDHolders.raft = raft.spellID
             --print("Raft is applied")
-            break
-        end
-    end
-    --Checks for oversized bobber aura
-    oversizedBobbered = false
-    auraIDHolders.oversizedBobber = nil
-    if C_UnitAuras.GetPlayerAuraBySpellID(397827) then
-        oversizedBobbered = true
-        auraIDHolders.oversizedBobber = 397827
-        --print("OVERSIZED is applied")
-    end
-    --Checks for Crate Bobber aura
-    crateBobbered = false
-    auraIDHolders.crateBobber = nil
-    for i, crateBobber in pairs(angleurToys.crateBobberPossibilities) do
-        if C_UnitAuras.GetPlayerAuraBySpellID(crateBobber.spellID) then 
-            crateBobbered = true
-            auraIDHolders.crateBobber = crateBobber.spellID
-            --print("Crate bobber is applied")
             break
         end
     end
@@ -554,6 +535,7 @@ function Angleur_ActionHandler(self)
             self.visual.texture:SetTexture("")
         else
             if rafted then
+                if not C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then return end
                 local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
                 if remainingAuraDuration < 60 and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
                     SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
@@ -612,7 +594,6 @@ function Angleur_ActionHandler_ExtraToys(self, assignKey)
     end
     return returnValue
 end
-
 
 local function checkUsabilityItem(itemID)
     if not C_Item.IsUsableItem(itemID) then return false end

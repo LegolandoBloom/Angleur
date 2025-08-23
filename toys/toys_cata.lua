@@ -15,3 +15,13 @@ function cata:AdjustCloseButton(extraToysFrame)
     extraToysFrame.third.closeButton:AdjustPointsOffset(3, 4)
     done = true
 end
+
+function cata:ToysStandardTab()
+    if Angleur_CheckOwnedToys(angleurToys.selectedRaftTable, angleurToys.ownedRafts, angleurToys.raftPossibilities) then
+        Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+        --WHY? WHY HAVE I PUT THIS IN? CHECK LATER, SEEMS POINTLESS
+        Angleur.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
+    else
+        Angleur.configPanel.tab1.contents.raftEnable:greyOut()
+    end
+end

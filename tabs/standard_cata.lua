@@ -41,6 +41,33 @@ local function InitializeDropDownBait(self, level)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.baitEnable.dropDown, angleurItems.selectedBaitTable.dropDownID)
 end
 
+
+local function RaftDropDownOnClick(self)
+    UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.raftEnable.dropDown, self:GetID())
+    AngleurConfig.chosenRaft.dropDownID = self:GetID()
+    --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
+    AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
+    Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+end
+
+local raftTitleSet = false
+local function InitializeDropDownRafts(self, level)
+    if not raftTitleSet then
+        DropDown_CreateTitle(self, T["Rafts"])
+        raftTitleSet = true
+        return
+    end
+    --Contents
+    for i, rafts in pairs(angleurToys.ownedRafts) do
+        info = UIDropDownMenu_CreateInfo()
+        info.text = rafts.name
+        info.value = rafts.name
+        info.func = RaftDropDownOnClick
+        UIDropDownMenu_AddButton(info)
+    end
+    UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.raftEnable.dropDown, AngleurConfig.chosenRaft.dropDownID)
+end
+
 function cata:ExtraButtons(tab1contents)
     tab1contents.baitEnable.text:SetText(T["Bait"])
     tab1contents.baitEnable:reposition()
@@ -66,6 +93,29 @@ function cata:ExtraButtons(tab1contents)
     end
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
 
+
+    tab1contents.raftEnable.text:SetText(T["Raft"])
+    tab1contents.raftEnable:reposition()
+    tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
+    tab1contents.raftEnable:SetScript("OnClick", function(self)
+        if self:GetChecked() then
+            AngleurConfig.raftEnabled = true
+            self.dropDown:Show()
+        elseif self:GetChecked() == false then
+            AngleurConfig.raftEnabled = false
+            self.dropDown:Hide()
+        end
+    end)
+    UIDropDownMenu_Initialize(tab1contents.raftEnable.dropDown, InitializeDropDownRafts)
+    UIDropDownMenu_SetWidth(tab1contents.raftEnable.dropDown, 100)
+    UIDropDownMenu_SetButtonWidth(tab1contents.raftEnable.dropDown, 124)
+    UIDropDownMenu_SetSelectedID(tab1contents.raftEnable.dropDown, 1)
+    UIDropDownMenu_JustifyText(tab1contents.raftEnable.dropDown, "LEFT")
+    if AngleurConfig.raftEnabled == true then
+        tab1contents.raftEnable:SetChecked(true)
+        tab1contents.raftEnable.dropDown:Show()
+    end
+    DropDown_CreateTitle(tab1contents.raftEnable.dropDown, T["Rafts"])
 
     
     tab1contents.softInteract.text:SetText(T["Enable Soft Interact"])

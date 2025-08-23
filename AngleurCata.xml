@@ -218,10 +218,22 @@
                                             </Frame>
                                         </Frames>
                                     </CheckButton>
+                                    <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="MyCheckboxTemplate">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-64"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Frame>
+                                        </Frames>
+                                    </CheckButton>
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-71"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-96"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -240,14 +252,14 @@
                                             </CheckButton>
                                             <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0" y="3"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Audio_Text" relativePoint="RIGHT" x="0" y="0"/>
                                                 </Anchors>
                                             </CheckButton>
                                         </Frames>
                                     </Frame>
                                     <CheckButton name="$parent_SoftInteract" parentKey="softInteract" inherits="MyCheckboxTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="26" y="-110"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="26" y="-115"/>
                                         </Anchors>
                                         <Frames>
                                             <CheckButton name="$parent_RangeIndicator" parentKey="rangeIndicator" inherits="MyCheckboxTemplate">

@@ -19,7 +19,7 @@ function retail:setTableToSelectedTable(inputTable, selectedToyTable)
     end)
 end
 
-function retail:LoadToysExtra()
+function retail:ToysStandardTab()
     if Angleur_CheckOwnedToys(angleurToys.selectedRaftTable, angleurToys.ownedRafts, angleurToys.raftPossibilities) then
         Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
         --WHY? WHY HAVE I PUT THIS IN? CHECK LATER, SEEMS POINTLESS

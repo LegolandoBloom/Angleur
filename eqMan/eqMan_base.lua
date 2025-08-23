@@ -629,7 +629,6 @@ function Angleur_RepositionWeaponSwapFrames()
     else
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("RepositionWeaponSwapFrames ") .. ": it do be nil")
     end
-    print("is visible: ", LibDBIcon10_AngleurMap:IsVisible())
     if weaponSwapFrames.minimap ~= nil and LibDBIcon10_AngleurMap and LibDBIcon10_AngleurMap:IsShown() and LibDBIcon10_AngleurMap:IsVisible() then 
         local frameX, frameY = LibDBIcon10_AngleurMap:GetSize()
         local selfX, selfY = weaponSwapFrames.minimap:GetSize()
