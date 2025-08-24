@@ -729,7 +729,7 @@ function Angleur_EquipAngleurSet(overrideSwapoutItems)
     Angleur_SingleDelayer(EQUIP_DELAY, 0, EQUIP_ELAPSETHRESHOLD, equipFrameSet, function()
         if InCombatLockdown() then
             print(T["Equipping of the Angleur set disrupted due to sudden combat"])
-            self:SetScript("OnEvent", nil)
+            equipFrameSet:SetScript("OnEvent", nil)
             return true
         end
         C_EquipmentSet.UseEquipmentSet(setID)
