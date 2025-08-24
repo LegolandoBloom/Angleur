@@ -3,7 +3,7 @@ Legolando_HelpTipCloseButtonMixin = CreateFromMixins(ButtonStateBehaviorMixin);
 local atlas
 if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
 	atlas = "uitools-icon-close"
-elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC then
+elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == 19 then
 	atlas = "simplecheckout-close-normal-1x"
 end
 function Legolando_HelpTipCloseButtonMixin:GetAtlas()
