@@ -4,6 +4,10 @@ local colorDebug = CreateColor(0.68, 0, 1) -- purple
 AngleurToysRetail = {}
 local retail = AngleurToysRetail
 
+
+--________________________________________
+--____________SAME AS CATA______________
+--________________________________________
 function retail:setTableToSelectedTable(inputTable, selectedToyTable)
     selectedToyTable.toyID = inputTable.toyID
     selectedToyTable.hasToy = true
@@ -19,9 +23,22 @@ function retail:setTableToSelectedTable(inputTable, selectedToyTable)
     end)
 end
 
+function retail:SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
+    local selection = {}
+    for i, ownedToy in pairs(ownedToysTable) do
+        selection = ownedToy
+        if chosenByPlayer == ownedToy.toyID then
+            break
+        end
+    end
+    self:setTableToSelectedTable(selection, selectedToyTable)
+end
+--________________________________________
+--________________________________________
+
 function retail:ToysStandardTab()
     if Angleur_CheckOwnedToys(angleurToys.selectedRaftTable, angleurToys.ownedRafts, angleurToys.raftPossibilities) then
-        Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+        self:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
         --WHY? WHY HAVE I PUT THIS IN? CHECK LATER, SEEMS POINTLESS
         Angleur.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
     else
@@ -29,13 +46,13 @@ function retail:ToysStandardTab()
     end
 
     if Angleur_CheckOwnedToys(angleurToys.selectedOversizedBobberTable, angleurToys.ownedOversizedBobbers, angleurToys.oversizedBobberPossibilities) then
-        Angleur_SetSelectedToy(angleurToys.selectedOversizedBobberTable, angleurToys.ownedOversizedBobbers, nil)
+        self:SetSelectedToy(angleurToys.selectedOversizedBobberTable, angleurToys.ownedOversizedBobbers, nil)
     else
         Angleur.configPanel.tab1.contents.oversizedBobberEnable:greyOut()
     end
         
     if Angleur_CheckOwnedToys(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, angleurToys.crateBobberPossibilities) then
-        Angleur_SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
+        self:SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
     else
         Angleur.configPanel.tab1.contents.crateBobberEnable:greyOut()
     end

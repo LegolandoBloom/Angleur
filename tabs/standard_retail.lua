@@ -18,7 +18,7 @@ local function RaftDropDownOnClick(self)
     AngleurConfig.chosenRaft.dropDownID = self:GetID()
     --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
-    Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    AngleurToysRetail:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
 end
 
 local function CrateDropDownOnClick(self)
@@ -37,7 +37,8 @@ local function CrateDropDownOnClick(self)
     else
         AngleurConfig.chosenCrateBobber.toyID = angleurToys.ownedCrateBobbers[self:GetID()].toyID
         AngleurConfig.chosenCrateBobber.name = self:GetText()
-        Angleur_SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
+        
+        AngleurToysRetail:SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
     end 
     --AngleurConfig.chosenCrateBobber.name = angleurToys.ownedCrateBobbers[self:GetID()].name --> Changed into the below for localisation
 end

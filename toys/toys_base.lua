@@ -114,19 +114,10 @@ end
     --DO RETAIL THING
     --________________
 
-function Angleur_SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
-    local selection = {}
-    for i, ownedToy in pairs(ownedToysTable) do
-        selection = ownedToy
-        if chosenByPlayer == ownedToy.toyID then
-            break
-        end
-    end
-    --________________
-    --DO RETAIL THING
-    --________________
-    AngleurToysRetail:setTableToSelectedTable(selection, selectedToyTable)
-end
+
+--________________
+--DO RETAIL THING
+--________________
 
 function Angleur_LoadExtraToys(extraToyButtons)
     local gameVersion = Angleur_CheckVersion()

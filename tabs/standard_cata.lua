@@ -47,7 +47,7 @@ local function RaftDropDownOnClick(self)
     AngleurConfig.chosenRaft.dropDownID = self:GetID()
     --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
-    Angleur_SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    AngleurToysCata:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
 end
 
 local raftTitleSet = false
