@@ -93,29 +93,30 @@ function cata:ExtraButtons(tab1contents)
     end
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
 
-
-    tab1contents.raftEnable.text:SetText(T["Raft"])
-    tab1contents.raftEnable:reposition()
-    tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
-    tab1contents.raftEnable:SetScript("OnClick", function(self)
-        if self:GetChecked() then
-            AngleurConfig.raftEnabled = true
-            self.dropDown:Show()
-        elseif self:GetChecked() == false then
-            AngleurConfig.raftEnabled = false
-            self.dropDown:Hide()
+    if Angleur_CheckVersion() == 2 then
+        tab1contents.raftEnable.text:SetText(T["Raft"])
+        tab1contents.raftEnable:reposition()
+        tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
+        tab1contents.raftEnable:SetScript("OnClick", function(self)
+            if self:GetChecked() then
+                AngleurConfig.raftEnabled = true
+                self.dropDown:Show()
+            elseif self:GetChecked() == false then
+                AngleurConfig.raftEnabled = false
+                self.dropDown:Hide()
+            end
+        end)
+        UIDropDownMenu_Initialize(tab1contents.raftEnable.dropDown, InitializeDropDownRafts)
+        UIDropDownMenu_SetWidth(tab1contents.raftEnable.dropDown, 100)
+        UIDropDownMenu_SetButtonWidth(tab1contents.raftEnable.dropDown, 124)
+        UIDropDownMenu_SetSelectedID(tab1contents.raftEnable.dropDown, 1)
+        UIDropDownMenu_JustifyText(tab1contents.raftEnable.dropDown, "LEFT")
+        if AngleurConfig.raftEnabled == true then
+            tab1contents.raftEnable:SetChecked(true)
+            tab1contents.raftEnable.dropDown:Show()
         end
-    end)
-    UIDropDownMenu_Initialize(tab1contents.raftEnable.dropDown, InitializeDropDownRafts)
-    UIDropDownMenu_SetWidth(tab1contents.raftEnable.dropDown, 100)
-    UIDropDownMenu_SetButtonWidth(tab1contents.raftEnable.dropDown, 124)
-    UIDropDownMenu_SetSelectedID(tab1contents.raftEnable.dropDown, 1)
-    UIDropDownMenu_JustifyText(tab1contents.raftEnable.dropDown, "LEFT")
-    if AngleurConfig.raftEnabled == true then
-        tab1contents.raftEnable:SetChecked(true)
-        tab1contents.raftEnable.dropDown:Show()
+        DropDown_CreateTitle(tab1contents.raftEnable.dropDown, T["Rafts"])
     end
-    DropDown_CreateTitle(tab1contents.raftEnable.dropDown, T["Rafts"])
 
     
     tab1contents.softInteract.text:SetText(T["Enable Soft Interact"])
