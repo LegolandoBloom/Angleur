@@ -138,44 +138,44 @@ function cata:ExtraButtons(tab1contents)
     tab1contents.softInteract:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.enabled = true
-            self.rangeIndicator:Show()
+            self.bobberScanner:Show()
             self.warningSound:Show()
             self.recastWhenOOB:Show()
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.enabled = false
             AngleurClassic_ToggleSoftInteract(false)
-            self.rangeIndicator:Hide()
+            self.bobberScanner:Hide()
             self.warningSound:Hide()
             self.recastWhenOOB:Hide()
         end
     end)
     if AngleurClassicConfig.softInteract.enabled == true then
         tab1contents.softInteract:SetChecked(true)
-        tab1contents.softInteract.rangeIndicator:Show()
+        tab1contents.softInteract.bobberScanner:Show()
         tab1contents.softInteract.warningSound:Show()
         tab1contents.softInteract.recastWhenOOB:Show()
     else
-        tab1contents.softInteract.rangeIndicator:Hide()
+        tab1contents.softInteract.bobberScanner:Hide()
         tab1contents.softInteract.warningSound:Hide()
         tab1contents.softInteract.recastWhenOOB:Hide()
     end
 
     
-    tab1contents.softInteract.rangeIndicator.text:SetText(T["Range Indicator"])
-    tab1contents.softInteract.rangeIndicator.text:SetFontObject(SpellFont_Small)
-    tab1contents.softInteract.rangeIndicator:greyOut()
-    tab1contents.softInteract.rangeIndicator.text.tooltip = "IN DEVELOPMENT"
-    tab1contents.softInteract.rangeIndicator:reposition()
+    tab1contents.softInteract.bobberScanner.text:SetText(T["Range Indicator"])
+    tab1contents.softInteract.bobberScanner.text:SetFontObject(SpellFont_Small)
+    tab1contents.softInteract.bobberScanner:greyOut()
+    tab1contents.softInteract.bobberScanner.text.tooltip = "IN DEVELOPMENT"
+    tab1contents.softInteract.bobberScanner:reposition()
     -- tab1contents.softInteract.disabledText:SetText(T[])
-    tab1contents.softInteract.rangeIndicator:SetScript("OnClick", function(self)
+    tab1contents.softInteract.bobberScanner:SetScript("OnClick", function(self)
         if self:GetChecked() then
-            AngleurClassicConfig.softInteract.rangeIndicator = true
+            AngleurClassicConfig.softInteract.bobberScanner = true
         elseif self:GetChecked() == false then
-            AngleurClassicConfig.softInteract.rangeIndicator = false
+            AngleurClassicConfig.softInteract.bobberScanner = false
         end
     end)
-    if AngleurClassicConfig.softInteract.rangeIndicator == true then
-        tab1contents.softInteract.rangeIndicator:SetChecked(true)
+    if AngleurClassicConfig.softInteract.bobberScanner == true then
+        tab1contents.softInteract.bobberScanner:SetChecked(true)
     end
 
     tab1contents.softInteract.warningSound.text:SetText(T["Warning Sound"])

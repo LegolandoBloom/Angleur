@@ -32,7 +32,7 @@ AngleurConfig = {
 AngleurClassicConfig = {
     softInteract = {
         enabled = false,
-        rangeIndicator = false,
+        bobberScanner = false,
         warningSound = false,
         recastWhenOOB = false,
     },
@@ -91,11 +91,11 @@ function Init_AngleurSavedVariables()
         if AngleurClassicConfig.softInteract.enabled == nil then
             AngleurClassicConfig.softInteract.enabled = false
         end
-        if AngleurClassicConfig.softInteract.rangeIndicator == nil then
-            AngleurClassicConfig.softInteract.rangeIndicator = false
+        if AngleurClassicConfig.softInteract.bobberScanner == nil then
+            AngleurClassicConfig.softInteract.bobberScanner = false
         end
-        if AngleurClassicConfig.softInteract.rangeIndicator == nil then
-            AngleurClassicConfig.softInteract.rangeIndicator = false
+        if AngleurClassicConfig.softInteract.bobberScanner == nil then
+            AngleurClassicConfig.softInteract.bobberScanner = false
         end
         if AngleurClassicConfig.softInteract.recastWhenOOB == nil then
             AngleurClassicConfig.softInteract.recastWhenOOB = false

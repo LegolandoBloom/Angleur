@@ -54,6 +54,8 @@ slashcommands.lua
 minimap.lua
 animations.xml
 
+bobberScanner.lua
+
 AngleurCata.xml
 
 thanks\thanks.lua

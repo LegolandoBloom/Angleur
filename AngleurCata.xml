@@ -262,19 +262,19 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="26" y="-115"/>
                                         </Anchors>
                                         <Frames>
-                                            <CheckButton name="$parent_RangeIndicator" parentKey="rangeIndicator" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_BobberScanner" parentKey="bobberScanner" inherits="MyCheckboxTemplate">
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="14" y="-4"/>
                                                 </Anchors>
                                             </CheckButton>
                                             <CheckButton name="$parent_WarningSound" parentKey="warningSound" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_RangeIndicator" relativePoint="RIGHT" x="15" y="0"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_BobberScanner" relativePoint="RIGHT" x="15" y="0"/>
                                                 </Anchors>
                                             </CheckButton>
                                             <CheckButton name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="MyCheckboxTemplate">
                                                 <Anchors>
-                                                    <Anchor point="TOP" relativeTo="$parent_RangeIndicator" relativePoint="BOTTOM" x="-40" y="3"/>
+                                                    <Anchor point="TOP" relativeTo="$parent_BobberScanner" relativePoint="BOTTOM" x="-40" y="3"/>
                                                 </Anchors>
                                             </CheckButton>
                                         </Frames>
