@@ -160,7 +160,7 @@ function Angleur_BobberScanner()
     end
     local vTime = 0.05
     local hTime = 0.1
-    local lines = 8
+    local lines = 10
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         ResetView(2)
@@ -169,9 +169,9 @@ function Angleur_BobberScanner()
         -- CameraZoomOut(30)
         ResetView(2)
         SetView(2)
-        vTime = 0.02
-        hTime = 0.04
-        lines = 10
+        -- vTime = 0.02
+        -- hTime = 0.04
+        -- lines = 10
     else
         print("Error: Bobber Scanner called on unregistered game version")
         return
@@ -181,20 +181,25 @@ function Angleur_BobberScanner()
     MoveViewUpStart(0)
     MoveViewLeftStart(0)
     MoveViewDownStart(0)
-    MoveViewUpStart(H_SPEED/6)
-    MoveViewRightStart(H_SPEED/3)  
+    MoveViewOutStart(0)
     setupPhase = true
     active = true
-    Angleur_SingleDelayer(10, 0, 1, timeOutFrame, nil, function()
+    Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         cameraFrame:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")
     end)
-    Angleur_SingleDelayer(hTime, 0, hTime, cameraFrame, nil, function()
-        Angleur_BetaPrint("stopping")
-        MoveViewRightStart(0)
-        MoveViewUpStart(0)
-        setupPhase = false
-        cameraFrame:sweep(lines, vTime, hTime, true)
+    Angleur_SingleDelayer(0.4, 0, 0.1, cameraFrame, nil, function()
+        MoveViewUpStart(1)
+        MoveViewRightStart(0.3)
+        MoveViewOutStart(10)
+        Angleur_SingleDelayer(0.4, 0, 0.2, cameraFrame, nil, function()
+            Angleur_BetaPrint("stopping")
+            MoveViewRightStart(0)
+            MoveViewUpStart(0)
+            MoveViewOutStart(0)
+            setupPhase = false
+            cameraFrame:sweep(lines, vTime, hTime, true)
+        end)
     end)
 end
 
