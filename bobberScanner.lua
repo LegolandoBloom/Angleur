@@ -74,6 +74,7 @@ function cameraFrame:stopAll()
     MoveViewLeftStop()
     MoveViewDownStop()
     MoveViewUpStop()
+    MoveViewOutStop()
     active = false
     self:SetScript("OnUpdate", nil)
     self:SetScript("OnEvent", nil)
@@ -158,7 +159,10 @@ function Angleur_BobberScanner()
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
         return
     end
-    local vTime = 0.05
+
+    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+
+    local vTime = 0.06
     local hTime = 0.1
     local lines = 10
     local gameVersion = Angleur_CheckVersion()
@@ -189,7 +193,7 @@ function Angleur_BobberScanner()
         Angleur_BetaPrint("Camera Frame: Timed out")
     end)
     Angleur_SingleDelayer(0.4, 0, 0.1, cameraFrame, nil, function()
-        MoveViewUpStart(1)
+        MoveViewUpStart(0.3 * maxZoom + 0.4)
         MoveViewRightStart(0.3)
         MoveViewOutStart(10)
         Angleur_SingleDelayer(0.4, 0, 0.2, cameraFrame, nil, function()
