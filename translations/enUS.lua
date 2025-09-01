@@ -582,9 +582,11 @@ T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fa
 -- Bobber scanner for classic
 T["Bobber Scanner(EXPERIMENTAL)"] = "Bobber Scanner\n" .. colorBlu:WrapTextInColorCode("(EXPERIMENTAL)")
 T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT " 
-.."use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: Photosensitive Epilepsy, Vertigo..."] = "Manually " 
+.."use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n" 
+.."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"] = "Manually " 
 .. "scans for the bobber by moving the camera in a grid.\n\n" .. colorYello:WrapTextInColorCode("DIZZY WARNING:") .. colorRed:WrapTextInColorCode("\nDo NOT ") 
-.. "use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: " .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
+.. "use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n"
+.. "This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"
 
 
 T["Bobber Scanner - Dizzy Warning"] = "Bobber Scanner - Dizzy Warning"

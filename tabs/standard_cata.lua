@@ -168,7 +168,8 @@ function cata:ExtraButtons(tab1contents)
     tab1contents.softInteract.bobberScanner.text:SetText(T["Bobber Scanner(EXPERIMENTAL)"])
     tab1contents.softInteract.bobberScanner.text:SetFontObject(SpellFont_Small)
     tab1contents.softInteract.bobberScanner.text.tooltip = T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT " 
-    .."use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: Photosensitive Epilepsy, Vertigo..."]
+    .."use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n" 
+    .."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"]
     -- tab1contents.softInteract.bobberScanner:greyOut()
     tab1contents.softInteract.bobberScanner:reposition()
     -- tab1contents.softInteract.disabledText:SetText(T[])

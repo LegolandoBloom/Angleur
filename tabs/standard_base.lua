@@ -45,7 +45,7 @@ function Angleur_SetTab1(self)
     self.ultraFocus.autoLoot.disabledText:SetWordWrap(true)
     self.ultraFocus.autoLoot.disabledText:SetText(T["(Already on)"])
     self.ultraFocus.autoLoot.disabledText:ClearAllPoints()
-    self.ultraFocus.autoLoot.disabledText:SetPoint("LEFT", self.ultraFocus.autoLoot.text, "RIGHT")
+    self.ultraFocus.autoLoot.disabledText:SetPoint("TOP", self.ultraFocus.autoLoot.text, "BOTTOM")
     self.ultraFocus.autoLoot:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAutoLootEnabled = true
