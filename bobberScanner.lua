@@ -1,7 +1,7 @@
 local T = Angleur_Translate
 
-local H_SPEED = 0.5
-local V_SPEED = 0.4
+local H_SPEED = 0.8
+local V_SPEED = 0.6
 
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
 warningFrame:SetPoint("CENTER", 0, 170)
@@ -162,9 +162,9 @@ function Angleur_BobberScanner()
 
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
 
-    local vTime = 0.06
-    local hTime = 0.1
-    local lines = 10
+    local vTime = 0.04
+    local hTime = 0.04
+    local lines = 12
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         ResetView(2)
@@ -193,8 +193,8 @@ function Angleur_BobberScanner()
         Angleur_BetaPrint("Camera Frame: Timed out")
     end)
     Angleur_SingleDelayer(0.4, 0, 0.1, cameraFrame, nil, function()
-        MoveViewUpStart(0.3 * maxZoom + 0.4)
-        MoveViewRightStart(0.3)
+        MoveViewUpStart(0.2 * maxZoom + 0.2)
+        MoveViewRightStart(0.4)
         MoveViewOutStart(10)
         Angleur_SingleDelayer(0.4, 0, 0.2, cameraFrame, nil, function()
             Angleur_BetaPrint("stopping")
