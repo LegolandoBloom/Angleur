@@ -35,6 +35,12 @@ text:SetPoint("BOTTOM", cameraFrame, "TOP", 0, 10)
 text:SetText("Place your cursor in the box\nbelow for the scanner to work.")
 cameraFrame:Hide()
 cameraFrame:SetPropagateMouseMotion(true)
+cameraFrame:SetPropagateMouseClicks(true)
+-- cameraFrame:SetPassThroughButtons("LeftButton", "RightButton", "MiddleButton", "Button4", "Button5")
+-- cameraFrame:SetMouseClickEnabled(false)
+-- cameraFrame:SetMouseMotionEnabled(false)
+-- cameraFrame:SetMouseMotionEnabled(false)
+-- print("why")
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
     texture:SetColorTexture(0, 8, 0, 0.6)
@@ -60,9 +66,6 @@ cameraFrame:SetScript("OnLeave", function(self)
     mouseInside = false
     text:Show()
 end)
-
-
-
 
 local active = false
 local setupPhase = false
@@ -155,16 +158,31 @@ function Angleur_BobberScanner()
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
         return
     end
-    SetView(2)
+    local vTime = 0.05
+    local hTime = 0.1
+    local lines = 8
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 2 then
+        ResetView(2)
+        SetView(2)
+    elseif gameVersion == 3 then
+        -- CameraZoomOut(30)
+        ResetView(2)
+        SetView(2)
+        vTime = 0.02
+        hTime = 0.04
+        lines = 10
+    else
+        print("Error: Bobber Scanner called on unregistered game version")
+        return
+    end
     cameraFrame:SetScript("OnEvent", checkCursor)
     MoveViewRightStart(0)
     MoveViewUpStart(0)
     MoveViewLeftStart(0)
     MoveViewDownStart(0)
     MoveViewUpStart(H_SPEED/6)
-    MoveViewRightStart(H_SPEED/3)
-    local vTime = 0.05
-    local hTime = 0.1
+    MoveViewRightStart(H_SPEED/3)  
     setupPhase = true
     active = true
     Angleur_SingleDelayer(10, 0, 1, timeOutFrame, nil, function()
@@ -176,7 +194,7 @@ function Angleur_BobberScanner()
         MoveViewRightStart(0)
         MoveViewUpStart(0)
         setupPhase = false
-        cameraFrame:sweep(8, vTime, hTime, true)
+        cameraFrame:sweep(lines, vTime, hTime, true)
     end)
 end
 

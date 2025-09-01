@@ -278,10 +278,10 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 end
             end)
         end
-        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
+        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
             Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
                 if not bobberWithinRange then
-                    PlaySound(12889)
+                    Angleur_BobberScanner()
                 end
             end)
         end
