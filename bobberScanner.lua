@@ -20,6 +20,8 @@ warningFrame.yesButton:SetScript("OnClick", function()
     warningFrame:Hide()
 end)
 
+local timeOutFrame = CreateFrame("Frame")
+
 local cameraFrame = CreateFrame("Frame")
 cameraFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
 cameraFrame:SetSize(32, 32)
@@ -72,6 +74,7 @@ function cameraFrame:stopAll()
     active = false
     self:SetScript("OnUpdate", nil)
     self:SetScript("OnEvent", nil)
+    timeOutFrame:SetScript("OnUpdate", nil)
 end
 
 EventRegistry:RegisterCallback("Angleur_StopFishing", function()
@@ -146,6 +149,7 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
         end)
     end
 end
+
 function Angleur_BobberScanner()
     if not mouseInside then
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
@@ -163,6 +167,10 @@ function Angleur_BobberScanner()
     local hTime = 0.1
     setupPhase = true
     active = true
+    Angleur_SingleDelayer(10, 0, 1, timeOutFrame, nil, function()
+        cameraFrame:stopAll()
+        Angleur_BetaPrint("Camera Frame: Timed out")
+    end)
     Angleur_SingleDelayer(hTime, 0, hTime, cameraFrame, nil, function()
         Angleur_BetaPrint("stopping")
         MoveViewRightStart(0)
