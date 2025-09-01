@@ -175,6 +175,8 @@ function cata:ExtraButtons(tab1contents)
     tab1contents.softInteract.bobberScanner:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.bobberScanner = true
+            AngleurClassicConfig.softInteract.recastWhenOOB = false
+            tab1contents.softInteract.recastWhenOOB:SetChecked(false)
             EventRegistry:TriggerEvent("AngleurClassic_ScannerOn")
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.bobberScanner = false
@@ -209,6 +211,9 @@ function cata:ExtraButtons(tab1contents)
     tab1contents.softInteract.recastWhenOOB:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.recastWhenOOB = true
+            AngleurClassicConfig.softInteract.bobberScanner = false
+            EventRegistry:TriggerEvent("AngleurClassic_ScannerOff")
+            tab1contents.softInteract.bobberScanner:SetChecked(false)
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.recastWhenOOB = false
         end

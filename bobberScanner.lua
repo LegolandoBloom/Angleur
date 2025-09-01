@@ -1,5 +1,24 @@
+local T = Angleur_Translate
+
 local H_SPEED = 0.5
 local V_SPEED = 0.4
+
+local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
+warningFrame:SetPoint("CENTER", 0, 170)
+warningFrame.TitleText:SetText(T["Bobber Scanner - Dizzy Warning"])
+warningFrame.noButton:Hide()
+warningFrame.yesButton:ClearAllPoints()
+warningFrame.yesButton:SetPoint("TOP", warningFrame.mainText, "BOTTOM", 0, -4)
+warningFrame.yesButton:SetText(T["Okay"])
+warningFrame.yesButton:SetSize(96, 32)
+warningFrame.mainText:AdjustPointsOffset(0, 5)
+warningFrame.mainText:SetText(T["Do not " 
+.."use this feature if you are sensitive to\nrapid movement " 
+.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "to:\nPhotosensitive Epilepsy, Vertigo..."])
+warningFrame.yesButton:SetScript("OnClick", function()
+    warningFrame:Hide()
+end)
 
 local cameraFrame = CreateFrame("Frame")
 cameraFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
@@ -12,7 +31,7 @@ texture:SetColorTexture(0, 8, 0, 0.6)
 local text = cameraFrame:CreateFontString("Angleur_ScannerWarning", "ARTWORK", "GameFontNormal")
 text:SetPoint("BOTTOM", cameraFrame, "TOP", 0, 10)
 text:SetText("Place your cursor in the box\nbelow for the scanner to work.")
-
+cameraFrame:Hide()
 cameraFrame:SetPropagateMouseMotion(true)
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
@@ -76,6 +95,7 @@ EventRegistry:RegisterCallback("AngleurClassic_ScannerOn", function()
     if AngleurCharacter.sleeping == false then
         cameraFrame:Show()
     end
+    warningFrame:Show()
 end)
 EventRegistry:RegisterCallback("AngleurClassic_ScannerOff", function()
     cameraFrame:Hide()
@@ -133,10 +153,11 @@ function Angleur_BobberScanner()
     end
     SetView(2)
     cameraFrame:SetScript("OnEvent", checkCursor)
-    MoveViewDownStart(0)
     MoveViewRightStart(0)
     MoveViewUpStart(0)
     MoveViewLeftStart(0)
+    MoveViewDownStart(0)
+    MoveViewUpStart(H_SPEED/6)
     MoveViewRightStart(H_SPEED/3)
     local vTime = 0.05
     local hTime = 0.1
@@ -145,6 +166,7 @@ function Angleur_BobberScanner()
     Angleur_SingleDelayer(hTime, 0, hTime, cameraFrame, nil, function()
         Angleur_BetaPrint("stopping")
         MoveViewRightStart(0)
+        MoveViewUpStart(0)
         setupPhase = false
         cameraFrame:sweep(8, vTime, hTime, true)
     end)

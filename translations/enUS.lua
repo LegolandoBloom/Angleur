@@ -585,3 +585,13 @@ T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNIN
 .."use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: Photosensitive Epilepsy, Vertigo..."] = "Manually " 
 .. "scans for the bobber by moving the camera in a grid.\n\n" .. colorYello:WrapTextInColorCode("DIZZY WARNING:") .. colorRed:WrapTextInColorCode("\nDo NOT ") 
 .. "use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: " .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
+
+
+T["Bobber Scanner - Dizzy Warning"] = "Bobber Scanner - Dizzy Warning"
+T["Do not " 
+.."use this feature if you are sensitive to\nrapid movement " 
+.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "to:\nPhotosensitive Epilepsy, Vertigo..."] = "Do not " 
+.."use this feature if you are sensitive to\nrapid movement " 
+.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "to:\n" .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
