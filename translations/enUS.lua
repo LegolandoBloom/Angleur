@@ -563,7 +563,6 @@ T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel
 -- New soft interact system for classic
 T["Enable Soft Interact"] = "Enable Soft Interact"
 
-T["Range Indicator"] = "Range Indicator"
 T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."
 
 T["Warning Sound"] = "Warning Sound"
@@ -579,3 +578,10 @@ T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fa
 .. "\n\nAngleur is designed to provide workarounds for this. Once enabled, please check out the options that appear below."] = "Due to a limitation in Classic,\nthe " .. colorYello:WrapTextInColorCode("\'soft interact system\' ") 
 .. "can sometimes fail to catch the bobber when it lands too far." .. colorGrae:WrapTextInColorCode("\n(Demonstrated in the picture)") .. colorBlu:WrapTextInColorCode("\n\nAngleur ") 
 .. "is designed to provide workarounds for this. Once enabled, please check out the " .. colorYello:WrapTextInColorCode("options that appear below.")
+
+-- Bobber scanner for classic
+T["Bobber Scanner(EXPERIMENTAL)"] = "Bobber Scanner\n" .. colorBlu:WrapTextInColorCode("(EXPERIMENTAL)")
+T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT " 
+.."use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: Photosensitive Epilepsy, Vertigo..."] = "Manually " 
+.. "scans for the bobber by moving the camera in a grid.\n\n" .. colorYello:WrapTextInColorCode("DIZZY WARNING:") .. colorRed:WrapTextInColorCode("\nDo NOT ") 
+.. "use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: " .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")

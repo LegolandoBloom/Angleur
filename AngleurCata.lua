@@ -277,10 +277,12 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_SPELLCAST_SENT" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg6) then return end
         midFishing = true
+        EventRegistry:TriggerEvent("Angleur_StartFishing")
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
+        EventRegistry:TriggerEvent("Angleur_StartFishing")
         if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
             Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
                 if not bobberWithinRange then
@@ -305,6 +307,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if unit ~= "player" then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = false
+        EventRegistry:TriggerEvent("Angleur_StopFishing")
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
@@ -315,14 +318,17 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         if isChosenKeyDown() == false then
             midFishing = false
+            EventRegistry:TriggerEvent("Angleur_StopFishing")
         else
             Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
                 if isChosenKeyDown() == false then
                     midFishing = false
+                    EventRegistry:TriggerEvent("Angleur_StopFishing")
                     return true
                 end
             end, function()
                 midFishing = false
+                EventRegistry:TriggerEvent("Angleur_StopFishing")
             end)
         end
         bobberWithinRange = false
@@ -675,6 +681,7 @@ function Angleur_SetSleep()
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(false)
         end
+        EventRegistry:TriggerEvent("Angleur_Sleep")
     elseif AngleurCharacter.sleeping == false then
         Angleur.visual.texture:SetDesaturated(false)
         Angleur.configPanel.tab1:DesaturateHierarchy(0)
@@ -684,6 +691,7 @@ function Angleur_SetSleep()
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(true)
         end
+        EventRegistry:TriggerEvent("Angleur_Wake")
     end
     Angleur_SetMinimapSleep()
 end

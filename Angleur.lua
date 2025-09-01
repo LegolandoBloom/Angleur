@@ -242,6 +242,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                     iceFishing = true
                 elseif string.match(arg4, "%-35591%-") then
                     midFishing = true
+                    EventRegistry:TriggerEvent("Angleur_StartFishing")
                 end
             end
             local compressedOcean = string.gsub(arg4, "%-0%-4211%-870%-18037-", "")
@@ -256,6 +257,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" and (arg5 == 131476 or arg5 == 377895 or arg5 == 7620) then
         midFishing = true
+        EventRegistry:TriggerEvent("Angleur_StartFishing")
         Angleur_ActionHandler(Angleur)
         warnPlater()
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
@@ -267,14 +269,17 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(false) end
         if isChosenKeyDown() == false then
             midFishing = false
+            EventRegistry:TriggerEvent("Angleur_StopFishing")
         else
             Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
                 if isChosenKeyDown() == false then
                     midFishing = false
+                    EventRegistry:TriggerEvent("Angleur_StopFishing")
                     return true
                 end
             end, function()
                 midFishing = false
+                EventRegistry:TriggerEvent("Angleur_StopFishing")
             end)
         end
     elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
@@ -602,6 +607,7 @@ function Angleur_SetSleep()
             Angleur_UltraFocusBackground(false)
         end
         Angleur_FishingForAttentionAura()
+        EventRegistry:TriggerEvent("Angleur_Sleep")
     elseif AngleurCharacter.sleeping == false then
         Angleur.visual.texture:SetDesaturated(false)
         Angleur.configPanel.tab1:DesaturateHierarchy(0)
@@ -615,6 +621,7 @@ function Angleur_SetSleep()
         if undangLoaded then
             AngleurUnderlight_AngleurWakeUpPing()
         end
+        EventRegistry:TriggerEvent("Angleur_Wake")
     end
     Angleur_SetMinimapSleep()
 end

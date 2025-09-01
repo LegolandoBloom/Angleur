@@ -141,12 +141,16 @@ function cata:ExtraButtons(tab1contents)
             self.bobberScanner:Show()
             self.warningSound:Show()
             self.recastWhenOOB:Show()
+            if AngleurClassicConfig.softInteract.bobberScanner == true then
+                EventRegistry:TriggerEvent("AngleurClassic_ScannerOn")
+            end
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.enabled = false
             AngleurClassic_ToggleSoftInteract(false)
             self.bobberScanner:Hide()
             self.warningSound:Hide()
             self.recastWhenOOB:Hide()
+            EventRegistry:TriggerEvent("AngleurClassic_ScannerOff")
         end
     end)
     if AngleurClassicConfig.softInteract.enabled == true then
@@ -161,17 +165,20 @@ function cata:ExtraButtons(tab1contents)
     end
 
     
-    tab1contents.softInteract.bobberScanner.text:SetText(T["Range Indicator"])
+    tab1contents.softInteract.bobberScanner.text:SetText(T["Bobber Scanner(EXPERIMENTAL)"])
     tab1contents.softInteract.bobberScanner.text:SetFontObject(SpellFont_Small)
-    tab1contents.softInteract.bobberScanner:greyOut()
-    tab1contents.softInteract.bobberScanner.text.tooltip = "IN DEVELOPMENT"
+    tab1contents.softInteract.bobberScanner.text.tooltip = T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT " 
+    .."use this feature if you are sensitive to rapid movement or any form of fast graphical change. Such as but not limited to: Photosensitive Epilepsy, Vertigo..."]
+    -- tab1contents.softInteract.bobberScanner:greyOut()
     tab1contents.softInteract.bobberScanner:reposition()
     -- tab1contents.softInteract.disabledText:SetText(T[])
     tab1contents.softInteract.bobberScanner:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.bobberScanner = true
+            EventRegistry:TriggerEvent("AngleurClassic_ScannerOn")
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.bobberScanner = false
+            EventRegistry:TriggerEvent("AngleurClassic_ScannerOff")
         end
     end)
     if AngleurClassicConfig.softInteract.bobberScanner == true then
