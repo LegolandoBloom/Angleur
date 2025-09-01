@@ -140,14 +140,14 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     if moveLeft then
         Angleur_BetaPrint("starting sweep of line: ", lines, "to the left")
         MoveViewLeftStart(H_SPEED)
-        Angleur_SingleDelayer(columnSweepTime, 0, 0.5, self, function()printSweep(moveLeft) end, function()
+        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewLeftStart(0)
             self:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
         end)
     else
         Angleur_BetaPrint("starting sweep of line: ", lines, "to the right")
         MoveViewRightStart(H_SPEED)
-        Angleur_SingleDelayer(columnSweepTime, 0, 0.5, self, function()printSweep(moveLeft) end, function()
+        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewRightStart(0)
             self:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
         end)
@@ -163,8 +163,8 @@ function Angleur_BobberScanner()
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
 
     local vTime = 0.04
-    local hTime = 0.04
-    local lines = 12
+    local hTime = 0.1 / maxZoom + 0.15
+    local lines = 14
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         ResetView(2)
@@ -193,10 +193,10 @@ function Angleur_BobberScanner()
         Angleur_BetaPrint("Camera Frame: Timed out")
     end)
     Angleur_SingleDelayer(0.4, 0, 0.1, cameraFrame, nil, function()
-        MoveViewUpStart(0.2 * maxZoom + 0.2)
-        MoveViewRightStart(0.4)
+        MoveViewUpStart(maxZoom/2)
+        MoveViewRightStart(0.3)
         MoveViewOutStart(10)
-        Angleur_SingleDelayer(0.4, 0, 0.2, cameraFrame, nil, function()
+        Angleur_SingleDelayer(hTime, 0, hTime, cameraFrame, nil, function()
             Angleur_BetaPrint("stopping")
             MoveViewRightStart(0)
             MoveViewUpStart(0)
