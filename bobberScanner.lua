@@ -14,7 +14,7 @@ warningFrame.yesButton:SetSize(96, 32)
 warningFrame.mainText:AdjustPointsOffset(0, 5)
 warningFrame.mainText:SetText(T["Do not " 
 .."use this feature if you are sensitive to\nrapid movement " 
-.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "or any form of fast graphical\nchange.Such as but not limited "
 .. "to:\nPhotosensitive Epilepsy, Vertigo..."])
 warningFrame.yesButton:SetScript("OnClick", function()
     warningFrame:Hide()
@@ -41,6 +41,7 @@ cameraFrame:SetPropagateMouseClicks(true)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- print("why")
+
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
     texture:SetColorTexture(0, 8, 0, 0.6)
@@ -86,6 +87,9 @@ EventRegistry:RegisterCallback("Angleur_StopFishing", function()
         cameraFrame:stopAll()
     end
 end)
+EventRegistry:RegisterCallback("Angleur_StartFishing", function()
+    Angleur_BobberScanner_HandleGamepad(true, nil)
+end)
 EventRegistry:RegisterCallback("Angleur_Sleep", function()
     if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
         cameraFrame:Hide()
@@ -94,6 +98,7 @@ end)
 EventRegistry:RegisterCallback("Angleur_Wake", function()
     if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
         cameraFrame:Show()
+        Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
     else
         cameraFrame:Hide()
     end
@@ -155,9 +160,26 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     end
 end
 
+local textSet = false
+function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
+    if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
+    if C_GamePad.IsEnabled() == false or IsUsingGamepad() == false then return end
+    if not textSet then
+        text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
+        textSet = true
+    end
+    if cursorMode then 
+        Angleur_SetCursorForGamePad(true)
+    end
+    if toPrint then 
+        print(toPrint)
+    end
+end
+
 function Angleur_BobberScanner()
     if not mouseInside then
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
+        Angleur_BobberScanner_HandleGamepad(true, T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."])
         return
     end
 
@@ -189,6 +211,7 @@ function Angleur_BobberScanner()
     MoveViewOutStart(0)
     setupPhase = true
     active = true
+    Angleur_SetCursorForGamePad(true)
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         cameraFrame:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")

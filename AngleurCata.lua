@@ -85,7 +85,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-
+        Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
         if GetCVar("autoLootDefault") == "1" then
             Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
             AngleurConfig.ultraFocusAutoLootEnabled = false

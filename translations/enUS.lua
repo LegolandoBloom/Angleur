@@ -597,3 +597,22 @@ T["Do not "
 .."use this feature if you are sensitive to\nrapid movement " 
 .. "or any form of fast graphical\nchange.Such as but not limited " 
 .. "to:\n" .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
+
+
+-- gamepad support for bobber scanner
+
+T["Angleur Bobber Scanner: Gamepad Cursor has been enabled. Please move it to the indicated area to start using."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner:") 
+.. colorYello:WrapTextInColorCode(" Gamepad Cursor ") .. "has been enabled. Please move it to the " .. colorRed:WrapTextInColorCode("indicated area ") 
+.. "to start using."
+
+T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."] = colorPurple:WrapTextInColorCode("GAMEPAD MODE:\n") 
+.. "After casting " .. colorBlu:WrapTextInColorCode("\'fishing\'") .. ", move the cursor\nthat appears into the " 
+.. colorRed:WrapTextInColorCode("box below ") .. "to use."
+
+T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner: ")
+.. "Gamepad Detected! " .. "Cast " .. colorYello:WrapTextInColorCode("fishing ") .. "once to trigger " 
+.. colorYello:WrapTextInColorCode("cursor mode") .. ", then place it in the " .. colorRed:WrapTextInColorCode("indicated box.")
+
+
+T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner: ")
+.. "Please move the Gamepad " .. colorYello:WrapTextInColorCode("Cursor ") .. "that appears into the " .. colorRed:WrapTextInColorCode("inticated box.")
