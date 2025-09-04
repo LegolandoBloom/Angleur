@@ -231,6 +231,32 @@ function Angleur_BobberScanner()
     end)
 end
 
+
+SLASH_ANGLEURBOBBERCALIBRATE1 = T["/angcalib"]
+local calibrateFrame = CreateFrame
+SlashCmdList["ANGLEURBOBBERCALIBRATE"] = function() 
+    MoveViewRightStart(1)
+    print("starting test")
+    local erapusu = 0
+    local treHold = 0.1
+    local elapsedTotal = 0
+    calibrateFrame:SetScript("OnUpdate", function(self, elapsed)
+        erapusu = erapusu + elapsed
+        if erapusu > treHold then
+            elapsedTotal = elapsedTotal + erapusu
+            erapusu = 0
+        end
+    end)
+    calibrateFrame:RegisterEvent("PLAYER_STARTED_MOVING")
+    calibrateFrame:SetScript("OnEvent", function(self)
+        print("Time elapsed: ", elapsedTotal)
+        self:SetScript("OnUpdate", nil)
+        self:SetScript("OnEvent", nil)
+        MoveViewRightStop()
+    end)
+end
+
+
 -- local camControl = CreateFrame("Frame", "CamControlFrame", UIParent, "BasicFrameTemplateWithInset")
 -- camControl:SetPoint("CENTER", 300, 130)
 -- camControl:SetSize(128, 128)
