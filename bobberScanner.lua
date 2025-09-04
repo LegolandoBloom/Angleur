@@ -2,6 +2,12 @@ local T = Angleur_Translate
 
 local H_SPEED = 0.8
 local V_SPEED = 0.6
+local H_DIST = 1/4
+local V_DIST = 1/4
+
+local V_OFFSET = 1/4
+
+local WAIT_TIME = 2
 
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
 warningFrame:SetPoint("CENTER", 0, 170)
@@ -41,6 +47,11 @@ cameraFrame:SetPropagateMouseClicks(true)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- print("why")
+
+local scannerArea = cameraFrame:CreateTexture("Angleur_ScannerArea", "ARTWORK")
+scannerArea:SetPoint("TOP", texture, "TOP", 0, V_OFFSET)
+scannerArea:SetSize(1318, 550)
+scannerArea:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
 
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
@@ -160,6 +171,38 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     end
 end
 
+function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft)
+    local setup_time = horizontalTime
+    local setup_vOffsetTime  = V_OFFSET / V_SPEED
+    local setup_vSpeed = V_SPEED * (setup_vOffsetTime / horizontalTime)
+    local setup_hSpeed = H_SPEED
+    print("setup time is: ", setup_time)
+    print(setup_hSpeed, setup_vSpeed)
+    setupPhase = true
+    active = true
+    Angleur_SetCursorForGamePad(true)
+    Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
+        self:stopAll()
+        Angleur_BetaPrint("Camera Frame: Timed out")
+    end)
+    Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
+        MoveViewUpStart(setup_vSpeed)
+        MoveViewRightStart(setup_hSpeed)
+        MoveViewOutStart(10)
+        Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
+            Angleur_BetaPrint("Setup Phase Over")
+            print("Setup Phase Over")
+            MoveViewRightStart(0)
+            MoveViewUpStart(0)
+            MoveViewOutStart(0)
+            local lineswap_time = verticalTime / lines
+            print("line time", lineswap_time)
+            setupPhase = false
+            self:sweep(lines, lineswap_time, horizontalTime, not moveLeft)
+        end)
+    end)
+end
+
 local textSet = false
 function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
     if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
@@ -185,8 +228,8 @@ function Angleur_BobberScanner()
 
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
 
-    local vTime = 0.04
-    local hTime = 0.1 / maxZoom + 0.15
+    local vTime = V_DIST / V_SPEED
+    local hTime = H_DIST / H_SPEED
     local lines = 14
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
@@ -209,42 +252,24 @@ function Angleur_BobberScanner()
     MoveViewLeftStart(0)
     MoveViewDownStart(0)
     MoveViewOutStart(0)
-    setupPhase = true
-    active = true
-    Angleur_SetCursorForGamePad(true)
-    Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
-        cameraFrame:stopAll()
-        Angleur_BetaPrint("Camera Frame: Timed out")
-    end)
-    Angleur_SingleDelayer(0.4, 0, 0.1, cameraFrame, nil, function()
-        MoveViewUpStart(maxZoom/2.3)
-        MoveViewRightStart(0.3)
-        MoveViewOutStart(10)
-        Angleur_SingleDelayer(hTime, 0, hTime, cameraFrame, nil, function()
-            Angleur_BetaPrint("stopping")
-            MoveViewRightStart(0)
-            MoveViewUpStart(0)
-            MoveViewOutStart(0)
-            setupPhase = false
-            cameraFrame:sweep(lines, vTime, hTime, true)
-        end)
-    end)
+    cameraFrame:setup(lines, vTime, hTime, false)
 end
 
 
-SLASH_ANGLEURBOBBERCALIBRATE1 = T["/angcalib"]
-local calibrateFrame = CreateFrame
+SLASH_ANGLEURBOBBERCALIBRATE1 = "/angcalib"
+local calibrateFrame = CreateFrame("Frame")
 SlashCmdList["ANGLEURBOBBERCALIBRATE"] = function() 
-    MoveViewRightStart(1)
+    MoveViewUpStart(1)
     print("starting test")
-    local erapusu = 0
-    local treHold = 0.1
     local elapsedTotal = 0
+    local delay = 2
     calibrateFrame:SetScript("OnUpdate", function(self, elapsed)
-        erapusu = erapusu + elapsed
-        if erapusu > treHold then
-            elapsedTotal = elapsedTotal + erapusu
-            erapusu = 0
+        elapsedTotal = elapsedTotal + elapsed
+        if elapsedTotal >= delay then
+            print("Time elapsed: ", elapsedTotal)
+            self:SetScript("OnUpdate", nil)
+            self:SetScript("OnEvent", nil)
+            MoveViewUpStop()
         end
     end)
     calibrateFrame:RegisterEvent("PLAYER_STARTED_MOVING")
@@ -252,7 +277,7 @@ SlashCmdList["ANGLEURBOBBERCALIBRATE"] = function()
         print("Time elapsed: ", elapsedTotal)
         self:SetScript("OnUpdate", nil)
         self:SetScript("OnEvent", nil)
-        MoveViewRightStop()
+        MoveViewUpStop()
     end)
 end
 
