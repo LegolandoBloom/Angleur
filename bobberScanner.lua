@@ -1,13 +1,17 @@
 local T = Angleur_Translate
 
-local H_SPEED = 0.8
-local V_SPEED = 0.6
-local H_DIST = 1/4
-local V_DIST = 1/4
+-- Unit: π Radians / s
+local H_SPEED = 0.4
+-- Unit: π Radians / 2s
+local V_SPEED = 0.3
 
+-- Unit: π Radians
+local H_DIST = 1/2
+local V_DIST = 1/4
 local V_OFFSET = 1/4
 
-local WAIT_TIME = 2
+-- Unit: Seconds
+local WAIT_TIME = 1
 
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
 warningFrame:SetPoint("CENTER", 0, 170)
@@ -48,10 +52,29 @@ cameraFrame:SetPropagateMouseClicks(true)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- print("why")
 
+local UI_WIDTH_MAX = 1318
+local UI_HEIGHT_MAX = 768
 local scannerArea = cameraFrame:CreateTexture("Angleur_ScannerArea", "ARTWORK")
-scannerArea:SetPoint("TOP", texture, "TOP", 0, V_OFFSET)
-scannerArea:SetSize(1318, 550)
 scannerArea:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
+local CONVERSION_FACTOR = 1
+local OFFSET_CONVERSION_FACTOR = 1/3
+function scannerArea:Adjust(zoomFactor)
+    self:ClearAllPoints()
+    -- Convert the radian based area into pixels
+    local width = UI_WIDTH_MAX * ((H_DIST / zoomFactor) * CONVERSION_FACTOR)
+    local height = UI_HEIGHT_MAX * ((V_DIST / zoomFactor) * CONVERSION_FACTOR)
+    -- Convert the Radian based offset into pixels
+    local offsetY = UI_HEIGHT_MAX * ((V_OFFSET * zoomFactor) * OFFSET_CONVERSION_FACTOR)
+    self:SetPoint("TOP", texture, "TOP", 0, -offsetY)
+    self:SetSize(width, height)
+end
+EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ownerID, ...)
+    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    -- The factor that determines how strong zoom's affect is
+    -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
+    local zoomFactor = (maxZoom + 1) / 2
+    scannerArea:Adjust(zoomFactor)
+end)
 
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
@@ -124,13 +147,28 @@ EventRegistry:RegisterCallback("AngleurClassic_ScannerOff", function()
     cameraFrame:Hide()
 end)
 
+local textSet = false
+function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
+    if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
+    if C_GamePad.IsEnabled() == false or IsUsingGamepad() == false then return end
+    if not textSet then
+        text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
+        textSet = true
+    end
+    if cursorMode then 
+        Angleur_SetCursorForGamePad(true)
+    end
+    if toPrint then 
+        print(toPrint)
+    end
+end
 
 local function checkCursor(self)
-    local changed = SetCursor(nil)
-    Angleur_BetaPrint(changed)
-    if changed == true and setupPhase == false then
-        cameraFrame:stopAll()
-    end
+    -- local changed = SetCursor(nil)
+    -- Angleur_BetaPrint(changed)
+    -- if changed == true and setupPhase == false then
+    --     cameraFrame:stopAll()
+    -- end
 end
 
 function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
@@ -141,7 +179,7 @@ function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
         return 
     end
     MoveViewUpStart(V_SPEED)
-    Angleur_SingleDelayer(lineChangeTime, 0, 0.01, self, nil, function()
+    Angleur_SingleDelayer(lineChangeTime, 0, lineChangeTime, self, nil, function()
         MoveViewUpStart(0)
         self:sweep(lines - 1, lineChangeTime, columnSweepTime, not moveLeft)
     end)
@@ -171,16 +209,24 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     end
 end
 
-function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft)
+-- Bring camera to starting point. Halfway of horizontal-scan-area(H_DIST) to the left, 
+-- and a set distance(V_OFFSET) downward - (independent from V_DIST). 
+-- Use 'horizontalTime/2' and don't change H_SPEED to go halfway
+-- V_OFFSET will also use 'horizontalTime/2', adjust the offset speed accordingly
+function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFactor)
+    setupPhase = true
     local setup_time = horizontalTime
-    local setup_vOffsetTime  = V_OFFSET / V_SPEED
-    local setup_vSpeed = V_SPEED * (setup_vOffsetTime / horizontalTime)
+    -- H_SPEED is unchanged for setup, horizontalTimer will be halved instead
     local setup_hSpeed = H_SPEED
+    -- Calculate the time for the 'V_OFFSET' distance for V_SPEED 
+    local vOffset_time  = (V_OFFSET / V_SPEED)
+    -- Adjust vertical offset speed from V_SPEED based on the ratio of vOffset_time / horizontalTime
+    -- Then, MULTIPLY BY Zoom Factor - Farther zoom ==> More Downward Movement
+    local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor
     print("setup time is: ", setup_time)
     print(setup_hSpeed, setup_vSpeed)
-    setupPhase = true
-    active = true
-    Angleur_SetCursorForGamePad(true)
+    print("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
+    
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         self:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")
@@ -188,7 +234,8 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft)
     Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
         MoveViewUpStart(setup_vSpeed)
         MoveViewRightStart(setup_hSpeed)
-        MoveViewOutStart(10)
+        MoveViewOutStart(12)
+        -- 
         Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
             Angleur_BetaPrint("Setup Phase Over")
             print("Setup Phase Over")
@@ -203,22 +250,6 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft)
     end)
 end
 
-local textSet = false
-function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
-    if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
-    if C_GamePad.IsEnabled() == false or IsUsingGamepad() == false then return end
-    if not textSet then
-        text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
-        textSet = true
-    end
-    if cursorMode then 
-        Angleur_SetCursorForGamePad(true)
-    end
-    if toPrint then 
-        print(toPrint)
-    end
-end
-
 function Angleur_BobberScanner()
     if not mouseInside then
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
@@ -226,11 +257,6 @@ function Angleur_BobberScanner()
         return
     end
 
-    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
-
-    local vTime = V_DIST / V_SPEED
-    local hTime = H_DIST / H_SPEED
-    local lines = 14
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         ResetView(2)
@@ -252,7 +278,19 @@ function Angleur_BobberScanner()
     MoveViewLeftStart(0)
     MoveViewDownStart(0)
     MoveViewOutStart(0)
-    cameraFrame:setup(lines, vTime, hTime, false)
+    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    -- The factor that determines how strong zoom's affect is
+    -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
+    local zoomFactor = (maxZoom + 1) / 2
+    -- Calculate the times for V_DIST and H_DIST based on speeds | then DIVIDE BY Zoom Factor
+    local vTime = (V_DIST / V_SPEED) / zoomFactor
+    local hTime = (H_DIST / H_SPEED) / zoomFactor
+    print("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
+    local lines = 14
+    active = true
+    Angleur_SetCursorForGamePad(true)
+    cameraFrame:setup(lines, vTime, hTime, false, zoomFactor)
+    scannerArea:Adjust(zoomFactor)
 end
 
 
