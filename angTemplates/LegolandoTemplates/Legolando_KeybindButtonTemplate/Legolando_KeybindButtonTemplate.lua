@@ -26,9 +26,9 @@
 --  Templates made by Legolando, specifically for this lib
 -- ____________________________________[3]______________________________________________
 
-Angleur_LegolandoKeybindButtonMixin = {}
+Legolando_KeybindButtonMixin_Angleur = {}
 
-Angleur_LegolandoKeybindButtonMixin.Modifiers = {
+Legolando_KeybindButtonMixin_Angleur.Modifiers = {
     modifiedListening = nil,
     modifierKeys = {
         LSHIFT = {"LSHIFT"},
@@ -40,13 +40,13 @@ Angleur_LegolandoKeybindButtonMixin.Modifiers = {
     }
 }
 
-function Angleur_LegolandoKeybindButtonMixin:CallOnBindFunction()
+function Legolando_KeybindButtonMixin_Angleur:CallOnBindFunction()
     if self.onBindFunction then
         self.onBindFunction()
     end
 end
 
-function Angleur_LegolandoKeybindButtonMixin:checkTableAndReference()
+function Legolando_KeybindButtonMixin_Angleur:checkTableAndReference()
     local teeburu = self.savedVarTable
     local keybindRef = self.keybindRef
     if not teeburu then
@@ -60,7 +60,7 @@ function Angleur_LegolandoKeybindButtonMixin:checkTableAndReference()
     return true
 end
 
-function Angleur_LegolandoKeybindButtonMixin:UpdateSavedVariables(base, modifier)
+function Legolando_KeybindButtonMixin_Angleur:UpdateSavedVariables(base, modifier)
     local teeburu = self.savedVarTable
     if not self.keybindRef then return end
     if modifier then
@@ -78,7 +78,7 @@ function Angleur_LegolandoKeybindButtonMixin:UpdateSavedVariables(base, modifier
     end
 end
 
-function Angleur_LegolandoKeybindButtonMixin.OnClick(self, button, down)
+function Legolando_KeybindButtonMixin_Angleur.OnClick(self, button, down)
     if self:checkTableAndReference() == false then return end
     if InCombatLockdown() then return end
     if button == "LeftButton" then
@@ -103,7 +103,7 @@ function Angleur_LegolandoKeybindButtonMixin.OnClick(self, button, down)
     end
 end
 
-function Angleur_LegolandoKeybindButtonMixin.OnUp(self, key)
+function Legolando_KeybindButtonMixin_Angleur.OnUp(self, key)
     if self.Modifiers.modifiedListening == key then
         local teeburu = self.savedVarTable
         local keybindRef = self.keybindRef
@@ -125,7 +125,7 @@ local mouseButtons = {
     ["Button4"] = "BUTTON4",
     ["Button5"] = "BUTTON5",
 }
-function Angleur_LegolandoKeybindButtonMixin.Mouse(self, button)
+function Legolando_KeybindButtonMixin_Angleur.Mouse(self, button)
     if button == "LeftButton" or button =="RightButton" then
         --nothing
     else
@@ -156,7 +156,7 @@ function Angleur_LegolandoKeybindButtonMixin.Mouse(self, button)
     end
 end
 
-function Angleur_LegolandoKeybindButtonMixin.GamePad(self, button)
+function Legolando_KeybindButtonMixin_Angleur.GamePad(self, button)
     local teeburu = self.savedVarTable
     local keybindRef = self.keybindRef
     self:SetScript("OnKeyUp", nil)
@@ -173,7 +173,7 @@ function Angleur_LegolandoKeybindButtonMixin.GamePad(self, button)
     self:CallOnBindFunction()
 end
 
-function Angleur_LegolandoKeybindButtonMixin.MouseWheel(self, delta)
+function Legolando_KeybindButtonMixin_Angleur.MouseWheel(self, delta)
     local scroll
     if delta == 1 then
         scroll = "MOUSEWHEELUP"
@@ -209,7 +209,7 @@ function Angleur_LegolandoKeybindButtonMixin.MouseWheel(self, delta)
     self:CallOnBindFunction()
 end
 
-function Angleur_LegolandoKeybindButtonMixin.Modified(self, key)
+function Legolando_KeybindButtonMixin_Angleur.Modified(self, key)
     local teeburu = self.savedVarTable
     local keybindRef = self.keybindRef
     if key == "ENTER" then
@@ -256,7 +256,7 @@ function Angleur_LegolandoKeybindButtonMixin.Modified(self, key)
     end 
 end
 
-function Angleur_LegolandoKeybindButtonMixin:StopWatching()
+function Legolando_KeybindButtonMixin_Angleur:StopWatching()
     local teeburu = self.savedVarTable
     local keybindRef = self.keybindRef
     self.Modifiers.secondPressListening = false
@@ -272,7 +272,7 @@ function Angleur_LegolandoKeybindButtonMixin:StopWatching()
     self:SetSelected(false)
 end
 
-function Angleur_LegolandoKeybindButtonMixin:Unbind(self)
+function Legolando_KeybindButtonMixin_Angleur:Unbind(self)
     local teeburu = self.savedVarTable
     local keybindRef = self.keybindRef
     self:UpdateSavedVariables(nil, nil)

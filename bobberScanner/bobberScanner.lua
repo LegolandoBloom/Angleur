@@ -1,18 +1,5 @@
 local T = Angleur_Translate
 
--- Unit: π Radians / s
-local H_SPEED = 0.4
--- Unit: π Radians / 2s
-local V_SPEED = 0.3
-
--- Unit: π Radians
-local H_DIST = 1/2
-local V_DIST = 1/4
-local V_OFFSET = 1/4
-
--- Unit: Seconds
-local WAIT_TIME = 1
-
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
 warningFrame:SetPoint("CENTER", 0, 170)
 warningFrame.TitleText:SetText(T["Bobber Scanner - Dizzy Warning"])
@@ -30,8 +17,9 @@ warningFrame.yesButton:SetScript("OnClick", function()
     warningFrame:Hide()
 end)
 
-local timeOutFrame = CreateFrame("Frame")
-
+--______________________________________________
+--                 UI STUFF
+--______________________________________________
 local cameraFrame = CreateFrame("Frame")
 cameraFrame:SetPoint("CENTER", UIParent, "CENTER", 0, 150)
 cameraFrame:SetSize(32, 32)
@@ -51,31 +39,7 @@ cameraFrame:SetPropagateMouseClicks(true)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- print("why")
-
-local UI_WIDTH_MAX = 1318
-local UI_HEIGHT_MAX = 768
-local scannerArea = cameraFrame:CreateTexture("Angleur_ScannerArea", "ARTWORK")
-scannerArea:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
-local CONVERSION_FACTOR = 1
-local OFFSET_CONVERSION_FACTOR = 1/3
-function scannerArea:Adjust(zoomFactor)
-    self:ClearAllPoints()
-    -- Convert the radian based area into pixels
-    local width = UI_WIDTH_MAX * ((H_DIST / zoomFactor) * CONVERSION_FACTOR)
-    local height = UI_HEIGHT_MAX * ((V_DIST / zoomFactor) * CONVERSION_FACTOR)
-    -- Convert the Radian based offset into pixels
-    local offsetY = UI_HEIGHT_MAX * ((V_OFFSET * zoomFactor) * OFFSET_CONVERSION_FACTOR)
-    self:SetPoint("TOP", texture, "TOP", 0, -offsetY)
-    self:SetSize(width, height)
-end
-EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ownerID, ...)
-    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
-    -- The factor that determines how strong zoom's affect is
-    -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
-    local zoomFactor = (maxZoom + 1) / 2
-    scannerArea:Adjust(zoomFactor)
-end)
-
+local timeOutFrame = CreateFrame("Frame")
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
     texture:SetColorTexture(0, 8, 0, 0.6)
@@ -102,20 +66,73 @@ cameraFrame:SetScript("OnLeave", function(self)
     text:Show()
 end)
 
+local collapseConfig = CreateFrame("Button", "AngleurBobberScanner_CollapseConfig", cameraFrame, "Legolando_CollapseConfigTemplate_Angleur")
+collapseConfig:SetPoint("LEFT", cameraFrame, "RIGHT")
+collapseConfig.tooltip = T["Open Config"]
+collapseConfig.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")
+collapseConfig.popup.title:SetText(T["Bobber Scanner Configuration"])
+
+
+
+for i=1, 3, 1 do
+
+end
+--______________________________________________
+--______________________________________________
+
+
+-- Unit: π Radians / s
+local H_SPEED = 0.4
+-- Unit: π Radians / 2s
+local V_SPEED = 0.3
+
+-- Unit: π Radians
+local H_DIST = 1/4
+local V_DIST = 1/4
+local V_OFFSET = 1/4
+
+-- Unit: Seconds
+local WAIT_TIME = 1
+
+local UI_WIDTH_MAX = 1318
+local UI_HEIGHT_MAX = 768
+
 local active = false
-local setupPhase = false
-function cameraFrame:stopAll()
-    MoveViewRightStop()
-    MoveViewLeftStop()
-    MoveViewDownStop()
-    MoveViewUpStop()
-    MoveViewOutStop()
-    active = false
-    self:SetScript("OnUpdate", nil)
-    self:SetScript("OnEvent", nil)
-    timeOutFrame:SetScript("OnUpdate", nil)
+
+local function bScanner_SavedVariables()
+    if AngleurBobberScannerUI == nil then
+            AngleurBobberScannerUI = {}
+    end
 end
 
+local scannerArea = cameraFrame:CreateTexture("Angleur_ScannerArea", "ARTWORK")
+scannerArea:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
+local CONVERSION_FACTOR = 1
+local OFFSET_CONVERSION_FACTOR = 1/3
+function scannerArea:Adjust(zoomFactor)
+    self:ClearAllPoints()
+    -- Convert the radian based area into pixels
+    local width = UI_WIDTH_MAX * ((H_DIST / zoomFactor) * CONVERSION_FACTOR)
+    local height = UI_HEIGHT_MAX * ((V_DIST / zoomFactor) * CONVERSION_FACTOR)
+    -- Convert the Radian based offset into pixels
+    local offsetY = UI_HEIGHT_MAX * ((V_OFFSET * zoomFactor) * OFFSET_CONVERSION_FACTOR)
+    self:SetPoint("TOP", texture, "TOP", 0, -offsetY)
+    self:SetSize(width, height)
+end
+
+
+--_______________________________________________________________________
+--                       EVENTS AND CALLBACKS
+--_______________________________________________________________________
+EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ownerID, ...)
+    --________________________
+    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    -- The factor that determines how strong zoom's affect is
+    -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
+    local zoomFactor = (maxZoom + 1) / 2
+    scannerArea:Adjust(zoomFactor)
+    bScanner_SavedVariables()
+end)
 EventRegistry:RegisterCallback("Angleur_StopFishing", function()
     if active then
         cameraFrame:stopAll()
@@ -130,9 +147,9 @@ EventRegistry:RegisterCallback("Angleur_Sleep", function()
     end
 end)
 EventRegistry:RegisterCallback("Angleur_Wake", function()
-    if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
-        cameraFrame:Show()
-        Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
+if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
+    cameraFrame:Show()
+    Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
     else
         cameraFrame:Hide()
     end
@@ -146,34 +163,34 @@ end)
 EventRegistry:RegisterCallback("AngleurClassic_ScannerOff", function()
     cameraFrame:Hide()
 end)
+--_______________________________________________________________________
+--_______________________________________________________________________
+    
 
-local textSet = false
-function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
-    if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
-    if C_GamePad.IsEnabled() == false or IsUsingGamepad() == false then return end
-    if not textSet then
-        text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
-        textSet = true
-    end
-    if cursorMode then 
-        Angleur_SetCursorForGamePad(true)
-    end
-    if toPrint then 
-        print(toPrint)
-    end
+--_______________________________________________________________________
+--                     CAMERA FRAME CODE - MOVEMENT
+--_______________________________________________________________________
+function cameraFrame:stopAll()
+    MoveViewRightStop()
+    MoveViewLeftStop()
+    MoveViewDownStop()
+    MoveViewUpStop()
+    MoveViewOutStop()
+    active = false
+    self:SetScript("OnUpdate", nil)
+    self:SetScript("OnEvent", nil)
+    timeOutFrame:SetScript("OnUpdate", nil)
 end
-
 local function checkCursor(self)
-    -- local changed = SetCursor(nil)
-    -- Angleur_BetaPrint(changed)
-    -- if changed == true and setupPhase == false then
-    --     cameraFrame:stopAll()
-    -- end
+    local changed = SetCursor(nil)
+    Angleur_BetaPrint(changed)
+    if changed == true then
+        cameraFrame:stopAll()
+    end
 end
-
 function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
     if lines == 0 then 
-        Angleur_BetaPrint("grid scan done")
+        Angleur_BetaPrint("grid scan done, nothing found")
         self:stopAll()
         SetView(2)
         return 
@@ -181,7 +198,7 @@ function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
     MoveViewUpStart(V_SPEED)
     Angleur_SingleDelayer(lineChangeTime, 0, lineChangeTime, self, nil, function()
         MoveViewUpStart(0)
-        self:sweep(lines - 1, lineChangeTime, columnSweepTime, not moveLeft)
+        self:sweep(lines - 1, lineChangeTime, columnSweepTime, moveLeft)
     end)
 end
 local function printSweep(moveLeft)
@@ -197,24 +214,22 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
         MoveViewLeftStart(H_SPEED)
         Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewLeftStart(0)
-            self:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
+            self:nextLine(lines, lineChangeTime, columnSweepTime, not moveLeft)
         end)
     else
         Angleur_BetaPrint("starting sweep of line: ", lines, "to the right")
         MoveViewRightStart(H_SPEED)
         Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewRightStart(0)
-            self:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
+            self:nextLine(lines, lineChangeTime, columnSweepTime, not moveLeft)
         end)
     end
 end
-
 -- Bring camera to starting point. Halfway of horizontal-scan-area(H_DIST) to the left, 
 -- and a set distance(V_OFFSET) downward - (independent from V_DIST). 
 -- Use 'horizontalTime/2' and don't change H_SPEED to go halfway
 -- V_OFFSET will also use 'horizontalTime/2', adjust the offset speed accordingly
 function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFactor)
-    setupPhase = true
     local setup_time = horizontalTime
     -- H_SPEED is unchanged for setup, horizontalTimer will be halved instead
     local setup_hSpeed = H_SPEED
@@ -226,7 +241,6 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
     print("setup time is: ", setup_time)
     print(setup_hSpeed, setup_vSpeed)
     print("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
-    
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         self:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")
@@ -235,7 +249,6 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         MoveViewUpStart(setup_vSpeed)
         MoveViewRightStart(setup_hSpeed)
         MoveViewOutStart(12)
-        -- 
         Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
             Angleur_BetaPrint("Setup Phase Over")
             print("Setup Phase Over")
@@ -244,35 +257,50 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
             MoveViewOutStart(0)
             local lineswap_time = verticalTime / lines
             print("line time", lineswap_time)
-            setupPhase = false
+            self:SetScript("OnEvent", checkCursor)
             self:sweep(lines, lineswap_time, horizontalTime, not moveLeft)
         end)
     end)
 end
+--_______________________________________________________________________
+--_______________________________________________________________________
 
+
+--_______________________________________________________________________
+--                      CODE ACCESSIBLE FROM OUTSIDE
+--_______________________________________________________________________
+local textSet = false
+function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
+    if AngleurClassicConfig.softInteract.enabled == false or AngleurClassicConfig.softInteract.bobberScanner == false then return end
+    if C_GamePad.IsEnabled() == false or IsUsingGamepad() == false then return end
+    if not textSet then
+        text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
+        textSet = true
+    end
+    if cursorMode then 
+        Angleur_SetCursorForGamePad(true)
+    end
+    if toPrint then 
+        print(toPrint)
+    end
+end
 function Angleur_BobberScanner()
     if not mouseInside then
         print("Mouse needs to be in the indicated area for the scanner to work properly.")
         Angleur_BobberScanner_HandleGamepad(true, T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."])
         return
     end
-
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         ResetView(2)
         SetView(2)
     elseif gameVersion == 3 then
-        -- CameraZoomOut(30)
         ResetView(2)
         SetView(2)
-        -- vTime = 0.02
-        -- hTime = 0.04
-        -- lines = 10
     else
         print("Error: Bobber Scanner called on unregistered game version")
         return
     end
-    cameraFrame:SetScript("OnEvent", checkCursor)
     MoveViewRightStart(0)
     MoveViewUpStart(0)
     MoveViewLeftStart(0)
@@ -318,7 +346,8 @@ SlashCmdList["ANGLEURBOBBERCALIBRATE"] = function()
         MoveViewUpStop()
     end)
 end
-
+--_______________________________________________________________________
+--_______________________________________________________________________
 
 -- local camControl = CreateFrame("Frame", "CamControlFrame", UIParent, "BasicFrameTemplateWithInset")
 -- camControl:SetPoint("CENTER", 300, 130)

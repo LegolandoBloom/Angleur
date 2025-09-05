@@ -4,7 +4,7 @@
     If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
 
-    <Script file="Angleur_LegolandoKeybindButtonTemplate.lua"/>
+    <Script file="Legolando_KeybindButtonTemplate.lua"/>
 
     <!-- ____________________________________[1]______________________________________________ -->
     <!--  Templates Ported directly from Blizzard's FrameXML, just in case it changes later on -->
@@ -30,8 +30,7 @@
     <!-- ____________________________________[3]______________________________________________ -->
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
-    
-    <Button name="Angleur_LegolandoKeybindButtonTemplate" mixin="Angleur_LegolandoKeybindButtonMixin" inherits="KeyBindingFrameBindingButtonTemplate" virtual="true">
+    <Button name="Legolando_KeybindButtonTemplate_Angleur" mixin="Legolando_KeybindButtonMixin_Angleur" inherits="KeyBindingFrameBindingButtonTemplate" virtual="true">
         <Size x="100" y="22"/>
         <Layers>
             <Layer level="ARTWORK">

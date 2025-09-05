@@ -616,3 +616,8 @@ T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor
 
 T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner: ")
 .. "Please move the Gamepad " .. colorYello:WrapTextInColorCode("Cursor ") .. "that appears into the " .. colorRed:WrapTextInColorCode("inticated box.")
+
+
+-- Bobber Scanner Config
+
+T["Bobber Scanner Configuration"] = "Bobber Scanner Configuration"

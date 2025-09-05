@@ -332,7 +332,7 @@
                                                             </OnShow>
                                                         </Scripts>
                                                         <Frames>
-                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Angleur_LegolandoKeybindButtonTemplate">
+                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Legolando_KeybindButtonTemplate_Angleur">
                                                                 <Size x="100" y="22"/>
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>
@@ -406,7 +406,7 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
                                         </Anchors>
                                         <Frames>
-                                            <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Angleur_LegolandoKeybindButtonTemplate" hidden="true">
+                                            <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
                                                 <Size x="100" y="22"/>
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
