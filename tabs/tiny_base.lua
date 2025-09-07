@@ -104,7 +104,6 @@ function Angleur_SetTab3(self)
     end
 
 
-
     self.defaults.text = self.defaults:CreateFontString("Angleur_AdvancedButton_Text", "ARTWORK", "Game12Font_o1")
     self.defaults.text:SetPoint("CENTER", self.defaults, "CENTER", 2, -2)
     self.defaults.text:SetText(colorYello:WrapTextInColorCode(T["Defaults"]))
@@ -113,7 +112,7 @@ function Angleur_SetTab3(self)
     elseif gameVersion == 2 or gameVersion == 3 then
         cata:SetDefaultsButtonScript(self)
     end
-
+    
 
     self.redoTutorial.title:SetText(T["Redo Tutorial"])
     self.redoTutorial.icon:SetTexture("Interface/BUTTONS/UI-RefreshButton")

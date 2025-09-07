@@ -1,5 +1,26 @@
 local T = Angleur_Translate
 
+-- Unit: π Radians / s
+local H_SPEED = 0.4
+-- Unit: π Radians / 2s
+local V_SPEED = 0.3
+
+-- Unit: π Radians
+local H_DIST = 1/4
+local V_DIST = 1/4
+local V_OFFSET = 1/4
+
+-- Unit: Seconds
+local WAIT_TIME = 1
+
+-- Determines Zoom Factor's Strength. Bigger Number = Weaker Effect
+local ZFACTOR_STR = 1.45
+
+local UI_WIDTH_MAX = 1318
+local UI_HEIGHT_MAX = 768
+
+local active = false
+
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
 warningFrame:SetPoint("CENTER", 0, 170)
 warningFrame.TitleText:SetText(T["Bobber Scanner - Dizzy Warning"])
@@ -66,59 +87,100 @@ cameraFrame:SetScript("OnLeave", function(self)
     text:Show()
 end)
 
+
+
+local function bScanner_SavedVariables()
+    if AngleurBobberScannerUI == nil then
+        AngleurBobberScannerUI = {}
+    end
+    if AngleurBobberScannerUI.method == nil then
+        AngleurBobberScannerUI.method = 1
+    end
+end
+
+local scannerArea = CreateFrame("Frame", "Angleur_ScannerArea", cameraFrame)
+scannerArea.texture = scannerArea:CreateTexture("Angleur_ScannerArea", "ARTWORK")
+scannerArea.texture:SetAllPoints(scannerArea)
+scannerArea.texture:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
+scannerArea.offsetArrow = scannerArea:CreateTexture("Angleur_ScannerArea_OffsetArrow", "ARTWORK")
+scannerArea.offsetArrow:SetTexture("Interface/Addons/Angleur/imagesClassic/redarrow.png")
+scannerArea.offsetArrow:SetPoint("BOTTOMLEFT", scannerArea, "TOPLEFT")
+scannerArea.offsetArrow.text = scannerArea:CreateFontString(nil, "ARTWORK", "SpellFont_Small")
+scannerArea.offsetArrow.text:SetPoint("LEFT", scannerArea.offsetArrow, "RIGHT", 0, -10)
+scannerArea.offsetArrow.text:SetText(T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. Amount is based on your Max Zoom."])
+scannerArea:Hide()
+local CONVERSION_FACTOR = 0.8
+local OFFSET_CONVERSION_FACTOR = 1/3
+function scannerArea:Adjust(zoomFactor_Horizontal, zoomFactor_vOffset)
+    self:ClearAllPoints()
+    -- Convert the radian based area into pixels
+    local width = UI_WIDTH_MAX * ((H_DIST / zoomFactor_Horizontal) * CONVERSION_FACTOR)
+    local height = UI_HEIGHT_MAX * ((V_DIST / zoomFactor_Horizontal) * CONVERSION_FACTOR)
+    -- Convert the Radian based offset into pixels
+    local offsetY = UI_HEIGHT_MAX * ((V_OFFSET * zoomFactor_vOffset) * OFFSET_CONVERSION_FACTOR)
+    self:SetPoint("TOP", texture, "TOP", 0, -offsetY)
+    self:SetSize(width, height)
+    self.offsetArrow:SetSize(32, offsetY)
+end
+
 local collapseConfig = CreateFrame("Button", "AngleurBobberScanner_CollapseConfig", cameraFrame, "Legolando_CollapseConfigTemplate_Angleur")
 collapseConfig:SetPoint("LEFT", cameraFrame, "RIGHT")
 collapseConfig.tooltip = T["Open Config"]
 collapseConfig.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")
 collapseConfig.popup.title:SetText(T["Bobber Scanner Configuration"])
+collapseConfig.popup:SetScript("OnShow", function()
+    scannerArea:Show()
+end)
+collapseConfig.popup:SetScript("OnHide", function()
+    scannerArea:Hide()
+end)
+collapseConfig.popup.defaults.text:SetText(T["Reset to Defaults"])
+collapseConfig.popup.defaults:SetScript("OnClick", function()
+    AngleurBobberScanner_CheckMethod(1)
+end)
 
-
-
-for i=1, 3, 1 do
-
+local function config_updateMethod(id)
+    AngleurBobberScannerUI.method = id
 end
---______________________________________________
---______________________________________________
-
-
--- Unit: π Radians / s
-local H_SPEED = 0.4
--- Unit: π Radians / 2s
-local V_SPEED = 0.3
-
--- Unit: π Radians
-local H_DIST = 1/4
-local V_DIST = 1/4
-local V_OFFSET = 1/4
-
--- Unit: Seconds
-local WAIT_TIME = 1
-
-local UI_WIDTH_MAX = 1318
-local UI_HEIGHT_MAX = 768
-
-local active = false
-
-local function bScanner_SavedVariables()
-    if AngleurBobberScannerUI == nil then
-            AngleurBobberScannerUI = {}
+local function uncheckSiblings(id)
+    for i=1,3,1 do
+        local button = collapseConfig.popup[i]
+        if id ~= i then
+            print(button:GetDebugName())
+            button:SetChecked(false)
+        end
     end
 end
-
-local scannerArea = cameraFrame:CreateTexture("Angleur_ScannerArea", "ARTWORK")
-scannerArea:SetTexture("Interface/Addons/Angleur/imagesClassic/scanarea.png")
-local CONVERSION_FACTOR = 1
-local OFFSET_CONVERSION_FACTOR = 1/3
-function scannerArea:Adjust(zoomFactor)
-    self:ClearAllPoints()
-    -- Convert the radian based area into pixels
-    local width = UI_WIDTH_MAX * ((H_DIST / zoomFactor) * CONVERSION_FACTOR)
-    local height = UI_HEIGHT_MAX * ((V_DIST / zoomFactor) * CONVERSION_FACTOR)
-    -- Convert the Radian based offset into pixels
-    local offsetY = UI_HEIGHT_MAX * ((V_OFFSET * zoomFactor) * OFFSET_CONVERSION_FACTOR)
-    self:SetPoint("TOP", texture, "TOP", 0, -offsetY)
-    self:SetSize(width, height)
+function AngleurBobberScanner_CheckMethod(id)
+    if collapseConfig.popup[id]:GetChecked() == false then
+        collapseConfig.popup[id]:SetChecked(true)
+    end
+    uncheckSiblings(id)
+    config_updateMethod(id)
 end
+local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "Fancy22Font")
+elevationTitle:SetPoint("BOTTOMLEFT", collapseConfig.popup, "BOTTOMLEFT", 100, 55)
+elevationTitle:SetText(T["ELEVATION"])
+for i=1,3,1 do
+    collapseConfig.popup[i] = CreateFrame("CheckButton", "AngleurBobberScanner_ElevationOption" .. i, collapseConfig.popup, "Angleur_SimplifiedActionButtonTemplate")
+    local checkButton = collapseConfig.popup[i]
+    checkButton:SetID(i)
+    local scale = 1.8
+    checkButton:SetScale(scale)
+    checkButton:SetPoint("BOTTOM", elevationTitle, "TOP", (-95 + (i - 1) * 96)/scale, 30/scale)
+    checkButton:SetScript("OnClick", function(self)
+        if self:GetChecked() == true then
+            AngleurBobberScanner_CheckMethod(self:GetID())
+        elseif self:GetChecked() == false then
+            self:SetChecked(true)
+        end
+    end)
+end
+--______________________________________________
+--______________________________________________
+
+
+
 
 
 --_______________________________________________________________________
@@ -129,9 +191,13 @@ EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ow
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
     -- The factor that determines how strong zoom's affect is
     -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
-    local zoomFactor = (maxZoom + 1) / 2
-    scannerArea:Adjust(zoomFactor)
+    local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
+    local zoomFactor_vOffset = zoomFactor
+    local zoomFactor_Horizontal = zoomFactor * 0.8
+    scannerArea:Adjust(zoomFactor_Horizontal, zoomFactor_vOffset)
     bScanner_SavedVariables()
+    collapseConfig.popup[AngleurBobberScannerUI.method]:SetChecked(true)
+    AngleurBobberScanner_CheckMethod(AngleurBobberScannerUI.method)
 end)
 EventRegistry:RegisterCallback("Angleur_StopFishing", function()
     if active then
@@ -192,7 +258,7 @@ function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
     if lines == 0 then 
         Angleur_BetaPrint("grid scan done, nothing found")
         self:stopAll()
-        SetView(2)
+        CenterCamera()
         return 
     end
     MoveViewUpStart(V_SPEED)
@@ -229,7 +295,7 @@ end
 -- and a set distance(V_OFFSET) downward - (independent from V_DIST). 
 -- Use 'horizontalTime/2' and don't change H_SPEED to go halfway
 -- V_OFFSET will also use 'horizontalTime/2', adjust the offset speed accordingly
-function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFactor)
+function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFactor_vOffset)
     local setup_time = horizontalTime
     -- H_SPEED is unchanged for setup, horizontalTimer will be halved instead
     local setup_hSpeed = H_SPEED
@@ -237,7 +303,7 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
     local vOffset_time  = (V_OFFSET / V_SPEED)
     -- Adjust vertical offset speed from V_SPEED based on the ratio of vOffset_time / horizontalTime
     -- Then, MULTIPLY BY Zoom Factor - Farther zoom ==> More Downward Movement
-    local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor
+    local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor_vOffset
     print("setup time is: ", setup_time)
     print(setup_hSpeed, setup_vSpeed)
     print("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
@@ -245,16 +311,16 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         self:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")
     end)
+    MoveViewOutStart(16)
     Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
+        MoveViewOutStop()
         MoveViewUpStart(setup_vSpeed)
         MoveViewRightStart(setup_hSpeed)
-        MoveViewOutStart(12)
         Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
             Angleur_BetaPrint("Setup Phase Over")
             print("Setup Phase Over")
             MoveViewRightStart(0)
             MoveViewUpStart(0)
-            MoveViewOutStart(0)
             local lineswap_time = verticalTime / lines
             print("line time", lineswap_time)
             self:SetScript("OnEvent", checkCursor)
@@ -292,11 +358,13 @@ function Angleur_BobberScanner()
     end
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
-        ResetView(2)
-        SetView(2)
+        -- ResetView(2)
+        -- SetView(2)
+        CenterCamera()
     elseif gameVersion == 3 then
-        ResetView(2)
-        SetView(2)
+        -- ResetView(2)
+        -- SetView(2)
+        CenterCamera()
     else
         print("Error: Bobber Scanner called on unregistered game version")
         return
@@ -307,18 +375,19 @@ function Angleur_BobberScanner()
     MoveViewDownStart(0)
     MoveViewOutStart(0)
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
-    -- The factor that determines how strong zoom's affect is
-    -- Currently: 1 --> 1 | 2 --> 1,5 | 3 --> 2 | 4 --> 2 ...
-    local zoomFactor = (maxZoom + 1) / 2
+    -- The factor that determines how strong zoom's effect is
+    local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
+    local zoomFactor_vOffset = zoomFactor
+    local zoomFactor_Horizontal = zoomFactor * 0.8
     -- Calculate the times for V_DIST and H_DIST based on speeds | then DIVIDE BY Zoom Factor
-    local vTime = (V_DIST / V_SPEED) / zoomFactor
-    local hTime = (H_DIST / H_SPEED) / zoomFactor
+    local vTime = (V_DIST / V_SPEED)
+    local hTime = (H_DIST / H_SPEED) / zoomFactor_Horizontal
     print("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
     local lines = 14
     active = true
     Angleur_SetCursorForGamePad(true)
-    cameraFrame:setup(lines, vTime, hTime, false, zoomFactor)
-    scannerArea:Adjust(zoomFactor)
+    cameraFrame:setup(lines, vTime, hTime, false, zoomFactor_vOffset)
+    scannerArea:Adjust(zoomFactor_Horizontal, zoomFactor_vOffset)
 end
 
 

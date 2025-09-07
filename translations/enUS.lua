@@ -10,6 +10,7 @@ local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
 local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
+local colorDarkRed = CreateColor(0.68, 0, 0)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ultra Focus:"
@@ -621,3 +622,10 @@ T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the 
 -- Bobber Scanner Config
 
 T["Bobber Scanner Configuration"] = "Bobber Scanner Configuration"
+T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. Amount is based on your Max Zoom."] = colorWhite:WrapTextInColorCode("Shows ") 
+.. colorDarkRed:WrapTextInColorCode("how far ") .. colorWhite:WrapTextInColorCode("the camera will move ") .. colorDarkRed:WrapTextInColorCode("downward\n") 
+.. colorWhite:WrapTextInColorCode("from the ") .. colorYello:WrapTextInColorCode("\'Centered Position\' ")
+.. colorWhite:WrapTextInColorCode("to start the scan.\nAmount is based on your ") .. colorYello:WrapTextInColorCode("Max Zoom.")
+
+T["ELEVATION"] = "ELEVATION"
+T["Reset to Defaults"] = "Reset to Defaults"

@@ -16,6 +16,7 @@ local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
 local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
+local colorDarkRed = CreateColor(0.68, 0, 0)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ultra Foco:"

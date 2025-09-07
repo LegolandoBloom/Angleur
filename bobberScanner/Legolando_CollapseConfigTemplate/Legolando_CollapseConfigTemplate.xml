@@ -70,22 +70,22 @@
         </Scripts>
         <Frames>
             <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">
-                <Size x="225" y="100"/>
+                <Size x="600" y="226"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" x="0" y="0"/>
                 </Anchors>
                 <Layers>
                     <Layer level="BACKGROUND">
                         <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
                         <Anchors>
-                            <Anchor point="TOPLEFT" x="18" y="-19"/>
+                            <Anchor point="TOP" x="0" y="-19"/>
                         </Anchors>
                         </FontString>
                     </Layer>
                 </Layers>
                 <Frames>
                     <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
-                    <CheckButton parentKey="checkbox1" inherits="Legolando_CheckboxTemplate_Angleur">
+                    <!-- <CheckButton parentKey="checkbox1" inherits="Legolando_CheckboxTemplate_Angleur">
                         <Size x="26" y="26"/>
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="8" y="-5"/>
@@ -96,7 +96,45 @@
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="8" y="-29"/>
                         </Anchors>
-                    </CheckButton>
+                    </CheckButton> -->
+                    <Button name="$parent_Defaults" parentKey="defaults" text="Reset" inherits="IconButtonTemplate">
+                        <Size x="42" y="42"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-6" y="6"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="icon" value="Interface\Buttons\UI-RefreshButton" type="string"/>
+                            <KeyValue key="iconSize" value="20" type="number"/>
+                        </KeyValues>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString name="$parent_Text" parentKey="text" text="Text" inherits="GameFontNormalLarge">
+                                    <Anchors>
+                                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnClick>
+                                <!-- self:GetParent():ResetPosition() -->
+                            </OnClick>
+                            <OnEnter>
+                                if not self.tooltip then return end
+                                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                                GameTooltip:AddLine(self.tooltip)
+                                GameTooltip:Show()
+                            </OnEnter>
+                            <OnLeave>
+                                if not self.tooltip then return end
+                                GameTooltip:Hide()
+                            </OnLeave>
+                        </Scripts>
+                        <NormalTexture file="Interface\Buttons\UI-SquareButton-Up"/>
+                        <PushedTexture file="Interface\Buttons\UI-SquareButton-Down"/>
+                        <DisabledTexture file="Interface\Buttons\UI-SquareButton-Disabled"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+                    </Button>
                     <Button parentKey="$parent.CloseButton" inherits="UIPanelCloseButton">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="-2" y="-2"/>
