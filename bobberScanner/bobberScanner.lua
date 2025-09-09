@@ -380,7 +380,7 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
     -- Then, MULTIPLY BY Zoom Factor - Farther zoom ==> More Downward Movement
     local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor_vOffset
     Angleur_BetaPrint("setup time is: ", setup_time)
-    prAngleur_BetaPrintint(setup_hSpeed, setup_vSpeed)
+    Angleur_BetaPrint(setup_hSpeed, setup_vSpeed)
     Angleur_BetaPrint("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         self:stopAll()
