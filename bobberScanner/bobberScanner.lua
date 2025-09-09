@@ -173,7 +173,7 @@ local function loadUserSettings()
 end
 
 local collapseConfig = CreateFrame("Button", "AngleurBobberScanner_CollapseConfig", cameraFrame, "Legolando_CollapseConfigTemplate_Angleur")
-collapseConfig:SetPoint("LEFT", cameraFrame, "RIGHT")
+collapseConfig:SetPoint("LEFT", cameraFrame, "RIGHT", 3, 0)
 collapseConfig.tooltip = T["Open Config"]
 collapseConfig.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")
 collapseConfig.popup.title:SetText(T["Bobber Scanner Configuration"])
