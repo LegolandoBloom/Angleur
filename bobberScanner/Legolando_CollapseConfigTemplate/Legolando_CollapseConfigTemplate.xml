@@ -97,6 +97,30 @@
                             <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="8" y="-29"/>
                         </Anchors>
                     </CheckButton> -->
+                    <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame name= "$parent_ScanSpeed" parentKey="scanSpeed" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-80"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame name= "$parent_StartDelay" parentKey="startDelay" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-140"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="unitText" text="units" inherits="NumberFont_GameNormal">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.ValueBox" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
                     <Button name="$parent_Defaults" parentKey="defaults" text="Reset" inherits="IconButtonTemplate">
                         <Size x="42" y="42"/>
                         <Anchors>

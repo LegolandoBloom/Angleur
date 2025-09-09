@@ -622,10 +622,23 @@ T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the 
 -- Bobber Scanner Config
 
 T["Bobber Scanner Configuration"] = "Bobber Scanner Configuration"
-T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. Amount is based on your Max Zoom."] = colorWhite:WrapTextInColorCode("Shows ") 
+T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. " 
+.. "Amount is based on your Max Zoom and chosen \'Elevation\'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("Shows ") 
 .. colorDarkRed:WrapTextInColorCode("how far ") .. colorWhite:WrapTextInColorCode("the camera will move ") .. colorDarkRed:WrapTextInColorCode("downward\n") 
 .. colorWhite:WrapTextInColorCode("from the ") .. colorYello:WrapTextInColorCode("\'Centered Position\' ")
-.. colorWhite:WrapTextInColorCode("to start the scan.\nAmount is based on your ") .. colorYello:WrapTextInColorCode("Max Zoom.")
+.. colorWhite:WrapTextInColorCode("to start the scan.\nAmount is based on your ") .. colorYello:WrapTextInColorCode("Max Zoom ") 
+.. "and\nchosen" .. colorYello:WrapTextInColorCode("\'Elevation\' ") ..  colorGrae:WrapTextInColorCode("(Bobber Scanner Menu)")
 
 T["ELEVATION"] = "ELEVATION"
 T["Reset to Defaults"] = "Reset to Defaults"
+
+T["Bobber Scan: Scan unsuccessful. Try changing the \'Elevation\' setting, "
+.. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("Bobber Scan: ") 
+.. "Scan unsuccessful." .. " Try changing the " .. colorYello:WrapTextInColorCode("\'Elevation\' ") .. "setting, " .. "or the width of the search area in the Scanner menu by clicking the " 
+.. colorYello:WrapTextInColorCode("Gear ") .. "icon next to the mouse " .. colorGreen:WrapTextInColorCode("drop") .. colorRed:WrapTextInColorCode("-off ") 
+.. "box."
+
+T["Scan Width"] = colorYello:WrapTextInColorCode("Scan Width")
+T["Scan Speed"] = colorYello:WrapTextInColorCode("Scan Speed")
+T["Start Delay"] = colorYello:WrapTextInColorCode("Start Delay")
+T["sec"] = "sec"
