@@ -33,7 +33,7 @@ local function bScanner_SavedVariables()
         AngleurBobberScannerUI = {}
     end
     if AngleurBobberScannerUI.method == nil then
-        AngleurBobberScannerUI.method = 3
+        AngleurBobberScannerUI.method = 1
     end
     if AngleurBobberScannerUI.scanWidth == nil then
         AngleurBobberScannerUI.scanWidth = 0.25
@@ -57,7 +57,7 @@ warningFrame.yesButton:SetSize(96, 32)
 warningFrame.mainText:AdjustPointsOffset(0, 5)
 warningFrame.mainText:SetText(T["Do not " 
 .."use this feature if you are sensitive to\nrapid movement " 
-.. "or any form of fast graphical\nchange.Such as but not limited "
+.. "or any form of fast graphical\nchange. Such as but not limited "
 .. "to:\nPhotosensitive Epilepsy, Vertigo..."])
 warningFrame.yesButton:SetScript("OnClick", function()
     warningFrame:Hide()
@@ -84,7 +84,6 @@ cameraFrame:SetPropagateMouseClicks(true)
 -- cameraFrame:SetMouseClickEnabled(false)
 -- cameraFrame:SetMouseMotionEnabled(false)
 -- cameraFrame:SetMouseMotionEnabled(false)
--- print("why")
 local timeOutFrame = CreateFrame("Frame")
 local mouseInside = false
 if cameraFrame:IsMouseOver() then
@@ -187,6 +186,10 @@ end)
 collapseConfig.popup.defaults.text:SetText(T["Reset to Defaults"])
 collapseConfig.popup.defaults:SetScript("OnClick", function()
     AngleurBobberScanner_CheckMethod(1)
+    collapseConfig.popup.scanWidth:SetValue(25)
+    collapseConfig.popup.scanSpeed:SetValue(4)
+    collapseConfig.popup.startDelay:SetValue(1)
+
 end)
 
 local function config_updateMethod(id)
@@ -196,7 +199,7 @@ local function uncheckSiblings(id)
     for i=1,3,1 do
         local button = collapseConfig.popup[i]
         if id ~= i then
-            print(button:GetDebugName())
+            Angleur_BetaPrint(button:GetDebugName())
             button:SetChecked(false)
         end
     end
@@ -376,9 +379,9 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
     -- Adjust vertical offset speed from V_SPEED based on the ratio of vOffset_time / horizontalTime
     -- Then, MULTIPLY BY Zoom Factor - Farther zoom ==> More Downward Movement
     local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor_vOffset
-    print("setup time is: ", setup_time)
-    print(setup_hSpeed, setup_vSpeed)
-    print("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
+    Angleur_BetaPrint("setup time is: ", setup_time)
+    prAngleur_BetaPrintint(setup_hSpeed, setup_vSpeed)
+    Angleur_BetaPrint("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         self:stopAll()
         Angleur_BetaPrint("Camera Frame: Timed out")
@@ -390,11 +393,10 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         MoveViewRightStart(setup_hSpeed)
         Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
             Angleur_BetaPrint("Setup Phase Over")
-            print("Setup Phase Over")
             MoveViewRightStart(0)
             MoveViewUpStart(0)
             local lineswap_time = verticalTime / lines
-            print("line time", lineswap_time)
+            Angleur_BetaPrint("line time", lineswap_time)
             self:SetScript("OnEvent", checkCursor)
             self:sweep(lines, lineswap_time, horizontalTime, not moveLeft)
         end)
@@ -454,7 +456,7 @@ function Angleur_BobberScanner()
     -- Calculate the times for V_DIST and H_DIST based on speeds | then DIVIDE BY Zoom Factor
     local vTime = (V_DIST / V_SPEED) * V_DIST_MULTIPLIER
     local hTime = (H_DIST / H_SPEED) / zoomFactor_Horizontal
-    print("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
+    Angleur_BetaPrint("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
     local lines = V_LINES * V_DIST_MULTIPLIER
     active = true
     Angleur_SetCursorForGamePad(true)
@@ -490,6 +492,14 @@ end
 --_______________________________________________________________________
 --_______________________________________________________________________
 
+
+
+
+
+
+--_________________________(Commented)____________________________
+-- Manual Camera Control Frame & Buttons for testing. DONT DELETE.
+--_________________________(Commented)____________________________
 -- local camControl = CreateFrame("Frame", "CamControlFrame", UIParent, "BasicFrameTemplateWithInset")
 -- camControl:SetPoint("CENTER", 300, 130)
 -- camControl:SetSize(128, 128)
@@ -565,3 +575,5 @@ end
     
 -- end)
 -- camControl:Show()
+--_______________________________________________________________
+--_______________________________________________________________

@@ -593,10 +593,10 @@ T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNIN
 T["Bobber Scanner - Dizzy Warning"] = "Bobber Scanner - Dizzy Warning"
 T["Do not " 
 .."use this feature if you are sensitive to\nrapid movement " 
-.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "or any form of fast graphical\nchange. Such as but not limited " 
 .. "to:\nPhotosensitive Epilepsy, Vertigo..."] = "Do not " 
 .."use this feature if you are sensitive to\nrapid movement " 
-.. "or any form of fast graphical\nchange.Such as but not limited " 
+.. "or any form of fast graphical\nchange. Such as but not limited " 
 .. "to:\n" .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
 
 
