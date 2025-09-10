@@ -206,7 +206,7 @@
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
                                 <Frames>
-                                    <CheckButton name="$parent_BaitCheckBox" parentKey="baitEnable" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_BaitCheckBox" parentKey="baitEnable" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-38"/>
                                         </Anchors>
@@ -233,34 +233,34 @@
                                             </Layer>
                                         </Layers>
                                         <Frames>
-                                            <CheckButton name="$parent_Audio" parentKey="audio" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_Audio" parentKey="audio" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0"/>
                                                 </Anchors>
                                             </CheckButton>
                                         </Frames>
                                     </Frame>
-                                    <CheckButton name="$parent_SoftInteract" parentKey="softInteract" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_SoftInteract" parentKey="softInteract" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-110"/>
                                         </Anchors>
                                         <Frames>
-                                            <CheckButton name="$parent_BobberScanner" parentKey="bobberScanner" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_BobberScanner" parentKey="bobberScanner" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="14" y="-4"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton name="$parent_WarningSound" parentKey="warningSound" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_WarningSound" parentKey="warningSound" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_BobberScanner" relativePoint="RIGHT" x="15" y="0"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="TOP" relativeTo="$parent_BobberScanner" relativePoint="BOTTOM" x="-40" y="3"/>
                                                 </Anchors>
@@ -401,7 +401,7 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
-                                    <CheckButton name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
                                         </Anchors>
@@ -608,7 +608,7 @@
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
                                 <Frames>
-                                    <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-35"/>
                                         </Anchors>
@@ -646,12 +646,12 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-198"/>
                                         </Anchors>
                                     </Frame>
-                                    <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-260"/>
                                         </Anchors>
                                     </CheckButton>
-                                    <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-295"/>
                                         </Anchors>

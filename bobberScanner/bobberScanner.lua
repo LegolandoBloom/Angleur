@@ -20,7 +20,7 @@ local V_LINES = 14
 local V_DIST_MULTIPLIER = 1
 
 -- Determines Zoom Factor's Strength. Bigger Number = Weaker Effect
-local ZFACTOR_STR = 1.45
+local ZFACTOR_STR = 1.3
 
 local UI_WIDTH_MAX = 1318
 local UI_HEIGHT_MAX = 768
@@ -44,6 +44,9 @@ local function bScanner_SavedVariables()
     if AngleurBobberScannerUI.startDelay == nil then
         AngleurBobberScannerUI.startDelay = 1
     end
+    -- if AngleurBobberScannerUI.disableWarning == nil then
+    --     AngleurBobberScannerUI.disableWarning = false
+    -- end
 end
 
 local warningFrame = CreateFrame("Frame", "Angleur_BobberScanner_Disclaimer", UIParent, "Angleur_WarningFrame")
@@ -152,6 +155,10 @@ local function loadUserSettings()
         V_DIST_MULTIPLIER = 1
     elseif AngleurBobberScannerUI.method == 3 then
         -- Vertical distance covered is doubled
+        V_OFFSET = 1/8
+        V_DIST_MULTIPLIER = 1
+    elseif AngleurBobberScannerUI.method == 4 then
+        -- Vertical distance covered is doubled
         V_OFFSET = 1/4
         V_DIST_MULTIPLIER = 2
     end
@@ -196,7 +203,7 @@ local function config_updateMethod(id)
     AngleurBobberScannerUI.method = id
 end
 local function uncheckSiblings(id)
-    for i=1,3,1 do
+    for i=1,4,1 do
         local button = collapseConfig.popup[i]
         if id ~= i then
             Angleur_BetaPrint(button:GetDebugName())
@@ -212,22 +219,46 @@ function AngleurBobberScanner_CheckMethod(id)
     config_updateMethod(id)
     loadUserSettings()
 end
-local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "Fancy22Font")
-elevationTitle:SetPoint("BOTTOMLEFT", collapseConfig.popup, "BOTTOMLEFT", 100, 55)
-elevationTitle:SetText(T["ELEVATION"])
-for i=1,3,1 do
+local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "GameFontHighlightHugeOutline2")
+elevationTitle:SetPoint("TOPLEFT", collapseConfig.popup, "TOPLEFT", 100, -50)
+elevationTitle:SetText(T["ELEVATION:"])
+
+local pngTable = {
+    [1] = "Interface/Addons/Angleur/imagesClassic/sameelevation.png",
+    [2] = "Interface/Addons/Angleur/imagesClassic/lowerelevation.png",
+    [3] = "Interface/Addons/Angleur/imagesClassic/insidewater.png",
+    [4] = "Interface/Addons/Angleur/imagesClassic/bothelevation.png",
+}
+local tooltipTable = {
+    [1] = {title = T["Same Elevation"], text = T["Use this when you are on the same level as the water, or close to it."]},
+    [2] = {title = T["Lower Elevation"], text = T["Use this when the water is lower level than you."]},
+    [3] = {title = T["Inside Water"], text = T["Use this when you are inside the water, making the bobber land higher than you."]},
+    [4] = {title = T["Both"], text = T["Use this if you are fishing in a spot where the elevation constantly changes from level to lower and vice versa." 
+    .. " The scan covers twice the height as usual, thus taking twice as long."]},
+}
+for i=1,4,1 do
     collapseConfig.popup[i] = CreateFrame("CheckButton", "AngleurBobberScanner_ElevationOption" .. i, collapseConfig.popup, "Angleur_SimplifiedActionButtonTemplate")
     local checkButton = collapseConfig.popup[i]
     checkButton:SetID(i)
     local scale = 1.8
     checkButton:SetScale(scale)
-    checkButton:SetPoint("BOTTOM", elevationTitle, "TOP", (-95 + (i - 1) * 96)/scale, 30/scale)
+    checkButton:SetPoint("TOP", elevationTitle, "BOTTOM", (-95 + (i - 1) * 96)/scale, -12/scale)
+    checkButton.icon:SetTexture(pngTable[i])
     checkButton:SetScript("OnClick", function(self)
         if self:GetChecked() == true then
             AngleurBobberScanner_CheckMethod(self:GetID())
         elseif self:GetChecked() == false then
             self:SetChecked(true)
         end
+    end)
+    checkButton:SetScript("OnEnter", function()
+        GameTooltip:SetOwner(checkButton, "ANCHOR_TOPRIGHT", 0, 0)
+        GameTooltip:AddLine(tooltipTable[i].title)
+        GameTooltip:AddLine(tooltipTable[i].text)
+        GameTooltip:Show()
+    end)
+    checkButton:SetScript("OnLeave", function()
+        GameTooltip:Hide()
     end)
 end
 
@@ -251,6 +282,19 @@ collapseConfig.popup.startDelay:SetCallback(function(value, isUserInput)
     AngleurBobberScannerUI.startDelay = tonumber(formatted)
     loadUserSettings()
 end)
+
+-- collapseConfig.popup.disableWarning.text:SetText(T["Disable Wall Warning"])
+-- collapseConfig.popup.disableWarning.text.tooltip = T["When unchecked, Bobber Scanner warn you with a chat message when your " 
+-- .. "Camera Zoom changes during scan(when it's not supposed to). It's usually due to a wall that's behind you, and it is recommended to " 
+-- .. "keep the warning \'enabled\' so you can know when a fishing spot might cause issues."]
+-- collapseConfig.popup.disableWarning:reposition()
+-- collapseConfig.popup.disableWarning:SetScript("OnClick", function(self)
+--     if self:GetChecked() then
+--         AngleurBobberScannerUI.disableWarning = true
+--     elseif self:GetChecked() == false then
+--         AngleurBobberScannerUI.disableWarning = false
+--     end
+-- end)
 --______________________________________________
 --______________________________________________
 
@@ -270,7 +314,9 @@ EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ow
     collapseConfig.popup.scanWidth:SetupSlider(5, 100, AngleurBobberScannerUI.scanWidth * 100, 5, T["Scan Width"])
     collapseConfig.popup.scanSpeed:SetupSlider(1, 10, AngleurBobberScannerUI.scanSpeed * 10, 1, T["Scan Speed"])
     collapseConfig.popup.startDelay:SetupSlider(0.1, 5, AngleurBobberScannerUI.startDelay, 0.1, T["Start Delay"])
-
+    -- if AngleurBobberScannerUI.disableWarning == true then
+    --     collapseConfig.popup.disableWarning:SetChecked(true)
+    -- end
 end)
 EventRegistry:RegisterCallback("Angleur_StopFishing", function()
     if active then
@@ -309,13 +355,24 @@ end)
 --_______________________________________________________________________
 --                     CAMERA FRAME CODE - MOVEMENT
 --_______________________________________________________________________
+local setupZoom
 function cameraFrame:stopAll()
+    -- local zoomNow = GetCameraZoom()
+    -- if setupZoom and zoomNow ~= setupZoom then
+    --     print("Angleur Bobber Scanner : WARNING! Camera Zoom changed during scan. "
+    --     .. "This can (and will) disrupt success of the bobber scanner, and is likely "
+    --     .. "due to a wall or some other game world object behind your character. To fix this, " 
+    --     .. "either move to a clearing, or lower the \'Max Camera Distance\' in "
+    --     .. "the Game's Options under Options->Gameplay->Controls->Camera."
+    --     .. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the gear icon next to the mouse drop-off box.")
+    -- end
     MoveViewRightStop()
     MoveViewLeftStop()
     MoveViewDownStop()
     MoveViewUpStop()
     MoveViewOutStop()
     active = false
+    setupZoom = nil
     self:SetScript("OnUpdate", nil)
     self:SetScript("OnEvent", nil)
     timeOutFrame:SetScript("OnUpdate", nil)
@@ -395,6 +452,7 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
             Angleur_BetaPrint("Setup Phase Over")
             MoveViewRightStart(0)
             MoveViewUpStart(0)
+            setupZoom = GetCameraZoom()
             local lineswap_time = verticalTime / lines
             Angleur_BetaPrint("line time", lineswap_time)
             self:SetScript("OnEvent", checkCursor)
@@ -459,6 +517,7 @@ function Angleur_BobberScanner()
     Angleur_BetaPrint("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
     local lines = V_LINES * V_DIST_MULTIPLIER
     active = true
+    setupZoom = nil
     Angleur_SetCursorForGamePad(true)
     cameraFrame:setup(lines, vTime, hTime, false, zoomFactor_vOffset)
     scannerArea:Adjust()

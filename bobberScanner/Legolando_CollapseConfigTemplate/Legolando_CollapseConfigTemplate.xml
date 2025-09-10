@@ -85,18 +85,6 @@
                 </Layers>
                 <Frames>
                     <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
-                    <!-- <CheckButton parentKey="checkbox1" inherits="Legolando_CheckboxTemplate_Angleur">
-                        <Size x="26" y="26"/>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="8" y="-5"/>
-                        </Anchors>
-                    </CheckButton>
-                    <CheckButton parentKey="checkbox2" inherits="Legolando_CheckboxTemplate_Angleur">
-                        <Size x="26" y="26"/>
-                        <Anchors>
-                            <Anchor point="TOPLEFT" relativeKey="$parent.title" relativePoint="BOTTOMLEFT" x="8" y="-29"/>
-                        </Anchors>
-                    </CheckButton> -->
                     <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
@@ -121,6 +109,11 @@
                             </Layer>
                         </Layers>
                     </Frame>
+                    <!-- <CheckButton name="$parent_DisableWarning" parentKey="disableWarning" inherits="CheckboxTemplate_Angleur">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="18" y="15"/>
+                        </Anchors>
+                    </CheckButton> -->
                     <Button name="$parent_Defaults" parentKey="defaults" text="Reset" inherits="IconButtonTemplate">
                         <Size x="42" y="42"/>
                         <Anchors>

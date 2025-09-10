@@ -629,7 +629,7 @@ T["Shows how far the camera will move downward from the \'Centered Position\' to
 .. colorWhite:WrapTextInColorCode("to start the scan.\nAmount is based on your ") .. colorYello:WrapTextInColorCode("Max Zoom ") 
 .. "and\nchosen" .. colorYello:WrapTextInColorCode("\'Elevation\' ") ..  colorGrae:WrapTextInColorCode("(Bobber Scanner Menu)")
 
-T["ELEVATION"] = "ELEVATION"
+T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("ELEVATION:")
 T["Reset to Defaults"] = "Reset to Defaults"
 
 T["Bobber Scan: Scan unsuccessful. Try changing the \'Elevation\' setting, "
@@ -642,3 +642,40 @@ T["Scan Width"] = colorYello:WrapTextInColorCode("Scan Width")
 T["Scan Speed"] = colorYello:WrapTextInColorCode("Scan Speed")
 T["Start Delay"] = colorYello:WrapTextInColorCode("Start Delay")
 T["sec"] = "sec"
+
+
+T["Same Elevation"] = "Same Elevation"
+T["Use this when you are on the same level as the water, or close to it."] = colorWhite:WrapTextInColorCode("Use this when you are on the same level as the water, or close to it.")
+
+T["Lower Elevation"] = "Lower Elevation"
+T["Use this when the water is lower level than you."] = colorWhite:WrapTextInColorCode("Use this when the water is lower level than you.")
+
+T["Inside Water"] = "Inside Water"
+T["Use this when you are inside the water, making the bobber land higher than you."] = colorWhite:WrapTextInColorCode("Use this when you are inside the water, making the bobber land higher than you.")
+
+T["Both"] = "Both"
+T["Use this if you are fishing in a spot where the elevation constantly changes from level to lower and vice versa." 
+.. " The scan covers twice the height as usual, thus taking twice as long."] = colorWhite:WrapTextInColorCode("Use this if you are fishing in a spot where the elevation\nconstantly changes ")
+.. colorWhite:WrapTextInColorCode("from ") .. "same " .. colorWhite:WrapTextInColorCode("to ") .. "lower, " .. colorWhite:WrapTextInColorCode("and vice versa.\n\n") 
+.. colorWhite:WrapTextInColorCode("The scan covers twice the height as usual, thus taking twice as long.")
+
+T["Angleur Bobber Scanner : WARNING! Camera Zoom changed during scan. "
+.. "This can (and will) disrupt success of the bobber scanner, and is likely "
+.. "due to a wall or some other game world object behind your character. To fix this, " 
+.. "either move to a clearing, or lower the \'Max Camera Distance\' in "
+.. "the Game's Options under Options->Gameplay->Controls->Camera."
+.. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the gear icon next to the mouse drop-off box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner :" )
+.. colorRed:WrapTextInColorCode(" WARNING! ") .. colorYello:WrapTextInColorCode("Camera Zoom ") 
+.. "changed during scan. " .. "This can (and will) disrupt success of the bobber scanner, and is likely "
+.. "due to a wall or some other game world object " .. colorYello:WrapTextInColorCode("behind your character. ") .. "To fix this, " 
+.. "either move to a clearing, or lower the " .. colorYello:WrapTextInColorCode("\'Max Camera Distance\' ") 
+.. "in the Game's Options under " .. "Options" .. colorYello:WrapTextInColorCode("->") .. "Gameplay" .. colorYello:WrapTextInColorCode("->") 
+.. "Controls" .. colorYello:WrapTextInColorCode("->") .. "Camera." .. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the " 
+.. colorYello:WrapTextInColorCode("gear icon ") .. "next to the mouse drop-off box."
+
+T["Disable Wall Warning"] = "Disable Wall Warning"
+T["When unchecked, Bobber Scanner warn you with a chat message when your " 
+.. "Camera Zoom changes during scan(when it's not supposed to). It's usually due to a wall that's behind you, and it is recommended to " 
+.. "keep the warning \'enabled\' so you can know when a fishing spot might cause issues."] = "When unchecked, Bobber Scanner warn you with a chat message when your " 
+.. colorYello:WrapTextInColorCode("Camera Zoom ") .. "changes during scan(when it's not supposed to).\n\nIt's usually due to a wall that's behind you, and it is " 
+.. colorYello:WrapTextInColorCode("recommended ") .. "to " .. "keep the warning " .. colorGreen:WrapTextInColorCode("\'enabled\' ") .. "so you can know when a fishing spot might cause issues."
