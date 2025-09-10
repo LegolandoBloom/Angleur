@@ -220,7 +220,7 @@ function AngleurBobberScanner_CheckMethod(id)
     loadUserSettings()
 end
 local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "GameFontHighlightHugeOutline2")
-elevationTitle:SetPoint("TOPLEFT", collapseConfig.popup, "TOPLEFT", 100, -50)
+elevationTitle:SetPoint("TOPLEFT", collapseConfig.popup, "TOPLEFT", 130, -50)
 elevationTitle:SetText(T["ELEVATION:"])
 
 local pngTable = {
@@ -242,7 +242,7 @@ for i=1,4,1 do
     checkButton:SetID(i)
     local scale = 1.8
     checkButton:SetScale(scale)
-    checkButton:SetPoint("TOP", elevationTitle, "BOTTOM", (-95 + (i - 1) * 96)/scale, -12/scale)
+    checkButton:SetPoint("TOP", elevationTitle, "BOTTOM", (-125 + (i - 1) * 85)/scale, -12/scale)
     checkButton.icon:SetTexture(pngTable[i])
     checkButton:SetScript("OnClick", function(self)
         if self:GetChecked() == true then
