@@ -120,7 +120,7 @@ function cata:ExtraButtons(tab1contents)
 
     
     tab1contents.softInteract.text:SetText(T["Enable Soft Interact"])
-    local pictureTooltip = CreateFrame("GameTooltip", "AngleurSoftInteract_PictureTooltip", UIParent, "Angleur_LegolandoPictureTooltipTemplate")
+    local pictureTooltip = CreateFrame("GameTooltip", "AngleurSoftInteract_PictureTooltip", UIParent, "Legolando_PictureTooltipTemplate_Angleur")
     tab1contents.softInteract.text:SetScript("OnEnter", function()
         pictureTooltip:SetOwner(tab1contents.softInteract.text, "ANCHOR_BOTTOMRIGHT")
         pictureTooltip:AddLine(T["Soft Interact in Classic:"])
