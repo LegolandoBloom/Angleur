@@ -94,7 +94,7 @@ local addonsTable = {
             tooltipText = T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."],
         },
 }
-function OtherAddonsTest_OnLoad(self)
+function MyOtherAddons_OnLoad(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         --do nothing

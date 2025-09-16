@@ -98,7 +98,7 @@
         </Frames>
     </Button>
     
-    <Frame parent="Angleur_ThanksButton_ThanksFrame" name="OtherAddonsTest" inherits="Angleur_SimplePromotionTemplate">
+    <Frame name="MyOtherAddons" parent="Angleur_ThanksButton_ThanksFrame" inherits="Legolando_SimplePromotionTemplate_Angleur">
         <Anchors>
             <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMLEFT" x="25" y="20"/>
         </Anchors>
@@ -120,7 +120,7 @@
             </Layer>
         </Layers>
         <Scripts>
-            <OnLoad function="OtherAddonsTest_OnLoad"/>
+            <OnLoad function="MyOtherAddons_OnLoad"/>
         </Scripts>
     </Frame>
     
