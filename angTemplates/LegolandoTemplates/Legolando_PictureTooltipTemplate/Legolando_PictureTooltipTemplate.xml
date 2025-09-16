@@ -1,0 +1,25 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    
+    <Script file="Legolando_PictureTooltipTemplate.lua"/>
+    
+    <GameTooltip name= "Legolando_PictureTooltipTemplate_Angleur" mixin="Legolando_PictureTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
+        <KeyValues>
+            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
+            <KeyValue key="paddingL" value="0" type="number"/>
+            <KeyValue key="paddingB" value="0" type="number"/>
+            <KeyValue key="paddingR" value="0" type="number"/>
+            <KeyValue key="paddingT" value="0" type="number"/>
+        </KeyValues>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture">
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnShow inherit="append" method="OnShow"/>
+            <OnHide inherit="append" method="OnHide"/>
+        </Scripts>
+    </GameTooltip>
+</Ui>

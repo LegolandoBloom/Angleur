@@ -81,43 +81,7 @@ end
 -- ____________________________________[2]______________________________________________
 --  Generalized Templates made by Legolando, to be used in this library
 -- ____________________________________[2]______________________________________________
-Legolando_LegolandoPictureTooltipMixin_Angleur = {}
 
-function Legolando_LegolandoPictureTooltipMixin_Angleur:OnShow()
-
-end
-
-function Legolando_LegolandoPictureTooltipMixin_Angleur:PlaceTexture(texturePath, pictureWidth, pictureHeight, anchor)
-    if not texturePath then return end
-    self.texture:ClearAllPoints()
-    self.texture:SetTexture(texturePath)
-    self.texture:SetSize(pictureWidth, pictureHeight)
-    self.texture:SetPoint(anchor, self, anchor)
-    local width, height = self:GetSize()
-    local extraWidth = 0
-    local extraHeight = 0
-    -- + 16 is needed due to the offset of 8 in SetPoint
-    if pictureWidth + 16 > width then extraWidth = pictureWidth - width + 16 end
-    if pictureHeight + 16 > height then extraHeight = pictureHeight - height + 16 end
-    if anchor == "TOPLEFT" then
-        self.texture:SetPoint(anchor, self, anchor, 8, -8)
-        self:SetPadding(extraWidth, 0, 0, pictureHeight)
-    elseif anchor == "TOPRIGHT" then
-        self.texture:SetPoint(anchor, self, anchor, -8, -8)
-        self:SetPadding(pictureWidth, extraHeight, 0, 0)
-    elseif anchor == "BOTTOMLEFT" then
-        self.texture:SetPoint(anchor, self, anchor, 8, 8)
-        self:SetPadding(extraWidth, pictureHeight, 0, 0)
-    elseif anchor == "BOTTOMRIGHT" then
-        self.texture:SetPoint(anchor, self, anchor, -8, 8)
-        self:SetPadding(pictureWidth, extraHeight, 0, 0)
-    end
-end
-
-function Legolando_LegolandoPictureTooltipMixin_Angleur:OnHide()
-    self.texture:SetTexture(nil)
-    self.texture:ClearAllPoints()
-end
 -- ____________________________________[2]______________________________________________
 -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -127,9 +91,9 @@ end
 -- ____________________________________[3]______________________________________________
 --  Templates made by Legolando, specifically for this lib
 -- ____________________________________[3]______________________________________________
-Legolando_LegolandoAddonButtonMixin_Angleur = {}
+Legolando_AddonButtonMixin_Angleur = {}
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:OnLoad()
+function Legolando_AddonButtonMixin_Angleur:OnLoad()
     local stack = debugstack()
     local _, _, luafilepath = string.find(stack, "[%[](.-)[%]]")
     -- print("lue file's path: ", luafilepath)
@@ -148,11 +112,11 @@ function Legolando_LegolandoAddonButtonMixin_Angleur:OnLoad()
     self.frameTexture:SetTexture(imagePath)
 end
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:OnClick()
+function Legolando_AddonButtonMixin_Angleur:OnClick()
     self.linkBox:Show()
 end
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:OnEnter()
+function Legolando_AddonButtonMixin_Angleur:OnEnter()
     local size = self:GetSize()
     Legolando_SimplePromotionTooltip_Angleur:SetOwner(self, "ANCHOR_BOTTOMRIGHT", size/10, (size/12)*14)
     Legolando_SimplePromotionTooltip_Angleur:AddLine(self.tooltipTitle)
@@ -162,11 +126,11 @@ function Legolando_LegolandoAddonButtonMixin_Angleur:OnEnter()
 end
 
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:OnLeave()
+function Legolando_AddonButtonMixin_Angleur:OnLeave()
     Legolando_SimplePromotionTooltip_Angleur:Hide()
 end
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:Clear()
+function Legolando_AddonButtonMixin_Angleur:Clear()
     self.text:SetText(nil)
     self.Icon:SetTexture(nil)
     self.link = nil
@@ -178,7 +142,7 @@ function Legolando_LegolandoAddonButtonMixin_Angleur:Clear()
     self.tooltipText = nil
 end
 
-function Legolando_LegolandoAddonButtonMixin_Angleur:Update()
+function Legolando_AddonButtonMixin_Angleur:Update()
     local grandParent = self:GetParent():GetParent()
     local index = (grandParent.PagingFrame:GetCurrentPage() - 1) * grandParent.addonsPerPage + self:GetID()
     local addonsTable = grandParent.addonsTable
@@ -244,7 +208,7 @@ function Legolando_SimplePromotionMixin_Angleur:SetupButtons()
         for j = 1, columns do
             local id = (i-1)*columns + j
             local parentKey = "addonButton" .. id
-            addonsFrame[parentKey] = CreateFrame("Button", nil, addonsFrame, "Legolando_LegolandoAddonButtonTemplate_Angleur", id)
+            addonsFrame[parentKey] = CreateFrame("Button", nil, addonsFrame, "Legolando_AddonButtonTemplate_Angleur", id)
             addonsFrame[parentKey]:SetPoint("TOPLEFT", addonsFrame, "TOPLEFT", (j-1)*(buttonSize + spaceBetweenColumns), -1*(i-1)*(buttonSize + spaceBetweenLines))
             addonsFrame[parentKey]:SetSize(buttonSize, buttonSize)
             addonsFrame[parentKey].Icon:SetSize(buttonSize, buttonSize)

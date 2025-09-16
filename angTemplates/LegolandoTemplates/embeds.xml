@@ -4,6 +4,7 @@
     <Script file="Legolando_HelpTipTemplate\Legolando_HelpTipTemplate.lua"/>
     <Include file="Legolando_HelpTipTemplate\Legolando_HelpTipTemplate.xml"/>
 
+    <Include file="Legolando_PictureTooltipTemplate\Legolando_PictureTooltipTemplate.xml"/>
     <Include file="Legolando_SimplePromotionTemplate\Legolando_SimplePromotionTemplate.xml"/>
 
     <Include file="Legolando_KeybindButtonTemplate\Legolando_KeybindButtonTemplate.xml"/>

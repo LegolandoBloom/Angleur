@@ -1,8 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+    <!-- REQUIRES Legolando_PictureTooltipTemplate TO WORK -->
 
     <Script file="Legolando_SimplePromotionTemplate.lua"/>
 
@@ -73,25 +72,8 @@
     <!-- ____________________________________[2]______________________________________________ -->
     <!--        Generalized Templates made by Legolando, to be used in this library            -->
     <!-- ____________________________________[2]______________________________________________ -->
-    <GameTooltip name= "Legolando_LegolandoPictureTooltipTemplate_Angleur" mixin="Legolando_LegolandoPictureTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
-        <KeyValues>
-            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
-            <KeyValue key="paddingL" value="0" type="number"/>
-            <KeyValue key="paddingB" value="0" type="number"/>
-            <KeyValue key="paddingR" value="0" type="number"/>
-            <KeyValue key="paddingT" value="0" type="number"/>
-        </KeyValues>
-        <Layers>
-            <Layer level="ARTWORK">
-                <Texture name="$parent_Texture" parentKey="texture">
-                </Texture>
-            </Layer>
-        </Layers>
-        <Scripts>
-            <OnShow inherit="append" method="OnShow"/>
-            <OnHide inherit="append" method="OnHide"/>
-        </Scripts>
-    </GameTooltip>
+
+
     <!-- ____________________________________[2]______________________________________________ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -100,8 +82,8 @@
     <!-- ____________________________________[3]______________________________________________ -->
     <!--               Templates made by Legolando, specifically for this lib                  -->
     <!-- ____________________________________[3]______________________________________________ -->
-    <GameTooltip name= "Legolando_SimplePromotionTooltip_Angleur" scale="0.8" inherits="Legolando_LegolandoPictureTooltipTemplate_Angleur"/>
-    <Button name="Legolando_LegolandoAddonButtonTemplate_Angleur" mixin="Legolando_LegolandoAddonButtonMixin_Angleur" inherits="IconButtonTemplate" virtual="true">
+    <GameTooltip name= "Legolando_SimplePromotionTooltip_Angleur" scale="0.8" inherits="Legolando_PictureTooltipTemplate_Angleur"/>
+    <Button name="Legolando_AddonButtonTemplate_Angleur" mixin="Legolando_AddonButtonMixin_Angleur" inherits="IconButtonTemplate" virtual="true">
         <Size x="36" y="36"/>
         <KeyValues>
             <KeyValue key="iconSize" value="36" type="number"/>
