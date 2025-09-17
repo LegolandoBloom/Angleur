@@ -113,7 +113,6 @@ function Angleur_SetTab3(self)
         cata:SetDefaultsButtonScript(self)
     end
     
-
     self.redoTutorial.title:SetText(T["Redo Tutorial"])
     self.redoTutorial.icon:SetTexture("Interface/BUTTONS/UI-RefreshButton")
     self.redoTutorial.icon:SetTexCoord(0, 1, 0, 1)
