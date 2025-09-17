@@ -93,7 +93,7 @@ end
 -- ____________________________________[3]______________________________________________
 Legolando_AddonButtonMixin_Angleur = {}
 
-function Legolando_AddonButtonMixin_Angleur:OnLoad()
+local function getFolderPath()
     local stack = debugstack()
     local _, _, luafilepath = string.find(stack, "[%[](.-)[%]]")
     -- print("lue file's path: ", luafilepath)
@@ -108,7 +108,12 @@ function Legolando_AddonButtonMixin_Angleur:OnLoad()
     -- print("part to remove: ", lastPart)
     local afterRemoval = string.gsub(luafilepath, lastPart, "")
     -- print("After removal: ", afterRemoval)
-    local imagePath = afterRemoval .. "/otheraddonsframe.png"
+    return afterRemoval
+end
+
+function Legolando_AddonButtonMixin_Angleur:OnLoad()
+    local folderPath = getFolderPath()
+    local imagePath =  folderPath .. "/otheraddonsframe.png"
     self.frameTexture:SetTexture(imagePath)
 end
 
