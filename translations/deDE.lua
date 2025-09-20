@@ -543,3 +543,130 @@ T["Heat-Treated Spinning Lure"] = "Heat-Treated Spinning Lure"
 
 -- Major rework to eqMan
 T["The following slotted items could not be added to your Angleur Equipment Set: "] = "The following slotted items could not be added to your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set ") .. ":"
+
+-- Recast Key
+T["Enable Recast Key"] = "Enable Recast Key"
+T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "VERSION UPDATED. " .. "Please re-set your " .. colorYello:WrapTextInColorCode("\'OneKey\' ") .. "from the " .. colorYello:WrapTextInColorCode("Config Panel.")
+
+
+-- New soft interact system for classic
+T["Enable Soft Interact"] = "Enable Soft Interact"
+
+T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."
+
+T["Warning Sound"] = "Warning Sound"
+T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Plays a " .. colorYello:WrapTextInColorCode("warning sound ") .. "when the bobber lands too far for the soft interact system to capture."
+
+T["Recast When OOB"] = "Recast When OOB"
+T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Sets the " 
+.. colorRed:WrapTextInColorCode("OneKey") .. " / " .. colorRed:WrapTextInColorCode("Double-Click ") .. "to " .. colorYello:WrapTextInColorCode("Recast ") .. "when the bobber lands too far for the soft interact system to capture."
+
+T["Soft Interact in Classic:"] = "Soft Interact in Classic:"
+
+T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fail to catch the bobber when it lands too far.(Demonstrated in the picture)" 
+.. "\n\nAngleur is designed to provide workarounds for this. Once enabled, please check out the options that appear below."] = "Due to a limitation in Classic,\nthe " .. colorYello:WrapTextInColorCode("\'soft interact system\' ") 
+.. "can sometimes fail to catch the bobber when it lands too far." .. colorGrae:WrapTextInColorCode("\n(Demonstrated in the picture)") .. colorBlu:WrapTextInColorCode("\n\nAngleur ") 
+.. "is designed to provide workarounds for this. Once enabled, please check out the " .. colorYello:WrapTextInColorCode("options that appear below.")
+
+-- Bobber scanner for classic
+T["Bobber Scanner(EXPERIMENTAL)"] = "Bobber Scanner\n" .. colorBlu:WrapTextInColorCode("(EXPERIMENTAL)")
+T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT " 
+.."use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n" 
+.."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"] = "Manually " 
+.. "scans for the bobber by moving the camera in a grid.\n\n" .. colorYello:WrapTextInColorCode("DIZZY WARNING:") .. colorRed:WrapTextInColorCode("\nDo NOT ") 
+.. "use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n"
+.. "This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"
+
+
+T["Bobber Scanner - Dizzy Warning"] = "Bobber Scanner - Dizzy Warning"
+T["Do not " 
+.."use this feature if you are sensitive to\nrapid movement " 
+.. "or any form of fast graphical\nchange. Such as but not limited " 
+.. "to:\nPhotosensitive Epilepsy, Vertigo..."] = "Do not " 
+.."use this feature if you are sensitive to\nrapid movement " 
+.. "or any form of fast graphical\nchange. Such as but not limited " 
+.. "to:\n" .. colorYello:WrapTextInColorCode("Photosensitive Epilepsy, Vertigo...")
+
+
+-- gamepad support for bobber scanner
+
+T["Angleur Bobber Scanner: Gamepad Cursor has been enabled. Please move it to the indicated area to start using."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner:") 
+.. colorYello:WrapTextInColorCode(" Gamepad Cursor ") .. "has been enabled. Please move it to the " .. colorRed:WrapTextInColorCode("indicated area ") 
+.. "to start using."
+
+T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."] = colorPurple:WrapTextInColorCode("GAMEPAD MODE:\n") 
+.. "After casting " .. colorBlu:WrapTextInColorCode("\'fishing\'") .. ", move the cursor\nthat appears into the " 
+.. colorRed:WrapTextInColorCode("box below ") .. "to use."
+
+T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner: ")
+.. "Gamepad Detected! " .. "Cast " .. colorYello:WrapTextInColorCode("fishing ") .. "once to trigger " 
+.. colorYello:WrapTextInColorCode("cursor mode") .. ", then place it in the " .. colorRed:WrapTextInColorCode("indicated box.")
+
+
+T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner: ")
+.. "Please move the Gamepad " .. colorYello:WrapTextInColorCode("Cursor ") .. "that appears into the " .. colorRed:WrapTextInColorCode("inticated box.")
+
+
+-- Bobber Scanner Config
+
+T["Bobber Scanner Configuration"] = "Bobber Scanner Configuration"
+T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. " 
+.. "Amount is based on your Max Zoom and chosen \'Elevation\'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("Shows ") 
+.. colorDarkRed:WrapTextInColorCode("how far ") .. colorWhite:WrapTextInColorCode("the camera will move ") .. colorDarkRed:WrapTextInColorCode("downward\n") 
+.. colorWhite:WrapTextInColorCode("from the ") .. colorYello:WrapTextInColorCode("\'Centered Position\' ")
+.. colorWhite:WrapTextInColorCode("to start the scan.\nAmount is based on your ") .. colorYello:WrapTextInColorCode("Max Zoom ") 
+.. "and\nchosen" .. colorYello:WrapTextInColorCode("\'Elevation\' ") ..  colorGrae:WrapTextInColorCode("(Bobber Scanner Menu)")
+
+T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("ELEVATION:")
+T["Reset to Defaults"] = "Reset to Defaults"
+
+T["Bobber Scan: Scan unsuccessful. Try changing the \'Elevation\' setting, "
+.. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("Bobber Scan: ") 
+.. "Scan unsuccessful." .. " Try changing the " .. colorYello:WrapTextInColorCode("\'Elevation\' ") .. "setting, " .. "or the width of the search area in the Scanner menu by clicking the " 
+.. colorYello:WrapTextInColorCode("Gear ") .. "icon next to the mouse " .. colorGreen:WrapTextInColorCode("drop") .. colorRed:WrapTextInColorCode("-off ") 
+.. "box."
+
+T["Scan Width"] = colorYello:WrapTextInColorCode("Scan Width")
+T["Scan Speed"] = colorYello:WrapTextInColorCode("Scan Speed")
+T["Start Delay"] = colorYello:WrapTextInColorCode("Start Delay")
+T["sec"] = "sec"
+
+
+T["Same Elevation"] = "Same Elevation"
+T["Use this when you are on the same level as the water, or close to it."] = colorWhite:WrapTextInColorCode("Use this when you are on the same level as the water, or close to it.")
+
+T["Lower Elevation"] = "Lower Elevation"
+T["Use this when the water is lower level than you."] = colorWhite:WrapTextInColorCode("Use this when the water is lower level than you.")
+
+T["Inside Water"] = "Inside Water"
+T["Use this when you are inside the water, making the bobber land higher than you."] = colorWhite:WrapTextInColorCode("Use this when you are inside the water, making the bobber land higher than you.")
+
+T["Both"] = "Both"
+T["Use this if you are fishing in a spot where the elevation constantly changes from level to lower and vice versa." 
+.. " The scan covers twice the height as usual, thus taking twice as long."] = colorWhite:WrapTextInColorCode("Use this if you are fishing in a spot where the elevation\nconstantly changes ")
+.. colorWhite:WrapTextInColorCode("from ") .. "same " .. colorWhite:WrapTextInColorCode("to ") .. "lower, " .. colorWhite:WrapTextInColorCode("and vice versa.\n\n") 
+.. colorWhite:WrapTextInColorCode("The scan covers twice the height as usual, thus taking twice as long.")
+
+T["Angleur Bobber Scanner : WARNING! Camera Zoom changed during scan. "
+.. "This can (and will) disrupt success of the bobber scanner, and is likely "
+.. "due to a wall or some other game world object behind your character. To fix this, " 
+.. "either move to a clearing, or lower the \'Max Camera Distance\' in "
+.. "the Game's Options under Options->Gameplay->Controls->Camera."
+.. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the gear icon next to the mouse drop-off box."] = colorBlu:WrapTextInColorCode("Angleur Bobber Scanner :" )
+.. colorRed:WrapTextInColorCode(" WARNING! ") .. colorYello:WrapTextInColorCode("Camera Zoom ") 
+.. "changed during scan. " .. "This can (and will) disrupt success of the bobber scanner, and is likely "
+.. "due to a wall or some other game world object " .. colorYello:WrapTextInColorCode("behind your character. ") .. "To fix this, " 
+.. "either move to a clearing, or lower the " .. colorYello:WrapTextInColorCode("\'Max Camera Distance\' ") 
+.. "in the Game's Options under " .. "Options" .. colorYello:WrapTextInColorCode("->") .. "Gameplay" .. colorYello:WrapTextInColorCode("->") 
+.. "Controls" .. colorYello:WrapTextInColorCode("->") .. "Camera." .. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the " 
+.. colorYello:WrapTextInColorCode("gear icon ") .. "next to the mouse drop-off box."
+
+T["Disable Wall Warning"] = "Disable Wall Warning"
+T["When unchecked, Bobber Scanner warn you with a chat message when your " 
+.. "Camera Zoom changes during scan(when it's not supposed to). It's usually due to a wall that's behind you, and it is recommended to " 
+.. "keep the warning \'enabled\' so you can know when a fishing spot might cause issues."] = "When unchecked, Bobber Scanner warn you with a chat message when your " 
+.. colorYello:WrapTextInColorCode("Camera Zoom ") .. "changes during scan(when it's not supposed to).\n\nIt's usually due to a wall that's behind you, and it is " 
+.. colorYello:WrapTextInColorCode("recommended ") .. "to " .. "keep the warning " .. colorGreen:WrapTextInColorCode("\'enabled\' ") .. "so you can know when a fishing spot might cause issues."
+
+T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"] = "Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"

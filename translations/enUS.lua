@@ -679,3 +679,5 @@ T["When unchecked, Bobber Scanner warn you with a chat message when your "
 .. "keep the warning \'enabled\' so you can know when a fishing spot might cause issues."] = "When unchecked, Bobber Scanner warn you with a chat message when your " 
 .. colorYello:WrapTextInColorCode("Camera Zoom ") .. "changes during scan(when it's not supposed to).\n\nIt's usually due to a wall that's behind you, and it is " 
 .. colorYello:WrapTextInColorCode("recommended ") .. "to " .. "keep the warning " .. colorGreen:WrapTextInColorCode("\'enabled\' ") .. "so you can know when a fishing spot might cause issues."
+
+T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"] = "Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"
