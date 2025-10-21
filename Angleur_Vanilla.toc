@@ -2,7 +2,7 @@
 ## Title: Angleur - Classic Era/SoD
 ## Notes: Classic Version of the Ultimate One Button Fishing AddOn, Angleur!
 ## Notes-ruRU: Версия Classic Era/SoD лучшего дополнения для рыбалки одной кнопкой, Angleur!
-## Version: Angleur Classic - Angleur 2.2 - The Great Merge + Translation Support
+## Version: Angleur Classic - Angleur 2.5 - Bobber Scanner!
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars, AngleurClassic_CVars
