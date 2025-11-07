@@ -12,7 +12,7 @@ function retail:showShiny()
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     if not setID then return end
     if not PaperDollFrame.EquipmentManagerPane.ScrollBox.ScrollTarget then return end
-    scrollTargets = {PaperDollFrame.EquipmentManagerPane.ScrollBox.ScrollTarget:GetChildren()}
+    local scrollTargets = {PaperDollFrame.EquipmentManagerPane.ScrollBox.ScrollTarget:GetChildren()}
     local angleurSetFrame
     for i, v in pairs(scrollTargets) do
         if v.setID == setID then 

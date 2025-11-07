@@ -1,3 +1,4 @@
+---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
@@ -131,7 +132,7 @@ local midFishing = false
 local bobberWithinRange = false
 
 local function CheckTable(table ,spell)
-    matchFound = false
+    local matchFound = false
     for i, value in pairs(table) do
         if spell == value then
             matchFound = true
@@ -374,9 +375,9 @@ logicVarFrame:SetScript("OnEvent", Angleur_LogicVariableHandler)
 --***********[~]**********
 
 local auraIDHolders = {
-    raft,
-    oversizedBobber,
-    crateBobber
+    raft = nil,
+    oversizedBobber = nil,
+    crateBobber = nil,
 }
 
 local rafted = false

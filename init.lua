@@ -7,26 +7,26 @@ angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(frameP
 end)
 
 AngleurConfig = {
-    angleurKey,
-    angleurKey_Base,
-    raftEnabled,
+    angleurKey = nil,
+    angleurKey_Base = nil,
+    raftEnabled = nil,
     chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
-    baitEnabled,
+    baitEnabled = nil,
     chosenBait = {itemID = 0, name = 0, dropDownID = 0},
-    oversizedEnabled,
-    crateEnabled,
+    oversizedEnabled = nil,
+    crateEnabled = nil,
     chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
-    chosenMethod,
+    chosenMethod = nil,
     doubleClickChosenID = 2,
-    recastEnabled,
-    recastKey,
-    visualHidden,
-    visualLocation,
-    ultraFocusAudioEnabled,
-    ultraFocusAutoLootEnabled,
-    ultraFocusTurnOffInteract,
-    ultraFocusingAudio,
-    ultraFocusingAutoLoot,
+    recastEnabled = nil,
+    recastKey = nil,
+    visualHidden = nil,
+    visualLocation = nil,
+    ultraFocusAudioEnabled = nil,
+    ultraFocusAutoLootEnabled = nil,
+    ultraFocusTurnOffInteract = nil,
+    ultraFocusingAudio = nil,
+    ultraFocusingAutoLoot = nil,
 }
 
 AngleurClassicConfig = {
@@ -44,15 +44,15 @@ AngleurCharacter = {
 }
 
 Angleur_CVars = {
-    ultraFocus = {musicOn, ambienceOn, dialogOn, effectsOn,  effectsVolume, masterOn, masterVolume, backgroundOn},
-    autoLoot
+    ultraFocus = {musicOn = nil, ambienceOn = nil, dialogOn = nil, effectsOn = nil,  effectsVolume = nil, masterOn = nil, masterVolume = nil, backgroundOn = nil},
+    autoLoot = nil
 }
 AngleurClassic_CVars = {
-    softInteract,
+    softInteract = nil,
 }
 
 AngleurMinimapButton = {
-    hide
+    hide = nil
 }
 
 Angleur_TinyOptions = {

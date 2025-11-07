@@ -22,7 +22,7 @@ local fishingPoleTableVanilla = AngleurVanilla_FishingPoleTable
 -- _____________________________________________________________ General Functions__________________________________________________________________________________________
 -- _________________________________________________________Used many times throughout eqMan________________________________________________________________________________
 local function CheckTable(teeburu, itemID)
-    matchFound = false
+    local matchFound = false
     for i, value in pairs(teeburu) do
         if itemID == value then
             matchFound = true
@@ -51,7 +51,7 @@ local function getItemLinkEquipped(equipmentSlotIndex)
     itemLocation:Clear()
     return link
 end
-function getItemGUIDEquiped(equipmentSlotIndex)
+local function getItemGUIDEquiped(equipmentSlotIndex)
     local inventoryItemID = GetInventoryItemID("player", equipmentSlotIndex)
     if not inventoryItemID then return nil end
     itemLocation:SetEquipmentSlot(equipmentSlotIndex)
@@ -664,7 +664,7 @@ local function handleOffhandSwapout(itemIDs)
     end
 end
 local function fillSwapoutTable(setID)
-    itemIDs = C_EquipmentSet.GetItemIDs(setID)
+    local itemIDs = C_EquipmentSet.GetItemIDs(setID)
     Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("fillSwapoutTable ") .. ": Table ItemIDs:")
     Angleur_BetaTableToString(itemIDs)
     handleOffhandSwapout(itemIDs)

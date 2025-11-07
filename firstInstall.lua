@@ -53,12 +53,13 @@ local function platerWarning()
 end
 
 local alreadySet = false
+local angleurHelpTip
 function Angleur_FirstInstall()
     if alreadySet == false then
         
         angleurHelpTip = CreateFrame("Frame", "Angleur_HelpTip", Angleur.configPanel, "Legolando_HelpTipTemplate_Angleur")
         
-        angleurHelpTipCloseWarning = CreateFrame("Frame", "Angleur_HelpTip_CloseWarning", UIParent, "Legolando_HelpTipCloseWarning_Angleur")
+        local angleurHelpTipCloseWarning = CreateFrame("Frame", "Angleur_HelpTip_CloseWarning", UIParent, "Legolando_HelpTipCloseWarning_Angleur")
         angleurHelpTipCloseWarning.TitleText:SetText(T["Angleur Warning"])
         angleurHelpTipCloseWarning.mainText:SetText(T["Are you sure you want to abandon the tutorial?"])
         angleurHelpTipCloseWarning.otherText:SetText(T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"])
