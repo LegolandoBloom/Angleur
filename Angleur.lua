@@ -166,7 +166,7 @@ local function isChosenKeyDown()
     end
     return false
 end
-local warnedPLater = false
+local warnedPlater = false
 local function warnPlater()
     if warnedPlater then return end
     if Angleur_TinyOptions.turnOffSoftInteract == true then

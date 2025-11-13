@@ -1,8 +1,8 @@
 --Translator: Crazyyoungs
 
-if (GAME_LOCALE or GetLocale()) ~= "koKR" then
-  return
-end
+-- if (GAME_LOCALE or GetLocale()) ~= "koKR" then
+--   return
+-- end
 
 local T = Angleur_Translate
 
@@ -57,7 +57,7 @@ T["Standard"] = "기본"
     .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
     .. "using \none button."] = colorBlu:WrapTextInColorCode("시전 ") .. ", " .. colorBlu:WrapTextInColorCode("릴 ") 
     .. ",사용" .. colorPurple:WrapTextInColorCode("장난감") .. ", " .. colorBlu:WrapTextInColorCode(" 항목 및 구성된 매크로 ") 
-    .. "사용중 \버튼 없음."
+    .. "사용중 \n버튼 없음."
     
     T["Set your desired key by: "] = "원하는 키를 설정: "
     T["Clicking on the button\nthat appears below\nonce this option is selected."] = "버튼을 클릭하면\n아래에 나타나는\n단일 키 선택 해주세요."
