@@ -1,5 +1,12 @@
 local T = Angleur_Translate
 
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+ang.retail = {}
+ang.mists = {}
+ang.vanilla = {}
+
 angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
     frame:ClearAllPoints()
     frame:SetScript("OnUpdate", nil)

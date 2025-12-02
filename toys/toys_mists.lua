@@ -1,13 +1,16 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
-AngleurToysCata = {}
-local cata = AngleurToysCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+ang.mists.toys = {}
+local mistsToys = ang.mists.toys
 
 --________________________________________
 --____________SAME AS RETAIL______________
 --________________________________________
-function cata:setTableToSelectedTable(inputTable, selectedToyTable)
+function mistsToys:setTableToSelectedTable(inputTable, selectedToyTable)
     selectedToyTable.toyID = inputTable.toyID
     selectedToyTable.hasToy = true
     local item = Item:CreateFromItemID(inputTable.toyID)
@@ -22,7 +25,7 @@ function cata:setTableToSelectedTable(inputTable, selectedToyTable)
     end)
 end
 
-function cata:SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
+function mistsToys:SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
     local selection = {}
     for i, ownedToy in pairs(ownedToysTable) do
         selection = ownedToy
@@ -36,7 +39,7 @@ end
 --________________________________________
 
 local done = false
-function cata:AdjustCloseButton(extraToysFrame)
+function mistsToys:AdjustCloseButton(extraToysFrame)
     if done then return end
     extraToysFrame.first.closeButton:SetSize(29, 31)
     extraToysFrame.first.closeButton:AdjustPointsOffset(3, 4)
@@ -47,7 +50,7 @@ function cata:AdjustCloseButton(extraToysFrame)
     done = true
 end
 
-function cata:ToysStandardTab()
+function mistsToys:ToysStandardTab()
     if Angleur_CheckOwnedToys(angleurToys.selectedRaftTable, angleurToys.ownedRafts, angleurToys.raftPossibilities) then
         self:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
         --WHY? WHY HAVE I PUT THIS IN? CHECK LATER, SEEMS POINTLESS

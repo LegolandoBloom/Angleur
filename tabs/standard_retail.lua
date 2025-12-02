@@ -3,6 +3,10 @@ local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local retailToys = ang.retail.toys
+
 AngleurStandardPanelRetail = {}
 local retail = AngleurStandardPanelRetail
 
@@ -18,7 +22,7 @@ local function RaftDropDownOnClick(self)
     AngleurConfig.chosenRaft.dropDownID = self:GetID()
     --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
-    AngleurToysRetail:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    retailToys:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
 end
 
 local function CrateDropDownOnClick(self)
@@ -33,12 +37,12 @@ local function CrateDropDownOnClick(self)
         angleurToys.selectedCrateBobberTable.spellID = 0
         angleurToys.selectedCrateBobberTable.hasToy = false
         angleurToys.selectedCrateBobberTable.loaded = false
-        AngleurToysRetail:PickRandomBobber()
+        retailToys:PickRandomBobber()
     else
         AngleurConfig.chosenCrateBobber.toyID = angleurToys.ownedCrateBobbers[self:GetID()].toyID
         AngleurConfig.chosenCrateBobber.name = self:GetText()
         
-        AngleurToysRetail:SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
+        retailToys:SetSelectedToy(angleurToys.selectedCrateBobberTable, angleurToys.ownedCrateBobbers, AngleurConfig.chosenCrateBobber.toyID)
     end 
     --AngleurConfig.chosenCrateBobber.name = angleurToys.ownedCrateBobbers[self:GetID()].name --> Changed into the below for localisation
 end

@@ -1,5 +1,6 @@
 ---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)

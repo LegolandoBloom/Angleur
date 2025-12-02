@@ -1,14 +1,17 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
-AngleurToysRetail = {}
-local retail = AngleurToysRetail
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+ang.retail.toys = {}
+local retailToys = ang.retail.toys
 
 
 --________________________________________
 --____________SAME AS CATA______________
 --________________________________________
-function retail:setTableToSelectedTable(inputTable, selectedToyTable)
+function retailToys:setTableToSelectedTable(inputTable, selectedToyTable)
     selectedToyTable.toyID = inputTable.toyID
     selectedToyTable.hasToy = true
     local item = Item:CreateFromItemID(inputTable.toyID)
@@ -23,7 +26,7 @@ function retail:setTableToSelectedTable(inputTable, selectedToyTable)
     end)
 end
 
-function retail:SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
+function retailToys:SetSelectedToy(selectedToyTable, ownedToysTable, chosenByPlayer)
     local selection = {}
     for i, ownedToy in pairs(ownedToysTable) do
         selection = ownedToy
@@ -36,7 +39,7 @@ end
 --________________________________________
 --________________________________________
 
-function retail:ToysStandardTab()
+function retailToys:ToysStandardTab()
     if Angleur_CheckOwnedToys(angleurToys.selectedRaftTable, angleurToys.ownedRafts, angleurToys.raftPossibilities) then
         self:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
         --WHY? WHY HAVE I PUT THIS IN? CHECK LATER, SEEMS POINTLESS
@@ -58,8 +61,11 @@ function retail:ToysStandardTab()
     end
 end
 
+function ang.dupe()
+    print("floppy dude")
+end
 
-function retail:PickRandomBobber()
+function retailToys:PickRandomBobber()
     --angleurToys.selectedCrateBobberTable
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" then return end
     if next(angleurToys.ownedCrateBobbers) == nil then return end
@@ -82,6 +88,6 @@ randomBobberEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" then return end
     local arg4, arg5 = ...
     if event == "UNIT_SPELLCAST_SUCCEEDED" and arg5 == angleurToys.selectedCrateBobberTable.spellID then
-        retail:PickRandomBobber()
+        retailToys:PickRandomBobber()
     end
 end)

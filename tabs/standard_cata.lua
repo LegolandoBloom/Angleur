@@ -3,6 +3,10 @@ local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local mistsToys = ang.mists.toys
+
 AngleurStandardPanelCata = {}
 local cata = AngleurStandardPanelCata
 
@@ -47,7 +51,7 @@ local function RaftDropDownOnClick(self)
     AngleurConfig.chosenRaft.dropDownID = self:GetID()
     --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
-    AngleurToysCata:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    mistsToys:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
 end
 
 local raftTitleSet = false

@@ -32,7 +32,7 @@ angTemplates\embeds.xml
 init.lua
 AngleurCata.lua
 
-toys\toys_cata.lua
+toys\toys_mists.lua
 toys\toys_base.lua
 
 items\items_cata.lua

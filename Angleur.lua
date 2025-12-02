@@ -1,5 +1,10 @@
 ---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
+
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local retailToys = ang.retail.toys
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
@@ -475,6 +480,9 @@ function Angleur_ActionHandler(self)
                 self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedOversizedBobberTable.name)
                 self.visual.texture:SetTexture(angleurToys.selectedOversizedBobberTable.icon)
             elseif angleurToys.selectedCrateBobberTable.hasToy == true and AngleurConfig.crateEnabled and angleurToys.selectedCrateBobberTable.loaded and not crateBobbered and cooldownCrate == 0 then
+                ang.dupe()
+                -- EventRegistry:TriggerEvent("Angleur_PickRandomBobber")
+                -- retailToys:PickRandomBobber()
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedCrateBobberTable.name)
                 self.visual.texture:SetTexture(angleurToys.selectedCrateBobberTable.icon)
@@ -492,6 +500,7 @@ function Angleur_ActionHandler(self)
         end
     end
 end
+
 function Angleur_ActionHandler_ExtraToys(self, assignKey)
     local returnValue = false
     for i, slot in pairs(Angleur_SlottedExtraToys) do
@@ -505,6 +514,8 @@ function Angleur_ActionHandler_ExtraToys(self, assignKey)
                 self.visual.texture:SetTexture(slot.icon)
                 returnValue = true
                 break
+            else
+
             end
         end
     end

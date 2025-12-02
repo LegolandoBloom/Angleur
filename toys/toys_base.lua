@@ -1,8 +1,11 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
-local retail = AngleurToysRetail
-local cata = AngleurToysCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+local mistsToys = ang.mists.toys
+local retailToys = ang.retail.toys
 
 angleurToys = {
     --the 111111's are a placeholder to make sure the check works
@@ -93,8 +96,8 @@ function Angleur_LoadToys(self)
     --________________
     --DO RETAIL THING
     --________________
-    if Angleur_CheckVersion() == 1 then retail:ToysStandardTab() end
-    if Angleur_CheckVersion() == 2 then cata:ToysStandardTab() end
+    if Angleur_CheckVersion() == 1 then retailToys:ToysStandardTab() end
+    if Angleur_CheckVersion() == 2 then mistsToys:ToysStandardTab() end
 
     Angleur_LoadExtraToys(Angleur.configPanel.tab2.contents.extraToys)
 end
@@ -122,7 +125,7 @@ end
 function Angleur_LoadExtraToys(extraToyButtons)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 or gameVersion == 3 then
-        cata:AdjustCloseButton(extraToyButtons)
+        mistsToys:AdjustCloseButton(extraToyButtons)
     end
     for i, slot in pairs(Angleur_SlottedExtraToys) do
         Angleur_SlottedExtraToys[i].loaded = false
