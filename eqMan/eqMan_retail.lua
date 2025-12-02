@@ -3,12 +3,14 @@ local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
 local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow
 
-AngleurEqManRetail = {}
-local retail = AngleurEqManRetail
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
 
+ang.retail.eqMan = {}
+local retailEqMan = ang.retail.eqMan
 
 local closeHooked = false
-function retail:showShiny()
+function retailEqMan:showShiny()
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     if not setID then return end
     if not PaperDollFrame.EquipmentManagerPane.ScrollBox.ScrollTarget then return end

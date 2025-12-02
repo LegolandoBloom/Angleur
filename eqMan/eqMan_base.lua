@@ -1,4 +1,11 @@
 local T = Angleur_Translate
+
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+local retailEqMan = ang.retail.eqMan
+
+
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
 local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow
@@ -9,8 +16,6 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
 local EQUIP_DELAY = 1
 local EQUIP_ELAPSETHRESHOLD = 0.2
-
-local retail = AngleurEqManRetail
 
 local gameVersion = Angleur_CheckVersion()
 
@@ -172,7 +177,7 @@ local function showAndPlayAnimation()
         ToggleCharacter("PaperDollFrame")
     end
     PaperDollFrame_SetSidebar(PaperDollFrame, 3)
-    if gameVersion == 1 then retail:showShiny() end
+    if gameVersion == 1 then retailEqMan:showShiny() end
 end
 --____________________________________________________________________________________________________________________________________________________________________________
 
@@ -431,7 +436,7 @@ function Angleur_CreateEquipmentSet()
     if gameVersion == 3 then
         if checkSlottedExtraItems() == false then
             print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
-            print(T["This is a limitation of Classic(not the case for Cata and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
+            print(T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
             Angleur_ForceDeleteSet()
             return
         end
