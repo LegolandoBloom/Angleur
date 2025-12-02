@@ -5,10 +5,10 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+ang.mists.standardTab = {}
+local mistsStandardTab = ang.mists.standardTab
 local mistsToys = ang.mists.toys
 
-AngleurStandardPanelCata = {}
-local cata = AngleurStandardPanelCata
 
 local function DropDown_CreateTitle(self, titleText)
     local info = UIDropDownMenu_CreateInfo()
@@ -72,7 +72,7 @@ local function InitializeDropDownRafts(self, level)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.raftEnable.dropDown, AngleurConfig.chosenRaft.dropDownID)
 end
 
-function cata:ExtraButtons(tab1contents)
+function mistsStandardTab:ExtraButtons(tab1contents)
     tab1contents.baitEnable.text:SetText(T["Bait"])
     tab1contents.baitEnable:reposition()
     tab1contents.baitEnable.disabledText:SetText(T["Couldn't find any bait \n in your bags, feature disabled"])

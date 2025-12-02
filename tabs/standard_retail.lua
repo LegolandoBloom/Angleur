@@ -1,14 +1,10 @@
 local T = Angleur_Translate
-local colorYello = CreateColor(1.0, 0.82, 0.0)
-local colorGrae = CreateColor(0.85, 0.85, 0.85)
-local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+ang.retail.standardTab = {}
+local retailStandardTab = ang.retail.standardTab
 local retailToys = ang.retail.toys
-
-AngleurStandardPanelRetail = {}
-local retail = AngleurStandardPanelRetail
 
 local function DropDown_CreateTitle(self, titleText)
     local info = UIDropDownMenu_CreateInfo()
@@ -88,7 +84,7 @@ local function InitializeDropDownCrateBobbers(self, level)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.crateBobberEnable.dropDown, AngleurConfig.chosenCrateBobber.dropDownID)
 end
 
-function retail:ExtraButtons(tab1contents)
+function retailStandardTab:ExtraButtons(tab1contents)
     tab1contents.raftEnable.text:SetText(T["Raft"])
     tab1contents.raftEnable:reposition()
     tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])

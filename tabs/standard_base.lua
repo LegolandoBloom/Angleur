@@ -3,15 +3,19 @@ local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
-local retail = AngleurStandardPanelRetail
-local cata = AngleurStandardPanelCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local retailStandardTab = ang.retail.standardTab
+local mistsStandardTab = ang.mists.standardTab
+local mistsToys = ang.mists.toys
+local retailToys = ang.retail.toys
 
 function Angleur_SetTab1(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
-        retail:ExtraButtons(self)
+        retailStandardTab:ExtraButtons(self)
     elseif gameVersion == 2 or gameVersion == 3 then
-        cata:ExtraButtons(self)
+        mistsStandardTab:ExtraButtons(self)
     end
 
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
