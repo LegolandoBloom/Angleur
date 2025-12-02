@@ -5,7 +5,10 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local colorRed = CreateColor(1, 0, 0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
-local cata = AngleurItemsCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+local mistsItems = ang.mists.items
 
 Angleur_SlottedExtraItems = {
     first = {
@@ -49,7 +52,7 @@ end
 function Angleur_LoadExtraItems(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 or gameVersion == 3 then
-        cata:AdjustCloseButton(self)
+        mistsItems:AdjustCloseButton(self)
     end
     initializeSavedItems()
     for i, slot in pairs(Angleur_SlottedExtraItems) do

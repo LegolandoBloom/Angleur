@@ -32,7 +32,7 @@ angTemplates\embeds.xml
 init.lua
 AngleurVanilla.lua
 
-items\items_cata.lua
+items\items_mists.lua
 items\items_base.lua
 
 eqMan\eqMan_base.lua

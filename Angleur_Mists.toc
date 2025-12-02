@@ -35,7 +35,7 @@ AngleurCata.lua
 toys\toys_mists.lua
 toys\toys_base.lua
 
-items\items_cata.lua
+items\items_mists.lua
 items\items_base.lua
 
 eqMan\eqMan_base.lua
