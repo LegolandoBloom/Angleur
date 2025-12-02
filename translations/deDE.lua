@@ -443,7 +443,7 @@ T[" minutes, "] = " minutes, "
 T[" seconds"] = " seconds"
 
 
---tiny_cata
+--tiny_mists
 T["Default tiny settings restored"] = "Default tiny settings restored"
 
 

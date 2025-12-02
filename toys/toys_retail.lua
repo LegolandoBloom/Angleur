@@ -61,10 +61,6 @@ function retailToys:ToysStandardTab()
     end
 end
 
-function ang.dupe()
-    print("floppy dude")
-end
-
 function retailToys:PickRandomBobber()
     --angleurToys.selectedCrateBobberTable
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" then return end

@@ -480,7 +480,7 @@ function Angleur_ActionHandler(self)
                 self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedOversizedBobberTable.name)
                 self.visual.texture:SetTexture(angleurToys.selectedOversizedBobberTable.icon)
             elseif angleurToys.selectedCrateBobberTable.hasToy == true and AngleurConfig.crateEnabled and angleurToys.selectedCrateBobberTable.loaded and not crateBobbered and cooldownCrate == 0 then
-                ang.dupe()
+                -- ang.dupe()
                 -- EventRegistry:TriggerEvent("Angleur_PickRandomBobber")
                 -- retailToys:PickRandomBobber()
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
@@ -514,8 +514,6 @@ function Angleur_ActionHandler_ExtraToys(self, assignKey)
                 self.visual.texture:SetTexture(slot.icon)
                 returnValue = true
                 break
-            else
-
             end
         end
     end

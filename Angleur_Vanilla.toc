@@ -41,7 +41,7 @@ tabs\tabs-general.lua
 tabs\standard_mists.lua
 tabs\standard_base.lua
 tabs\extra_without.lua
-tabs\tiny_cata.lua
+tabs\tiny_mists.lua
 tabs\tiny_base.lua
 
 doubleClick.lua

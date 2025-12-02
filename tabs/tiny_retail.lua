@@ -3,10 +3,12 @@ local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
-AngleurTinyPanelRetail = {}
-local retail = AngleurTinyPanelRetail
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+ang.retail.tinyTab = {}
+local retailTinyTab = ang.retail.tinyTab
 
-function retail:ExtraButtons(tab3_contents)
+function retailTinyTab:ExtraButtons(tab3_contents)
     tab3_contents.offInteract.text:SetText(T["Disable Soft Interact"])
     tab3_contents.offInteract:reposition()
     --tab3_contents.offInteract.text:SetFontObject(SpellFont_Small)
@@ -61,7 +63,7 @@ function retail:ExtraButtons(tab3_contents)
     end
 end
 
-function retail:SetDefaultsButtonScript(tab3_contents)
+function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
     tab3_contents.defaults:SetScript("OnClick", function()
         Angleur_TinyOptions.turnOffSoftInteract = false
         Angleur_TinyOptions.allowDismount = false

@@ -448,7 +448,7 @@ T[" minutes, "] = " minutos, "
 T[" seconds"] = " segundos"
 
 
---tiny_cata
+--tiny_mists
 T["Default tiny settings restored"] = "Configurações padrão da aba mini restauradas."
 
 
