@@ -247,7 +247,7 @@
                                     </Frame>
                                     <CheckButton name="$parent_SoftInteract" parentKey="softInteract" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-110"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-120"/>
                                         </Anchors>
                                         <Frames>
                                             <CheckButton name="$parent_BobberScanner" parentKey="bobberScanner" inherits="CheckboxTemplate_Angleur">
@@ -270,7 +270,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-185"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-190"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
