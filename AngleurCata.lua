@@ -136,7 +136,7 @@ local bobberWithinRange = false
 
 
 local function CheckTable(table ,spell)
-    matchFound = false
+    local matchFound = false
     for i, value in pairs(table) do
         if spell == value then
             matchFound = true
