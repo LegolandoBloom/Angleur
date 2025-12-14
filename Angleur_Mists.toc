@@ -30,7 +30,7 @@ angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
 
 init.lua
-AngleurCata.lua
+AngleurMists.lua
 
 toys\toys_mists.lua
 toys\toys_base.lua
@@ -58,7 +58,7 @@ bobberScanner\Legolando_CheckboxTemplate\Legolando_CheckboxTemplate.xml
 bobberScanner\Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml
 bobberScanner\bobberScanner.lua
 
-AngleurCata.xml
+AngleurMists.xml
 
 thanks\thanks.lua
 thanks\thanks.xml

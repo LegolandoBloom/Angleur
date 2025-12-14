@@ -1,6 +1,10 @@
 ---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
 
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local mists = ang.mists
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
@@ -465,6 +469,31 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
+-- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+local function performAction(self, assignKey, action)
+    if action == "cast" then
+        SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+        self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
+    elseif action == "recast" then
+        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTTARGET")
+        self.visual.texture:SetTexture("Interface/ICONS/misc_arrowlup")
+        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+    elseif action == "reel" then
+        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTTARGET")
+        self.visual.texture:SetTexture("Interface/ICONS/misc_arrowlup")
+    elseif action == "clear" then
+        ClearOverrideBindings(self)
+        self.visual.texture:SetTexture("")
+    elseif action == "raft" then
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
+        self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
+    elseif action == "extraToy" then
+        -- already handled within the other function
+    elseif action == "extraItem" then
+        -- already handled within the other function
+    end
+end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
