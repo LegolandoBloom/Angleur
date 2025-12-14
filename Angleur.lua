@@ -492,8 +492,8 @@ function Angleur_ActionHandler(self)
             action =  "clear"
         else
             --________________________________________________________________________________________________________
-            -- These 2 are separate from the if-else structure below, because they have nested optional return values
-            --_______________If they are not met, we want to move onto the rest of the options________________________
+            --    These 2 are separate from the if-else structure below, because they have nested optional returns
+            --_________________If they are not met, we want to move onto the rest of the options______________________
             --________________________________________________________________________________________________________
             if rafted then
                 if not C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then return end
