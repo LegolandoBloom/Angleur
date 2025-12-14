@@ -69,8 +69,6 @@ local function reorderTable(teeburu)
         newTeeburu[i] = v
         i = i + 1
     end
-    print("Ordered table: ")
-    DevTools_Dump(newTeeburu)
     return newTeeburu
 end
 local lastRandomed
@@ -138,26 +136,22 @@ function retailToys:PickRandomBobber(forceClear)
 end
 
 local randomBobberEventFrame = CreateFrame("Frame")
-randomBobberEventFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 randomBobberEventFrame:RegisterEvent("UNIT_SPELLCAST_START")
 randomBobberEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" then return end
     local arg4, arg5 = ...
-    if event == "UNIT_SPELLCAST_SUCCEEDED" and arg5 == angleurToys.selectedCrateBobberTable.spellID then
-        print("what")
-        retailToys:PickRandomBobber()
-    elseif event == "UNIT_SPELLCAST_START" then
-        -- arg5 ==
+    if event == "UNIT_SPELLCAST_START" then
         local isBobberSpell = false
         for i, v in pairs(angleurToys.ownedCrateBobbers) do
             if v.spellID == arg5 then
-                print("bingo")
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomBobber: ") .. "BOBBER SPELLCAST")
                 isBobberSpell = true
             end
         end
         if isBobberSpell then
             lastRandomed = nil
             alreadyRandomed = false
+            Angleur_BetaPrint("RESETTING RANDOMED STATUS")
         end
     end
 end)

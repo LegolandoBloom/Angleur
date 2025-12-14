@@ -409,7 +409,6 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
-local bobberRandomed = false
 -- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action)
     if action == "cast" then
@@ -447,7 +446,6 @@ local function performAction(self, assignKey, action)
         -- already handled within the other function
     end
 end
-local lastAction = nil
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
@@ -467,7 +465,6 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
 
     local action
-
     if midFishing then
         action =  "reel"
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
@@ -494,13 +491,16 @@ function Angleur_ActionHandler(self)
         if mounted and Angleur_TinyOptions.allowDismount == false then
             action =  "clear"
         else
+            --________________________________________________________________________________________________________
+            -- These 2 are separate from the if-else structure below, because they have nested optional return values
+            --_______________If they are not met, we want to move onto the rest of the options________________________
+            --________________________________________________________________________________________________________
             if rafted then
                 if not C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then return end
                 local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
                 if remainingAuraDuration < 60 and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
                     action =  "raft"
                     performAction(self, assignKey, action)
-                    lastAction = action
                     return
                 end
             end
@@ -511,16 +511,21 @@ function Angleur_ActionHandler(self)
                 if retail.toys:PickRandomBobber() == true  and angleurToys.selectedCrateBobberTable.loaded then
                     action = "randomCrate"
                     performAction(self, assignKey, action)
-                    lastAction = action
                     return
                 end
             end
+            --________________________________________________________________________________________________________
+            --________________________________________________________________________________________________________
+
+            --________________________________________________________________________
+            -- These are the regular if-else structure that don't have nested options
+            --________________________________________________________________________
             if angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0 then
                 action =  "oversized"
             elseif (AngleurConfig.crateEnabled and not crateBobbered and not crateIsRandom) 
-                                            and 
+            and 
             (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0)
-                                            and 
+            and 
             angleurToys.selectedCrateBobberTable.loaded then
                 action =  "crate"
             elseif Angleur_ActionHandler_ExtraToys(self, assignKey) then
@@ -534,10 +539,10 @@ function Angleur_ActionHandler(self)
             else
                 action =  "cast"
             end
+            --________________________________________________________________________
         end
     end
     performAction(self, assignKey, action)
-    lastAction = action
 end
 
 function Angleur_ActionHandler_ExtraToys(self, assignKey)
