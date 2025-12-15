@@ -1,5 +1,10 @@
 ---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
+
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local mists = ang.vanilla
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
@@ -464,6 +469,41 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
+-- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+local function performAction(self, assignKey, action, recast, oobIcon, gPad)
+    if action == "cast" then
+        SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+    elseif action == "reel" then
+        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
+    elseif action == "clear" then
+        ClearOverrideBindings(self)
+        self.visual.texture:SetTexture("")
+    elseif action == "bait" then
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name)
+        self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
+    elseif action == "raft" then
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
+        self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
+    elseif action == "extraToy" then
+        -- already handled within the other function
+    elseif action == "extraItem" then
+        -- already handled within the other function
+    end
+
+    if recast then
+        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+    end
+    if oobIcon then
+        self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
+    end
+    if gPad then
+        Angleur_SetCursorForGamePad(true)
+    end
+end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
@@ -484,59 +524,60 @@ function Angleur_ActionHandler(self)
     end
     
     ClearOverrideBindings(self)
+
+    local action
+    local recast = false
+    local oobIcon = false
+    local gPad = false
     if midFishing then
         if AngleurClassicConfig.softInteract.enabled then
             if bobberWithinRange == false then
-                self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
-                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+                oobIcon = true
                 if AngleurClassicConfig.softInteract.recastWhenOOB then
-                    SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+                    action = "cast"
+                else
+                    action = "reel"
                 end 
             else
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+                action = "reel"
             end
         else
             --Always set doubleClick to recast on Classic(When soft interact is off)
             if chosenMethod == "doubleClick" then
-                SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+                action = "cast"
             else
-                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-                Angleur_SetCursorForGamePad(true)
+                action = "reel"
+                gPad = true
             end
         end
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
-            SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+            recast = true
         end
     elseif swimming then
-        --print("I am swimming")
         if mounted and Angleur_TinyOptions.allowDismount == false then
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+            action = "clear"
+        -- This else case is left in as a placeholder for the counterpart in Mists, where it has a case for rafts.
+        -- Think of the if-else duo as pointless, as the outcome is always action = "clear". left it this way in case
+        -- I add a similar thing here in the future.
         else
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+            action = "clear"
         end
     elseif not swimming then
         if mounted and Angleur_TinyOptions.allowDismount == false then
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+            action = "clear"
         else
             local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
             if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
-                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-                self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")
-                self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
+                action = "bait"
             elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
+                action =  "extraItems"
                 --ALREADY HANDLED WITHIN THE FUNCTION
             else
-                SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+                action = "cast"
             end
         end
     end
+    performAction(self, assignKey, action, recast, oobIcon, gPad)
 end
 
 local cursorControlEnabled = false
