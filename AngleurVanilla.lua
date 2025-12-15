@@ -232,7 +232,6 @@ local function checkMounted()
 end
 local fishingSpellTable = AngleurVanilla_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
-    print(event)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
     if event == "PLAYER_ENTERING_WORLD" then
@@ -329,7 +328,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
-    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
+    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or "MIRROR_TIMER_START" then
         if checkMounted() then 
             mounted = true
         else
@@ -370,6 +369,7 @@ logicVarFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
 logicVarFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 logicVarFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 logicVarFrame:RegisterEvent("MOUNT_JOURNAL_USABILITY_CHANGED")
+logicVarFrame:RegisterEvent("MIRROR_TIMER_START")
 logicVarFrame:RegisterEvent("UNIT_AURA")
 logicVarFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 logicVarFrame:RegisterEvent("CURSOR_CHANGED")
@@ -551,16 +551,17 @@ function Angleur_ActionHandler(self)
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
             recast = true
         end
-    elseif swimming then
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action = "clear"
-        -- This else case is left in as a placeholder for the counterpart in Mists, where it has a case for rafts.
-        -- Think of the if-else duo as pointless, as the outcome is always action = "clear". left it this way in case
-        -- I add a similar thing here in the future.
-        else
-            action = "clear"
-        end
-    elseif not swimming then
+    -- elseif swimming then
+    --     if mounted and Angleur_TinyOptions.allowDismount == false then
+    --         action = "clear"
+    --     -- This else case is left in as a placeholder for the counterpart in Mists, where it has a case for rafts.
+    --     -- Think of the if-else duo as pointless, as the outcome is always action = "clear". left it this way in case
+    --     -- I add a similar thing here in the future.
+    --     else
+    --         action = "clear"
+    --     end
+    -- elseif not swimming then --> else
+    else
         if mounted and Angleur_TinyOptions.allowDismount == false then
             action = "clear"
         else
