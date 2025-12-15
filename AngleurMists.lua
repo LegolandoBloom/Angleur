@@ -470,14 +470,10 @@ end
 --**Decides which action to perform**
 --***********[~]**********
 -- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
-local function performAction(self, assignKey, action, oobIcon, gPad)
+local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
-    elseif action == "recast" then
-        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
     elseif action == "reel" then
         SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
@@ -498,6 +494,9 @@ local function performAction(self, assignKey, action, oobIcon, gPad)
         -- already handled within the other function
     end
 
+    if recast then
+        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+    end
     if oobIcon then
         self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
     end
@@ -527,6 +526,7 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
 
     local action
+    local recast = false
     local oobIcon = false
     local gPad = false
     if midFishing then
@@ -551,7 +551,7 @@ function Angleur_ActionHandler(self)
             end
         end
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
-            action = "recast"
+            recast = true
         end
     elseif swimming then
         if mounted and Angleur_TinyOptions.allowDismount == false then
@@ -608,7 +608,7 @@ function Angleur_ActionHandler(self)
             --________________________________________________________________________
         end
     end
-    performAction(self, assignKey, action, oobIcon, gPad)
+    performAction(self, assignKey, action, recast, oobIcon, gPad)
 end
 
 local cursorControlEnabled = false
