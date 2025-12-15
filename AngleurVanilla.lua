@@ -328,7 +328,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
-    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or "MIRROR_TIMER_START" then
+    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or event == "MIRROR_TIMER_START" then
         if checkMounted() then 
             mounted = true
         else
@@ -350,6 +350,9 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end)
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
+        -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
+        -- Because "UNIT_INVENTORY_CHANGED" won't always trigger when you swap rods
+        Angleur_BaitEnchant()
     elseif event == "UNIT_AURA" and unit == "player" then
         --Angleur_Auras()
         Angleur_ExtraItemAuras()
@@ -466,7 +469,6 @@ function Angleur_BaitEnchant()
         baitApplied = false
     end
 end
-
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********

@@ -339,7 +339,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
-    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
+    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or event == "MIRROR_TIMER_START" then
         if checkMounted() then 
             mounted = true
         else
@@ -361,6 +361,9 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end)
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
+        -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
+        -- Because "UNIT_INVENTORY_CHANGED" won't always trigger when you swap rods
+        Angleur_BaitEnchant()
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -381,6 +384,7 @@ logicVarFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
 logicVarFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 logicVarFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 logicVarFrame:RegisterEvent("MOUNT_JOURNAL_USABILITY_CHANGED")
+logicVarFrame:RegisterEvent("MIRROR_TIMER_START")
 logicVarFrame:RegisterEvent("UNIT_AURA")
 logicVarFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 logicVarFrame:RegisterEvent("CURSOR_CHANGED")
