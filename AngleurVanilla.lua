@@ -232,6 +232,7 @@ local function checkMounted()
 end
 local fishingSpellTable = AngleurVanilla_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
+    print(event)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
     if event == "PLAYER_ENTERING_WORLD" then
@@ -482,18 +483,15 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
         self.visual.texture:SetTexture("")
     elseif action == "bait" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name)
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")
         self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
     elseif action == "raft" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
         self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
-    elseif action == "extraToy" then
-        -- already handled within the other function
     elseif action == "extraItem" then
         -- already handled within the other function
     end
-
     if recast then
         SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
     end

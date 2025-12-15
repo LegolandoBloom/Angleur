@@ -1,4 +1,4 @@
-## Interface: 110205
+## Interface: 110207
 ## Title: Angleur
 ## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
 ## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
