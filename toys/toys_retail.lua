@@ -149,7 +149,6 @@ randomBobberEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
             end
         end
         if isBobberSpell then
-            lastRandomed = nil
             alreadyRandomed = false
             Angleur_BetaPrint("RESETTING RANDOMED STATUS")
         end
