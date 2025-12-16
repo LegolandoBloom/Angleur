@@ -35,6 +35,7 @@ function Angleur_OnLoad(self)
     self:RegisterEvent("ADDON_LOADED")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("PLAYER_LOGOUT")
+    self:RegisterEvent("PLAYER_LEAVING_WORLD")
     self:RegisterEvent("ADDONS_UNLOADING")
     self:RegisterEvent("PLAYER_STARTED_MOVING")
     self:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -103,6 +104,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         Init_AngleurVisual()
         Angleur_HandleCVars()
+        Angleur_HandleTempCVars(true)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_CombatDelayer(function()Angleur_LoadToys()end)
         Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
@@ -124,6 +126,8 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
             Angleur_UltraFocusBackground(false)
         end
+    elseif event == "PLAYER_LEAVING_WORLD" then
+        Angleur_HandleTempCVars(false)
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         Angleur_ToyBoxOverlay_Deactivate()
@@ -753,9 +757,25 @@ function Angleur_UltraFocusInteractOff(activate)
     end
 end
 
+
 function Angleur_HandleCVars()
     Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
         C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+    end
+end
+
+local temp_Cvars = {
+    softTargetInteract = nil,
+}
+-- isLogin --> Login vs Logout
+function Angleur_HandleTempCVars(isLogin)
+    if isLogin == true then
+        temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
+        C_CVar.SetCVar("SoftTargetInteract", 3)
+    elseif isLogin == false then
+        if temp_Cvars.softTargetInteract then
+            C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
+        end
     end
 end
