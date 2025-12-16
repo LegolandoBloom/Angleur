@@ -770,9 +770,11 @@ local temp_Cvars = {
 }
 -- isLogin --> Login vs Logout
 function Angleur_HandleTempCVars(isLogin)
+    print("called")
     if isLogin == true then
         temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
         C_CVar.SetCVar("SoftTargetInteract", 3)
+        print("Set CVAR to: ", C_CVar.GetCVar("SoftTargetInteract"))
     elseif isLogin == false then
         if temp_Cvars.softTargetInteract then
             C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
