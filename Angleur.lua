@@ -35,7 +35,6 @@ function Angleur_OnLoad(self)
     self:RegisterEvent("ADDON_LOADED")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("PLAYER_LOGOUT")
-    self:RegisterEvent("PLAYER_LEAVING_WORLD")
     self:RegisterEvent("ADDONS_UNLOADING")
     self:RegisterEvent("PLAYER_STARTED_MOVING")
     self:RegisterEvent("PLAYER_REGEN_DISABLED")
@@ -104,7 +103,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         Init_AngleurVisual()
         Angleur_HandleCVars()
-        Angleur_HandleTempCVars(true)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_CombatDelayer(function()Angleur_LoadToys()end)
         Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
@@ -126,7 +124,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
             Angleur_UltraFocusBackground(false)
         end
-    elseif event == "PLAYER_LEAVING_WORLD" then
         Angleur_HandleTempCVars(false)
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
@@ -175,34 +172,7 @@ local function isChosenKeyDown()
     end
     return false
 end
-local warnedPlater = false
-local function warnPlater()
-    if warnedPlater then return end
-    if Angleur_TinyOptions.turnOffSoftInteract == true then
-        
-    else
-        if C_CVar.GetCVar("SoftTargetInteract") == "3" then
-            warnedPlater = true
-            return
-        end
-        if C_AddOns.IsAddOnLoaded("Plater") then
-            print("----------------------------------------------------------------------------")
-            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."])
-            print(T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") 
-            .. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"])
-            print(T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."])
-            print("----------------------------------------------------------------------------")
-        else
-            print("----------------------------------------------------------------------------")
-            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" .. colorYello:WrapTextInColorCode("Soft-Interact.")])
-            print(T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) "
-            .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"]) 
-            print(T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."])
-            print("----------------------------------------------------------------------------")
-        end
-        warnedPlater = true
-    end
-end
+
 local playerDruid
 local baseClassID
 local _, baseClassID = UnitClassBase("player")
@@ -269,7 +239,13 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
         Angleur_ActionHandler(Angleur)
-        warnPlater()
+        --__________________________________________________________________________________________________________________________________
+        --                                                  ! PLATER MEASURE !
+        -- Plater somehow turns off softInteract AFTER everything loads which is why I have to forcibly enable it on the FIRST FISHING CAST
+        --                  using HandeTempCVars. On PLAYER_LEAVING_WORLD I call it again to restore default values
+        --                                     Also tell the player about the Plater interaction
+        --__________________________________________________________________________________________________________________________________
+        Angleur_FixPlater()
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
@@ -759,7 +735,6 @@ end
 
 
 function Angleur_HandleCVars()
-    Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
         C_CVar.SetCVar("SoftTargetIconGameObject", "0")
     end
@@ -768,14 +743,13 @@ end
 local temp_Cvars = {
     softTargetInteract = nil,
 }
--- isLogin --> Login vs Logout
-function Angleur_HandleTempCVars(isLogin)
-    print("called")
-    if isLogin == true then
+-- activate: set vs release
+function Angleur_HandleTempCVars(activate)
+    if activate == true then
         temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
         C_CVar.SetCVar("SoftTargetInteract", 3)
-        print("Set CVAR to: ", C_CVar.GetCVar("SoftTargetInteract"))
-    elseif isLogin == false then
+        Angleur_BetaPrint("Set CVAR SoftTargetInteract", "to: ", C_CVar.GetCVar("SoftTargetInteract"))
+    elseif activate == false then
         if temp_Cvars.softTargetInteract then
             C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
         end

@@ -670,3 +670,41 @@ T["When unchecked, Bobber Scanner warn you with a chat message when your "
 .. colorYello:WrapTextInColorCode("recommended ") .. "to " .. "keep the warning " .. colorGreen:WrapTextInColorCode("\'enabled\' ") .. "so you can know when a fishing spot might cause issues."
 
 T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"] = "Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"
+
+
+
+
+
+
+
+
+
+--________________________________________
+-- New Plater Fix Changes for patch 2.6.1
+--________________________________________
+T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") 
+.. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"] = "Plater " 
+.. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") 
+.. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"
+
+T["Has been " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to be able to " 
+.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "Has been " .. colorGreen:WrapTextInColorCode("checked ON ") 
+.. "for Angleur's keybind to be able to " .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."
+
+
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Soft Interact has been turned " .. colorGreen:WrapTextInColorCode("ON ") .. "for you to be able to ".. colorYello:WrapTextInColorCode("Reel/Loot ") 
+.. "your catches. The previous values will be restored upon logout, so that if you uninstall Angleur you will have them back to normal."] = colorBlu:WrapTextInColorCode("Angleur: ") 
+.. "Soft Interact has been turned " .. colorGreen:WrapTextInColorCode("ON ") .. "for you to be able to ".. colorYello:WrapTextInColorCode("Reel/Loot ")
+.. "your catches. The previous values will be restored upon logout, so that if you uninstall Angleur you will have them back to normal."
+
+
+T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n" 
+.. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it " 
+.. colorGreen:WrapTextInColorCode("ON.")] = "If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n" 
+.. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it " 
+.. colorGreen:WrapTextInColorCode("ON.")
+
+T["To stop seeing these messages, go to:"] = "To stop seeing these messages, go to:"
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") 
+.. "Tiny tab(tab 3),  and disable \'Login Messages\'"] = "Angleur Config Panel " 
+.. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3),  and disable \'Login Messages\'"

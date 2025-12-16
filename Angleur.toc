@@ -53,6 +53,7 @@ advancedAngling.lua
 slashcommands.lua
 minimap.lua
 animations.xml
+platerClash.lua
 
 Angleur.xml
 
