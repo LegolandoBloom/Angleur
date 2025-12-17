@@ -131,7 +131,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         Angleur_ToyBoxOverlay_Deactivate()
         Angleur_AdvancedAnglingPanel:Hide()
     elseif event == "PLAYER_DEAD" then
-        print("player died")
         Angleur_ToyBoxOverlay_Deactivate()
     elseif event == "PLAYER_REGEN_ENABLED" then
     end
