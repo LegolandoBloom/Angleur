@@ -50,6 +50,7 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if event == "GLOBAL_MOUSE_UP" then
         Angleur_StuckFix()
         if InCombatLockdown() then return end
+        if UnitIsDeadOrGhost("player") then return end
         if angleurDoubleClick.ignoreNextMouseUp then angleurDoubleClick.ignoreNextMouseUp = false return end
         if not angleurDoubleClick.watching then
             angleurDoubleClick.watching = true

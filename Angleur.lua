@@ -38,6 +38,7 @@ function Angleur_OnLoad(self)
     self:RegisterEvent("ADDONS_UNLOADING")
     self:RegisterEvent("PLAYER_STARTED_MOVING")
     self:RegisterEvent("PLAYER_REGEN_DISABLED")
+    self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("PLAYER_REGEN_ENABLED")
     self:SetScript("OnEvent", Angleur_EventLoader)
     self:SetScript("OnUpdate", Angleur_OnUpdate)
@@ -129,6 +130,9 @@ function Angleur_EventLoader(self, event, unit, ...)
         ClearOverrideBindings(self)
         Angleur_ToyBoxOverlay_Deactivate()
         Angleur_AdvancedAnglingPanel:Hide()
+    elseif event == "PLAYER_DEAD" then
+        print("player died")
+        Angleur_ToyBoxOverlay_Deactivate()
     elseif event == "PLAYER_REGEN_ENABLED" then
     end
 end

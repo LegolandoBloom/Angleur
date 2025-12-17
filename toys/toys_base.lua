@@ -154,6 +154,10 @@ end
 
 function Angleur_ToyBoxOverlay_Activate(self, overlay)
     if InCombatLockdown() then return end
+    if UnitIsDeadOrGhost("player") then
+        print(T["Can't add toys while dead"])
+        return
+    end
     
     angleurToys.extraToySlotHolder = self
     if not CollectionsJournal then

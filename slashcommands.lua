@@ -34,6 +34,10 @@ SlashCmdList["ANGLEURSLEEP"] = function()
         print(T["Can't change sleep state in combat."])
         return
     end
+    if UnitIsDeadOrGhost("player") then
+        print(T["Can't change sleep state while in ghost form."])
+        return
+    end
     if AngleurCharacter.sleeping == false then
         AngleurCharacter.sleeping = true
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])

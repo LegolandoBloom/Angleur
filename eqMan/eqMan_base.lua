@@ -225,6 +225,11 @@ local function Cycle_AttemptEquip()
         print(T["Couldn't equip slotted item in time before combat"])
         return true
     end
+    if UnitIsDeadOrGhost("player") then
+        wantToEquip = {}
+        print(T["Item equip interrupted by death/ghost-form"])
+        return true
+    end
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     if not setID then
         AngleurCharacter.angleurSet = false
@@ -298,6 +303,11 @@ local function Cycle_SwapoutSet()
         Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
         return true
     end
+    if UnitIsDeadOrGhost("player") then 
+        Angleur_BetaPrint(colorDebug3:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Couldn't re-equip all items before death/ghost-form happened.")
+        Angleur_BetaTableToString(Angleur_SwapoutItemsSaved)
+        return true
+    end
     for location, itemID in pairs(Angleur_SwapoutItemsSaved) do
         if itemID then
             if not Angleur_IsEquipItemValid(itemID) then
@@ -327,6 +337,10 @@ local swapWepTable = {}
 local function Cycle_SwapWeaponsCombat()
     if InCombatLockdown() then 
         Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Couldn't equip combat weapon in time")
+        return true
+    end
+    if UnitIsDeadOrGhost("player") then 
+        Angleur_BetaPrint(colorDebug2:WrapTextInColorCode("Cycle_SwapWeaponsCombat ") .. ": Couldn't equip combat weapon in time(player)")
         return true
     end
     for location, itemID in pairs(swapWepTable) do
@@ -734,6 +748,11 @@ function Angleur_EquipAngleurSet(overrideSwapoutItems)
     Angleur_SingleDelayer(EQUIP_DELAY, 0, EQUIP_ELAPSETHRESHOLD, equipFrameSet, function()
         if InCombatLockdown() then
             print(T["Equipping of the Angleur set disrupted due to sudden combat"])
+            equipFrameSet:SetScript("OnEvent", nil)
+            return true
+        end
+        if UnitIsDeadOrGhost("player") then
+            print(T["Equipping of the Angleur set disrupted due to sudden death/ghost-form"])
             equipFrameSet:SetScript("OnEvent", nil)
             return true
         end

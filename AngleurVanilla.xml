@@ -79,6 +79,10 @@
                                     print(Angleur_Translate["Can't change sleep state in combat."])
                                     return
                                 end
+                                if UnitIsDeadOrGhost("player") then
+                                    print(Angleur_Translate["Can't change sleep state while in ghost form."])
+                                    return
+                                end
                                 local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                 if AngleurCharacter.sleeping == true then
                                     AngleurCharacter.sleeping = false
@@ -693,6 +697,10 @@
                                     print(Angleur_Translate["Can't change sleep state in combat."])
                                     return
                                 end
+                                if UnitIsDeadOrGhost("player") then
+                                    print(Angleur_Translate["Can't change sleep state while in ghost form."])
+                                    return
+                                end
                                 AngleurCharacter.sleeping = false
                                 Angleur_SetSleep()
                                 Angleur_EquipAngleurSet(true)
@@ -781,6 +789,7 @@
             </OnLoad>
             <OnClick>
                 if InCombatLockdown() then return end
+                if UnitIsDeadOrGhost("player") then return end
                 self:Disable()
                 Angleur_CreateEquipmentSet()
             </OnClick>

@@ -15,6 +15,10 @@ function Angleur_InitMinimapButton()
                     print(T["Can't change sleep state in combat."])
                     return
                 end
+                if UnitIsDeadOrGhost("player") then
+                    print(T["Can't change sleep state while in ghost form."])
+                    return
+                end
                 if AngleurCharacter.sleeping == true then
                     AngleurCharacter.sleeping = false
                     Angleur_SetSleep()
