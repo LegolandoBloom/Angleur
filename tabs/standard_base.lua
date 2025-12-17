@@ -3,15 +3,19 @@ local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
-local retail = AngleurStandardPanelRetail
-local cata = AngleurStandardPanelCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local retailStandardTab = ang.retail.standardTab
+local mistsStandardTab = ang.mists.standardTab
+local mistsToys = ang.mists.toys
+local retailToys = ang.retail.toys
 
 function Angleur_SetTab1(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
-        retail:ExtraButtons(self)
+        retailStandardTab:ExtraButtons(self)
     elseif gameVersion == 2 or gameVersion == 3 then
-        cata:ExtraButtons(self)
+        mistsStandardTab:ExtraButtons(self)
     end
 
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
@@ -45,7 +49,7 @@ function Angleur_SetTab1(self)
     self.ultraFocus.autoLoot.disabledText:SetWordWrap(true)
     self.ultraFocus.autoLoot.disabledText:SetText(T["(Already on)"])
     self.ultraFocus.autoLoot.disabledText:ClearAllPoints()
-    self.ultraFocus.autoLoot.disabledText:SetPoint("LEFT", self.ultraFocus.autoLoot.text, "RIGHT")
+    self.ultraFocus.autoLoot.disabledText:SetPoint("TOP", self.ultraFocus.autoLoot.text, "BOTTOM")
     self.ultraFocus.autoLoot:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAutoLootEnabled = true
@@ -59,9 +63,7 @@ function Angleur_SetTab1(self)
 
 
     self.fishingMethod.menuTitle:SetText(T["FISHING METHOD:"])
-    if AngleurConfig.angleurKey then 
-        self.fishingMethod.oneKey.contents.angleurKey:SetText(AngleurConfig.angleurKey)
-    elseif AngleurTutorial.part > 1 then
+    if not AngleurConfig.angleurKey and AngleurTutorial.part > 1 then
         self.fishingMethod.oneKey.contents.angleurKey.warning:Show()
     end
 
@@ -80,6 +82,25 @@ function Angleur_SetTab1(self)
     
     self.fishingMethod.doubleClick.contents.dropDownMenu.menuTitle:SetText(T["Double Click"])
     Angleur_FishingMethodSetSelected(self.fishingMethod)
+
+
+    self.recastEnable.text:SetText(T["Enable Recast Key"])
+    self.recastEnable:reposition()
+    self.recastEnable.disabledText:SetText(T[""])
+    self.recastEnable:SetScript("OnClick", function()
+        if self.recastEnable:GetChecked() then
+            AngleurConfig.recastEnabled = true
+            self.recastEnable.recastKey:Show()
+        elseif self.recastEnable:GetChecked() == false then
+            AngleurConfig.recastEnabled = false
+            self.recastEnable.recastKey:Hide()
+        end
+    end)
+    if AngleurConfig.recastEnabled == true then
+        self.recastEnable:SetChecked(true)
+        self.recastEnable.recastKey:Show()
+    end
+
 
     self.returnButton:SetText(T["Return\nAngleur Visual"])
 end

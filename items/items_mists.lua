@@ -1,11 +1,14 @@
 local T = Angleur_Translate
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
 
-AngleurItemsCata = {}
-local cata = AngleurItemsCata
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+
+ang.mists.items = {}
+local mistsItems = ang.mists.items
 
 local done = false
-function cata:AdjustCloseButton(extraItemsFrame)
+function mistsItems:AdjustCloseButton(extraItemsFrame)
     if done then return end
     extraItemsFrame.first.closeButton:SetSize(29, 31)
     extraItemsFrame.first.closeButton:AdjustPointsOffset(3, 4)

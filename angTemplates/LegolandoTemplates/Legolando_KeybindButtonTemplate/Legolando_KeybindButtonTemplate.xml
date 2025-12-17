@@ -1,0 +1,93 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    If you wish to use this Library, NAVIGATE TO section [3] - the rest are ported templates to be used in the main thing
+    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+
+    <Script file="Legolando_KeybindButtonTemplate.lua"/>
+
+    <!-- ____________________________________[1]______________________________________________ -->
+    <!--  Templates Ported directly from Blizzard's FrameXML, just in case it changes later on -->
+    <!-- ____________________________________[1]______________________________________________ -->
+    
+
+    <!-- ____________________________________[1]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+    <!-- ____________________________________[2]______________________________________________ -->
+    <!--        Generalized Templates made by Legolando, to be used in this library            -->
+    <!-- ____________________________________[2]______________________________________________ -->
+    
+
+
+    <!-- ____________________________________[2]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+    <!-- ____________________________________[3]______________________________________________ -->
+    <!--               Templates made by Legolando, specifically for this lib                  -->
+    <!-- ____________________________________[3]______________________________________________ -->
+    <Button name="Legolando_KeybindButtonTemplate_Angleur" mixin="Legolando_KeybindButtonMixin_Angleur" inherits="KeyBindingFrameBindingButtonTemplate" virtual="true">
+        <Size x="100" y="22"/>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "Game15Font">
+                    <Color r="1" g="1" b="1"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parent_Disclaimer" parentKey="disclaimer" justifyH="LEFT" inherits= "SystemFont_Outline" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" hidden="true">
+                    <Color r="1"/>
+                    <Anchors>
+                        <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                self.SelectedHighlight:SetWidth(self:GetWidth())
+                self:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+                self:RegisterEvent("PLAYER_ENTERING_WORLD")
+                self:RegisterEvent("PLAYER_REGEN_DISABLED")
+                self:RegisterEvent("PLAYER_REGEN_ENABLED")
+                self:SetPropagateKeyboardInput(true)
+            </OnLoad>
+            <OnClick method="OnClick"/>
+            <OnEvent>
+                    if event == "PLAYER_ENTERING_WORLD" then
+                        local isInitialLogin, isReloadingUi = ...
+                        if isInitialLogin or isReloadingUi then
+                            if self:checkTableAndReference() then
+                                if self.savedVarTable[self.keybindRef] then
+                                    self:SetText(self.savedVarTable[self.keybindRef])
+                                end
+                            end
+                        end
+                    elseif event == "PLAYER_REGEN_DISABLED" then
+                        self:StopWatching()
+                        self:Disable()
+                    elseif event =="PLAYER_REGEN_ENABLED" then
+                        self:Enable()
+                    end
+            </OnEvent>
+            <OnHide>
+                self:StopWatching()
+            </OnHide>
+        </Scripts>
+    </Button>
+
+    <!-- ____________________________________[3]______________________________________________ -->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+</Ui>

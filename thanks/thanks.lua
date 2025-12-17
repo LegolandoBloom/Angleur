@@ -18,6 +18,7 @@ local names = {
     {text = "Trustyulf ", r = 0.62, g = 0.52, b = 0.38, logo = "kofi"},
     {text = "ZamestoTV\n", smalltext = "youtube.com/@ZamestoTV", r = 0.25, g = 0.78, b = 0.92, logo = "youtube"},
     {text = "Crazyyoungs", r = 0.17, g = 0.52, b = 0.23},
+    {text = "Cathtail\n", smalltext = "@cathtail", r = 0.95, g = 0.43, b = 0.59},
 }
 
 local function iterateAndAdd(parent, anchorFrame)
@@ -63,6 +64,16 @@ end
 
 local addonsTable = {
     [1] = { 
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-niche.png",
+            link = "https://www.curseforge.com/wow/addons/angleur-nicheoptions",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-niche.png",
+            tooltipPictureWidth = 240,
+            tooltipPictureHeight = 120,
+            tooltipPictureAnchor = "BOTTOMLEFT",
+            tooltipTitle = "Angleur_NicheOptions",
+            tooltipText = T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"],
+    },
+    [2] = { 
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
             link = "https://www.curseforge.com/wow/addons/angleur-underlight",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.jpg",
@@ -72,7 +83,7 @@ local addonsTable = {
             tooltipTitle = "Angleur_Underlight",
             tooltipText = T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."],
     },
-    [2] = { 
+    [3] = { 
         icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
         link = "https://www.curseforge.com/wow/addons/thievery",
         tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-thievery.jpg",
@@ -82,7 +93,7 @@ local addonsTable = {
         tooltipTitle = "Thievery",
         tooltipText = T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."],
     },
-    [3] = { 
+    [4] = { 
         icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
         link = "https://www.curseforge.com/wow/addons/angleur-underlight",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-trueform.jpg",
@@ -93,7 +104,7 @@ local addonsTable = {
             tooltipText = T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."],
         },
 }
-function OtherAddonsTest_OnLoad(self)
+function MyOtherAddons_OnLoad(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         --do nothing

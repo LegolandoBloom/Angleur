@@ -1,0 +1,164 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- REQUIRES Legolando_CheckboxTemplate TO WORK! -->
+
+    <Script file="Legolando_CollapseConfigTemplate.lua"/>
+
+    <Button name="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
+        <Size x="26" y="26"/>
+        <Layers>
+            <Layer level="ARTWORK" textureSubLevel="1">
+                <Texture name="$parentIcon" file="Interface/BUTTONS/UI-OptionsButton" parentKey="icon">
+                    <Size x="16" y="16"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <KeyValues>
+            <KeyValue key="tooltip" value="Tooltip Text" type="string"/>
+        </KeyValues>
+        <Scripts>
+        <OnEnter>
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT", 0, -20)
+            GameTooltip:AddLine(self.tooltip)
+            GameTooltip:Show()
+        </OnEnter>
+        <OnLeave>
+            GameTooltip:Hide()
+        </OnLeave>
+        <OnMouseDown>
+            if self:IsEnabled() then
+            self.icon:SetPoint("CENTER", -1, -1);
+            end
+        </OnMouseDown>
+        <OnMouseUp>
+            self.icon:SetPoint("CENTER", 0, 0);
+        </OnMouseUp>
+        <OnDisable>
+            SetDesaturation(self.icon, true);
+            self.icon:SetAlpha(0.5);
+        </OnDisable>
+        <OnEnable>
+            SetDesaturation(self.icon, false);
+            self.icon:SetAlpha(1.0);
+        </OnEnable>
+        </Scripts>
+        <NormalTexture file="Interface\Buttons\SquareButtonTextures">
+        <TexCoords left="0.01562500" right="0.42187500" top="0.23437500" bottom="0.64062500"/>
+        </NormalTexture>
+        <PushedTexture file="Interface\Buttons\SquareButtonTextures">
+        <TexCoords left="0.45312500" right="0.85937500" top="0.23437500" bottom="0.64062500"/>
+        </PushedTexture>
+        <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+    </Button>
+
+    <Button name="Legolando_CollapseConfigTemplate_Angleur" mixin="Legolando_CollapseConfigMixin_Angleur" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
+        <KeyValues>
+            <KeyValue key="savedVarTable" value="" type="table"/>
+        </KeyValues>
+        <Scripts>
+            <OnClick>
+                if self.popup:IsShown() then
+                    self.popup:Hide()
+                else
+                    self.popup:Show()
+                end
+            </OnClick>
+        </Scripts>
+        <Frames>
+            <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">
+                <Size x="600" y="226"/>
+                <Anchors>
+                    <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" x="0" y="0"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
+                        <Anchors>
+                            <Anchor point="TOP" x="0" y="-19"/>
+                        </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
+                    <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame name= "$parent_ScanSpeed" parentKey="scanSpeed" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-80"/>
+                        </Anchors>
+                    </Frame>
+                    <Frame name= "$parent_StartDelay" parentKey="startDelay" inherits="SliderAndEditControlTemplate">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-140"/>
+                        </Anchors>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="unitText" text="units" inherits="NumberFont_GameNormal">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" relativeKey="$parent.ValueBox" relativePoint="BOTTOMLEFT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                    <!-- <CheckButton name="$parent_DisableWarning" parentKey="disableWarning" inherits="CheckboxTemplate_Angleur">
+                        <Anchors>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="18" y="15"/>
+                        </Anchors>
+                    </CheckButton> -->
+                    <Button name="$parent_Defaults" parentKey="defaults" text="Reset" inherits="IconButtonTemplate">
+                        <Size x="42" y="42"/>
+                        <Anchors>
+                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-6" y="6"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="icon" value="Interface\Buttons\UI-RefreshButton" type="string"/>
+                            <KeyValue key="iconSize" value="20" type="number"/>
+                        </KeyValues>
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString name="$parent_Text" parentKey="text" text="Text" inherits="GameFontNormalLarge">
+                                    <Anchors>
+                                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                        <Scripts>
+                            <OnClick>
+                                <!-- self:GetParent():ResetPosition() -->
+                            </OnClick>
+                            <OnEnter>
+                                if not self.tooltip then return end
+                                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                                GameTooltip:AddLine(self.tooltip)
+                                GameTooltip:Show()
+                            </OnEnter>
+                            <OnLeave>
+                                if not self.tooltip then return end
+                                GameTooltip:Hide()
+                            </OnLeave>
+                        </Scripts>
+                        <NormalTexture file="Interface\Buttons\UI-SquareButton-Up"/>
+                        <PushedTexture file="Interface\Buttons\UI-SquareButton-Down"/>
+                        <DisabledTexture file="Interface\Buttons\UI-SquareButton-Disabled"/>
+                        <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
+                    </Button>
+                    <Button parentKey="$parent.CloseButton" inherits="UIPanelCloseButton">
+                        <Anchors>
+                            <Anchor point="TOPRIGHT" x="-2" y="-2"/>
+                        </Anchors>
+                    </Button>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Button>
+</Ui>

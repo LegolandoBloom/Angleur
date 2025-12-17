@@ -40,12 +40,17 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if button ~= angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID] then return end
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
     if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
-        --print("Mouse on another frame, ignoring")
-        return 
+        if not AngleurClassicConfig.softInteract.enabled or not AngleurClassicConfig.softInteract.bobberScanner then
+            --print("Mouse on another frame, ignoring")
+            return 
+        else
+            --needed for bobber Scanner double click fishing
+        end
     end
     if event == "GLOBAL_MOUSE_UP" then
         Angleur_StuckFix()
         if InCombatLockdown() then return end
+        if UnitIsDeadOrGhost("player") then return end
         if angleurDoubleClick.ignoreNextMouseUp then angleurDoubleClick.ignoreNextMouseUp = false return end
         if not angleurDoubleClick.watching then
             angleurDoubleClick.watching = true

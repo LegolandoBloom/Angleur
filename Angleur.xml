@@ -77,6 +77,10 @@
                                     print(Angleur_Translate["Can't change sleep state in combat."])
                                     return
                                 end
+                                if UnitIsDeadOrGhost("player") then
+                                    print(Angleur_Translate["Can't change sleep state while in ghost form."])
+                                    return
+                                end
                                 local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                 if AngleurCharacter.sleeping == true then
                                     AngleurCharacter.sleeping = false
@@ -86,7 +90,7 @@
                                 elseif AngleurCharacter.sleeping == false then
                                     AngleurCharacter.sleeping = true
                                     Angleur_SetSleep()
-                                    Angleur_UnequipAngleurSet(true)
+                                    Angleur_UnequipAngleurSet()
                                     print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
                                 end
                                 
@@ -204,9 +208,9 @@
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
                                 <Frames>
-                                    <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-43"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-38"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -216,14 +220,14 @@
                                             </Frame>
                                         </Frames>
                                     </CheckButton>
-                                    <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_OversizedBobberCheckBox" parentKey="oversizedBobberEnable" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-72"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-67"/>
                                         </Anchors>
                                     </CheckButton>
-                                    <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_CrateBobberCheckBox" parentKey="crateBobberEnable" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-100"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-95"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
@@ -236,7 +240,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-134"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-129"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -248,12 +252,12 @@
                                             </Layer>
                                         </Layers>
                                         <Frames>
-                                            <CheckButton name="$parent_Audio" parentKey="audio" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_Audio" parentKey="audio" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0"/>
                                                 </Anchors>
                                             </CheckButton>
-                                            <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="MyCheckboxTemplate">
+                                            <CheckButton name="$parent_AutoLoot" parentKey="autoLoot" inherits="CheckboxTemplate_Angleur">
                                                 <Anchors>
                                                     <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0"/>
                                                 </Anchors>
@@ -263,7 +267,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-192"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-177"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -327,73 +331,11 @@
                                                             </OnShow>
                                                         </Scripts>
                                                         <Frames>
-                                                            <Button name="$parent_AngleurKey" parentkey="angleurKey" inherits="KeyBindingFrameBindingButtonTemplate">
+                                                            <Button name="Angleur_AngleurKey" parentkey="angleurKey" inherits="Legolando_KeybindButtonTemplate_Angleur">
                                                                 <Size x="100" y="22"/>
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" y="-25"/>
                                                                 </Anchors>
-                                                                <Layers>
-                                                                    <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline">
-                                                                            <Color r="1" g="1" b="1"/>
-                                                                            <Anchors>
-                                                                                <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                        <FontString name="$parent_Disclaimer" parentKey="disclaimer" inherits= "SystemFont_Outline" hidden="true">
-                                                                            <Anchors>
-                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="35" y="0"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                        <FontString name="$parent_Warning" parentKey="warning" inherits="SystemFont_Outline" hidden="true">
-                                                                            <Color r="1"/>
-                                                                            <Anchors>
-                                                                                <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="0" y="0"/>
-                                                                            </Anchors>
-                                                                        </FontString>
-                                                                    </Layer>
-                                                                </Layers>
-                                                                <Scripts>
-                                                                    <OnLoad>
-                                                                        self.SelectedHighlight:SetWidth(self:GetWidth())
-                                                                        self:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-                                                                        self:RegisterEvent("PLAYER_REGEN_DISABLED")
-                                                                        self:RegisterEvent("PLAYER_REGEN_ENABLED")
-                                                                        self:SetPropagateKeyboardInput(true)
-                                                                    </OnLoad>
-                                                                    <OnClick>
-                                                                        if InCombatLockdown() then return end
-                                                                        if button == "LeftButton" then
-                                                                            if self.selected then
-                                                                                Angleur_KeyGetterStopWatching()
-                                                                            else
-                                                                                self.selected = true
-                                                                                self:SetSelected(true)
-                                                                                self:SetScript("OnKeyDown", Angleur_KeyGetterModified)
-                                                                                self:SetScript("OnMouseWheel", Angleur_KeyGetterWheel)
-                                                                                self:SetScript("OnMouseDown", Angleur_KeyGetterMouse)
-                                                                                self:SetScript("OnGamePadButtonDown", Angleur_KeyGetterGamePad)
-                                                                                self:SetPropagateKeyboardInput(false)
-                                                                                self.disclaimer:Show()
-                                                                                self.disclaimer:SetText(Angleur_Translate["The next key you press\nwill be set as Angleur Key"])
-                                                                                self.warning:Hide()
-                                                                            end
-                                                                        elseif button == "RightButton" then
-                                                                            Angleur_Unbind(self)
-                                                                        end
-                                                                    </OnClick>
-                                                                    <OnEvent>
-                                                                            if event == "PLAYER_REGEN_DISABLED" then
-                                                                                Angleur_KeyGetterStopWatching()
-                                                                                self:Disable()
-                                                                            elseif event =="PLAYER_REGEN_ENABLED" then
-                                                                                self:Enable()
-                                                                            end
-                                                                    </OnEvent>
-                                                                    <OnHide>
-                                                                        Angleur_KeyGetterStopWatching()
-                                                                    </OnHide>
-                                                                </Scripts>
                                                             </Button>
                                                         </Frames>
                                                     </Frame>
@@ -442,7 +384,7 @@
                                                                 </Anchors>
                                                                 <Layers>
                                                                     <Layer level="ARTWORK">
-                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "GameFontNormalMed2Outline">
+                                                                        <FontString name="$parent_MenuTitle" parentKey="menuTitle" inherits= "Game15Font">
                                                                             <Color r="1" g="1" b="1"/>
                                                                             <Anchors>
                                                                                 <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" y="5"/>
@@ -457,10 +399,23 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
+                                    <CheckButton name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="CheckboxTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
+                                        </Anchors>
+                                        <Frames>
+                                            <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
+                                                <Size x="100" y="22"/>
+                                                <Anchors>
+                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                </Anchors>
+                                            </Button>
+                                        </Frames>
+                                    </CheckButton>
                                     <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
-                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="8"/>
+                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-13"/>
                                         </Anchors>
                                         <Scripts>
                                             <OnClick>
@@ -712,17 +667,17 @@
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
                                 <Frames>
-                                    <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="23" y="-35"/>
                                         </Anchors>
                                     </CheckButton>
-                                    <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-59"/>
                                         </Anchors>
                                     </CheckButton>
-                                    <CheckButton name="$parent_SoftIconOff" parentKey="softIconOff" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_SoftIconOff" parentKey="softIconOff" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-83"/>
                                         </Anchors>
@@ -778,12 +733,12 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-230"/>
                                         </Anchors>
                                     </Frame>
-                                    <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-279"/>
                                         </Anchors>
                                     </CheckButton>
-                                    <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="MyCheckboxTemplate">
+                                    <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-308"/>
                                         </Anchors>
@@ -823,6 +778,10 @@
                             <OnClick>
                                 if InCombatLockdown() then
                                     print(Angleur_Translate["Can't change sleep state in combat."])
+                                    return
+                                end
+                                if UnitIsDeadOrGhost("player") then
+                                    print(Angleur_Translate["Can't change sleep state while in ghost form."])
                                     return
                                 end
                                 AngleurCharacter.sleeping = false
@@ -914,6 +873,7 @@
             </OnLoad>
             <OnClick>
                 if InCombatLockdown() then return end
+                if UnitIsDeadOrGhost("player") then return end
                 self:Disable()
                 Angleur_CreateEquipmentSet()
                 Angleur_AddToEquipmentSet()
@@ -947,8 +907,6 @@
                         AngleurCharacter.angleurSet = false
                         Angleur_CreateSetAndAdd_UpdateState()
                         C_EquipmentSet.DeleteEquipmentSet(C_EquipmentSet.GetEquipmentSetID("Angleur"))
-                        self:GetParent():Enable()
-                        self:GetParent():ClearPushedTexture()
                     </OnClick>
                     <OnEnter>
                         GameTooltip:SetOwner(self, "ANCHOR_TOPLEFT", 0, 0)

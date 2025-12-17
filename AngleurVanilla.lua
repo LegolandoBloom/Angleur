@@ -1,4 +1,10 @@
+---@diagnostic disable: cast-local-type, param-type-mismatch
 local T = Angleur_Translate
+
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local mists = ang.vanilla
+
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
@@ -54,6 +60,7 @@ end
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
     if event == "ADDON_LOADED" and unit == "Angleur" then
+        Init_AngleurSavedVariables()
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
@@ -85,13 +92,14 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        Init_AngleurSavedVariables()
+        Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
         if GetCVar("autoLootDefault") == "1" then
             Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
             AngleurConfig.ultraFocusAutoLootEnabled = false
         end
         Init_AngleurVisual()
         --Angleur_HandleCVars()
+        AngleurClassic_ToggleSoftInteract(false)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_LoadItems()
         Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
@@ -123,38 +131,13 @@ end
 --***********[~]**********
 --**Events watcher that determines logic variables**
 --***********[~]**********
-local iceFishing = false
 local mounted = false
 local swimming = false
 local midFishing = false
-local fishingSpellTable = {
-    7620,
-    7731,
-    7732,
-    18248,
-    33095,
-    51294,
-    88868
-}
-local fishingPoleTable = {
-    6256,
-    6365,
-    6366,
-    6367,
-    12225,
-    19022,
-    19970,
-    25978,
-    44050,
-    45120,
-    45858,
-    45991,
-    45992,
-    46337,
-    52678
-}
+local bobberWithinRange = false
+
 local function CheckTable(table ,spell)
-    matchFound = false
+    local matchFound = false
     for i, value in pairs(table) do
         if spell == value then
             matchFound = true
@@ -164,12 +147,14 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
+local fishingPoleTable = AngleurVanilla_FishingPoleTable
 function AngleurClassic_CheckFishingPoleEquipped()
+    if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        Angleur_UnequipAngleurSet()
         return 
     end
     local id = C_Item.GetItemID(itemLoc)
@@ -189,7 +174,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
     else
         AngleurCharacter.sleeping = true
         Angleur_SetSleep()
-        Angleur_UnequipAngleurSet(true)
+        Angleur_UnequipAngleurSet()
     end
 end
 
@@ -206,12 +191,8 @@ local function isChosenKeyDown()
             return false
         end
         local keybind = AngleurConfig.angleurKey
-        if AngleurConfig.angleurKeyModifier then
-            if AngleurConfig.angleurKeyMain then
-                keybind = AngleurConfig.angleurKeyMain
-            else
-                print(T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."])
-            end
+        if AngleurConfig.angleurKey_Base then
+            keybind = AngleurConfig.angleurKey_Base
         end
         if keybind == "MOUSEWHEELUP" or keybind == "MOUSEWHEELDOWN" then
             return false
@@ -249,6 +230,7 @@ local function checkMounted()
     end
     return false
 end
+local fishingSpellTable = AngleurVanilla_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
@@ -265,9 +247,11 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "PLAYER_SOFT_INTERACT_CHANGED" then
         if arg4 then
-            local subbed = string.gsub(arg4, "%-0%-3767%-2444%-2424%-", "")
-            if subbed then
-                --print("found first pattern")
+            local found, endo = string.find(arg4, "GameObject-\0-4458-1-54-35591-")
+            if found then
+                Angleur_BetaPrint("the bobber is within range")
+                bobberWithinRange = true
+                --[[
                 if string.match(arg4, "%-377944%-") then
                     iceFishing = true
                 elseif string.match(arg4, "%-192631%-") or string.match(arg4, "%-197596%-")then
@@ -275,45 +259,76 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 elseif string.match(arg4, "%-35591%-") then
                     midFishing = true
                 end
+                
+                ]]
+                
+            else
+                Angleur_BetaPrint("different soft target")
+                bobberWithinRange = false
             end
-        elseif iceFishing == true then
-            iceFishing = false
+        else
+            bobberWithinRange = false
         end
     elseif event == "UNIT_SPELLCAST_SENT" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg6) then return end
         midFishing = true
+        EventRegistry:TriggerEvent("Angleur_StartFishing")
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
+        EventRegistry:TriggerEvent("Angleur_StartFishing")
+        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
+            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
+                if not bobberWithinRange then
+                    PlaySound(12889)
+                end
+            end)
+        end
+        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
+            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
+                if not bobberWithinRange then
+                    Angleur_BobberScanner()
+                end
+            end)
+        end
         Angleur_ActionHandler(Angleur)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
+        if AngleurClassicConfig.softInteract.enabled == true then
+            AngleurClassic_ToggleSoftInteract(true)
+        end
     elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
         if unit ~= "player" then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = false
+        EventRegistry:TriggerEvent("Angleur_StopFishing")
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(false) end
+        if AngleurClassicConfig.softInteract.enabled == true then
+            AngleurClassic_ToggleSoftInteract(false)
+        end
         if isChosenKeyDown() == false then
             midFishing = false
+            EventRegistry:TriggerEvent("Angleur_StopFishing")
         else
             Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
                 if isChosenKeyDown() == false then
                     midFishing = false
+                    EventRegistry:TriggerEvent("Angleur_StopFishing")
                     return true
                 end
             end, function()
                 midFishing = false
+                EventRegistry:TriggerEvent("Angleur_StopFishing")
             end)
         end
+        bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
-    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
+    elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or event == "MIRROR_TIMER_START" then
         if checkMounted() then 
             mounted = true
         else
@@ -335,6 +350,9 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end)
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
+        -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
+        -- Because "UNIT_INVENTORY_CHANGED" won't always trigger when you swap rods
+        Angleur_BaitEnchant()
     elseif event == "UNIT_AURA" and unit == "player" then
         --Angleur_Auras()
         Angleur_ExtraItemAuras()
@@ -354,6 +372,7 @@ logicVarFrame:RegisterEvent("PLAYER_MOUNT_DISPLAY_CHANGED")
 logicVarFrame:RegisterEvent("UPDATE_SHAPESHIFT_FORM")
 logicVarFrame:RegisterEvent("PLAYER_EQUIPMENT_CHANGED")
 logicVarFrame:RegisterEvent("MOUNT_JOURNAL_USABILITY_CHANGED")
+logicVarFrame:RegisterEvent("MIRROR_TIMER_START")
 logicVarFrame:RegisterEvent("UNIT_AURA")
 logicVarFrame:RegisterEvent("UNIT_INVENTORY_CHANGED")
 logicVarFrame:RegisterEvent("CURSOR_CHANGED")
@@ -365,9 +384,9 @@ logicVarFrame:SetScript("OnEvent", Angleur_LogicVariableHandler)
 --***********[~]**********
 
 local auraIDHolders = {
-    raft,
-    oversizedBobber,
-    crateBobber
+    raft = nil,
+    oversizedBobber = nil,
+    crateBobber = nil,
 }
 
 local rafted = false
@@ -450,63 +469,121 @@ function Angleur_BaitEnchant()
         baitApplied = false
     end
 end
-
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
+-- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+local function performAction(self, assignKey, action, recast, oobIcon, gPad)
+    if action == "cast" then
+        SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+    elseif action == "reel" then
+        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
+    elseif action == "clear" then
+        ClearOverrideBindings(self)
+        self.visual.texture:SetTexture("")
+    elseif action == "bait" then
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")
+        self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
+    elseif action == "raft" then
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
+        self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
+    elseif action == "extraItem" then
+        -- already handled within the other function
+    end
+    if recast then
+        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
+    end
+    if oobIcon then
+        self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
+    end
+    if gPad then
+        Angleur_SetCursorForGamePad(true)
+    end
+end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
     Angleur_UpdateItemsCountdown(false)
     local assignKey = nil
-    if AngleurConfig.chosenMethod == "oneKey" then
+    local chosenMethod = AngleurConfig.chosenMethod
+    if chosenMethod == "oneKey" then
         if not AngleurConfig.angleurKey then
             ClearOverrideBindings(self)
             self.visual.texture:SetTexture("")
-        return end
+            return 
+        end
         assignKey = AngleurConfig.angleurKey
-    elseif AngleurConfig.chosenMethod == "doubleClick" then
+    elseif chosenMethod == "doubleClick" then
         if angleurDoubleClick.watching then 
             assignKey = angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]
         end
     end
     
     ClearOverrideBindings(self)
+
+    local action
+    local recast = false
+    local oobIcon = false
+    local gPad = false
+    if UnitIsDeadOrGhost("player") then
+        action = "clear"
+        performAction(self, assignKey, action)
+        return
+    end
     if midFishing then
-        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-        Angleur_SetCursorForGamePad(true)
-    elseif swimming then
-        --print("I am swimming")
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+        if AngleurClassicConfig.softInteract.enabled then
+            if bobberWithinRange == false then
+                oobIcon = true
+                if AngleurClassicConfig.softInteract.recastWhenOOB then
+                    action = "cast"
+                else
+                    action = "reel"
+                end 
+            else
+                action = "reel"
+            end
         else
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+            --Always set doubleClick to recast on Classic(When soft interact is off)
+            if chosenMethod == "doubleClick" then
+                action = "cast"
+            else
+                action = "reel"
+                gPad = true
+            end
         end
-    elseif not swimming then
+        if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
+            recast = true
+        end
+    -- elseif swimming then
+    --     if mounted and Angleur_TinyOptions.allowDismount == false then
+    --         action = "clear"
+    --     -- This else case is left in as a placeholder for the counterpart in Mists, where it has a case for rafts.
+    --     -- Think of the if-else duo as pointless, as the outcome is always action = "clear". left it this way in case
+    --     -- I add a similar thing here in the future.
+    --     else
+    --         action = "clear"
+    --     end
+    -- elseif not swimming then --> else
+    else
         if mounted and Angleur_TinyOptions.allowDismount == false then
-            ClearOverrideBindings(self)
-            self.visual.texture:SetTexture("")
+            action = "clear"
         else
             local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
             if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
-                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-                self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")
-                self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
+                action = "bait"
             elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
+                action =  "extraItems"
                 --ALREADY HANDLED WITHIN THE FUNCTION
-            elseif iceFishing then
-                SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
-                Angleur_SetCursorForGamePad(true)
             else
-                SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
-                self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+                action = "cast"
             end
         end
     end
+    performAction(self, assignKey, action, recast, oobIcon, gPad)
 end
 
 local cursorControlEnabled = false
@@ -601,12 +678,11 @@ function Angleur_SetSleep()
         Angleur.configPanel.tab2:DesaturateHierarchy(1)
         Angleur.configPanel.wakeUpButton:Show()
         Angleur.configPanel.decoration:Hide()
-        if Angleur_TinyOptions.turnOffSoftInteract == true then
-            Angleur_UltraFocusInteractOff(false)
-        end
+        AngleurClassic_ToggleSoftInteract(false)
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(false)
         end
+        EventRegistry:TriggerEvent("Angleur_Sleep")
     elseif AngleurCharacter.sleeping == false then
         Angleur.visual.texture:SetDesaturated(false)
         Angleur.configPanel.tab1:DesaturateHierarchy(0)
@@ -616,6 +692,7 @@ function Angleur_SetSleep()
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(true)
         end
+        EventRegistry:TriggerEvent("Angleur_Wake")
     end
     Angleur_SetMinimapSleep()
 end
@@ -684,11 +761,13 @@ function Angleur_UltraFocusAutoLoot(activate)
     end
 end
 
-function Angleur_UltraFocusInteractOff(activate)
+function AngleurClassic_ToggleSoftInteract(activate)
+    local current = C_CVar.GetCVar("SoftTargetInteract")
     if activate == true then
+        AngleurClassic_CVars.softInteract = current
         C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false then
-        C_CVar.SetCVar("SoftTargetInteract", 1)
+    elseif activate == false and AngleurClassic_CVars.softInteract and current ~= AngleurClassic_CVars.softInteract then
+        C_CVar.SetCVar("SoftTargetInteract", AngleurClassic_CVars.softInteract)
     end
 end
 

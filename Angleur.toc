@@ -1,8 +1,8 @@
-## Interface: 110200
+## Interface: 110207
 ## Title: Angleur
 ## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
 ## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
-## Version: Angleur 2.2 - The Great Merge + Translation Support
+## Version: Angleur 2.5 - Bobber Scanner(Classic)
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
@@ -28,7 +28,6 @@ translations\translations.xml
 angTemplates\GeneralTemplates\RetailTemplates.xml
 angTemplates\GeneralTemplates\RetailTemplates.lua
 angTemplates\embeds.xml
-angTemplates\SimplePromotionTemplate\SimplePromotionTemplate.xml
 
 init.lua
 Angleur.lua
@@ -49,12 +48,12 @@ tabs\tiny_retail.lua
 tabs\tiny_base.lua
 
 doubleClick.lua
-oneKey.lua
 firstInstall.lua
 advancedAngling.lua
 slashcommands.lua
 minimap.lua
 animations.xml
+platerClash.lua
 
 Angleur.xml
 

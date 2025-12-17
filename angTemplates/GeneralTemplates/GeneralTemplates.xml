@@ -293,7 +293,7 @@
         </Frames>
     </Button>
     
-    <CheckButton name="MyCheckboxTemplate" parentKey="Enabled" mixin="Angleur_CheckboxMixin" virtual="true">
+    <CheckButton name="CheckboxTemplate_Angleur" parentKey="Enabled" mixin="Angleur_CheckboxMixin" virtual="true">
 		<Size x="24" y="24"/>
 		<HitRectInsets>
 			<AbsInset left="0" right="0" top="0" bottom="8"/>

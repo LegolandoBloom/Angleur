@@ -3,8 +3,6 @@
 
     <Script file="GeneralTemplates\GeneralTemplates.lua"/>
     <Include file="GeneralTemplates\GeneralTemplates.xml"/>
-
-    <Script file="Angleur_HelpTipTemplate\Angleur_HelpTipTemplate.lua"/>
-    <Include file="Angleur_HelpTipTemplate\Angleur_HelpTipTemplate.xml"/>
     
+    <Include file="LegolandoTemplates\embeds.xml"/>
 </Ui>

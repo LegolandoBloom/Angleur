@@ -4,8 +4,8 @@
 ## Notes-ruRU: Версия Cataclysm лучшего дополнения для рыбалки одной кнопкой, Angleur!
 ## Version: Angleur Cata - Angleur 2.2 - The Great Merge + Translation Support
 ## Author: LegolandoBloom
-## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
-## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI
+## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars, AngleurClassic_CVars
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
@@ -28,35 +28,37 @@ translations\translations.xml
 angTemplates\GeneralTemplates\ClassicTemplates.lua
 angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
-angTemplates\SimplePromotionTemplate\SimplePromotionTemplate.xml
 
 init.lua
-AngleurCata.lua
+AngleurMists.lua
 
-toys\toys_cata.lua
+toys\toys_mists.lua
 toys\toys_base.lua
 
-items\items_cata.lua
+items\items_mists.lua
 items\items_base.lua
 
 eqMan\eqMan_base.lua
 
 tabs\tabs-general.lua
-tabs\standard_cata.lua
+tabs\standard_mists.lua
 tabs\standard_base.lua
 tabs\extra_with.lua
-tabs\tiny_cata.lua
+tabs\tiny_mists.lua
 tabs\tiny_base.lua
 
 doubleClick.lua
-oneKey.lua
 firstInstall.lua
 advancedAngling.lua
 slashcommands.lua
 minimap.lua
 animations.xml
 
-AngleurCata.xml
+bobberScanner\Legolando_CheckboxTemplate\Legolando_CheckboxTemplate.xml
+bobberScanner\Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml
+bobberScanner\bobberScanner.lua
+
+AngleurMists.xml
 
 thanks\thanks.lua
 thanks\thanks.xml

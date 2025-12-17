@@ -14,6 +14,8 @@ local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
+local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
+local colorDarkRed = CreateColor(0.68, 0, 0)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ультра Фокус:"
@@ -432,7 +434,7 @@ T[" minutes, "] = " минут, "
 T[" seconds"] = " секунд"
 
 
---tiny_cata
+--tiny_mists
 T["Default tiny settings restored"] = "Настройки Tiny сброшены"
 
 
@@ -534,11 +536,136 @@ T["Glow Worm"] = "Светлячок"
 T["Heat-Treated Spinning Lure"] = "Термостойкая вращающаяся наживка"
 
 
-
+--________________
+--  UNTRANSLATED:
+--________________
 -- Other addon promotion
-T["My Other Addons!"] = "My Other Addons!"
-T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."] = "Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\n"
-.. "Equip " .. colorUnderlight:WrapTextInColorCode("Underlight_Angler ") .. "when swimming, re-equip your \'Main\' Fishing Rod when not."
-T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."
-T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop " 
-.. colorYello:WrapTextInColorCode("Macro Maker.")
+T["My Other Addons!"] = "Мои другие аддоны!"
+T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."] = "Автоматическая водная форма для ВСЕХ КЛАССОВ, ВСЕГДА!\n\n"
+.. "Надевает " .. colorUnderlight:WrapTextInColorCode("Подсветный удильщик ") .. "при плавании, возвращает вашу основную удочку, когда на суше."
+T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Полная переработка Обшаривания карманов для разбойников!\n\nRPG-подобная система подсказок Обшаривания карманов с динамической привязкой клавиши (освобождается, когда кража недоступна)."
+T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Двусторонние превращения в воргенов при использовании способностей или предметов!\n\nВстроенный " .. colorYello:WrapTextInColorCode("создатель макросов ") .. "с перетаскиванием."
+
+-- Major rework to eqMan
+T["The following slotted items could not be added to your Angleur Equipment Set: "] = "Следующие предметы в слотах не удалось добавить в ваш " .. colorYello:WrapTextInColorCode("комплект Angleur ") .. ":"
+
+-- Recast Key
+T["Enable Recast Key"] = "Включить клавишу повторного заброса"
+T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur: ")
+.. "ВЕРСИЯ ОБНОВЛЕНА. " .. "Пожалуйста, повторно настройте " .. colorYello:WrapTextInColorCode("\'OneKey\' ") .. "в " .. colorYello:WrapTextInColorCode("панели настроек.")
+
+-- New soft interact system for classic
+T["Enable Soft Interact"] = "Включить Soft Interact"
+T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Показывает визуальный индикатор дальности, когда поплавок упал слишком далеко для захвата системой soft interact."
+T["Warning Sound"] = "Звуковое предупреждение"
+T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Проигрывает " .. colorYello:WrapTextInColorCode("звуковое предупреждение") .. ", когда поплавок упал слишком далеко для захвата системой soft interact."
+T["Recast When OOB"] = "Перезаброс при OOB"
+T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Назначает "
+.. colorRed:WrapTextInColorCode("OneKey") .. " / " .. colorRed:WrapTextInColorCode("двойной клик ") .. "на " .. colorYello:WrapTextInColorCode("перезаброс ") .. ", когда поплавок упал слишком далеко для захвата системой soft interact."
+T["Soft Interact in Classic:"] = "Soft Interact в Classic:"
+T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fail to catch the bobber when it lands too far.(Demonstrated in the picture)"
+.. "\n\nAngleur is designed to provide workarounds for this. Once enabled, please check out the options that appear below."] = "Из-за ограничений Classic "
+.. colorYello:WrapTextInColorCode("\'soft interact система\' ") .. "иногда не захватывает поплавок, если он упал слишком далеко." .. colorGrae:WrapTextInColorCode("\n(Показано на картинке)") .. colorBlu:WrapTextInColorCode("\n\nAngleur ")
+.. "предоставляет обходные пути. После включения проверьте появившиеся ниже " .. colorYello:WrapTextInColorCode("настройки.")
+
+-- Bobber scanner for classic
+T["Bobber Scanner(EXPERIMENTAL)"] = "Сканер поплавка\n" .. colorBlu:WrapTextInColorCode("(ЭКСПЕРИМЕНТАЛЬНО)")
+T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT "
+.."use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n"
+.."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"] = "Ручной поиск поплавка путём перемещения камеры по сетке.\n\n" .. colorYello:WrapTextInColorCode("ПРЕДУПРЕЖДЕНИЕ О ГОЛОВОКРУЖЕНИИ:") .. colorRed:WrapTextInColorCode("\nНЕ ")
+.. "используйте эту функцию, если чувствительны к быстрым движениям или резким графическим изменениям.\n\n"
+.. "Функция в разработке! С хорошими отзывами её можно улучшить и сделать гораздо плавнее :)"
+
+T["Bobber Scanner - Dizzy Warning"] = "Сканер поплавка — предупреждение о головокружении"
+T["Do not "
+.."use this feature if you are sensitive to\nrapid movement "
+.. "or any form of fast graphical\nchange. Such as but not limited "
+.. "to:\nPhotosensitive Epilepsy, Vertigo..."] = "Не "
+.."используйте эту функцию, если чувствительны к\nбыстрым движениям "
+.. "или резким графическим\nизменениям. Например (но не только):\n" .. colorYello:WrapTextInColorCode("Фотосенситивная эпилепсия, вертиго...")
+
+-- gamepad support for bobber scanner
+T["Angleur Bobber Scanner: Gamepad Cursor has been enabled. Please move it to the indicated area to start using."] = colorBlu:WrapTextInColorCode("Сканер поплавка Angleur:")
+.. colorYello:WrapTextInColorCode(" Курсор геймпада ") .. "включён. Переместите его в " .. colorRed:WrapTextInColorCode("указанную область ")
+.. ", чтобы начать использование."
+T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."] = colorPurple:WrapTextInColorCode("РЕЖИМ ГЕЙМПАДА:\n")
+.. "После заброса " .. colorBlu:WrapTextInColorCode("\'удочки\'") .. " переместите появившийся курсор\nв " .. colorRed:WrapTextInColorCode("рамку ниже ") .. ", чтобы использовать."
+T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."] = colorBlu:WrapTextInColorCode("Сканер поплавка Angleur: ")
+.. "Обнаружен геймпад! Забросьте " .. colorYello:WrapTextInColorCode("удочку ") .. "один раз для активации "
+.. colorYello:WrapTextInColorCode("режима курсора") .. ", затем поместите его в " .. colorRed:WrapTextInColorCode("указанную рамку.")
+T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Сканер поплавка Angleur: ")
+.. "Переместите появившийся " .. colorYello:WrapTextInColorCode("курсор геймпада ") .. "в " .. colorRed:WrapTextInColorCode("указанную рамку.")
+
+-- Bobber Scanner Config
+T["Bobber Scanner Configuration"] = "Настройки сканера поплавка"
+T["Shows how far the camera will move downward from the \'Centered Position\' to start the scan. "
+.. "Amount is based on your Max Zoom and chosen \'Elevation\'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("Показывает, ")
+.. colorDarkRed:WrapTextInColorCode("насколько далеко ") .. colorWhite:WrapTextInColorCode("камера опустится ") .. colorDarkRed:WrapTextInColorCode("вниз\n")
+.. colorWhite:WrapTextInColorCode("от ") .. colorYello:WrapTextInColorCode("\'центральной позиции\' ")
+.. colorWhite:WrapTextInColorCode("для начала сканирования.\nЗначение зависит от вашего ") .. colorYello:WrapTextInColorCode("максимального зума ")
+.. "и\nвыбранной" .. colorYello:WrapTextInColorCode("\'высоты\' ") .. colorGrae:WrapTextInColorCode("(меню сканера поплавка)")
+T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("ВЫСОТА:")
+T["Reset to Defaults"] = "Сбросить на стандартные"
+T["Bobber Scan: Scan unsuccessful. Try changing the \'Elevation\' setting, "
+.. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("Скан поплавка: ")
+.. "Сканирование неудачно." .. " Попробуйте изменить настройку " .. colorYello:WrapTextInColorCode("\'высоты\'") .. ", " .. "или ширину зоны поиска в меню сканера — кликните "
+.. colorYello:WrapTextInColorCode("шестерёнку ") .. "рядом с рамкой сброса мыши."
+T["Scan Width"] = colorYello:WrapTextInColorCode("Ширина сканирования")
+T["Scan Speed"] = colorYello:WrapTextInColorCode("Скорость сканирования")
+T["Start Delay"] = colorYello:WrapTextInColorCode("Задержка старта")
+T["sec"] = "сек"
+T["Same Elevation"] = "На одном уровне"
+T["Use this when you are on the same level as the water, or close to it."] = colorWhite:WrapTextInColorCode("Используйте, когда вы на одном уровне с водой или близко к нему.")
+T["Lower Elevation"] = "Ниже"
+T["Use this when the water is lower level than you."] = colorWhite:WrapTextInColorCode("Используйте, когда вода ниже вашего уровня.")
+T["Inside Water"] = "В воде"
+T["Use this when you are inside the water, making the bobber land higher than you."] = colorWhite:WrapTextInColorCode("Используйте, когда вы в воде и поплавок падает выше вас.")
+T["Both"] = "Оба"
+T["Use this if you are fishing in a spot where the elevation constantly changes from level to lower and vice versa."
+.. " The scan covers twice the height as usual, thus taking twice as long."] = colorWhite:WrapTextInColorCode("Используйте, если высота постоянно меняется ")
+.. colorWhite:WrapTextInColorCode("с равной на нижнюю и наоборот.\n\n")
+.. colorWhite:WrapTextInColorCode("Сканирование охватывает вдвое большую высоту, поэтому занимает вдвое больше времени.")
+T["Angleur Bobber Scanner : WARNING! Camera Zoom changed during scan. "
+.. "This can (and will) disrupt success of the bobber scanner, and is likely "
+.. "due to a wall or some other game world object behind your character. To fix this, "
+.. "either move to a clearing, or lower the \'Max Camera Distance\' in "
+.. "the Game's Options under Options->Gameplay->Controls->Camera."
+.. "You can turn this warning off in the Bobber Scanner's Config Menu by clicking the gear icon next to the mouse drop-off box."] = colorBlu:WrapTextInColorCode("Сканер поплавка Angleur :")
+.. colorRed:WrapTextInColorCode(" ПРЕДУПРЕЖДЕНИЕ! ") .. colorYello:WrapTextInColorCode("Зум камеры ")
+.. "изменился во время сканирования. " .. "Это может (и будет) нарушать работу сканера поплавка и обычно вызвано "
+.. "стеной или другим объектом мира " .. colorYello:WrapTextInColorCode("позади персонажа. ") .. "Чтобы исправить, "
+.. "перейдите на открытое место или уменьшите " .. colorYello:WrapTextInColorCode("\'максимальное расстояние камеры\' ")
+.. "в настройках игры: Настройки" .. colorYello:WrapTextInColorCode("->") .. "Игра" .. colorYello:WrapTextInColorCode("->")
+.. "Управление" .. colorYello:WrapTextInColorCode("->") .. "Камера." .. "Это предупреждение можно отключить в меню настроек сканера поплавка — кликните "
+.. colorYello:WrapTextInColorCode("шестерёнку ") .. "рядом с рамкой сброса мыши."
+T["Disable Wall Warning"] = "Отключить предупреждение о стене"
+T["When unchecked, Bobber Scanner warn you with a chat message when your "
+.. "Camera Zoom changes during scan(when it's not supposed to). It's usually due to a wall that's behind you, and it is recommended to "
+.. "keep the warning \'enabled\' so you can know when a fishing spot might cause issues."] = "Если отключено, сканер поплавка предупредит сообщением в чате, когда "
+.. colorYello:WrapTextInColorCode("зум камеры ") .. "меняется во время сканирования (когда не должен).\n\nОбычно из-за стены позади вас, "
+.. colorYello:WrapTextInColorCode("рекомендуется ") .. "оставлять предупреждение " .. colorGreen:WrapTextInColorCode("включённым") .. ", чтобы знать о проблемных местах рыбалки."
+T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"] = "Плагин нишевых функций для Angleur. Добавление редких пользовательских запросов через этот плагин!"
+
+--________________________________________
+-- New Plater Fix Changes for patch 2.6.1
+--________________________________________
+T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ")
+.. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"] = "Plater "
+.. colorYello:WrapTextInColorCode("-> ") .. "Дополнительно " .. colorYello:WrapTextInColorCode("-> ")
+.. "Общие настройки" .. colorYello:WrapTextInColorCode(":") .. " Показывать soft-interact на игровых объектах*"
+T["Has been " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to be able to "
+.. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "Включено " .. colorGreen:WrapTextInColorCode("автоматически ")
+.. "для возможности " .. colorYello:WrapTextInColorCode("подсечки/лута ") .. "улова привязкой Angleur."
+T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Soft Interact has been turned " .. colorGreen:WrapTextInColorCode("ON ") .. "for you to be able to ".. colorYello:WrapTextInColorCode("Reel/Loot ")
+.. "your catches. The previous values will be restored upon logout, so that if you uninstall Angleur you will have them back to normal."] = colorBlu:WrapTextInColorCode("Angleur: ")
+.. "Soft Interact включён " .. colorGreen:WrapTextInColorCode("автоматически ") .. "для возможности ".. colorYello:WrapTextInColorCode("подсечки/лута ")
+.. "улова. Предыдущие значения восстановятся при выходе из игры — если удалите Angleur, всё вернётся как было."
+T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n"
+.. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it "
+.. colorGreen:WrapTextInColorCode("ON.")] = "Если хотите, чтобы Soft-Interact " .. colorRed:WrapTextInColorCode("ОТКЛЮЧАЛСЯ ") .. "вне рыбалки, перейдите:\n"
+.. "Панель настроек Angleur " .. colorYello:WrapTextInColorCode("-> ") .. "Маленькая вкладка (3) " .. colorYello:WrapTextInColorCode("-> ") .. "Отключать Soft-Interact\nи включите галочку "
+.. colorGreen:WrapTextInColorCode("там.")
+T["To stop seeing these messages, go to:"] = "Чтобы больше не видеть эти сообщения, перейдите:"
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ")
+.. "Tiny tab(tab 3), and disable \'Login Messages\'"] = "Панель настроек Angleur "
+.. colorYello:WrapTextInColorCode("-> ") .. "Маленькая вкладка (3), отключите \'Сообщения при входе\'"
