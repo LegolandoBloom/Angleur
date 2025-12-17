@@ -443,8 +443,12 @@ function Angleur_ActionHandler(self)
         end
     end
     ClearOverrideBindings(self)
-
     local action
+    if UnitIsDeadOrGhost("player") then
+        action = "clear"
+        performAction(self, assignKey, action)
+        return
+    end
     if midFishing then
         action =  "reel"
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then

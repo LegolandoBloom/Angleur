@@ -529,6 +529,11 @@ function Angleur_ActionHandler(self)
     local recast = false
     local oobIcon = false
     local gPad = false
+    if UnitIsDeadOrGhost("player") then
+        action = "clear"
+        performAction(self, assignKey, action)
+        return
+    end
     if midFishing then
         if AngleurClassicConfig.softInteract.enabled then
             if bobberWithinRange == false then
