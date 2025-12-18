@@ -67,14 +67,17 @@ function Legolando_KeybindButtonMixin_Angleur:UpdateSavedVariables(base, modifie
         teeburu[self.keybindRef] = modifier .. "-" .. base
         if self.modifierRef then teeburu[self.modifierRef] = modifier end
         if self.baseRef then teeburu[self.baseRef] = base end
+        EventRegistry:TriggerEvent("Lego-KeyBound-Angleur-" .. self:GetParentKey(), base, modifier)
     elseif base then
         teeburu[self.keybindRef] = base
         if self.modifierRef then teeburu[self.modifierRef] = nil end
         if self.baseRef then teeburu[self.baseRef] = nil end
+        EventRegistry:TriggerEvent("Lego-KeyBound-Angleur-" .. self:GetParentKey(), base)
     else
         teeburu[self.keybindRef] = nil
         if self.modifierRef then teeburu[self.modifierRef] = nil end
         if self.baseRef then teeburu[self.baseRef] = nil end
+        EventRegistry:TriggerEvent("Lego-KeyUnbound-Angleur-" .. self:GetParentKey())
     end
 end
 

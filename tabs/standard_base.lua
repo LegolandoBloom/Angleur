@@ -116,6 +116,7 @@ function Angleur_FishingMethodSetSelected(self)
             button.contents:Hide()
         end
     end
+    EventRegistry:TriggerEvent("Angleur-ChosenMethod-Changed")
 end
 
 local stiffShownOnce = false

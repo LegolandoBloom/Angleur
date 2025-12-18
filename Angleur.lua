@@ -13,6 +13,7 @@ local colorGreen = CreateColor(0, 1, 0)
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 
 local undangLoaded = false
+local isSpaceBound = false
 
 local function SetOverrideBinding_Custom(owner, isPriority, key, command)
     if not key then return end
@@ -96,6 +97,9 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         --Check if the Plugin Addon Angleur_Underlight is loaded
         undangLoaded = C_AddOns.IsAddOnLoaded("Angleur_Underlight")
+        if AngleurConfig.angleurKey == "SPACE" and AngleurConfig.chosenMethod == "oneKey" then
+            isSpaceBound = true
+        end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         if GetCVar("autoLootDefault") == "1" then
@@ -177,6 +181,56 @@ local function isChosenKeyDown()
     return false
 end
 
+EventRegistry:RegisterCallback("Lego-KeyBound-Angleur-angleurKey", function(ownerID, ...)
+    local base, modifier = ...
+    if base == "SPACE" and not modifier and AngleurConfig.chosenMethod == "oneKey" then
+        isSpaceBound = true
+    else
+        isSpaceBound = false
+    end
+end)
+EventRegistry:RegisterCallback("Lego-KeyUnbound-Angleur-angleurKey", function(ownerID)
+    isSpaceBound = false
+end)
+EventRegistry:RegisterCallback("Angleur-ChosenMethod-Changed", function(ownerID, ...)
+    if AngleurConfig.chosenMethod == "oneKey" and AngleurConfig.angleurKey == "SPACE" then
+        isSpaceBound = true
+    else
+        isSpaceBound = false
+    end
+end)
+local function checkSwimming()
+    if isSpaceBound then
+        Angleur_PoolDelayer(0.5, 0, 0.05, angleurDelayers, function()
+            if IsSwimming() and not IsFalling() then
+                swimming = true
+                recentlyChangedSwimState = true
+            else
+                swimming = false
+                recentlyChangedSwimState = true
+            end
+            Angleur_ActionHandler(Angleur)
+            -- print("recently swam is set to true")
+            -- print("~~ recentChecker starting ~~")
+            Angleur_PoolDelayer(0.6, 0, 0.1, angleurDelayers, nil, function()
+                recentlyChangedSwimState = false
+                -- print("recently swam is set to false")
+                -- print("~~~ recentChecker done! ~~~")
+            end, "recentlySwamChecker_cycle")
+            -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
+            -- print("recently swam is set to false")
+        end, nil, "swimChecker-cycle")
+    else
+        Angleur_PoolDelayer(0.1, 0, 0.05, angleurDelayers, function()
+            if IsSwimming() then
+                swimming = true
+            else
+                swimming = false
+            end
+        end, nil, "swimChecker-cycle")
+    end
+
+end
 local playerDruid
 local baseClassID
 local _, baseClassID = UnitClassBase("player")
@@ -297,26 +351,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --     swimming = false
         --     recentlyChangedSwimState = true
         -- end
-        Angleur_PoolDelayer(0.1, 0, 0.05, angleurDelayers, nil, function()
-                if IsSwimming() and not IsFalling() then
-                    swimming = true
-                    recentlyChangedSwimState = true
-                else
-                    swimming = false
-                    recentlyChangedSwimState = true
-                end
-                Angleur_ActionHandler(Angleur)
-                -- print("recently swam is set to true")
-                -- print("~~ recentChecker starting ~~")
-                Angleur_PoolDelayer(0.3, 0, 0.1, angleurDelayers, nil, function()
-                    recentlyChangedSwimState = false
-                    -- print("recently swam is set to false")
-                    -- print("~~~ recentChecker done! ~~~")
-                end, "recentlySwamChecker_end")
-                -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
-                -- recentlySwam = false
-                -- print("recently swam is set to false")
-        end, "blapababah")
+        checkSwimming()
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -466,6 +501,7 @@ end
 -- SetOverrideBindingClick_Custom(self, true, "SPACE", "Angleur_ToyButton")
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
+    -- print("Falling?", IsFalling())
     if InCombatLockdown() then return end
     Angleur_UpdateItemsCountdown(false)
     local assignKey = nil
