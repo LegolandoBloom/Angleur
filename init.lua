@@ -306,8 +306,25 @@ function Angleur_CombatDelayer(funk)
     end
 end
 
-function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePool, cycleFunk, endFunk)
+function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePool, cycleFunk, endFunk, uniqueIdentifier)
+    -- ______________________________________________________________________________________________________
+    -- ____________________________________ (Optional) OVERRIDE SYSTEM ______________________________________
+    -- ______________________________________________________________________________________________________
+    -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ unique Identifier --> optional argument ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    -- If optional argument is provided, there will only be a SINGLE INSTANCEe of that type of delayer
+    -- running at one time, and any calls of Angleur_PoolDelayer with that specific 'uniqueIdentifier' 
+    -- argument will release the one beforehand, overriding it.
+    -- ______________________________________________________________________________________________________
+    if uniqueIdentifier then
+        for poolFrame in delayFramePool:EnumerateActive() do
+            if poolFrame.uniqueIdentifier and poolFrame.uniqueIdentifier == uniqueIdentifier then
+                -- print("overriding same type delayer", uniqueIdentifier)
+                delayFramePool:Release(poolFrame)
+            end
+        end
+    end
     local delayFrame = delayFramePool:Acquire()
+    delayFrame.uniqueIdentifier = uniqueIdentifier
     delayFrame:Show()
     delayFrame:SetScript("OnUpdate", function(self, elapsed)
         timeElapsed = timeElapsed + elapsed
@@ -327,6 +344,28 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
             return
         end
     end)
+    -- Keep this part commented
+    -- local count = 0
+    -- local uniques = {}
+    -- local uniqCount = 0
+    -- for delayFrame in delayFramePool:EnumerateActive() do
+    --     count = count + 1
+    --     local uniqID = delayFrame.uniqueIdentifier
+    --     if uniqID then
+    --         for i, v in pairs(uniques) do
+    --             if v == uniqID then
+    --                 print("ERROR: More than one widget with the same unique identifier detected. This isn't supposed to happen.")
+    --                 return
+    --             end
+    --         end
+    --         table.insert(uniques, uniqID)
+    --         uniqCount = uniqCount + 1
+    --     end
+    -- end
+    -- print("Total number of widgets: ", count)
+    -- print("Widgets with different uniqueIdentifiers: ", uniqCount)
+    -- print("Table of active unique identifiers:")
+    -- DevTools_Dump(uniques)
 end
 
 function Angleur_BetaPrint(text, ...)

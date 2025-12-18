@@ -146,6 +146,7 @@ local mounted = false
 local swimming = false
 local midFishing = false
 local compressedOceanFishing = false
+local recentlyChangedSwimState = false
 
 local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
@@ -276,21 +277,45 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             mounted = true
         else
             mounted = false
+            print("UNEXPECTED")
             if IsSwimming() then
+                print("non-delay swimming")
                 swimming = true
             else
+                print("non-delay un-swimming")
                 swimming = false
             end
         end
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then
         --The delay, and checking swimming here is necessary. If we constantly check on update for swimming a constant jumping bug occurs. Only happens when the AngleurKey is set to: SPACE
-        Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
-            if IsSwimming() then
-                swimming = true
-            else
-                swimming = false
-            end
-        end)
+        -- print("MOUNT JOURNAL IsSwimming:", IsSwimming())
+        -- print("|||||||||||||||||| swimChecker starting ||||||||||||||||||")
+        if IsSwimming() then
+            swimming = true
+            recentlyChangedSwimState = true
+        else
+            swimming = false
+            recentlyChangedSwimState = true
+        end
+        Angleur_PoolDelayer(0.05, 0, 0.05, angleurDelayers, nil, function()
+                if IsSwimming() then
+                    swimming = true
+                    recentlyChangedSwimState = true
+                else
+                    swimming = false
+                    recentlyChangedSwimState = true
+                end
+                -- print("recently swam is set to true")
+                -- print("~~ recentChecker starting ~~")
+                Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
+                    recentlyChangedSwimState = false
+                    -- print("recently swam is set to false")
+                    -- print("~~~ recentChecker done! ~~~")
+                end, "recentlySwamChecker_end")
+                -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
+                -- recentlySwam = false
+                -- print("recently swam is set to false")
+        end, "swimChecker_Cycle+End")
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -394,6 +419,14 @@ end
 --***********[~]**********
 -- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action)
+    -- print("Change action: ", not recentlyChangedSwimState)
+    -- if assignKey == "SPACE" then
+    --     if recentlyChangedSwimState == true then
+    --         return
+    --     end
+    -- end
+
+    ClearOverrideBindings(self)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
         self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
@@ -445,8 +478,18 @@ function Angleur_ActionHandler(self)
             assignKey = angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]
         end
     end
-    ClearOverrideBindings(self)
+
     local action
+    -- if assignKey == "SPACE" and recentlySwam then
+    --     action = "clear"
+    --     performAction(self, assignKey, action)
+    --     return
+    -- end
+    -- if IsSwimming() then
+    --     swimming = true
+    -- else
+    --     swimming = false
+    -- end
     if UnitIsDeadOrGhost("player") then
         action = "clear"
         performAction(self, assignKey, action)
