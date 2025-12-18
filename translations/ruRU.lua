@@ -260,7 +260,7 @@ T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "butt
 --thanks
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi ")
 .. "or " .. colorYello:WrapTextInColorCode("Patreon!")] = "Вы можете поддержать проект\nпожертвованием на " .. colorYello:WrapTextInColorCode("Ko-Fi ")
-.. "или " .. colorYello:WrapTextInColorCode("Patreon!")
+.. "или " .. colorYello:WrapTextInColorCode("\nPatreon!")
 
 T["THANK YOU!"] = "СПАСИБО!"
 
@@ -550,14 +550,14 @@ T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nF
 T["The following slotted items could not be added to your Angleur Equipment Set: "] = "Следующие предметы в слотах не удалось добавить в ваш " .. colorYello:WrapTextInColorCode("комплект Angleur ") .. ":"
 
 -- Recast Key
-T["Enable Recast Key"] = "Включить клавишу повторного заброса"
+T["Enable Recast Key"] = "Включить клавишу\nповторного заброса"
 T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur: ")
 .. "ВЕРСИЯ ОБНОВЛЕНА. " .. "Пожалуйста, повторно настройте " .. colorYello:WrapTextInColorCode("\'OneKey\' ") .. "в " .. colorYello:WrapTextInColorCode("панели настроек.")
 
 -- New soft interact system for classic
 T["Enable Soft Interact"] = "Включить Soft Interact"
 T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "Показывает визуальный индикатор дальности, когда поплавок упал слишком далеко для захвата системой soft interact."
-T["Warning Sound"] = "Звуковое предупреждение"
+T["Warning Sound"] = "Звуковое\nпредупреждение"
 T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."] = "Проигрывает " .. colorYello:WrapTextInColorCode("звуковое предупреждение") .. ", когда поплавок упал слишком далеко для захвата системой soft interact."
 T["Recast When OOB"] = "Перезаброс при OOB"
 T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."] = "Назначает "
@@ -569,7 +569,7 @@ T["Due to a limitation in Classic, the \'soft interact system\' can sometimes fa
 .. "предоставляет обходные пути. После включения проверьте появившиеся ниже " .. colorYello:WrapTextInColorCode("настройки.")
 
 -- Bobber scanner for classic
-T["Bobber Scanner(EXPERIMENTAL)"] = "Сканер поплавка\n" .. colorBlu:WrapTextInColorCode("(ЭКСПЕРИМЕНТАЛЬНО)")
+T["Bobber Scanner(EXPERIMENTAL)"] = "Сканер поплавка\n" .. colorBlu:WrapTextInColorCode("(ЭКСПЕРИ-\nМЕНТАЛЬНО)")
 T["Manually scans for the bobber by moving the camera in a grid.\n\nDIZZY WARNING:\nDo NOT "
 .."use this feature if you are sensitive to rapid movement or any form of fast graphical change.\n\n"
 .."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"] = "Ручной поиск поплавка путём перемещения камеры по сетке.\n\n" .. colorYello:WrapTextInColorCode("ПРЕДУПРЕЖДЕНИЕ О ГОЛОВОКРУЖЕНИИ:") .. colorRed:WrapTextInColorCode("\nНЕ ")
@@ -669,3 +669,6 @@ T["To stop seeing these messages, go to:"] = "Чтобы больше не ви�
 T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ")
 .. "Tiny tab(tab 3), and disable \'Login Messages\'"] = "Панель настроек Angleur "
 .. colorYello:WrapTextInColorCode("-> ") .. "Маленькая вкладка (3), отключите \'Сообщения при входе\'"
+
+-- Thing I forgot for the bobber scanner
+T["Place your cursor in the box\nbelow for the scanner to work."] = "Наведите курсор на поле ниже,\nчтобы активировать сканер."
