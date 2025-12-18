@@ -723,3 +723,6 @@ T["Can't change sleep state while in ghost form."] = "Can't change sleep state w
 T["Item equip interrupted by death/ghost-form"] = "Item equip interrupted by death/ghost-form"
 T["Equipping of the Angleur set disrupted due to sudden death/ghost-form"] = "Equipping of the Angleur set disrupted due to sudden death/ghost-form"
 T["Can't add toys while dead"] = "Can't add toys while dead"
+
+-- Thing I forgot for the bobber scanner
+T["Place your cursor in the box\nbelow for the scanner to work."] = "Place your cursor in the box\nbelow for the scanner to work."

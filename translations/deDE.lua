@@ -191,7 +191,7 @@ T["Visual Size"] = "Visual Größe"
 T["Master Volume(Ultra Focus)"] = "Gesamtlautstärke(Aufmerksamkeit)"
 T["Login Messages"] = "Einloggensnachrichten"
 T["Debug Mode"] = "Debug Modus"
-T["Defaults"] = "Standardwerte"
+T["Defaults"] = "Standard-\nwerte"
 
 
 --firstInstall
@@ -708,3 +708,16 @@ T["To stop seeing these messages, go to:"] = "To stop seeing these messages, go 
 T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") 
 .. "Tiny tab(tab 3),  and disable \'Login Messages\'"] = "Angleur Config Panel " 
 .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3),  and disable \'Login Messages\'"
+
+
+--____________________________________________
+--    Dead/Ghost Form checks patch 2.6.1
+--____________________________________________
+T["Can't change sleep state while in ghost form."] = "Can't change sleep state while in ghost form."
+T["Item equip interrupted by death/ghost-form"] = "Item equip interrupted by death/ghost-form"
+T["Equipping of the Angleur set disrupted due to sudden death/ghost-form"] = "Equipping of the Angleur set disrupted due to sudden death/ghost-form"
+T["Can't add toys while dead"] = "Can't add toys while dead"
+
+
+-- Thing I forgot for the bobber scanner
+T["Place your cursor in the box\nbelow for the scanner to work."] = "Place your cursor in the box\nbelow for the scanner to work."
