@@ -297,7 +297,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --     swimming = false
         --     recentlyChangedSwimState = true
         -- end
-        Angleur_PoolDelayer(1, 0, 0.05, angleurDelayers, nil, function()
+        Angleur_PoolDelayer(0.1, 0, 0.05, angleurDelayers, nil, function()
                 if IsSwimming() and not IsFalling() then
                     swimming = true
                     recentlyChangedSwimState = true
@@ -308,7 +308,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 Angleur_ActionHandler(Angleur)
                 -- print("recently swam is set to true")
                 -- print("~~ recentChecker starting ~~")
-                Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
+                Angleur_PoolDelayer(0.3, 0, 0.1, angleurDelayers, nil, function()
                     recentlyChangedSwimState = false
                     -- print("recently swam is set to false")
                     -- print("~~~ recentChecker done! ~~~")
