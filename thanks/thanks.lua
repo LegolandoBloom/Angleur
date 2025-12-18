@@ -95,7 +95,7 @@ local addonsTable = {
     },
     [4] = { 
         icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
-        link = "https://www.curseforge.com/wow/addons/angleur-underlight",
+        link = "https://www.curseforge.com/wow/addons/true-form",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-trueform.jpg",
             tooltipPictureWidth = 128,
             tooltipPictureHeight = 128,
