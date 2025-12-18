@@ -290,14 +290,14 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --The delay, and checking swimming here is necessary. If we constantly check on update for swimming a constant jumping bug occurs. Only happens when the AngleurKey is set to: SPACE
         -- print("MOUNT JOURNAL IsSwimming:", IsSwimming())
         -- print("|||||||||||||||||| swimChecker starting ||||||||||||||||||")
-        if IsSwimming() then
-            swimming = true
-            recentlyChangedSwimState = true
-        else
-            swimming = false
-            recentlyChangedSwimState = true
-        end
-        Angleur_PoolDelayer(0.05, 0, 0.05, angleurDelayers, nil, function()
+        -- if IsSwimming() then
+        --     swimming = true
+        --     recentlyChangedSwimState = true
+        -- else
+        --     swimming = false
+        --     recentlyChangedSwimState = true
+        -- end
+        Angleur_PoolDelayer(0.05, 0, 0.2, angleurDelayers, function()
                 if IsSwimming() then
                     swimming = true
                     recentlyChangedSwimState = true
@@ -305,17 +305,17 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                     swimming = false
                     recentlyChangedSwimState = true
                 end
-                -- print("recently swam is set to true")
-                -- print("~~ recentChecker starting ~~")
-                Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
-                    recentlyChangedSwimState = false
-                    -- print("recently swam is set to false")
-                    -- print("~~~ recentChecker done! ~~~")
-                end, "recentlySwamChecker_end")
-                -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
-                -- recentlySwam = false
-                -- print("recently swam is set to false")
-        end, "swimChecker_Cycle+End")
+                -- -- print("recently swam is set to true")
+                -- -- print("~~ recentChecker starting ~~")
+                -- Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
+                --     recentlyChangedSwimState = false
+                --     -- print("recently swam is set to false")
+                --     -- print("~~~ recentChecker done! ~~~")
+                -- end, "recentlySwamChecker_end")
+                -- -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
+                -- -- recentlySwam = false
+                -- -- print("recently swam is set to false")
+        end, nil)
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
