@@ -19,7 +19,7 @@ local function SetOverrideBinding_Custom(owner, isPriority, key, command)
     SetOverrideBinding(owner, isPriority, key, command)
 end
 
-local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
+function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
     if not key then return end
     SetOverrideBindingClick(owner, isPriority, key, buttonName)
 end
@@ -297,25 +297,26 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --     swimming = false
         --     recentlyChangedSwimState = true
         -- end
-        Angleur_PoolDelayer(0.05, 0, 0.2, angleurDelayers, function()
-                if IsSwimming() then
+        Angleur_PoolDelayer(1, 0, 0.05, angleurDelayers, nil, function()
+                if IsSwimming() and not IsFalling() then
                     swimming = true
                     recentlyChangedSwimState = true
                 else
                     swimming = false
                     recentlyChangedSwimState = true
                 end
-                -- -- print("recently swam is set to true")
-                -- -- print("~~ recentChecker starting ~~")
-                -- Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
-                --     recentlyChangedSwimState = false
-                --     -- print("recently swam is set to false")
-                --     -- print("~~~ recentChecker done! ~~~")
-                -- end, "recentlySwamChecker_end")
-                -- -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
-                -- -- recentlySwam = false
-                -- -- print("recently swam is set to false")
-        end, nil)
+                Angleur_ActionHandler(Angleur)
+                -- print("recently swam is set to true")
+                -- print("~~ recentChecker starting ~~")
+                Angleur_PoolDelayer(1, 0, 0.1, angleurDelayers, nil, function()
+                    recentlyChangedSwimState = false
+                    -- print("recently swam is set to false")
+                    -- print("~~~ recentChecker done! ~~~")
+                end, "recentlySwamChecker_end")
+                -- print("||||||||||||||||||  swimChecker done!  |||||||||||||||||||")
+                -- recentlySwam = false
+                -- print("recently swam is set to false")
+        end, "blapababah")
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -420,11 +421,11 @@ end
 -- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action)
     -- print("Change action: ", not recentlyChangedSwimState)
-    -- if assignKey == "SPACE" then
-    --     if recentlyChangedSwimState == true then
-    --         return
-    --     end
-    -- end
+    if assignKey == "SPACE" then
+        if recentlyChangedSwimState == true then
+            return
+        end
+    end
 
     ClearOverrideBindings(self)
     if action == "cast" then
@@ -462,6 +463,7 @@ local function performAction(self, assignKey, action)
         -- already handled within the other function
     end
 end
+-- SetOverrideBindingClick_Custom(self, true, "SPACE", "Angleur_ToyButton")
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
