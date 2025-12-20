@@ -721,3 +721,4 @@ T["Can't add toys while dead"] = "Can't add toys while dead"
 
 -- Thing I forgot for the bobber scanner
 T["Place your cursor in the box\nbelow for the scanner to work."] = "Place your cursor in the box\nbelow for the scanner to work."
+T["Mouse needs to be in the indicated area for the scanner to work properly."] = "Mouse needs to be in the indicated area for the scanner to work properly."

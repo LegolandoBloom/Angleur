@@ -672,3 +672,4 @@ T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ")
 
 -- Thing I forgot for the bobber scanner
 T["Place your cursor in the box\nbelow for the scanner to work."] = "Наведите курсор на поле ниже,\nчтобы активировать сканер."
+T["Mouse needs to be in the indicated area for the scanner to work properly."] = "Mouse needs to be in the indicated area for the scanner to work properly."

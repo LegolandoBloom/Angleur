@@ -484,7 +484,7 @@ function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
 end
 function Angleur_BobberScanner()
     if not mouseInside then
-        print("Mouse needs to be in the indicated area for the scanner to work properly.")
+        print(T["Mouse needs to be in the indicated area for the scanner to work properly."])
         Angleur_BobberScanner_HandleGamepad(true, T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."])
         return
     end
