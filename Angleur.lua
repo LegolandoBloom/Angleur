@@ -450,7 +450,7 @@ function Angleur_ActionHandler(self)
             return    
         end
         assignKey = AngleurConfig.angleurKey
-        --              !!!! VERY IMPORTANT !!!!
+        --                !!!! VERY IMPORTANT !!!!
         -- _____ Do not change the bind while it is held down ______
         -- It is what caused the Raft Jump Bug, and can cause others
         --__________________________________________________________

@@ -517,6 +517,12 @@ function Angleur_ActionHandler(self)
             return 
         end
         assignKey = AngleurConfig.angleurKey
+        --                !!!! VERY IMPORTANT !!!!
+        -- _____ Do not change the bind while it is held down ______
+        -- It is what caused the Raft Jump Bug, and can cause others
+        --__________________________________________________________
+        if IsKeyDown(assignKey) then return end
+        --__________________________________________________________
     elseif chosenMethod == "doubleClick" then
         if angleurDoubleClick.watching then 
             assignKey = angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]
