@@ -294,9 +294,12 @@ function Angleur_FillEditBox(self)
 end
 function Angleur_GetTimeFromBox(self)
     local keyOfGrandGrandParent = self:GetParent():GetParent():GetParentKey()
+    Angleur_SlottedExtraItems[keyOfGrandGrandParent].lastUpdateTime = 0
+    Angleur_SlottedExtraItems[keyOfGrandGrandParent].remainingTime = 0
     Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
     print(T["Timer set to: "], math.floor(Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay/60), T[" minutes, "], Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay%60, T[" seconds"])
 end
+
 
 local function clearCountdown(slot)
     slot.lastUpdateTime = 0
@@ -306,8 +309,13 @@ function Angleur_UpdateItemsCountdown(resetUpdateTime)
     for i, slot in pairs(Angleur_SlottedExtraItems) do
         if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then      
             -- better to call GetTime() inside the if clause since most users will only have 1 timered item if any at all - instead of outside the for loop
-            local timeNow = GetTime()
-            local timePassedSince = math.floor(timeNow - slot.lastUpdateTime)
+            --                  
+            -- _________________________!!! FIX TO THE PREVIOUS BUG !!!__________________________
+            -- I used to floor(timeNow - slot.lastUpdateTime) instead of flooring timeNow itself
+            -- which caused the timer to be slower approx 0.8x slower than real time
+            -- __________________________________________________________________________________
+            local timeNow = math.floor(GetTime())
+            local timePassedSince = timeNow - slot.lastUpdateTime
             if timePassedSince < 0 or not timePassedSince then
                 print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
                 clearCountdown(slot)
@@ -332,7 +340,7 @@ local function items_Events(self, event, unit, ...)
         for i, slot in pairs(Angleur_SlottedExtraItems) do
             if slot.delay ~= 0 and slot.delay ~= nil then
                 if slot.spellID == arg5 or slot.macroSpellID == arg5 then
-                    slot.lastUpdateTime = GetTime()
+                    slot.lastUpdateTime = math.floor(GetTime())
                     slot.remainingTime = slot.delay
                     Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
                     return
@@ -342,7 +350,7 @@ local function items_Events(self, event, unit, ...)
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
         -- Set extra itemslast update time to when player loads in, so the countdowns can resume properly
-        local timeNow = GetTime()
+        local timeNow = math.floor(GetTime())
         for i, slot in pairs(Angleur_SlottedExtraItems) do
             if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
                 slot.lastUpdateTime = timeNow
