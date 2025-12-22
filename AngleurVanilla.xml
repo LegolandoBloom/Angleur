@@ -496,7 +496,7 @@
                                             <Anchor point="TOP" relativePoint="TOP" x="0" y="-70"/>
                                         </Anchors>
                                         <Scripts>
-                                            <OnLoad function="Angleur_LoadExtraItems"/>
+                                            <OnLoad function="Angleur_ExtraItems_Load"/>
                                         </Scripts>
                                         <Frames>
                                             <Button name="$parent_First" parentKey="first" inherits="ExtraItemButtonTemplate">

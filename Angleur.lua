@@ -106,7 +106,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         Angleur_HandleCVars()
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_CombatDelayer(function()Angleur_LoadToys()end)
-        Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
+        Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
         
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -625,8 +625,8 @@ local function checkConditions(self, slot, assignKey)
 end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
     local returnValue = false
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
-       if checkConditions(self, slot, assignKey) == true then return true end
+    for i=1, ang.extraItems.slotCount, 1 do
+        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
     end
     return returnValue
 end

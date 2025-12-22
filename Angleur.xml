@@ -516,25 +516,28 @@
                                             <Anchor point="TOP" relativeTo="Angleur_ExtraToys" relativePoint="BOTTOM" x="0" y="0"/>
                                         </Anchors>
                                         <Scripts>
-                                            <OnLoad function="Angleur_LoadExtraItems"/>
+                                            <OnLoad>
+                                                Angleur_ExtraItems_CreateSlots(self)
+                                                Angleur_ExtraItems_Load(self)
+                                            </OnLoad>
                                         </Scripts>
-                                        <Frames>
-                                            <Button name="$parent_First" parentKey="first" inherits="ExtraItemButtonTemplate">
+                                        <!-- <Frames>
+                                            <Button name="$parent_First" parentKey="first" id="1" inherits="ExtraItemButtonTemplate">
                                                 <Anchors>
                                                     <Anchor point="LEFT" x="35" y="15"/>
                                                 </Anchors>
                                             </Button>
-                                            <Button name="$parent_Second" parentKey="second" inherits="ExtraItemButtonTemplate">
+                                            <Button name="$parent_Second" parentKey="second" id="2" inherits="ExtraItemButtonTemplate">
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_First" relativePoint="RIGHT" x="45" y="0"/>
                                                 </Anchors>
                                             </Button>
-                                            <Button name="$parent_Third" parentKey="third" inherits="ExtraItemButtonTemplate">
+                                            <Button name="$parent_Third" parentKey="third" id="3" inherits="ExtraItemButtonTemplate">
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_Second" relativePoint="RIGHT" x="45" y="0"/>
                                                 </Anchors>
                                             </Button>
-                                        </Frames>
+                                        </Frames> -->
                                     </Frame>
                                     <Button name="$parent_EquipmentButton" parentKey="equipmentButton" inherits="IconButtonTemplate" hidden="false">
                                         <Size x="36" y="36"/>

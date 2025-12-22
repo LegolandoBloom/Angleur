@@ -16,9 +16,9 @@ function Angleur_SetTab2(self)
     itemHowTo:SetText(T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. 
     colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."])
 
-    self.contents.extraItems.first.timeButton.tooltipText = T["Set Timer"]
-    self.contents.extraItems.second.timeButton.tooltipText = T["Set Timer"]
-    self.contents.extraItems.third.timeButton.tooltipText = T["Set Timer"]
+    self.contents.extraItems[1].timeButton.tooltipText = T["Set Timer"]
+    self.contents.extraItems[2].timeButton.tooltipText = T["Set Timer"]
+    self.contents.extraItems[3].timeButton.tooltipText = T["Set Timer"]
 
     self.contents.equipmentButton.tooltipText = T["Toggle Equipment"]
     self.contents.bagsButton.tooltipText = T["Toggle Bags"]

@@ -7,29 +7,46 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+ang.extraItems = {}
 
 local mistsItems = ang.mists.items
 
 Angleur_SlottedExtraItems = {
-    first = {
+    [1] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0, 
         macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     },
-    second = {
+    [2] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
         macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     },
-    third = {
+    [3] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
         macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
         equipLoc = 0, forceEquip = false
     }
 }
 
+ang.extraItems.slotCount = 3
+local slotCount = ang.extraItems.slotCount
+function Angleur_ExtraItems_CreateSlots(self)
+    local parentName = self:GetDebugName()
+    print("blip blop")
+    for i=1, slotCount, 1 do
+        self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
+        self[i]:SetPoint("LEFT", self, "LEFT", 35 + 90*(i - 1), 15)
+        self[i]:SetID(i)
+    end
+end
+
 local function initializeSavedItems()
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
+    for i=1, slotCount, 1 do
+        if not Angleur_SlottedExtraItems[i] or type(Angleur_SlottedExtraItems[i]) ~= "table" then
+            Angleur_SlottedExtraItems[i] = {}
+        end
+        local slot = Angleur_SlottedExtraItems[i]
         if not slot.name then slot.name = 0 end
         if not slot.itemID then slot.itemID = 0 end
         if not slot.spellID then slot.spellID = 0 end
@@ -49,82 +66,89 @@ local function initializeSavedItems()
     end
 end
 
-function Angleur_LoadExtraItems(self)
+function Angleur_ExtraItems_Load(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 or gameVersion == 3 then
         mistsItems:AdjustCloseButton(self)
     end
     initializeSavedItems()
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
-        Angleur_SlottedExtraItems[i].loaded = false
-        --self[i].name = Angleur_SlottedExtraItems[i].name
-        --self[i].spellID = Angleur_SlottedExtraItems[i].spellID
-        if Angleur_SlottedExtraItems[i].name ~= 0 then
-            self[i].itemID = Angleur_SlottedExtraItems[i].itemID
-            self[i].icon:SetTexture(Angleur_SlottedExtraItems[i].icon)
-            self[i].closeButton:Show()
-            self[i].Name:SetText(nil)
-            self[i].timeButton:Show()
-            if Angleur_SlottedExtraItems[i].delay ~= nil then
-                self[i].timeButton.inputBoxes.minutes:SetNumber(math.floor(Angleur_SlottedExtraItems[i].delay / 60))
-                self[i].timeButton.inputBoxes.seconds:SetNumber(Angleur_SlottedExtraItems[i].delay % 60)
-                Angleur_FillEditBox(self[i].timeButton.inputBoxes.minutes)
-                Angleur_FillEditBox(self[i].timeButton.inputBoxes.seconds)
+    -- DevTools_Dump(self:GetChildren())
+    for i=1, slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
+        local slotFrame = self[i]
+        print("NAMENAME", slotFrame:GetDebugName(), i)
+        DevTools_Dump(Angleur_SlottedExtraItems)
+        slot.loaded = false
+        --slotFrame.name = slot.name
+        --slotFrame.spellID = slot.spellID
+        if slot.name ~= 0 then
+            slotFrame.itemID = slot.itemID
+            slotFrame.icon:SetTexture(slot.icon)
+            slotFrame.closeButton:Show()
+            slotFrame.Name:SetText(nil)
+            slotFrame.timeButton:Show()
+            if slot.delay ~= nil then
+                slotFrame.timeButton.inputBoxes.minutes:SetNumber(math.floor(slot.delay / 60))
+                slotFrame.timeButton.inputBoxes.seconds:SetNumber(slot.delay % 60)
+                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.minutes)
+                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.seconds)
             end
-            local item = Item:CreateFromItemID(Angleur_SlottedExtraItems[i].itemID)
+            local item = Item:CreateFromItemID(slot.itemID)
             item:ContinueOnItemLoad(function(self)
-                Angleur_SlottedExtraItems[i].loaded = true
+                slot.loaded = true
                 --print("Extra item loaded: ", item:GetItemLink())
             end)
-        elseif Angleur_SlottedExtraItems[i].macroName ~= 0 then
-            self[i].icon:SetTexture(Angleur_SlottedExtraItems[i].macroIcon)
-            self[i].closeButton:Show()
-            self[i].Name:SetText(Angleur_SlottedExtraItems[i].macroName)
-            self[i].timeButton:Show()
-            if Angleur_SlottedExtraItems[i].delay ~= nil then
-                self[i].timeButton.inputBoxes.minutes:SetNumber(math.floor(Angleur_SlottedExtraItems[i].delay / 60))
-                self[i].timeButton.inputBoxes.seconds:SetNumber(Angleur_SlottedExtraItems[i].delay % 60)
-                Angleur_FillEditBox(self[i].timeButton.inputBoxes.minutes)
-                Angleur_FillEditBox(self[i].timeButton.inputBoxes.seconds)
+        elseif slot.macroName ~= 0 then
+            slotFrame.icon:SetTexture(slot.macroIcon)
+            slotFrame.closeButton:Show()
+            slotFrame.Name:SetText(slot.macroName)
+            slotFrame.timeButton:Show()
+            if slot.delay ~= nil then
+                slotFrame.timeButton.inputBoxes.minutes:SetNumber(math.floor(slot.delay / 60))
+                slotFrame.timeButton.inputBoxes.seconds:SetNumber(slot.delay % 60)
+                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.minutes)
+                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.seconds)
             end
         else
-            self[i].itemID = nil
-            self[i].icon:SetTexture(nil)
-            self[i].closeButton:Hide()
-            self[i].Name:SetText(nil)
-            self[i].timeButton:Hide()
+            slotFrame.itemID = nil
+            slotFrame.icon:SetTexture(nil)
+            slotFrame.closeButton:Hide()
+            slotFrame.Name:SetText(nil)
+            slotFrame.timeButton:Hide()
         end
     end
 end
 
 function Angleur_RemoveExtraItem(self)
     local parent = self:GetParent()
-    local keyofParent = parent:GetParentKey()
-    --if Angleur_SlottedExtraItems[keyofParent].name == 0 then error("Angleur ERROR: Trying to remove extra item, but it is already removed.") end
-    Angleur_SlottedExtraItems[keyofParent].name = 0
-    Angleur_SlottedExtraItems[keyofParent].itemID = 0
-    Angleur_SlottedExtraItems[keyofParent].spellID = 0
-    Angleur_SlottedExtraItems[keyofParent].icon = 0
-    Angleur_SlottedExtraItems[keyofParent].auraActive = false
-    Angleur_SlottedExtraItems[keyofParent].loaded = false
-    Angleur_SlottedExtraItems[keyofParent].macroName = 0
-    Angleur_SlottedExtraItems[keyofParent].macroIcon = 0
-    Angleur_SlottedExtraItems[keyofParent].macroBody = 0
-    Angleur_SlottedExtraItems[keyofParent].macroSpellID = 0
-    Angleur_SlottedExtraItems[keyofParent].macroItemID = 0
-    Angleur_SlottedExtraItems[keyofParent].delay = 0
-    Angleur_SlottedExtraItems[keyofParent].lastUpdateTime = 0
-    Angleur_SlottedExtraItems[keyofParent].remainingTime = 0
-    if Angleur_SlottedExtraItems[keyofParent].equipLoc ~= 0 then
-        Angleur_SlottedExtraItems[keyofParent].equipLoc = 0
+    local parentID = parent:GetID()
+    print("Parent ID", parentID)
+    local slot = Angleur_SlottedExtraItems[parentID]
+    --if slot.name == 0 then error("Angleur ERROR: Trying to remove extra item, but it is already removed.") end
+    slot.name = 0
+    slot.itemID = 0
+    slot.spellID = 0
+    slot.icon = 0
+    slot.auraActive = false
+    slot.loaded = false
+    slot.macroName = 0
+    slot.macroIcon = 0
+    slot.macroBody = 0
+    slot.macroSpellID = 0
+    slot.macroItemID = 0
+    slot.delay = 0
+    slot.lastUpdateTime = 0
+    slot.remainingTime = 0
+    if slot.equipLoc ~= 0 then
+        slot.equipLoc = 0
         print(T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") 
         .. colorYello:WrapTextInColorCode("Equipment Set ") 
         .. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."])
     end
-    Angleur_SlottedExtraItems[keyofParent].forceEquip = false
+    slot.forceEquip = false
     local grandParent = parent:GetParent()
 
-    Angleur_LoadExtraItems(grandParent)
+    Angleur_ExtraItems_Load(grandParent)
 end
 
 local typeToSlotID = {
@@ -208,20 +232,21 @@ function Angleur_GrabCursorItem(self)
     Angleur_RemoveExtraItem(self.closeButton)
     local name = C_Item.GetItemName(itemLoc)
     local icon = C_Item.GetItemIcon(itemLoc)
-    local parentKey = self:GetParentKey()
-    Angleur_SlottedExtraItems[parentKey].itemID = itemID
-    Angleur_SlottedExtraItems[parentKey].name = name
-    Angleur_SlottedExtraItems[parentKey].icon = icon
-    Angleur_SlottedExtraItems[parentKey].spellID = spellID    
+    local ID = self:GetID()
+    local slot = Angleur_SlottedExtraItems[ID]
+    slot.itemID = itemID
+    slot.name = name
+    slot.icon = icon
+    slot.spellID = spellID    
     if C_Item.IsEquippableItem(itemID) then
-        Angleur_SlottedExtraItems[parentKey].equipLoc = typeToSlotID[itemInfo[9]]
-        Angleur_SlottedExtraItems[parentKey].forceEquip = true
+        slot.equipLoc = typeToSlotID[itemInfo[9]]
+        slot.forceEquip = true
     end
     --print(itemID)
     --DevTools_Dump(C_Item.GetItemInventoryType(itemLoc))
     --DevTools_Dump(GetItemInteractionInfo(itemLoc))
     checkForHats(itemID)
-    Angleur_LoadExtraItems(self:GetParent())
+    Angleur_ExtraItems_Load(self:GetParent())
 end
 
 function Angleur_GrabCursorMacro(self, macroIndex)
@@ -230,14 +255,15 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         print(T["Can't drag macro in combat."])
         return
     end
-    local parentKey = self:GetParentKey()
+    local ID = self:GetID()
+    local slot = Angleur_SlottedExtraItems[ID]
     Angleur_RemoveExtraItem(self.closeButton)
     if macroIndex then 
         local spellID = GetMacroSpell(macroIndex)
         local itemName, itemLink = GetMacroItem(macroIndex)
         if spellID then
-            Angleur_SlottedExtraItems[parentKey].macroSpellID = spellID
-            print(T["link of macro spell: "] .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
+            slot.macroSpellID = spellID
+            print(T["link of macro spell: "] .. C_Spell.GetSpellLink(slot.macroSpellID))
         elseif itemName then
             print(T["link of macro item: "], itemLink)
             local _, spellID = C_Item.GetItemSpell(itemName)
@@ -246,17 +272,17 @@ function Angleur_GrabCursorMacro(self, macroIndex)
                 .. "The item used in this macro doesn't have a trackable spell/aura."])
                 ClearCursor()
             else
-                Angleur_SlottedExtraItems[parentKey].macroSpellID = spellID
+                slot.macroSpellID = spellID
                 local itemID = C_Item.GetItemIDForItemInfo(itemName)
-                Angleur_SlottedExtraItems[parentKey].macroItemID = itemID
+                slot.macroItemID = itemID
                 checkForHats(itemID)
                 if C_Item.IsEquippableItem(itemID) then
                     local itemInfo = {C_Item.GetItemInfo(itemID)}
-                    Angleur_SlottedExtraItems[parentKey].equipLoc = typeToSlotID[itemInfo[9]]
-                    Angleur_SlottedExtraItems[parentKey].forceEquip = true
+                    slot.equipLoc = typeToSlotID[itemInfo[9]]
+                    slot.forceEquip = true
                 end
-                local _, zarinku = C_Item.GetItemInfo(Angleur_SlottedExtraItems[parentKey].macroItemID)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(Angleur_SlottedExtraItems[parentKey].macroSpellID))
+                local _, zarinku = C_Item.GetItemInfo(slot.macroItemID)
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(slot.macroSpellID))
             end
         else
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " 
@@ -269,18 +295,18 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         print(T["Failed to get macro index"])
         return
     end
-    Angleur_SlottedExtraItems[parentKey].macroName, Angleur_SlottedExtraItems[parentKey].macroIcon, Angleur_SlottedExtraItems[parentKey].macroBody = GetMacroInfo(macroIndex)
+    slot.macroName, slot.macroIcon, slot.macroBody = GetMacroInfo(macroIndex)
     local body = GetMacroBody(macroIndex)
 
-    Angleur_SlottedExtraItems[parentKey].macroBody = body
-    if Angleur_SlottedExtraItems[parentKey].macroBody == "" then
+    slot.macroBody = body
+    if slot.macroBody == "" then
         print(T["Macro empty"])
     else
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If you make changes to it, you need to " 
         .. colorYello:WrapTextInColorCode("re-drag ") .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."])
     end
     ClearCursor()
-    Angleur_LoadExtraItems(self:GetParent())
+    Angleur_ExtraItems_Load(self:GetParent())
 end
 
 function Angleur_FillEditBox(self)
@@ -293,11 +319,12 @@ function Angleur_FillEditBox(self)
     self:Insert(0)
 end
 function Angleur_GetTimeFromBox(self)
-    local keyOfGrandGrandParent = self:GetParent():GetParent():GetParentKey()
-    Angleur_SlottedExtraItems[keyOfGrandGrandParent].lastUpdateTime = 0
-    Angleur_SlottedExtraItems[keyOfGrandGrandParent].remainingTime = 0
-    Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
-    print(T["Timer set to: "], math.floor(Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay/60), T[" minutes, "], Angleur_SlottedExtraItems[keyOfGrandGrandParent].delay%60, T[" seconds"])
+    local grandGrandParentID = self:GetParent():GetParent():GetID()
+    local slot = Angleur_SlottedExtraItems[grandGrandParentID]
+    slot.lastUpdateTime = 0
+    slot.remainingTime = 0
+    slot.delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
+    print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
 end
 
 
@@ -337,7 +364,8 @@ end
 local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
     if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
-        for i, slot in pairs(Angleur_SlottedExtraItems) do
+        for i=1, slotCount, 1 do
+            local slot = Angleur_SlottedExtraItems[i]
             if slot.delay ~= 0 and slot.delay ~= nil then
                 if slot.spellID == arg5 or slot.macroSpellID == arg5 then
                     slot.lastUpdateTime = math.floor(GetTime())
@@ -351,7 +379,8 @@ local function items_Events(self, event, unit, ...)
         if unit == false and arg4 == false then return end
         -- Set extra itemslast update time to when player loads in, so the countdowns can resume properly
         local timeNow = math.floor(GetTime())
-        for i, slot in pairs(Angleur_SlottedExtraItems) do
+        for i=1, slotCount, 1 do
+            local slot = Angleur_SlottedExtraItems[i]
             if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
                 slot.lastUpdateTime = timeNow
                 Angleur_BetaPrint(colorDebug:WrapTextInColorCode("items_Events: ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)

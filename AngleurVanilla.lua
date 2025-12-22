@@ -102,7 +102,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         AngleurClassic_ToggleSoftInteract(false)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_LoadItems()
-        Angleur_LoadExtraItems(Angleur.configPanel.tab2.contents.extraItems)
+        Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
         --Angleur_Auras()
         Angleur_ExtraItemAuras()
         if AngleurMinimapButton.hide == false then
