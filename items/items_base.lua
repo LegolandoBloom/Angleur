@@ -333,7 +333,8 @@ local function clearCountdown(slot)
     slot.remainingTime = 0
 end
 function Angleur_UpdateItemsCountdown(resetUpdateTime)
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
+    for i=1, slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
         if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then      
             -- better to call GetTime() inside the if clause since most users will only have 1 timered item if any at all - instead of outside the for loop
             --                  

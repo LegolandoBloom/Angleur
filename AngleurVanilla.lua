@@ -427,20 +427,22 @@ end
 
 
 function Angleur_ExtraItemAuras()
-    for i, slottedItem in pairs(Angleur_SlottedExtraItems) do
-        slottedItem.auraActive = false
+    --Checks for Extra Toy Auras
+    for i=1, ang.extraItems.slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
+        slot.auraActive = false
         local spellAuraID
-        if slottedItem.spellID ~= 0 then
-            spellAuraID = slottedItem.spellID
-        elseif slottedItem.macroSpellID ~= 0 then
-            spellAuraID = slottedItem.macroSpellID
+        if slot.spellID ~= 0 then
+            spellAuraID = slot.spellID
+        elseif slot.macroSpellID ~= 0 then
+            spellAuraID = slot.macroSpellID
         end
         if spellAuraID then
             local name = GetSpellInfo(spellAuraID)
             --doesn't work
             --print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
             if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-                slottedItem.auraActive = true
+                slot.auraActive = true
                 local link = C_Spell.GetSpellLink(spellAuraID)
                 Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
             end
@@ -665,8 +667,8 @@ local function checkConditions(self, slot, assignKey)
 end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
     local returnValue = false
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
-       if checkConditions(self, slot, assignKey) == true then return true end
+    for i=1, ang.extraItems.slotCount, 1 do
+        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
     end
     return returnValue
 end

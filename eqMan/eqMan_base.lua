@@ -4,7 +4,7 @@ local T = Angleur_Translate
 local addonName, ang = ...
 
 local retailEqMan = ang.retail.eqMan
-
+local slotCount = ang.extraItems.slotCount
 
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
@@ -137,7 +137,8 @@ local function isSetEquipped(setID)
     return equipped
 end
 local function checkSlottedExtraItems()
-    for i, slot in pairs(Angleur_SlottedExtraItems) do
+    for i=1, slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
         if slot.itemID ~= 0 then
             if C_Item.IsEquippableItem(slot.itemID) then 
                 ---------------------------
@@ -508,15 +509,16 @@ function Angleur_AddToEquipmentSet()
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     setIgnores(setID)
     updatingSet = true
-    for index, item in pairs(Angleur_SlottedExtraItems) do
+    for i=1, slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
         local itemID
-        if item.itemID ~= 0 and item.itemID ~= nil then
-            itemID = item.itemID
-        elseif item.macroItemID ~= 0 and item.macroItemID ~= nil then
-            itemID = item.macroItemID
+        if slot.itemID ~= 0 and slot.itemID ~= nil then
+            itemID = slot.itemID
+        elseif slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
+            itemID = slot.macroItemID
         end
-        if itemID and isEligible(itemID) == true and item.equipLoc ~= 0 and item.equipLoc ~= nil then
-            local location = item.equipLoc
+        if itemID and isEligible(itemID) == true and slot.equipLoc ~= 0 and slot.equipLoc ~= nil then
+            local location = slot.equipLoc
             if type(location) == "table" then location = location[1] end
             if C_EquipmentSet.IsSlotIgnoredForSave(location) then
                 C_EquipmentSet.UnignoreSlotForSave(location)
