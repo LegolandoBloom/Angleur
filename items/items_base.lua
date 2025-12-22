@@ -29,6 +29,12 @@ Angleur_SlottedExtraItems = {
 }
 
 local function initializeSavedItems()
+    if not Angleur_SlottedExtraItems or next(Angleur_SlottedExtraItems) == nil then
+        Angleur_SlottedExtraItems = {}
+        Angleur_SlottedExtraItems.first = {}
+        Angleur_SlottedExtraItems.second = {}
+        Angleur_SlottedExtraItems.third = {}
+    end
     for i, slot in pairs(Angleur_SlottedExtraItems) do
         if not slot.name then slot.name = 0 end
         if not slot.itemID then slot.itemID = 0 end
