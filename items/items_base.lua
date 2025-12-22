@@ -382,7 +382,7 @@ local function items_Events(self, event, unit, ...)
         local timeNow = math.floor(GetTime())
         for i=1, slotCount, 1 do
             local slot = Angleur_SlottedExtraItems[i]
-            if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
+            if slot and slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
                 slot.lastUpdateTime = timeNow
                 Angleur_BetaPrint(colorDebug:WrapTextInColorCode("items_Events: ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
             end
