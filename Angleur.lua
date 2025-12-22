@@ -295,7 +295,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then
         -- We NEED the delay. When the event triggers, IsSwimming() sometimes isn't updated yet
-        Angleur_PoolDelayer(0.1, 0, 0.05, angleurDelayers, function()
+        Angleur_PoolDelayer(0.25, 0, 0.05, angleurDelayers, function()
             if IsSwimming() then
                 swimming = true
             else

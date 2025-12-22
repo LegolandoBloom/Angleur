@@ -355,13 +355,13 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then  
         --The delay, and checking swimming here is necessary. If we constantly check on update for swimming a constant jumping bug occurs. Only happens when the AngleurKey is set to: SPACE
-        Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
+        Angleur_PoolDelayer(0.25, 0, 0.05, angleurDelayers, function()
             if IsSwimming() then
                 swimming = true
             else
                 swimming = false
             end
-        end)
+        end, nil, "swimChecker-cycle")
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
         -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
