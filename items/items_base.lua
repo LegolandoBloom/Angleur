@@ -33,7 +33,6 @@ ang.extraItems.slotCount = 3
 local slotCount = ang.extraItems.slotCount
 function Angleur_ExtraItems_CreateSlots(self)
     local parentName = self:GetDebugName()
-    print("blip blop")
     for i=1, slotCount, 1 do
         self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
         self[i]:SetPoint("LEFT", self, "LEFT", 35 + 90*(i - 1), 15)
@@ -72,12 +71,9 @@ function Angleur_ExtraItems_Load(self)
         mistsItems:AdjustCloseButton(self)
     end
     initializeSavedItems()
-    -- DevTools_Dump(self:GetChildren())
     for i=1, slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         local slotFrame = self[i]
-        print("NAMENAME", slotFrame:GetDebugName(), i)
-        DevTools_Dump(Angleur_SlottedExtraItems)
         slot.loaded = false
         --slotFrame.name = slot.name
         --slotFrame.spellID = slot.spellID
@@ -122,7 +118,6 @@ end
 function Angleur_RemoveExtraItem(self)
     local parent = self:GetParent()
     local parentID = parent:GetID()
-    print("Parent ID", parentID)
     local slot = Angleur_SlottedExtraItems[parentID]
     --if slot.name == 0 then error("Angleur ERROR: Trying to remove extra item, but it is already removed.") end
     slot.name = 0
