@@ -294,11 +294,14 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             end
         end
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then
-        if IsSwimming() then
-            swimming = true
-        else
-            swimming = false
-        end
+        -- We NEED the delay. When the event triggers, IsSwimming() sometimes isn't updated yet
+        Angleur_PoolDelayer(0.1, 0, 0.05, angleurDelayers, function()
+            if IsSwimming() then
+                swimming = true
+            else
+                swimming = false
+            end
+        end, nil, "swimChecker-cycle")
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
