@@ -6,6 +6,9 @@ local addonName, ang = ...
 ang.retail = {}
 ang.mists = {}
 ang.vanilla = {}
+ang.loadedPlugins = {}
+ang.loadedPlugins.undang = false
+ang.loadedPlugins.niche = false
 
 angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
     frame:ClearAllPoints()

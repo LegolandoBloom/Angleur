@@ -33,10 +33,19 @@ ang.extraItems.slotCount = 3
 local slotCount = ang.extraItems.slotCount
 function Angleur_ExtraItems_CreateSlots(self)
     local parentName = self:GetDebugName()
-    for i=1, slotCount, 1 do
-        self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
-        self[i]:SetPoint("LEFT", self, "LEFT", 35 + 90*(i - 1), 15)
-        self[i]:SetID(i)
+    if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].moreItems == true then
+        slotCount = 6
+        for i=1, slotCount, 1 do
+            self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
+            self[i]:SetPoint("LEFT", self, "LEFT", 13 + 46*(i - 1), 15)
+            self[i]:SetID(i)
+        end
+    else
+        for i=1, slotCount, 1 do
+            self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
+            self[i]:SetPoint("LEFT", self, "LEFT", 35 + 90*(i - 1), 15)
+            self[i]:SetID(i)
+        end
     end
 end
 
@@ -62,6 +71,12 @@ local function initializeSavedItems()
         if not slot.remainingTime then slot.remainingTime = 0 end
         if not slot.equipLoc then slot.equipLoc = 0 end
         if not slot.forceEquip then slot.forceEquip = false end
+    end
+    if not ang.loadedPlugins.niche or not AngleurNicheOptions_UI.checkboxes[1].moreItems then
+        for i=4, 6, 1 do
+            local slot = Angleur_SlottedExtraItems[i]
+            if slot then slot = nil end
+        end
     end
 end
 

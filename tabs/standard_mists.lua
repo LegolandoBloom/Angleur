@@ -36,7 +36,7 @@ local function InitializeDropDownBait(self, level)
     Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
     --Contents
     for i, bait in pairs(angleurItems.ownedBait) do
-        info = UIDropDownMenu_CreateInfo()
+        local info = UIDropDownMenu_CreateInfo()
         info.text = bait.name
         info.value = bait.name
         info.func = BaitDropDownOnClick
@@ -63,7 +63,7 @@ local function InitializeDropDownRafts(self, level)
     end
     --Contents
     for i, rafts in pairs(angleurToys.ownedRafts) do
-        info = UIDropDownMenu_CreateInfo()
+        local info = UIDropDownMenu_CreateInfo()
         info.text = rafts.name
         info.value = rafts.name
         info.func = RaftDropDownOnClick
