@@ -55,7 +55,6 @@ angleurToys = {
     --local crateBobberPossibilities = {{toyID = 444444, spellID = 444444}, {toyID = 555555, spellID = 555555}, {toyID = 666666, spellID = 666666}}
     ownedCrateBobbers = {},
     selectedCrateBobberTable = {name = 0, icon = 0, toyID = 0, spellID = 0, hasToy = false, loaded = false},
-    nextRandomCrateBobber = {name = 0, icon = 0, toyID = 0, spellID = 0, hasToy = false, loaded = false, last = nil},
 
     --Outdated implementation, not used
     extraToys = {

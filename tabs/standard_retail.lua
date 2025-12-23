@@ -19,6 +19,22 @@ local function RaftDropDownOnClick(self)
     --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
     AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
     retailToys:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    if self.value == T["Random Raft"] then
+        AngleurConfig.chosenRaft.toyID = 0
+        AngleurConfig.chosenRaft.name = T["Random Raft"]
+        angleurToys.selectedRaftTable.name = 0
+        angleurToys.selectedRaftTable.icon = 0
+        angleurToys.selectedRaftTable.toyID = 0
+        angleurToys.selectedRaftTable.spellID = 0
+        angleurToys.selectedRaftTable.hasToy = false
+        angleurToys.selectedRaftTable.loaded = false
+        retailToys:PickRandomToy("raft", angleurToys.ownedRafts, angleurToys.selectedRaftTable, true)
+    else
+        AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
+        AngleurConfig.chosenRaft.name = self:GetText()
+        
+        retailToys:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
+    end 
 end
 
 local function CrateDropDownOnClick(self)
@@ -52,12 +68,17 @@ local function InitializeDropDownRafts(self, level)
     end
     --Contents
     for i, rafts in pairs(angleurToys.ownedRafts) do
-        info = UIDropDownMenu_CreateInfo()
+        local info = UIDropDownMenu_CreateInfo()
         info.text = rafts.name
         info.value = rafts.name
         info.func = RaftDropDownOnClick
         UIDropDownMenu_AddButton(info)
     end
+    local info = UIDropDownMenu_CreateInfo()
+    info.text = T["Random Raft"]
+    info.value = T["Random Raft"]
+    info.func = RaftDropDownOnClick
+    UIDropDownMenu_AddButton(info)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.raftEnable.dropDown, AngleurConfig.chosenRaft.dropDownID)
 end
 
