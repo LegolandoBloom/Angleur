@@ -29,16 +29,20 @@ Angleur_SlottedExtraItems = {
     }
 }
 
-ang.extraItems.slotCount = 3
+ang.extraItems.slotCount = 3 
 local slotCount = ang.extraItems.slotCount
 function Angleur_ExtraItems_CreateSlots(self)
     local parentName = self:GetDebugName()
     if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].moreItems == true then
+        ang.extraItems.slotCount = 6
         slotCount = 6
         for i=1, slotCount, 1 do
             self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
-            self[i]:SetPoint("LEFT", self, "LEFT", 13 + 46*(i - 1), 15)
+            self[i]:SetPoint("LEFT", self, "LEFT", 18 + 54*(i - 1), 15)
             self[i]:SetID(i)
+            self[i]:SetScale(0.85)
+            self[i].timeButton:SetScale(0.85)
+            self[i].closeButton:SetScale(0.85)
         end
     else
         for i=1, slotCount, 1 do

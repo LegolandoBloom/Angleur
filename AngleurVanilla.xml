@@ -476,7 +476,6 @@
                             <OnLoad>
                                 self.tabText = Angleur_Translate["  Extra  "]
                                 self:OnLoad()
-                                Angleur_SetTab2(self)
                             </OnLoad>
                             <OnClick>
                                 self:OnClick()
@@ -495,12 +494,7 @@
                                         <Anchors>
                                             <Anchor point="TOP" relativePoint="TOP" x="0" y="-70"/>
                                         </Anchors>
-                                        <Scripts>
-                                            <OnLoad>
-                                                Angleur_ExtraItems_CreateSlots(self)
-                                                Angleur_ExtraItems_Load(self)
-                                            </OnLoad>
-                                        </Scripts>
+                                        <!-- Creation of frames now handled in items_base.lua instead -->
                                     </Frame>
                                     <Button name="$parent_EquipmentButton" parentKey="equipmentButton" inherits="IconButtonTemplate" hidden="false">
                                         <Size x="36" y="36"/>

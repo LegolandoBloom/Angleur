@@ -514,6 +514,7 @@
                                         <Anchors>
                                             <Anchor point="TOP" relativeTo="Angleur_ExtraToys" relativePoint="BOTTOM" x="0" y="0"/>
                                         </Anchors>
+                                        <!-- Creation of frames now handled in items_base.lua instead -->
                                     </Frame>
                                     <Button name="$parent_EquipmentButton" parentKey="equipmentButton" inherits="IconButtonTemplate" hidden="false">
                                         <Size x="36" y="36"/>

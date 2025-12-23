@@ -90,6 +90,19 @@ function Angleur_EventLoader(self, event, unit, ...)
                 end
             end
         end
+        --Check if the Plugins of Angleur have loaded
+        ang.loadedPlugins.niche = C_AddOns.IsAddOnLoaded("Angleur_NicheOptions")
+
+        --__________________________________________________________________________
+        -- Can't set Tab 2 on "ADDON_LOADED" because we need data from NicheOptions
+        --      for CreateSlots, and we need CreateSlots to be before SetTab2
+        --__________________________________________________________________________
+        Angleur_ExtraItems_CreateSlots(Angleur.configPanel.tab2.contents.extraItems)
+        Angleur_SetTab2(self.configPanel.tab2)
+        --__________________________________________________________________________
+        -- We also need CreateSlots Before ExtraItems_Load
+        Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
+        
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
@@ -103,7 +116,6 @@ function Angleur_EventLoader(self, event, unit, ...)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_CombatDelayer(function()Angleur_LoadToys()end)
         Angleur_LoadItems()
-        Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
         --Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItemAuras()

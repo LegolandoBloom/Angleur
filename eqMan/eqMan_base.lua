@@ -4,7 +4,6 @@ local T = Angleur_Translate
 local addonName, ang = ...
 
 local retailEqMan = ang.retail.eqMan
-local slotCount = ang.extraItems.slotCount
 
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
@@ -137,7 +136,7 @@ local function isSetEquipped(setID)
     return equipped
 end
 local function checkSlottedExtraItems()
-    for i=1, slotCount, 1 do
+    for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         if slot.itemID ~= 0 then
             if C_Item.IsEquippableItem(slot.itemID) then 
@@ -509,7 +508,7 @@ function Angleur_AddToEquipmentSet()
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     setIgnores(setID)
     updatingSet = true
-    for i=1, slotCount, 1 do
+    for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         local itemID
         if slot.itemID ~= 0 and slot.itemID ~= nil then
