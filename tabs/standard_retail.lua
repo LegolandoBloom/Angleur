@@ -33,7 +33,7 @@ local function CrateDropDownOnClick(self)
         angleurToys.selectedCrateBobberTable.spellID = 0
         angleurToys.selectedCrateBobberTable.hasToy = false
         angleurToys.selectedCrateBobberTable.loaded = false
-        retailToys:PickRandomBobber(true)
+        retailToys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, true)
     else
         AngleurConfig.chosenCrateBobber.toyID = angleurToys.ownedCrateBobbers[self:GetID()].toyID
         AngleurConfig.chosenCrateBobber.name = self:GetText()

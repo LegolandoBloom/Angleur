@@ -57,7 +57,7 @@ function Angleur_OnUpdate(self, elapsed)
 end
 
 --**************************[1]****************************
---**Events Relating to the Loading and unloading of stuff**
+--**Events Relating to the loading and unloading of stuff**
 --**************************[1]****************************
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
@@ -525,7 +525,7 @@ function Angleur_ActionHandler(self)
             local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
             local crateIsRandom = AngleurConfig.chosenCrateBobber.name == "Random Bobber"
             if(AngleurConfig.crateEnabled and not crateBobbered) and (crateIsRandom) then
-                if retail.toys:PickRandomBobber() == true  and angleurToys.selectedCrateBobberTable.loaded then
+                if retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false) == true  and angleurToys.selectedCrateBobberTable.loaded then
                     action = "randomCrate"
                     performAction(self, assignKey, action)
                     return
