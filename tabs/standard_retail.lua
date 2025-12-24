@@ -16,9 +16,6 @@ end
 local function RaftDropDownOnClick(self)
     UIDropDownMenu_SetSelectedID(Angleur.configPanel.tab1.contents.raftEnable.dropDown, self:GetID())
     AngleurConfig.chosenRaft.dropDownID = self:GetID()
-    --AngleurConfig.chosenRaft.name = angleurToys.ownedRafts[self:GetID()].name --> Changed into the below for localisation
-    AngleurConfig.chosenRaft.toyID = angleurToys.ownedRafts[self:GetID()].toyID
-    retailToys:SetSelectedToy(angleurToys.selectedRaftTable, angleurToys.ownedRafts, AngleurConfig.chosenRaft.toyID)
     if self.value == T["Random Raft"] then
         AngleurConfig.chosenRaft.toyID = 0
         AngleurConfig.chosenRaft.name = T["Random Raft"]

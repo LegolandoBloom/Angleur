@@ -414,7 +414,7 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
--- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+-- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
@@ -430,6 +430,9 @@ local function performAction(self, assignKey, action)
         ClearOverrideBindings(self)
         self.visual.texture:SetTexture("")
     elseif action == "raft" then
+        if AngleurConfig.chosenRaft.name == "Random Raft" then
+            retail.toys:PickRandomToy("raft", angleurToys.ownedRafts, angleurToys.selectedRaftTable, false)
+        end
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
         self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
@@ -438,10 +441,6 @@ local function performAction(self, assignKey, action)
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedOversizedBobberTable.name)
         self.visual.texture:SetTexture(angleurToys.selectedOversizedBobberTable.icon)
     elseif action == "crate" then
-        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedCrateBobberTable.name)
-        self.visual.texture:SetTexture(angleurToys.selectedCrateBobberTable.icon)
-    elseif action == "randomCrate" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedCrateBobberTable.name)
         self.visual.texture:SetTexture(angleurToys.selectedCrateBobberTable.icon)
@@ -521,25 +520,26 @@ function Angleur_ActionHandler(self)
                     return
                 end
             end
-            local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-            local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
+
+
             local crateIsRandom = AngleurConfig.chosenCrateBobber.name == "Random Bobber"
-            if(AngleurConfig.crateEnabled and not crateBobbered) and (crateIsRandom) then
-                if retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false) == true  and angleurToys.selectedCrateBobberTable.loaded then
-                    action = "randomCrate"
-                    performAction(self, assignKey, action)
-                    return
-                end
+            -- Why can't we do Crate Bobber randoms in performAction() like with Rafts?
+            -- We want to random pick before starting the if-else in case all bobbers are
+            -- on cooldown. (Not an issue with Rafts because they dont have a cooldown)
+            if (crateIsRandom) and (AngleurConfig.crateEnabled and not crateBobbered) then
+                retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false)
             end
             --________________________________________________________________________________________________________
             --________________________________________________________________________________________________________
 
+            local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
+            local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
             --________________________________________________________________________
             -- These are the regular if-else structure that don't have nested options
             --________________________________________________________________________
             if angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0 then
                 action =  "oversized"
-            elseif (AngleurConfig.crateEnabled and not crateBobbered and not crateIsRandom) 
+            elseif (AngleurConfig.crateEnabled and not crateBobbered)
             and 
             (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0)
             and 

@@ -80,19 +80,20 @@ local alreadyRandomed = {
 function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceClear)
     if next(ownedTable) == nil then return false end
     if #ownedTable == 0 then return false end
-    if forceClear then alreadyRandomed = {} end
-    if alreadyRandomed[identifier] and selectedTable.name and selectedTable.name ~= 0 then 
-        return true 
+    if forceClear then alreadyRandomed[identifier] = false end
+    if alreadyRandomed[identifier] then 
+        return true
     end
     local indexedOwnedToys = ownedTable
     -- ownedTable is initially unindexed, so we index it as 1,2,3,4... so we can use math.random()
     indexedOwnedToys = reorderTable(indexedOwnedToys)
     local bufferToy 
     local newRandomToy
+    local leastRemainingCooldown = 0
     while next(indexedOwnedToys) ~= nil do
         local i = math.random(#indexedOwnedToys)
         local randomToyCandidate = indexedOwnedToys[i]
-        local _, cooldownOfToy = C_Container.GetItemCooldown(randomToyCandidate.toyID)
+        local startTime, cooldownOfToy = C_Container.GetItemCooldown(randomToyCandidate.toyID)
         if cooldownOfToy == 0 then
             if #indexedOwnedToys > 1 and lastRandomed[identifier] == randomToyCandidate.name then
                 -- Same toy has been randomed, remove it from the indexed table
@@ -107,6 +108,18 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 newRandomToy = randomToyCandidate
             end
         else
+            --_____________________________________________________________
+            -- Needed for PoolDelayer() below in case ALL toys are found to 
+            -- be on cooldown. Find the toy with the shortest remaining 
+            -- cooldown among the owned toys (not 0)
+            --_____________________________________________________________
+            local thisCooldown = (startTime + cooldownOfToy) - GetTime()
+            if thisCooldown and thisCooldown > 0 then
+                if leastRemainingCooldown == 0 or thisCooldown < leastRemainingCooldown then
+                    leastRemainingCooldown = thisCooldown
+                end
+            end
+            --_____________________________________________________________
             Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Picked random " .. identifier .. " is on cooldown: ", randomToyCandidate.name, "index: ", i)
             -- the 'randomed toy' is on cooldown, remove it from the indexed table
             indexedOwnedToys[i] = nil
@@ -131,34 +144,56 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
         Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "A single off-cooldown " .. identifier .. " found, but it's the same as the previously picked", bufferToy.name)
         return true
     else
-        -- Nothing usable, return false 
-        alreadyRandomed[identifier] = false
+        -- Nothing usable, return false after:
         Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Couldn't pick random. All of the owned " .. identifier .. "s were on cooldown.")
+        if leastRemainingCooldown < 5 then
+            -- All on cooldown, but about to run out. Keep rolling, don't set a delayer.
+            alreadyRandomed[identifier] = false
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Very short cooldown or GCD, keep rolling ")
+        else
+            alreadyRandomed[identifier] = true
+            --_____________________________________________________________________________________
+            --  All on cooldown. Stop rolling until the 'LOWEST COOLDOWN of the toy type' runs out
+            --                      using a PoolDelayer with the identifier
+            --_____________________________________________________________________________________
+            Angleur_PoolDelayer(leastRemainingCooldown, 0, 1, angleurDelayers, nil, function()
+                alreadyRandomed[identifier] = false
+            end, identifier)
+            --_____________________________________________________________________________________
+            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Setting " .. identifier .. " reset timer for lowest cooldown: ", leastRemainingCooldown)
+        end
         return false
     end
 end
 
 local randomToyEventFrame = CreateFrame("Frame")
 randomToyEventFrame:RegisterEvent("UNIT_SPELLCAST_START")
+randomToyEventFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
+-- No need for SPELLCAST_INTERRUPTED, SPELLCAST_STOP also triggers then
+-- Also triggers for SPELLCAST_SUCCEEDED for non instant-cast spells,
+-- But we'll keep that one in for future additions to random 
+randomToyEventFrame:RegisterEvent("UNIT_SPELLCAST_STOP")
+randomToyEventFrame:RegisterEvent("UNIT_SPELLCAST_FAILED")
 randomToyEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" and AngleurConfig.chosenRaft.name ~= "Random Raft" then return end
     local arg4, arg5 = ...
     if event == "UNIT_SPELLCAST_START" then
-        -- Check RAFT
-        for i, v in pairs(angleurToys.ownedRafts) do
-            if v.spellID == arg5 then
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "RAFT SPELLCAST")
-                alreadyRandomed["raft"] = false
-                Angleur_BetaPrint("RESETTING RANDOMED STATUS")
-                return
-            end
-        end
-        -- Check Bobber
+        -- Check BOBBER Spell
         for i, v in pairs(angleurToys.ownedCrateBobbers) do
             if v.spellID == arg5 then
                 Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "BOBBER SPELLCAST")
                 alreadyRandomed["bobber"] = false
-                Angleur_BetaPrint("RESETTING RANDOMED STATUS")
+                Angleur_BetaPrint("bobber: RESETTING RANDOMED STATUS")
+                return
+            end
+        end
+    elseif event == "UNIT_SPELLCAST_SUCCEEDED" or event == "UNIT_SPELLCAST_STOP" or event == "UNIT_SPELLCAST_FAILED" then
+        -- Check RAFT Spell
+        for i, v in pairs(angleurToys.ownedRafts) do
+            if v.spellID == arg5 then
+                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "RAFT SPELLCAST")
+                alreadyRandomed["raft"] = false
+                Angleur_BetaPrint("raft: RESETTING RANDOMED STATUS")
                 return
             end
         end
