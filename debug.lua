@@ -12,4 +12,4 @@ local addonName, ang = ...
 
 -- Can also be combined as a table, like: ang.debugLevel = {1, 2, 5}
 
-ang.debugLevel = 0
+ang.debugLevel = 2
