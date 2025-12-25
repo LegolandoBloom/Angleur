@@ -75,7 +75,7 @@ function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     for location, link in pairs(swapTable) do
         if isEquipItemValid(link) then
             local name = C_Item.GetItemNameByID(link)
-            Angleur_BetaPrint("Angleur_CombatWeaponSwapButtonMixin: ", name)
+            Angleur_BetaPrint(4, "Angleur_CombatWeaponSwapButtonMixin: ", name)
             macroBody = macroBody .. "/equipslot " .. location .. " " .. name .. "\n"
         end
     end
@@ -84,5 +84,5 @@ function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     self:SetAttribute("macrotext", macroBody)
     self:Show()
     local colorPurple = CreateColor(0.64, 0.3, 0.71)
-    Angleur_BetaPrint(colorPurple:WrapTextInColorCode("Angleur_CombatWeaponSwapButtonMixin: ") .. "setMacro: MACRO TEXT\n" , macroBody)
+    Angleur_BetaPrint(4 ,colorPurple:WrapTextInColorCode("Angleur_CombatWeaponSwapButtonMixin: ") .. "setMacro: MACRO TEXT\n" , macroBody)
 end

@@ -211,7 +211,7 @@ local function isChosenKeyDown()
         if not AngleurConfig.doubleClickChosenID then
             return false
         elseif IsKeyDown(angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]) then
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": mouse held")
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": mouse held")
             return true
         end
     elseif AngleurConfig.chosenMethod == "oneKey" then
@@ -226,10 +226,10 @@ local function isChosenKeyDown()
             return false
         end
         if IsKeyDown(keybind) == false then 
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": main key released")
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": main key released")
             return false 
         end
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": oneKey held")
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": oneKey held")
         return true
     end
     return false
@@ -277,7 +277,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if arg4 then
             local found, endo = string.find(arg4, "GameObject-\0-4458-1-54-35591-")
             if found then
-                Angleur_BetaPrint("the bobber is within range")
+                Angleur_BetaPrint(debugChannel, "the bobber is within range")
                 bobberWithinRange = true
                 --[[
                 if string.match(arg4, "%-377944%-") then
@@ -291,7 +291,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 ]]
                 
             else
-                Angleur_BetaPrint("different soft target")
+                Angleur_BetaPrint(debugChannel, "different soft target")
                 bobberWithinRange = false
             end
         else
@@ -461,7 +461,7 @@ function Angleur_ExtraItemAuras()
             if C_UnitAuras.GetAuraDataBySpellName("player", name) then
                 slot.auraActive = true
                 local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
             end
         end
     end
@@ -778,10 +778,10 @@ function Angleur_UltraFocusBackground(activate)
     if activate == true then
         Angleur_CVars.ultraFocus.backgroundOn = GetCVar("Sound_EnableSoundWhenGameIsInBG")
         SetCVar("Sound_EnableSoundWhenGameIsInBG", 1)
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
     elseif activate == false then
         if Angleur_CVars.ultraFocus.backgroundOn ~= nil then SetCVar("Sound_EnableSoundWhenGameIsInBG", Angleur_CVars.ultraFocus.backgroundOn) end
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
     end
 end
 

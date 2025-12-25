@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 
+local debugChannel = 7
+
 -- Unit: π Radians / s
 local H_SPEED = 0.4
 -- Unit: π Radians / 2s
@@ -206,7 +208,7 @@ local function uncheckSiblings(id)
     for i=1,4,1 do
         local button = collapseConfig.popup[i]
         if id ~= i then
-            Angleur_BetaPrint(button:GetDebugName())
+            Angleur_BetaPrint(debugChannel, button:GetDebugName())
             button:SetChecked(false)
         end
     end
@@ -380,7 +382,7 @@ end
 local mouseoverUnit = false
 local function checkCursor(self)
     local changed = SetCursor(nil)
-    Angleur_BetaPrint(changed)
+    Angleur_BetaPrint(debugChannel, changed)
     if changed == true then
         cameraFrame:stopAll()
     end
@@ -401,21 +403,21 @@ function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
 end
 local function printSweep(moveLeft)
     if moveLeft then
-        Angleur_BetaPrint("moving left")
+        Angleur_BetaPrint(debugChannel, "moving left")
     else
-        Angleur_BetaPrint("moving right")
+        Angleur_BetaPrint(debugChannel, "moving right")
     end
 end
 function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     if moveLeft then
-        Angleur_BetaPrint("starting sweep of line: ", lines, "to the left")
+        Angleur_BetaPrint(debugChannel, "starting sweep of line: ", lines, "to the left")
         MoveViewLeftStart(H_SPEED)
         Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewLeftStart(0)
             self:nextLine(lines, lineChangeTime, columnSweepTime, not moveLeft)
         end)
     else
-        Angleur_BetaPrint("starting sweep of line: ", lines, "to the right")
+        Angleur_BetaPrint(debugChannel, "starting sweep of line: ", lines, "to the right")
         MoveViewRightStart(H_SPEED)
         Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
             MoveViewRightStart(0)
@@ -436,12 +438,12 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
     -- Adjust vertical offset speed from V_SPEED based on the ratio of vOffset_time / horizontalTime
     -- Then, MULTIPLY BY Zoom Factor - Farther zoom ==> More Downward Movement
     local setup_vSpeed = V_SPEED * (vOffset_time / horizontalTime) * zoomFactor_vOffset
-    Angleur_BetaPrint("setup time is: ", setup_time)
-    Angleur_BetaPrint(setup_hSpeed, setup_vSpeed)
-    Angleur_BetaPrint("setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
+    Angleur_BetaPrint(debugChannel, "setup time is: ", setup_time)
+    Angleur_BetaPrint(debugChannel, setup_hSpeed, setup_vSpeed)
+    Angleur_BetaPrint(debugChannel, "setup distance: ", setup_hSpeed * horizontalTime/2, setup_vSpeed * horizontalTime/2)
     Angleur_SingleDelayer(15, 0, 1, timeOutFrame, nil, function()
         self:stopAll()
-        Angleur_BetaPrint("Camera Frame: Timed out")
+        Angleur_BetaPrint(debugChannel, "Camera Frame: Timed out")
     end)
     MoveViewOutStart(16)
     Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
@@ -449,12 +451,12 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         MoveViewUpStart(setup_vSpeed)
         MoveViewRightStart(setup_hSpeed)
         Angleur_SingleDelayer(horizontalTime/2, 0, 0.1, cameraFrame, nil, function()
-            Angleur_BetaPrint("Setup Phase Over")
+            Angleur_BetaPrint(debugChannel, "Setup Phase Over")
             MoveViewRightStart(0)
             MoveViewUpStart(0)
             setupZoom = GetCameraZoom()
             local lineswap_time = verticalTime / lines
-            Angleur_BetaPrint("line time", lineswap_time)
+            Angleur_BetaPrint(debugChannel, "line time", lineswap_time)
             self:SetScript("OnEvent", checkCursor)
             self:sweep(lines, lineswap_time, horizontalTime, not moveLeft)
         end)
@@ -514,7 +516,7 @@ function Angleur_BobberScanner()
     -- Calculate the times for V_DIST and H_DIST based on speeds | then DIVIDE BY Zoom Factor
     local vTime = (V_DIST / V_SPEED) * V_DIST_MULTIPLIER
     local hTime = (H_DIST / H_SPEED) / zoomFactor_Horizontal
-    Angleur_BetaPrint("Distances: ", vTime * V_SPEED, hTime * H_SPEED)
+    Angleur_BetaPrint(debugChannel, "Distances: ", vTime * V_SPEED, hTime * H_SPEED)
     local lines = V_LINES * V_DIST_MULTIPLIER
     active = true
     setupZoom = nil

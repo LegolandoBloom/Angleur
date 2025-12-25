@@ -299,7 +299,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
                     slot.forceEquip = true
                 end
                 local _, zarinku = C_Item.GetItemInfo(slot.macroItemID)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(slot.macroSpellID))
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": spell link of macro item: " .. C_Spell.GetSpellLink(slot.macroSpellID))
             end
         else
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Failed to get macro spell/item. If you are using " 
@@ -369,11 +369,11 @@ function Angleur_UpdateItemsCountdown(resetUpdateTime)
             elseif timePassedSince > 0 then
                 slot.remainingTime = slot.remainingTime - timePassedSince
                 slot.lastUpdateTime = timeNow
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
             end
             if slot.remainingTime <= 0 then
                 clearCountdown(slot)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
             end
         end
     end
@@ -388,7 +388,7 @@ local function items_Events(self, event, unit, ...)
                 if slot.spellID == arg5 or slot.macroSpellID == arg5 then
                     slot.lastUpdateTime = math.floor(GetTime())
                     slot.remainingTime = slot.delay
-                    Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
+                    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", i, "delay timer starting, remaining time set to: ", slot.delay)
                     return
                 end
             end
@@ -401,7 +401,7 @@ local function items_Events(self, event, unit, ...)
             local slot = Angleur_SlottedExtraItems[i]
             if slot and slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then
                 slot.lastUpdateTime = timeNow
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("items_Events: ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("items_Events: ") .. ": force reset last uptade time due to reload: [" .. slot.name .. "]", slot.remainingTime)
             end
         end
     end

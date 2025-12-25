@@ -20,7 +20,7 @@ function retailEqMan:showShiny()
     local angleurSetFrame
     for i, v in pairs(scrollTargets) do
         if v.setID == setID then 
-            Angleur_BetaPrint(colorDebug1:WrapTextInColorCode("showAndPlayAnimation ") .. ": Found Angleur Set")
+            Angleur_BetaPrint(debugChannel, colorDebug1:WrapTextInColorCode("showAndPlayAnimation ") .. ": Found Angleur Set")
             angleurSetFrame = v
         end
     end

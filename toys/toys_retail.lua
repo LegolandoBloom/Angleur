@@ -104,7 +104,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 indexedOwnedToys[i] = nil
                 -- Need to re-index table after any element is removed
                 indexedOwnedToys = reorderTable(indexedOwnedToys)
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "previous " .. identifier .. " picked, TRY TO ROLL AGAIN")
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "previous " .. identifier .. " picked, TRY TO ROLL AGAIN")
             else
                 indexedOwnedToys = {}
                 newRandomToy = randomToyCandidate
@@ -122,7 +122,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 end
             end
             --_____________________________________________________________
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Picked random " .. identifier .. " is on cooldown: ", randomToyCandidate.name, "index: ", i)
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Picked random " .. identifier .. " is on cooldown: ", randomToyCandidate.name, "index: ", i)
             -- the 'randomed toy' is on cooldown, remove it from the indexed table
             indexedOwnedToys[i] = nil
             -- after removing the toy in cooldown from the table, we re-index it with reorderTable() so we can do math.random() with the remaining elements
@@ -135,7 +135,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
         lastRandomed[identifier] = newRandomToy.name
         alreadyRandomed[identifier] = true
         self:setTableToSelectedTable(newRandomToy, selectedTable)
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Random selection complete. Chosen " .. identifier .. ": ", newRandomToy.name)
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Random selection complete. Chosen " .. identifier .. ": ", newRandomToy.name)
         return true
     elseif bufferToy then
         -- Although no 'new' randomable toy has been found, 
@@ -143,15 +143,15 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
         lastRandomed[identifier] = bufferToy.name
         alreadyRandomed[identifier] = true
         self:setTableToSelectedTable(bufferToy, selectedTable)
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "A single off-cooldown " .. identifier .. " found, but it's the same as the previously picked", bufferToy.name)
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "A single off-cooldown " .. identifier .. " found, but it's the same as the previously picked", bufferToy.name)
         return true
     else
         -- Nothing usable, return false after:
-        Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Couldn't pick random. All of the owned " .. identifier .. "s were on cooldown.")
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Couldn't pick random. All of the owned " .. identifier .. "s were on cooldown.")
         if leastRemainingCooldown < 5 then
             -- All on cooldown, but about to run out. Keep rolling, don't set a delayer.
             alreadyRandomed[identifier] = false
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Very short cooldown or GCD, keep rolling ")
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Very short cooldown or GCD, keep rolling ")
         else
             alreadyRandomed[identifier] = true
             --_____________________________________________________________________________________
@@ -162,7 +162,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 alreadyRandomed[identifier] = false
             end, identifier)
             --_____________________________________________________________________________________
-            Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Setting " .. identifier .. " reset timer for lowest cooldown: ", leastRemainingCooldown)
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "Setting " .. identifier .. " reset timer for lowest cooldown: ", leastRemainingCooldown)
         end
         return false
     end
@@ -183,9 +183,9 @@ randomToyEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
         -- Check BOBBER Spell
         for i, v in pairs(angleurToys.ownedCrateBobbers) do
             if v.spellID == arg5 then
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "BOBBER SPELLCAST")
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "BOBBER SPELLCAST")
                 alreadyRandomed["bobber"] = false
-                Angleur_BetaPrint("bobber: RESETTING RANDOMED STATUS")
+                Angleur_BetaPrint(debugChannel, "bobber: RESETTING RANDOMED STATUS")
                 return
             end
         end
@@ -193,9 +193,9 @@ randomToyEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
         -- Check RAFT Spell
         for i, v in pairs(angleurToys.ownedRafts) do
             if v.spellID == arg5 then
-                Angleur_BetaPrint(colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "RAFT SPELLCAST")
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. "RAFT SPELLCAST")
                 alreadyRandomed["raft"] = false
-                Angleur_BetaPrint("raft: RESETTING RANDOMED STATUS")
+                Angleur_BetaPrint(debugChannel, "raft: RESETTING RANDOMED STATUS")
                 return
             end
         end

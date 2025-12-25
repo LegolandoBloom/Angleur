@@ -132,7 +132,7 @@ function Angleur_SetTab3(self)
         warningFrame:Hide()
         AngleurTutorial.part = 1
         print(T["First install tutorial restarting."])
-        Angleur_BetaPrint(AngleurTutorial.part)
+        Angleur_BetaPrint(debugChannel, AngleurTutorial.part)
         Angleur_FirstInstall()
     end)
     warningFrame.noButton:SetText(colorYello:WrapTextInColorCode(T["No"]))
