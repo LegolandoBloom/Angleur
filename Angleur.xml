@@ -133,7 +133,7 @@
             <Button name="$parent_ToyButton" parentKey="toyButton" inherits="SecureActionButtonTemplate" hidden="false">
                 <Scripts>
                     <PreClick>
-                        Angleur_BetaPrint("ToyButton functions have been invoked")
+                        Angleur_BetaPrint(1, "ToyButton functions have been invoked")
                     </PreClick>
                 </Scripts>
             </Button> 

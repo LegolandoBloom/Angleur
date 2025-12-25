@@ -5,7 +5,9 @@ local T = Angleur_Translate
 local addonName, ang = ...
 local retail = ang.retail
 
+local debugChannel = 1
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local colorGreen = CreateColor(0, 1, 0)

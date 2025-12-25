@@ -1,5 +1,8 @@
 local T = Angleur_Translate
+
+local debugChannel = 3
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
+
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local colorRed = CreateColor(1, 0, 0)

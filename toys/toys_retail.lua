@@ -1,4 +1,6 @@
 local T = Angleur_Translate
+
+local debugChannel = 2
 local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
 -- 'ang' is the angleur namespace

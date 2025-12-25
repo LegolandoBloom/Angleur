@@ -5,9 +5,11 @@ local addonName, ang = ...
 
 local retailEqMan = ang.retail.eqMan
 
+local debugChannel = 4
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
 local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow
+
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorRed = CreateColor(1, 0, 0)

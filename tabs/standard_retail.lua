@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 
+local debugChannel = 5
+
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
 ang.retail.standardTab = {}

@@ -5,7 +5,9 @@ local T = Angleur_Translate
 local addonName, ang = ...
 local mists = ang.mists
 
+local debugChannel = 1
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
+
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
@@ -490,7 +492,7 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
--- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+-- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)

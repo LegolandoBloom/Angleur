@@ -1,4 +1,6 @@
 local T = Angleur_Translate
+
+local debugChannel = 4
 local colorDebug1 = CreateColor(1, 0.84, 0) -- yellow
 local colorDebug2 = CreateColor(1, 0.91, 0.49) -- pale yellow
 local colorDebug3 = CreateColor(1, 1, 0) -- lemon yellow

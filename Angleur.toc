@@ -29,6 +29,8 @@ angTemplates\GeneralTemplates\RetailTemplates.xml
 angTemplates\GeneralTemplates\RetailTemplates.lua
 angTemplates\embeds.xml
 
+drint.lua
+
 init.lua
 Angleur.lua
 

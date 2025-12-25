@@ -1,5 +1,7 @@
 local T = Angleur_Translate
 
+local debugChannel = 5
+
 function Angleur_SetTab2(self)
     local colorYello = CreateColor(1.0, 0.82, 0.0)
     

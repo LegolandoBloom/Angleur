@@ -371,19 +371,53 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
     -- DevTools_Dump(uniques)
 end
 
-function Angleur_BetaPrint(text, ...)
+local debugLevel = ang.debugLevel
+function Angleur_BetaPrint(debugChannel, text, ...)
+    if type(debugLevel) == "table" then
+        local matched = false
+        for i, v in pairs(debugLevel) do
+            if v == debugChannel then
+                matched = true
+            end
+        end
+        if matched == false then return end
+    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+        return
+    end
     if Angleur_TinyOptions.errorsDisabled == false then
         print(text, ...)
     end
 end
 
-function Angleur_BetaDump(dump)
+function Angleur_BetaDump(debugChannel, dump)
+    if type(debugLevel) == "table" then
+        local matched = false
+        for i, v in pairs(debugLevel) do
+            if v == debugChannel then
+                matched = true
+            end
+        end
+        if matched == false then return end
+    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+        return
+    end
     if Angleur_TinyOptions.errorsDisabled == false then
         DevTools_Dump(dump)
     end
 end
 
-function Angleur_BetaTableToString(tbl)
+function Angleur_BetaTableToString(debugChannel, tbl)
+    if type(debugLevel) == "table" then
+        local matched = false
+        for i, v in pairs(debugLevel) do
+            if v == debugChannel then
+                matched = true
+            end
+        end
+        if matched == false then return end
+    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+        return
+    end
     if Angleur_TinyOptions.errorsDisabled == false then
         local tableToString = ""
         for i, v in pairs(tbl) do
