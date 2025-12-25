@@ -249,7 +249,7 @@ AngleurMoP_FishingSpellTable = {
     63275,
 }
 
--- 1 : Retail, 2 : Cata Classic, 3 : Classic 19 : MoP Classic    (0: None, fail)
+-- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
         return 1

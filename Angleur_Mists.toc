@@ -29,8 +29,6 @@ angTemplates\GeneralTemplates\ClassicTemplates.lua
 angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
 
-drint.lua
-
 debug.lua
 init.lua
 AngleurMists.lua
