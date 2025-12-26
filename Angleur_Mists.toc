@@ -2,7 +2,7 @@
 ## Title: Angleur - Mists of Pandaria Classic
 ## Notes: Mists of Pandaria Version of the Ultimate One Button Fishing AddOn, Angleur!
 ## Notes-ruRU: Версия Mists of Pandaria лучшего дополнения для рыбалки одной кнопкой, Angleur!
-## Version: Angleur MoP - Angleur 2.5 - Bobber Scanner!
+## Version: Angleur MoP @project-version@
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars, AngleurClassic_CVars
