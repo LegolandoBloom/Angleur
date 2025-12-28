@@ -260,6 +260,7 @@ function Angleur_CheckVersion()
     end
     return 0
 end
+ang.gameVersion = Angleur_CheckVersion()
 
 -- USE TO CHECK VERSIONS
 -- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail" 

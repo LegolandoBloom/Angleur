@@ -13,6 +13,7 @@ local addonName, ang = ...
 ang.extraItems = {}
 
 local mistsItems = ang.mists.items
+local gameVersion = ang.gameVersion
 
 Angleur_SlottedExtraItems = {
     [1] = {
@@ -234,6 +235,27 @@ function Angleur_GrabCursorItem(self)
     local itemID = C_Item.GetItemID(itemLoc)
     local link = C_Item.GetItemLink(itemLoc)
     local itemInfo = {C_Item.GetItemInfo(itemID)}
+    
+    --___________ The warning for Sharpened Tuskarr Spear for MoP ___________
+    --         Suggests downloading the Angleur_NicheOptions Plugin
+    --_______________________________________________________________________
+    if gameVersion == 2 and itemID == 88535 then
+        print(" ")
+        print(" ")
+        print(" ")
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Sharpened Tuskarr Spear(MoP)") .. " detected."])
+        print(T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."])
+        print(T["Please download the: "])
+        print(colorGrae:WrapTextInColorCode("      _____________________"))
+        print(colorGrae:WrapTextInColorCode("     I"))
+        print(colorYello:WrapTextInColorCode("        \'Angleur_NicheOptions\'"))        
+        print(colorGrae:WrapTextInColorCode("      _____________________I"))
+        print(" ")
+        print(T[" plugin from Curseforge if you want Angleur to use it for you."])
+        ClearCursor()
+        return
+    end
+    --_______________________________________________________________________
     if not C_Item.IsUsableItem(itemID) then
         print(T["Please select a usable item."])
         ClearCursor()
@@ -245,6 +267,7 @@ function Angleur_GrabCursorItem(self)
         ClearCursor()
         return
     end
+
     ClearCursor()
     Angleur_RemoveExtraItem(self.closeButton)
     local name = C_Item.GetItemName(itemLoc)

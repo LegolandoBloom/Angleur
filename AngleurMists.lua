@@ -515,6 +515,11 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
         -- already handled within the other function
     elseif action == "extraItem" then
         -- already handled within the other function
+    elseif action == "tuskarrSpear" then
+        local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(88535)
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. name)
+        self.visual.texture:SetTexture(icon)
     end
 
     if recast then
@@ -621,6 +626,15 @@ function Angleur_ActionHandler(self)
                     return
                 end
             end
+
+            if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].tuskarrSpear then
+                if AngleurNicheOptions_JuggleSpear() == true then
+                    action = "tuskarrSpear"
+                    performAction(self, assignKey, action)
+                    return
+                end
+            end
+
             --________________________________________________________________________________________________________
             --________________________________________________________________________________________________________
 

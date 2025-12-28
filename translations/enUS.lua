@@ -731,3 +731,9 @@ T["Mouse needs to be in the indicated area for the scanner to work properly."] =
 
 -- Random Raft
 T["Random Raft"] = "Random Raft"
+
+-- NicheOptions Tuskarr Spear
+T["Angleur: Sharpened Tuskarr Spear(MoP) detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Sharpened Tuskarr Spear(MoP)") .. " detected."
+T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."] = "Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."
+T["Please download the: "] = "Please download the: "
+T[" plugin from Curseforge if you want Angleur to use it for you."] = " plugin from Curseforge if you want Angleur to use it for you."
