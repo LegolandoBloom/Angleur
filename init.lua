@@ -256,7 +256,7 @@ AngleurRetail_FishingSpellTable = {
     -- MAIN Main Fishing Spells
     7620, 131476,
     -- Other Basic Fishing Spells
-    51294, 18248, 131474, 33095, 7732, 7731, 158743, 110410, 88868, 131490
+    51294, 18248, 131474, 33095, 7732, 7731, 158743, 110410, 88868, 131490,
     -- Compressed Ocean Fishing
     295727,
     -- Skumblade Spear Fishing
