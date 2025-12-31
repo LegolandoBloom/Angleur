@@ -10,6 +10,10 @@ local addonName, ang = ...
 -- 6: doubleClick
 -- 7: bobberScanner
 
+
+-- 20: Angleur_Underlight
+-- 21: Angleur_NicheOptions
+
 -- Can also be combined as a table, like: ang.debugLevel = {1, 2, 5}
 
 ang.debugLevel = 0

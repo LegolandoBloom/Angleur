@@ -671,14 +671,19 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-35"/>
                                         </Anchors>
                                     </CheckButton>
+                                    <CheckButton name="$parent_PoleSleep" parentKey="poleSleep" inherits="CheckboxTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-60"/>
+                                        </Anchors>
+                                    </CheckButton>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="AngleurClassic_SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-80"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-90"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="AngleurClassic_SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-120"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-130"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_ButtonHolder" parentKey="buttonHolder">
@@ -701,17 +706,17 @@
                                     </Frame>
                                     <Frame name= "$parent_UltraFocusMaster" parentKey="ultraFocusMaster" inherits="AngleurClassic_SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-198"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-208"/>
                                         </Anchors>
                                     </Frame>
                                     <CheckButton name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-260"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-270"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-295"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-298"/>
                                         </Anchors>
                                     </CheckButton>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">

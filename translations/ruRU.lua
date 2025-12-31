@@ -676,3 +676,19 @@ T["Mouse needs to be in the indicated area for the scanner to work properly."] =
 
 -- Random Raft
 T["Random Raft"] = "Random Raft"
+
+-- NicheOptions Tuskarr Spear
+T["Angleur: Sharpened Tuskarr Spear(MoP) detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Sharpened Tuskarr Spear(MoP)") .. " detected."
+T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."] = "Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."
+T["Please download the: "] = "Please download the: "
+T[" plugin from Curseforge if you want Angleur to use it for you."] = " plugin from Curseforge if you want Angleur to use it for you."
+
+
+-- Sleep/Wake with Rod disable (Mists)
+T["Sleep Without Fishing Rod"] = "Sleep Without Fishing Rod"
+
+T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."] = "If checked, Angleur will go to " 
+.. colorYello:WrapTextInColorCode("Sleep ") .. "when you unequip your fishing rod.\n\n" .. colorGrae:WrapTextInColorCode("Uncheck if you want to fish without a rod in the main hand slot. On by default.")
+
+T["Angleur will no longer Sleep/Wake based on Fishing Rod equip status."] = colorBlu:WrapTextInColorCode("Angleur ") 
+.. "will no longer " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "based on Fishing Rod equip status."

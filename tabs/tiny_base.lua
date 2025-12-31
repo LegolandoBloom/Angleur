@@ -15,7 +15,9 @@ function Angleur_SetTab3(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         retailTinyTab:ExtraButtons(self)
-    elseif gameVersion == 2 or gameVersion == 3 then
+    elseif gameVersion == 2 then
+        mistsTinyTab:ExtraButtons(self)
+    elseif gameVersion == 3 then
         --nothing
     end
     

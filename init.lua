@@ -126,6 +126,9 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.softTargetIcon == nil then
         Angleur_TinyOptions.softTargetIcon = true
     end
+    if Angleur_TinyOptions.poleSleep == nil then
+        Angleur_TinyOptions.poleSleep = true
+    end
     if Angleur_TinyOptions.doubleClickWindow == nil then
         Angleur_TinyOptions.doubleClickWindow = 0.4
     end

@@ -261,6 +261,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             iceFishing = false
             compressedOceanFishing = false
         end
+    -- 295727 --> COMPRESSED OCEAN FISHING SPELL ID
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" and (arg5 == 131476 or arg5 == 377895 or arg5 == 7620) then
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")

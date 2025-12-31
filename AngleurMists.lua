@@ -167,10 +167,21 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
+
+local spearStatus
+EventRegistry:RegisterCallback("AngleurNicheOptions_UpdateSpearStatus", function(ownerID, status)
+    spearStatus = status
+    Angleur_BetaPrint(21, spearStatus)
+end)
+
+
 local fishingPoleTable = AngleurMoP_FishingPoleTable
 local wasEquipped = false
 function AngleurClassic_CheckFishingPoleEquipped()
+    if not Angleur_TinyOptions.poleSleep then return end
     if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
+    -- If Sharpened Tuskarr Spear in the process being juggled by Angleur_NicheOptions, don't change sleep status.
+    if spearStatus and spearStatus ~= "unequipped" then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
@@ -178,7 +189,7 @@ function AngleurClassic_CheckFishingPoleEquipped()
         if wasEquipped == true then
             Angleur_UnequipAngleurSet()
         end
-        return 
+        return
     end
     local id = C_Item.GetItemID(itemLoc)
     --local name = C_Item.GetItemName(itemLoc)
@@ -516,7 +527,7 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     elseif action == "extraItem" then
         -- already handled within the other function
     elseif action == "tuskarrSpear" then
-        local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(88535)
+        local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(43656)
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. name)
         self.visual.texture:SetTexture(icon)
