@@ -167,12 +167,17 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
-
+-- ______________________________ CALLBACK for Angleur_NicheOptions ______________________________
+--                                     PAYLOAD: spearStatus        
+--                    "equipping" | "equipped" | "unequipping" | "unequipped"
+--                   so that AngleurMists knows not go to sleep during juggling
+-- _______________________________________________________________________________________________
 local spearStatus
 EventRegistry:RegisterCallback("AngleurNicheOptions_UpdateSpearStatus", function(ownerID, status)
     spearStatus = status
     Angleur_BetaPrint(21, spearStatus)
 end)
+-- _______________________________________________________________________________________________
 
 
 local fishingPoleTable = AngleurMoP_FishingPoleTable
