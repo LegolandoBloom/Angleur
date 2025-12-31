@@ -532,7 +532,7 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     elseif action == "extraItem" then
         -- already handled within the other function
     elseif action == "tuskarrSpear" then
-        local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(43656)
+        local name, _, _, _, _, _, _, _, _, icon = C_Item.GetItemInfo(88535)
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. name)
         self.visual.texture:SetTexture(icon)
