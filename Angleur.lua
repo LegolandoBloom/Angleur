@@ -159,6 +159,18 @@ local swimming = false
 local midFishing = false
 local compressedOceanFishing = false
 
+local function CheckTable(table ,spell)
+    local matchFound = false
+    for i, value in pairs(table) do
+        if spell == value then
+            matchFound = true
+            break
+        end
+    end
+    return matchFound
+end
+
+
 local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
         if not AngleurConfig.doubleClickChosenID then
@@ -223,6 +235,7 @@ local function checkMounted()
     end
     return false
 end
+local fishingSpellTable = AngleurRetail_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register
@@ -261,8 +274,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             iceFishing = false
             compressedOceanFishing = false
         end
-    -- 295727 --> COMPRESSED OCEAN FISHING SPELL ID
-    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" and (arg5 == 131476 or arg5 == 377895 or arg5 == 7620) then
+    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
+        if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
         Angleur_ActionHandler(Angleur)
@@ -276,7 +289,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
-    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" and (arg5 == 131476 or arg5 == 377895 or arg5 == 7620) then
+    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
+        if not CheckTable(fishingSpellTable, arg5) then return end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(false) end

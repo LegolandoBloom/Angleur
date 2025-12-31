@@ -252,6 +252,25 @@ AngleurMoP_FishingSpellTable = {
     63275,
 }
 
+AngleurRetail_FishingSpellTable = {
+    -- MAIN Main Fishing Spells
+    7620, 131476,
+    -- Other Basic Fishing Spells
+    51294, 18248, 131474, 33095, 7732, 7731, 158743, 110410, 88868, 131490
+    -- Compressed Ocean Fishing
+    295727,
+    -- Skumblade Spear Fishing
+    139505,
+    -- Ice Fishing
+    377895,
+    -- Disgusting Vat Fishing
+    405274,
+    -- [DNT] Fishing (Brain channel version)
+    1252746,
+    -- Hot-Spring Gulper Fishing
+    301092,
+}
+
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then

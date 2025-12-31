@@ -129,7 +129,8 @@
         "CONQUEST_BRACKET_NAME_3V3",
         "CONQUEST_BRACKET_NAME_RBG",
         "CONQUEST_BRACKET_NAME_SOLO_SHUFFLE",
-        "CONQUEST_BRACKET_NAME_BATTLEGROUND_BLITZ"
+        "CONQUEST_BRACKET_NAME_BATTLEGROUND_BLITZ",
+        "AngleurRetail_FishingSpellTable"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
