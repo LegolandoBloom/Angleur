@@ -123,6 +123,9 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.allowDismount == nil then
         Angleur_TinyOptions.allowDismount = false
     end
+    if Angleur_TinyOptions.swimRelease == nil then
+        Angleur_TinyOptions.swimRelease = true
+    end
     if Angleur_TinyOptions.softTargetIcon == nil then
         Angleur_TinyOptions.softTargetIcon = true
     end
@@ -286,7 +289,7 @@ ang.gameVersion = Angleur_CheckVersion()
 
 -- USE TO CHECK VERSIONS
 -- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail" 
--- or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC and "Cata" 
+-- or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC and "Cata"
 -- or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "Vanilla" or "I don't know")
 
 function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame, cycleFunk, endFunk)

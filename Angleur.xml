@@ -649,17 +649,22 @@
                                 <Frames>
                                     <CheckButton name="$parent_OffInteract" parentKey="offInteract" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="23" y="-35"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="23" y="-33"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_Dismount" parentKey="dismount" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-59"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-57"/>
+                                        </Anchors>
+                                    </CheckButton>
+                                    <CheckButton name="$parent_SwimRelease" parentKey="swimRelease" inherits="CheckboxTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-81"/>
                                         </Anchors>
                                     </CheckButton>
                                     <CheckButton name="$parent_SoftIconOff" parentKey="softIconOff" inherits="CheckboxTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-83"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-105"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="OVERLAY">
@@ -682,12 +687,12 @@
                                     </CheckButton>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-112"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-132"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-152"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-166"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_ButtonHolder" parentKey="buttonHolder">

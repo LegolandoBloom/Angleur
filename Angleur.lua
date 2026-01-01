@@ -492,91 +492,114 @@ function Angleur_ActionHandler(self)
         end
     end
     ClearOverrideBindings(self)
+
     local action
     if UnitIsDeadOrGhost("player") then
         action = "clear"
         performAction(self, assignKey, action)
         return
     end
+    
     if midFishing then
         action =  "reel"
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
             action = "recast"
         end
-    elseif swimming then
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action =  "clear"
-        elseif angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
-            if rafted then
-                local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-                if remainingAuraDuration < 60 then
-                    action =  "raft"
-                else
-                    action =  "clear"
-                end
-            else
-                action =  "raft"
-            end
-        else
-            action =  "clear"
-        end
-    elseif not swimming then
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action =  "clear"
-        else
-            --________________________________________________________________________________________________________
-            --    These 2 are separate from the if-else structure below, because they have nested optional returns
-            --_________________If they are not met, we want to move onto the rest of the options______________________
-            --________________________________________________________________________________________________________
-            if rafted then
-                if not C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then return end
-                local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-                if remainingAuraDuration < 60 and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
-                    action =  "raft"
-                    performAction(self, assignKey, action)
-                    return
-                end
-            end
+        performAction(self, assignKey, action)
+        return
+    end
 
-
-            local crateIsRandom = AngleurConfig.chosenCrateBobber.name == "Random Bobber"
-            -- Why can't we do Crate Bobber randoms in performAction() like with Rafts?
-            -- We want to random pick before starting the if-else in case all bobbers are
-            -- on cooldown. (Not an issue with Rafts because they dont have a cooldown)
-            if (crateIsRandom) and (AngleurConfig.crateEnabled and not crateBobbered) then
-                retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false)
-            end
-            --________________________________________________________________________________________________________
-            --________________________________________________________________________________________________________
-
-            local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-            local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
-            --________________________________________________________________________
-            -- These are the regular if-else structure that don't have nested options
-            --________________________________________________________________________
-            if angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0 then
-                action =  "oversized"
-            elseif (AngleurConfig.crateEnabled and not crateBobbered)
-            and 
-            (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0)
-            and 
-            angleurToys.selectedCrateBobberTable.loaded then
-                action =  "crate"
-            elseif Angleur_ActionHandler_ExtraToys(self, assignKey) then
-                action =  "extraToys"
-                -- HANDLED WITHIN THE FUNCTION
-            elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
-                action =  "extraItems"
-                -- HANDLED WITHIN THE FUNCTION
-            elseif iceFishing or compressedOceanFishing then
-                action =  "reel"
-            else
-                action =  "cast"
-            end
-            --________________________________________________________________________
+    if mounted and Angleur_TinyOptions.allowDismount == false then
+        action =  "clear"
+        performAction(self, assignKey, action)
+        return
+    end
+    
+    
+    --______________________________________________________________________________________________________________________________________
+    --              Interaction of Raft & Swimming - A bit more complex logic structure, hence the grouping together 
+    --______________________________________________________________________________________________________________________________________
+    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
+    -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining
+    if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
+        local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
+        if remainingAuraDuration < 60 then
+            action =  "raft"
+            performAction(self, assignKey, action)
+            return
         end
     end
+    -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
+    if swimming and Angleur_TinyOptions.swimRelease == true then
+        if raftValid and not rafted then
+            action =  "raft"
+            performAction(self, assignKey, action)
+            return
+        else
+            action =  "clear"
+            performAction(self, assignKey, action)
+            return
+        end
+    end
+    -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
+    if swimming and Angleur_TinyOptions.swimRelease == false then
+        if raftValid and not rafted then
+            action =  "raft"
+            performAction(self, assignKey, action)
+            return
+        end
+    end
+    --______________________________________________________________________________________________________________________________________
+
+
+    local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
+    local oversizedReady = angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0
+    if oversizedReady then
+        action =  "oversized"
+        performAction(self, assignKey, action)
+        return
+    end
+
+    local crateIsRandom = AngleurConfig.chosenCrateBobber.name == "Random Bobber"
+    -- Why can't we do Crate Bobber randoms in performAction() like with Rafts?
+    -- We want to random pick before starting the if-else in case all bobbers are
+    -- on cooldown. (Not an issue with Rafts because they dont have a cooldown)
+    if (crateIsRandom) and (AngleurConfig.crateEnabled and not crateBobbered) then
+        retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false)
+    end
+
+    local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
+    local crateReady = (AngleurConfig.crateEnabled and not crateBobbered) and (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0) and angleurToys.selectedCrateBobberTable.loaded
+    if crateReady then
+        action =  "crate"
+        performAction(self, assignKey, action)
+        return
+    end
+
+    if Angleur_ActionHandler_ExtraToys(self, assignKey) then
+        -- HANDLED WITHIN THE FUNCTION
+        action =  "extraToys"
+        performAction(self, assignKey, action)
+        return
+    end
+
+    if Angleur_ActionHandler_ExtraItems(self, assignKey) then
+        -- HANDLED WITHIN THE FUNCTION
+        action =  "extraItems"
+        performAction(self, assignKey, action)
+        return
+    end
+
+    if iceFishing or compressedOceanFishing then
+        action =  "reel"
+        performAction(self, assignKey, action)
+        return
+    end
+
+    action =  "cast"
     performAction(self, assignKey, action)
+    --________________________________________________________________________
+
 end
 
 function Angleur_ActionHandler_ExtraToys(self, assignKey)

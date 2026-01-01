@@ -11,6 +11,7 @@ local colorBrown = CreateColor(0.67, 0.41, 0)
 local colorRed = CreateColor(1, 0, 0)
 local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
 local colorDarkRed = CreateColor(0.68, 0, 0)
+local colorDarkBlu = CreateColor(0.12, 0.5, 1)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ultra Focus:"
@@ -748,3 +749,15 @@ T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUn
 T["Angleur will no longer Sleep/Wake based on Fishing Rod equip status."] = colorBlu:WrapTextInColorCode("Angleur ") 
 .. "will no longer " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "based on Fishing Rod equip status."
 
+
+-- Swim Release Toggle
+T["Release When Swimming"] = "Release When Swimming"
+
+T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "If checked, " .. "the only action your "
+..colorYello:WrapTextInColorCode("OneKey / DoubleClick ") .. "will perform " .. colorDarkBlu:WrapTextInColorCode("while swimming ") .. "will be casting " .. colorBrown:WrapTextInColorCode("rafts.") .. "\n(If you already have one, the key will be released.)"
+
+T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water.")
+
+T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur will only have you cast rafts while swimming, then release the key afterward."
+
+T["Angleur will no longer release your keybind while swimming."] = "Angleur will no longer release your keybind while swimming."

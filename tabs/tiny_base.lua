@@ -10,6 +10,8 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local addonName, ang = ...
 local retailTinyTab = ang.retail.tinyTab
 local mistsTinyTab = ang.mists.tinyTab
+local vanillaTinyTab = ang.vanilla.tinyTab
+
 
 function Angleur_SetTab3(self)
     local gameVersion = Angleur_CheckVersion()
@@ -19,6 +21,7 @@ function Angleur_SetTab3(self)
         mistsTinyTab:ExtraButtons(self)
     elseif gameVersion == 3 then
         --nothing
+        vanillaTinyTab:ExtraButtons(self)
     end
     
     self.dismount.text:SetText(T["Dismount With Key"])
@@ -42,8 +45,7 @@ function Angleur_SetTab3(self)
     if Angleur_TinyOptions.allowDismount == true then
         self.dismount:SetChecked(true)
     end
-
-
+    
     self.doubleClickWindow.ValueBox:SetNumericFullRange()
     self.doubleClickWindow:SetupSlider(1, 20, 4, 1, colorYello:WrapTextInColorCode(T["Double Click Window"]))
     self.doubleClickWindow:SetCallback(function(value, isUserInput)
@@ -116,8 +118,10 @@ function Angleur_SetTab3(self)
     self.defaults.text:SetText(colorYello:WrapTextInColorCode(T["Defaults"]))
     if gameVersion == 1 then
         retailTinyTab:SetDefaultsButtonScript(self)
-    elseif gameVersion == 2 or gameVersion == 3 then
+    elseif gameVersion == 2 then
         mistsTinyTab:SetDefaultsButtonScript(self)
+    elseif gameVersion == 3 then
+        vanillaTinyTab:SetDefaultsButtonScript(self)
     end
     
     self.redoTutorial.title:SetText(T["Redo Tutorial"])

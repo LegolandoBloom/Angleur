@@ -608,70 +608,84 @@ function Angleur_ActionHandler(self)
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
             recast = true
         end
-    elseif swimming then
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action = "clear"
-        elseif angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
-            if rafted then
-                local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-                if remainingAuraDuration < 60 then
-                    action = "raft"
-                else
-                    action = "clear"
-                end
-            else
-                action = "raft"
-            end
-        else
-            action = "clear"
-        end
-    elseif not swimming then
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action = "clear"
-        else
-            --________________________________________________________________________________________________________
-            --      This is separate from the if-else structure below, because it has a nested optional return
-            --__________________If it is not met, we want to move onto the rest of the options________________________
-            --________________________________________________________________________________________________________
-            if rafted then
-                if not C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then return end
-                local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-                if remainingAuraDuration < 60 and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded then
-                    action =  "raft"
-                    performAction(self, assignKey, action)
-                    return
-                end
-            end
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
 
-            if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].tuskarrSpear then
-                if AngleurNicheOptions_JuggleSpear() == true then
-                    action = "tuskarrSpear"
-                    performAction(self, assignKey, action)
-                    return
-                end
-            end
+    if mounted and Angleur_TinyOptions.allowDismount == false then
+        action =  "clear"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
 
-            --________________________________________________________________________________________________________
-            --________________________________________________________________________________________________________
-
-            --________________________________________________________________________
-            -- These are the regular if-else structure that don't have nested option
-            --________________________________________________________________________
-            local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
-            if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
-                action = "bait"
-            elseif Angleur_ActionHandler_ExtraToys(self, assignKey) then
-                action =  "extraToys"
-                --ALREADY HANDLED WITHIN THE FUNCTION
-            elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
-                action =  "extraItems"
-                --ALREADY HANDLED WITHIN THE FUNCTION
-            else
-                action = "cast"
-            end
-            --________________________________________________________________________
+    --______________________________________________________________________________________________________________________________________
+    --              Interaction of Raft & Swimming - A bit more complex logic structure, hence the grouping together 
+    --______________________________________________________________________________________________________________________________________
+    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
+    -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining 
+    if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
+        local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
+        if remainingAuraDuration < 60 then
+            action =  "raft"
+            performAction(self, assignKey, action, recast, oobIcon, gPad)
+            return
         end
     end
+    -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
+    if swimming and Angleur_TinyOptions.swimRelease == true then
+        if raftValid and not rafted then
+            action =  "raft"
+            performAction(self, assignKey, action, recast, oobIcon, gPad)
+            return
+        else
+            action =  "clear"
+            performAction(self, assignKey, action, recast, oobIcon, gPad)
+            return
+        end
+    end
+    -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
+    if swimming and Angleur_TinyOptions.swimRelease == false then
+        if raftValid and not rafted then
+            action =  "raft"
+            performAction(self, assignKey, action, recast, oobIcon, gPad)
+            return
+        end
+    end
+    --______________________________________________________________________________________________________________________________________
+
+
+
+    if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].tuskarrSpear then
+        if AngleurNicheOptions_JuggleSpear() == true then
+            action = "tuskarrSpear"
+            performAction(self, assignKey, action, recast, oobIcon, gPad)
+            return
+        end
+    end
+
+    local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
+    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0
+    if baitReady then
+        action = "bait"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+
+    if Angleur_ActionHandler_ExtraToys(self, assignKey) then
+        -- HANDLED WITHIN THE FUNCTION
+        action =  "extraToys"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+
+    if Angleur_ActionHandler_ExtraItems(self, assignKey) then
+        -- HANDLED WITHIN THE FUNCTION
+        action =  "extraItems"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+
+    action = "cast"
     performAction(self, assignKey, action, recast, oobIcon, gPad)
 end
 

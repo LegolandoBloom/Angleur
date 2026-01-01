@@ -163,6 +163,7 @@ end
 
 local fishingPoleTable = AngleurVanilla_FishingPoleTable
 function AngleurClassic_CheckFishingPoleEquipped()
+    if not Angleur_TinyOptions.poleSleep then return end
     if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
@@ -353,7 +354,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 swimming = false
             end
         end
-    elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then  
+    elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" or event == "MIRROR_TIMER_START" then  
         --The delay, and checking swimming here is necessary. If we constantly check on update for swimming a constant jumping bug occurs. Only happens when the AngleurKey is set to: SPACE
         Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
             if IsSwimming() then
@@ -361,7 +362,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             else
                 swimming = false
             end
-        end)
+        end, nil, "swimChecker-cycle")
     elseif event == "PLAYER_EQUIPMENT_CHANGED" and unit == 16 then
         AngleurClassic_CheckFishingPoleEquipped()
         -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
@@ -556,6 +557,7 @@ function Angleur_ActionHandler(self)
         performAction(self, assignKey, action)
         return
     end
+
     if midFishing then
         if AngleurClassicConfig.softInteract.enabled then
             if bobberWithinRange == false then
@@ -580,31 +582,32 @@ function Angleur_ActionHandler(self)
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
             recast = true
         end
-    -- elseif swimming then
-    --     if mounted and Angleur_TinyOptions.allowDismount == false then
-    --         action = "clear"
-    --     -- This else case is left in as a placeholder for the counterpart in Mists, where it has a case for rafts.
-    --     -- Think of the if-else duo as pointless, as the outcome is always action = "clear". left it this way in case
-    --     -- I add a similar thing here in the future.
-    --     else
-    --         action = "clear"
-    --     end
-    -- elseif not swimming then --> else
-    else
-        if mounted and Angleur_TinyOptions.allowDismount == false then
-            action = "clear"
-        else
-            local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
-            if angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0 then
-                action = "bait"
-            elseif Angleur_ActionHandler_ExtraItems(self, assignKey) then
-                action =  "extraItems"
-                --ALREADY HANDLED WITHIN THE FUNCTION
-            else
-                action = "cast"
-            end
-        end
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
     end
+
+    if mounted and Angleur_TinyOptions.allowDismount == false then
+        action =  "clear"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+    
+    local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
+    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0
+    if baitReady then
+        action = "bait"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+
+    if Angleur_ActionHandler_ExtraItems(self, assignKey) then
+        -- HANDLED WITHIN THE FUNCTION
+        action =  "extraItems"
+        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        return
+    end
+    
+    action = "cast"
     performAction(self, assignKey, action, recast, oobIcon, gPad)
 end
 
