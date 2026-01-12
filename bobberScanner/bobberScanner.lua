@@ -324,9 +324,11 @@ EventRegistry:RegisterCallback("Angleur_StopFishing", function()
     if active then
         cameraFrame:stopAll()
     end
+    texture:SetAlpha(0.6)
 end)
 EventRegistry:RegisterCallback("Angleur_StartFishing", function()
     Angleur_BobberScanner_HandleGamepad(true, nil)
+    texture:SetAlpha(0.15)
 end)
 EventRegistry:RegisterCallback("Angleur_Sleep", function()
     if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
