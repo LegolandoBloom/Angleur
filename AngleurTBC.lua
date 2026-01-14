@@ -514,7 +514,7 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
         SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
     end
     if oobIcon then
-        self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/Achievement_BG_returnXflags_def_WSG")
     end
     if gPad then
         Angleur_SetCursorForGamePad(true)

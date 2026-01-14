@@ -1,0 +1,290 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Button name="Angleur_SimplifiedActionButtonTemplate" virtual="true">
+        <Size x="45" y="45"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" parentKey="icon" />
+                <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.icon"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture>
+                <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/>
+                <!-- <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/> -->
+            </Layer>
+            <Layer level="ARTWORK" textureSubLevel="1">
+                <Texture name="$parentFlash" parentKey="Flash" atlas="UI-HUD-ActionBar-IconFrame-Flash" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentName" parentKey="Name" inherits="GameFontHighlightSmallOutline">
+                    <Size x="36" y="10"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentBorder" parentKey="Border" atlas="UI-HUD-ActionBar-IconFrame-Border" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture" atlas="UI-HUD-ActionBar-IconFrame">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </NormalTexture>
+        <PushedTexture atlas="UI-HUD-ActionBar-IconFrame-Down" parentKey="PushedTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </PushedTexture>
+        <HighlightTexture atlas="UI-HUD-ActionBar-IconFrame-Mouseover" parentKey="HighlightTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
+
+    <Button name="CombatWeaponSwapButtonTemplate" inherits="SecureActionButtonTemplate" frameStrata="HIGH" mixin="Angleur_CombatWeaponSwapButtonMixin" hidden="true" virtual="true">
+        <Attributes>
+            <Attribute name="type" value="macro"/>
+        </Attributes>
+        <Size x="46" y="46"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" parentKey="icon" />
+                <!-- Removed for lack of Atlas in Classic -->
+                <!-- <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.icon"/>
+                    </Anchors>
+                    <MaskedTextures>
+                        <MaskedTexture childKey="icon"/>
+                    </MaskedTextures>
+                </MaskTexture> -->
+                <!-- <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/> -->
+                <!-- <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/> -->
+            </Layer>
+            <Layer level="ARTWORK">
+                <!-- <Texture name="$parentFlash" parentKey="Flash" atlas="UI-HUD-ActionBar-IconFrame-Flash" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture> -->
+                <Texture name="$parent_EquipArrow" parentKey="equipArrow" atlas="characterundelete-RestoreButton">
+                    <Size x="64" y="64"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture name="$parent_Success" parentKey="success" atlas="checkmark-minimal" hidden="true">
+                    <Size x="48" y="48"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="-4" y="-6"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentName" parentKey="Name" inherits="GameFontHighlightSmallOutline">
+                    <Size x="36" y="10"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+                <!-- <Texture name="$parentBorder" parentKey="Border" atlas="UI-HUD-ActionBar-IconFrame-Border" useAtlasSize="true" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT"/>
+                    </Anchors>
+                </Texture> -->
+            </Layer>
+        </Layers>
+        <!-- <NormalTexture name="$parentNormalTexture" parentKey="NormalTexture" atlas="UI-HUD-ActionBar-IconFrame">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </NormalTexture> -->
+        <!-- <PushedTexture atlas="UI-HUD-ActionBar-IconFrame-Down" parentKey="PushedTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </PushedTexture> -->
+        <!-- <HighlightTexture atlas="UI-HUD-ActionBar-IconFrame-Mouseover" parentKey="HighlightTexture">
+            <Size x="46" y="45"/>
+            <Anchors>
+                <Anchor point="TOPLEFT"/>
+            </Anchors>
+        </HighlightTexture> -->
+        <Scripts>
+            <OnLoad>
+                self:HookScript("OnClick", function(self)
+                    self.icon:SetTexture(nil)
+                    siblings = {self:GetParent():GetChildren()}
+                    for i, frame in pairs(siblings) do
+                        if frame.icon then
+                            frame.icon:SetTexture(nil)
+                        end
+                    end
+                    if not InCombatLockdown() then 
+                        self:Hide()
+                        self:GetParent():Hide()
+                    end
+                end)
+                self:RegisterForClicks("AnyUp", "AnyDown")
+            </OnLoad>
+            <OnShow>
+                self.success:Hide()
+                self.equipArrow:Show()
+            </OnShow>
+            <OnHide>
+                self.icon:SetTexture(nil)
+                self.success:Hide()
+                self:SetAttribute("macrotext", nil)
+                self:SetScript("OnEvent", nil)
+            </OnHide>
+            <OnEnter>
+                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+                GameTooltip:AddLine("Click to Equip your combat weapons!")
+                GameTooltip:Show()
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+        
+        <Frames>
+            <Frame name="$parent_AlertAnim" parentKey="alertAnim" frameStrata="TOOLTIP" toplevel="true">
+                <Size x="64" y="64"/>
+                <Scripts>
+                    <OnLoad>
+
+                    </OnLoad>
+                    <OnEnter>
+                        self:Hide()
+                    </OnEnter>
+                </Scripts>
+            </Frame>
+        </Frames>
+    </Button>
+
+
+    
+    <!--***********************************************************
+    *****TEMPLATES PORTED DIRECTLY FROM BLIZZ RETAIL TO CLASSIC*
+    ************************************************************-->
+    <EditBox name="AngleurClassic_NumericInputBoxTemplate" mixin="AngleurClassic_NumericInputBoxMixin" inherits="InputBoxTemplate" numeric="true" virtual="true">
+        <KeyValues>
+        <!--
+        valueChangedCallback: a function that takes two arguments, the numeric value of the edit box, and a boolean for whether
+                        it was set by user input (as opposed to set by script). Called whenever the value changes
+        valueFinalizedCallback: a function that takes the numeric value of the edit box when the focus is cleared (i.e. enter pressed).
+        -->
+        <KeyValue key="valueChangedCallback" value="nop" type="global"/>
+        <KeyValue key="valueFinalizedCallback" value="nop" type="global"/>
+        </KeyValues>
+        <Scripts>
+        <OnTextChanged method="OnTextChanged"/>
+        <OnEnterPressed function="EditBox_ClearFocus"/>
+        <OnEditFocusLost method="OnEditFocusLost"/>
+        </Scripts>
+    </EditBox>
+
+    <Frame name="AngleurClassic_SliderAndEditControlTemplate" mixin="AngleurClassic_SliderAndEditControlMixin" inherits="ResizeLayoutFrame" virtual="true">
+        <KeyValues>
+        <KeyValue key="widthPadding" value="12" type="number"/>
+        <KeyValue key="heightPadding" value="6" type="number"/>
+        </KeyValues>
+        <Frames>
+        <EditBox parentKey="ValueBox" inherits="AngleurClassic_NumericInputBoxTemplate" letters="3" autoFocus="false">
+            <Size x="30" y="22"/>
+            <Anchors>
+            <Anchor point="LEFT" x="6" y="6"/>
+            </Anchors>
+        </EditBox>
+        <Slider parentKey="Slider" inherits="UISliderTemplate" obeyStepOnDrag="true">
+            <Size x="120" y="20"/>
+            <Anchors>
+            <Anchor point="LEFT" relativeKey="$parent.ValueBox" relativePoint="RIGHT" x="4" y="0"/>
+            </Anchors>
+            <Scripts>
+            <OnEnter>
+                self:GetParent():OnEnter();
+            </OnEnter>
+            <OnLeave>
+                self:GetParent():OnLeave();
+            </OnLeave>
+            <OnValueChanged>
+                self:GetParent():OnSliderValueChanged(value, userInput);
+            </OnValueChanged>
+            </Scripts>
+        </Slider>
+        </Frames>
+        <Layers>
+        <Layer level="ARTWORK">
+            <FontString parentKey="Label" font="GameFontHighlight">
+            <Anchors>
+                <Anchor point="TOP" relativeKey="$parent.Slider" relativePoint="BOTTOM" x="0" y="0"/>
+            </Anchors>
+            </FontString>
+        </Layer>
+        </Layers>
+    </Frame>
+
+    <Button name="UIPanelBorderedButtonTemplate" virtual="true">
+        <Size x="40" y="40"/>
+        <Layers>
+            <Layer level="BORDER">
+                <Texture parentKey="Icon">
+                    <Size x="38" y="38"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK" textureSubLevel="-1">
+                <Texture parentKey="Border" file="Interface\Common\WhiteIconFrame" setAllPoints="true"/>
+            </Layer>
+        </Layers>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+    </Button>
+
+    <Frame name="MyHelpTipTemplate" inherits="HelpTipTemplate" virtual="true">
+        <Scripts>
+            <OnHide>
+                self:UnregisterEvent("UI_SCALE_CHANGED");
+                self:UnregisterEvent("DISPLAY_SIZE_CHANGED");
+                local info = self.info;
+                local appendFrame = info.appendFrame;
+                if appendFrame then
+                    appendFrame:Hide();
+                    appendFrame:ClearAllPoints();
+                    appendFrame:SetParent(UIParent);
+                end
+                if info.onHideCallback then
+                    info.onHideCallback(self.acknowledged, info.callbackArg);
+                end
+                if not self.acknowledged and info.acknowledgeOnHide then
+                    self:HandleAcknowledge();
+                end
+                if self.acknowledged and info.onAcknowledgeCallback then
+                    info.onAcknowledgeCallback(info.callbackArg);
+                end
+            </OnHide>
+        </Scripts>
+    </Frame>
+
+</Ui>
