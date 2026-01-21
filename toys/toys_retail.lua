@@ -179,6 +179,7 @@ randomToyEventFrame:RegisterEvent("UNIT_SPELLCAST_FAILED")
 randomToyEventFrame:SetScript("OnEvent", function(self, event, unit, ...)
     if AngleurConfig.chosenCrateBobber.name ~= "Random Bobber" and AngleurConfig.chosenRaft.name ~= "Random Raft" then return end
     local arg4, arg5 = ...
+    if issecretvalue(unit) or issecretvalue(arg4) or issecretvalue(arg5) then return end
     if event == "UNIT_SPELLCAST_START" then
         -- Check BOBBER Spell
         for i, v in pairs(angleurToys.ownedCrateBobbers) do

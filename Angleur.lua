@@ -251,6 +251,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             end
         end
     elseif event == "PLAYER_SOFT_INTERACT_CHANGED" then
+        if issecretvalue(arg4) then return end
         if arg4 then
             local subbed = string.gsub(arg4, "%-0%-3767%-2444%-2424%-", "")
             if subbed then
@@ -274,7 +275,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             iceFishing = false
             compressedOceanFishing = false
         end
-    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
+    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and not issecretvalue(unit) and unit == "player" then
+        if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
@@ -289,7 +291,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
-    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
+    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
+        if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
@@ -329,7 +332,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 swimming = false
             end
         end, nil, "swimChecker-cycle")
-    elseif event == "UNIT_AURA" and unit == "player" then
+    elseif event == "UNIT_AURA" and not issecretvalue(unit) and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItemAuras()

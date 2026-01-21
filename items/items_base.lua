@@ -404,6 +404,7 @@ end
 
 local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
+    if issecretvalue(unit) or issecretvalue(arg4) or issecretvalue(arg5) then return end
     if event == "UNIT_SPELLCAST_SUCCEEDED" and unit == "player" then
         for i=1, slotCount, 1 do
             local slot = Angleur_SlottedExtraItems[i]
