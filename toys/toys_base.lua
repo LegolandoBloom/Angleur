@@ -250,7 +250,7 @@ end
 
 function Angleur_ToyBoxOverlay_CaptureSpellID(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
-    if issecretvalue(unit) or issecretvalue(arg4) or issecretvalue(arg5)  or issecretvalue(arg6) then return end
+    if ang.gameVersion == 1 and issecretvalue(unit) or issecretvalue(arg4) or issecretvalue(arg5)  or issecretvalue(arg6) then return end
     if event == "UNIT_SPELLCAST_SENT" and unit == "player" then
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ToyBoxOverlay_CaptureSpellID ") .. ": Previous method: ", arg6)
         local parentKey = angleurToys.extraToySlotHolder:GetParentKey()
