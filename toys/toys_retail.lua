@@ -109,7 +109,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 indexedOwnedToys = {}
                 newRandomToy = randomToyCandidate
             end
-        else
+        elseif cooldownOfToy and startTime then
             --_____________________________________________________________
             -- Needed for PoolDelayer() below in case ALL toys are found to 
             -- be on cooldown. Find the toy with the shortest remaining 
