@@ -96,7 +96,11 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
         local i = math.random(#indexedOwnedToys)
         local randomToyCandidate = indexedOwnedToys[i]
         local startTime, cooldownOfToy = C_Container.GetItemCooldown(randomToyCandidate.toyID)
-        if cooldownOfToy == 0 then
+        if not cooldownOfToy or not startTime then
+            indexedOwnedToys[i] = nil
+            indexedOwnedToys = reorderTable(indexedOwnedToys)
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_PickRandomToy: ") .. identifier ..  " cooldown could not be accessed")
+        elseif cooldownOfToy == 0 then
             if #indexedOwnedToys > 1 and lastRandomed[identifier] == randomToyCandidate.name then
                 -- Same toy has been randomed, remove it from the indexed table
                 -- and put it in the 'buffer' to reuse laters in case everything else is in cooldown
@@ -109,7 +113,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
                 indexedOwnedToys = {}
                 newRandomToy = randomToyCandidate
             end
-        elseif cooldownOfToy and startTime then
+        else
             --_____________________________________________________________
             -- Needed for PoolDelayer() below in case ALL toys are found to 
             -- be on cooldown. Find the toy with the shortest remaining 
