@@ -81,10 +81,10 @@ function mistsStandardTab:ExtraButtons(tab1contents)
     tab1contents.baitEnable.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.baitEnabled = true
-            self.dropDown:Show()
+            tab1contents.baitEnable.dropDown:Show()
         elseif self:GetChecked() == false then
             AngleurConfig.baitEnabled = false
-            self.dropDown:Hide()
+            tab1contents.baitEnable.dropDown:Hide()
         end
     end)
 
@@ -105,10 +105,10 @@ function mistsStandardTab:ExtraButtons(tab1contents)
         tab1contents.raftEnable.checkbox:SetScript("OnClick", function(self)
             if self:GetChecked() then
                 AngleurConfig.raftEnabled = true
-                self.dropDown:Show()
+                tab1contents.raftEnable.dropDown:Show()
             elseif self:GetChecked() == false then
                 AngleurConfig.raftEnabled = false
-                self.dropDown:Hide()
+                tab1contents.raftEnable.dropDown:Hide()
             end
         end)
         UIDropDownMenu_Initialize(tab1contents.raftEnable.dropDown, InitializeDropDownRafts)
@@ -142,18 +142,18 @@ function mistsStandardTab:ExtraButtons(tab1contents)
     tab1contents.softInteract.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.enabled = true
-            self.bobberScanner:Show()
-            self.warningSound:Show()
-            self.recastWhenOOB:Show()
+            tab1contents.softInteract.bobberScanner:Show()
+            tab1contents.softInteract.warningSound:Show()
+            tab1contents.softInteract.recastWhenOOB:Show()
             if AngleurClassicConfig.softInteract.bobberScanner == true then
                 EventRegistry:TriggerEvent("AngleurClassic_ScannerOn")
             end
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.enabled = false
             AngleurClassic_ToggleSoftInteract(false)
-            self.bobberScanner:Hide()
-            self.warningSound:Hide()
-            self.recastWhenOOB:Hide()
+            tab1contents.softInteract.bobberScanner:Hide()
+            tab1contents.softInteract.warningSound:Hide()
+            tab1contents.softInteract.recastWhenOOB:Hide()
             EventRegistry:TriggerEvent("AngleurClassic_ScannerOff")
         end
     end)
@@ -176,11 +176,11 @@ function mistsStandardTab:ExtraButtons(tab1contents)
     .."This feature is still in development! With enough good feedback, it can be improved and made much smoother :)"]
     -- tab1contents.softInteract.bobberScanner:greyOut()
     -- tab1contents.softInteract.disabledText:SetText(T[])
-    tab1contents.softInteract.bobberScanner:SetScript("OnClick", function(self)
+    tab1contents.softInteract.bobberScanner.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.bobberScanner = true
             AngleurClassicConfig.softInteract.recastWhenOOB = false
-            tab1contents.softInteract.recastWhenOOB:SetChecked(false)
+            tab1contents.softInteract.recastWhenOOB.checkbox:SetChecked(false)
             EventRegistry:TriggerEvent("AngleurClassic_ScannerOn")
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.bobberScanner = false
@@ -188,14 +188,14 @@ function mistsStandardTab:ExtraButtons(tab1contents)
         end
     end)
     if AngleurClassicConfig.softInteract.bobberScanner == true then
-        tab1contents.softInteract.bobberScanner:SetChecked(true)
+        tab1contents.softInteract.bobberScanner.checkbox:SetChecked(true)
     end
 
     tab1contents.softInteract.warningSound.text:SetText(T["Warning Sound"])
     tab1contents.softInteract.warningSound.text:SetFontObject(SpellFont_Small)
     tab1contents.softInteract.warningSound.text.tooltip = T["Plays a warning sound when the bobber lands too far for the soft interact system to capture."]
     -- tab1contents.softInteract.disabledText:SetText(T[])
-    tab1contents.softInteract.warningSound:SetScript("OnClick", function(self)
+    tab1contents.softInteract.warningSound.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.warningSound = true
         elseif self:GetChecked() == false then
@@ -203,25 +203,25 @@ function mistsStandardTab:ExtraButtons(tab1contents)
         end
     end)
     if AngleurClassicConfig.softInteract.warningSound == true then
-        tab1contents.softInteract.warningSound:SetChecked(true)
+        tab1contents.softInteract.warningSound.checkbox:SetChecked(true)
     end
 
     tab1contents.softInteract.recastWhenOOB.text:SetText(T["Recast When OOB"])
     tab1contents.softInteract.recastWhenOOB.text:SetFontObject(SpellFont_Small)
     tab1contents.softInteract.recastWhenOOB.text.tooltip = T["Sets the OneKey/Double-Click to Recast when the bobber lands too far for the soft interact system to capture."]
     -- tab1contents.softInteract.disabledText:SetText(T[])
-    tab1contents.softInteract.recastWhenOOB:SetScript("OnClick", function(self)
+    tab1contents.softInteract.recastWhenOOB.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurClassicConfig.softInteract.recastWhenOOB = true
             AngleurClassicConfig.softInteract.bobberScanner = false
             EventRegistry:TriggerEvent("AngleurClassic_ScannerOff")
-            tab1contents.softInteract.bobberScanner:SetChecked(false)
+            tab1contents.softInteract.bobberScanner.checkbox:SetChecked(false)
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.recastWhenOOB = false
         end
     end)
     if AngleurClassicConfig.softInteract.recastWhenOOB == true then
-        tab1contents.softInteract.recastWhenOOB:SetChecked(true)
+        tab1contents.softInteract.recastWhenOOB.checkbox:SetChecked(true)
     end
 
 end
