@@ -13,7 +13,6 @@ local mistsTinyTab = ang.mists.tinyTab
 
 function mistsTinyTab:ExtraButtons(tab3_contents)
     tab3_contents.swimRelease.text:SetText(T["Release When Swimming"])
-    tab3_contents.swimRelease:reposition()
     --tab3_contents.swimRelease.text:SetFontObject(SpellFont_Small)
     tab3_contents.swimRelease.text.tooltip = T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] 
     .. T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."]
@@ -37,7 +36,6 @@ function mistsTinyTab:ExtraButtons(tab3_contents)
     end
 
     tab3_contents.poleSleep.text:SetText(T["Sleep Without Fishing Rod"])
-    tab3_contents.poleSleep:reposition()
     --tab3_contents.poleSleep.text:SetFontObject(SpellFont_Small)
     tab3_contents.poleSleep.text.tooltip = T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."]
     tab3_contents.poleSleep:SetScript("OnClick", function(self)

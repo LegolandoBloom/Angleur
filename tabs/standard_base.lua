@@ -26,7 +26,7 @@ function Angleur_SetTab1(self)
     self.ultraFocus.audio.text:SetFontObject(SpellFont_Small)
     self.ultraFocus.audio.text:ClearAllPoints()
     self.ultraFocus.audio.text:SetPoint("LEFT", self.ultraFocus.audio, "RIGHT")
-    self.ultraFocus.audio:SetScript("OnClick", function(self)
+    self.ultraFocus.audio.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true
             if AngleurCharacter.sleeping == false then
@@ -39,7 +39,7 @@ function Angleur_SetTab1(self)
         end
     end)
     if AngleurConfig.ultraFocusAudioEnabled == true then
-        self.ultraFocus.audio:SetChecked(true)
+        self.ultraFocus.audio.checkbox:SetChecked(true)
     end
 
     self.ultraFocus.autoLoot.text:SetText(T["Temp. Auto Loot "])
@@ -53,7 +53,7 @@ function Angleur_SetTab1(self)
     self.ultraFocus.autoLoot.disabledText:SetText(T["(Already on)"])
     self.ultraFocus.autoLoot.disabledText:ClearAllPoints()
     self.ultraFocus.autoLoot.disabledText:SetPoint("TOP", self.ultraFocus.autoLoot.text, "BOTTOM")
-    self.ultraFocus.autoLoot:SetScript("OnClick", function(self)
+    self.ultraFocus.autoLoot.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAutoLootEnabled = true
         elseif self:GetChecked() == false then
@@ -61,7 +61,7 @@ function Angleur_SetTab1(self)
         end
     end)
     if AngleurConfig.ultraFocusAutoLootEnabled == true then
-        self.ultraFocus.autoLoot:SetChecked(true)
+        self.ultraFocus.autoLoot.checkbox:SetChecked(true)
     end
 
 
@@ -88,19 +88,18 @@ function Angleur_SetTab1(self)
 
 
     self.recastEnable.text:SetText(T["Enable Recast Key"])
-    self.recastEnable:reposition()
     self.recastEnable.disabledText:SetText(T[""])
-    self.recastEnable:SetScript("OnClick", function()
-        if self.recastEnable:GetChecked() then
+    self.recastEnable.checkbox:SetScript("OnClick", function()
+        if self.recastEnable.checkbox:GetChecked() then
             AngleurConfig.recastEnabled = true
             self.recastEnable.recastKey:Show()
-        elseif self.recastEnable:GetChecked() == false then
+        elseif self.recastEnable.checkbox:GetChecked() == false then
             AngleurConfig.recastEnabled = false
             self.recastEnable.recastKey:Hide()
         end
     end)
     if AngleurConfig.recastEnabled == true then
-        self.recastEnable:SetChecked(true)
+        self.recastEnable.checkbox:SetChecked(true)
         self.recastEnable.recastKey:Show()
     end
 

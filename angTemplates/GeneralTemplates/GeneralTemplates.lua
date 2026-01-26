@@ -42,11 +42,11 @@ function Legolando_PictureTooltipMixin:OnHide()
 end
 
 
-Angleur_CheckboxMixin = {};
+Angleur_CheckboxFrameMixin = {};
 
-function Angleur_CheckboxMixin:greyOut()
-    self:SetChecked(false)
-    self:Disable()
+function Angleur_CheckboxFrameMixin:greyOut()
+    self.checkbox:SetChecked(false)
+    self.checkbox:Disable()
     self.text:SetTextColor(0.9, 0.9, 0.9)
     self.disabledText:Show()
     if self.dropDown then
@@ -54,11 +54,6 @@ function Angleur_CheckboxMixin:greyOut()
     end
 end
 
-function Angleur_CheckboxMixin:reposition()
-    local width, height = self.text:GetSize()
-    local _, _, _, offsetX, offsetY = self:GetPoint()
-    self:AdjustPointsOffset(width, 0)
-end
 
 Angleur_CombatWeaponSwapButtonMixin = {};
 

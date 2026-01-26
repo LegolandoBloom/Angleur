@@ -293,16 +293,13 @@
         </Frames>
     </Button>
     
-    <CheckButton name="CheckboxTemplate_Angleur" parentKey="Enabled" mixin="Angleur_CheckboxMixin" virtual="true">
-		<Size x="24" y="24"/>
-		<HitRectInsets>
-			<AbsInset left="0" right="0" top="0" bottom="8"/>
-		</HitRectInsets>
-		<Layers>
+    <Frame name="CheckboxFrameTemplate_Angleur" mixin="Angleur_CheckboxFrameMixin" virtual="true">
+        <Size x="1" y="1"/>
+        <Layers>
             <Layer level="ARTWORK">
                 <FontString name="$parent_Text" parentKey="text" hidden="false" inherits="GameFontNormal">
                     <Anchors>
-                        <Anchor point="RIGHT" relativeTo="$parent" relativePoint="LEFT"/>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
                     </Anchors>
                     <Scripts>
                         <OnEnter>
@@ -326,12 +323,24 @@
                 </FontString>
             </Layer>
         </Layers>
-		<NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
-		<PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
-		<HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
-		<CheckedTexture name="$parentCheckedTexture" file="Interface\Buttons\UI-CheckBox-Check"/>
-		<DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
-    </CheckButton>
+        <Frames>
+            <CheckButton name="$parent_Checkbox" parentKey="checkbox" virtual="true">
+                <Size x="24" y="24"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parent_Text" relativePoint="RIGHT"/>
+                </Anchors>
+                <HitRectInsets>
+                    <AbsInset left="0" right="0" top="0" bottom="8"/>
+                </HitRectInsets>
+                <NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
+                <PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
+                <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>
+                <CheckedTexture name="$parentCheckedTexture" file="Interface\Buttons\UI-CheckBox-Check"/>
+                <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
+            </CheckButton>
+        </Frames>
+    </Frame>
+
 
     <Button name="Angleur_UIPanelLargeSilverButton" virtual="true">
 		<Size x="72" y="72"/>

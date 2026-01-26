@@ -25,11 +25,10 @@ function Angleur_SetTab3(self)
     end
     
     self.dismount.text:SetText(T["Dismount With Key"])
-    self.dismount:reposition()
     --self.dismount.text:SetFontObject(SpellFont_Small)
     self.dismount.text.tooltip = T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ")
     .. "when you use OneKey/DoubleClick.\n\n" .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")]
-    self.dismount:SetScript("OnClick", function(self)
+    self.dismount.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
             print(T["Can't change in combat."])
@@ -43,7 +42,7 @@ function Angleur_SetTab3(self)
         end
     end)
     if Angleur_TinyOptions.allowDismount == true then
-        self.dismount:SetChecked(true)
+        self.dismount.checkbox:SetChecked(true)
     end
     
     self.doubleClickWindow.ValueBox:SetNumericFullRange()
@@ -70,9 +69,8 @@ function Angleur_SetTab3(self)
 
 
     self.loginMessages.text:SetText(T["Login Messages"])
-    self.loginMessages:reposition()
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
-    self.loginMessages:SetScript("OnClick", function(self)
+    self.loginMessages.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
             print(T["Can't change in combat."])
@@ -87,14 +85,13 @@ function Angleur_SetTab3(self)
         end
     end)
     if Angleur_TinyOptions.loginDisabled == false then
-        self.loginMessages:SetChecked(true)
+        self.loginMessages.checkbox:SetChecked(true)
     end
 
 
     self.debugMode.text:SetText(T["Debug Mode"])
-    self.debugMode:reposition()
     --self.debugMode.text:SetFontObject(SpellFont_Small)
-    self.debugMode:SetScript("OnClick", function(self)
+    self.debugMode.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
             print(T["Can't change in combat."])
@@ -109,7 +106,7 @@ function Angleur_SetTab3(self)
         end
     end)
     if Angleur_TinyOptions.errorsDisabled == false then
-        self.debugMode:SetChecked(true)
+        self.debugMode.checkbox:SetChecked(true)
     end
 
 

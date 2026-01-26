@@ -13,7 +13,6 @@ local vanillaTinyTab = ang.vanilla.tinyTab
 
 function vanillaTinyTab:ExtraButtons(tab3_contents)
     tab3_contents.poleSleep.text:SetText(T["Sleep Without Fishing Rod"])
-    tab3_contents.poleSleep:reposition()
     --tab3_contents.poleSleep.text:SetFontObject(SpellFont_Small)
     tab3_contents.poleSleep.text.tooltip = T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."]
     tab3_contents.poleSleep:SetScript("OnClick", function(self)
