@@ -407,7 +407,7 @@
                                             <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
                                                 <Size x="100" y="22"/>
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
                                                 </Anchors>
                                             </Button>
                                         </Frames>
