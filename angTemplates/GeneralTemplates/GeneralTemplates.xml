@@ -299,7 +299,7 @@
             <Layer level="ARTWORK">
                 <FontString name="$parent_Text" parentKey="text" hidden="false" inherits="GameFontNormal">
                     <Anchors>
-                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT"/>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT"/>
                     </Anchors>
                     <Scripts>
                         <OnEnter>

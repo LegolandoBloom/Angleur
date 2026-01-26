@@ -649,22 +649,22 @@
                                 <Frames>
                                     <Frame name="$parent_OffInteract" parentKey="offInteract" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="23" y="-33"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-38"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-57"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-62"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_SwimRelease" parentKey="swimRelease" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-81"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-86"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_SoftIconOff" parentKey="softIconOff" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-105"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-110"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="OVERLAY">
@@ -720,12 +720,12 @@
                                     </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-279"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-284"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-308"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-313"/>
                                         </Anchors>
                                     </Frame>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
