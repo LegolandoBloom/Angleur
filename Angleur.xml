@@ -254,12 +254,12 @@
                                         <Frames>
                                             <Frame name="$parent_Audio" parentKey="audio" inherits="CheckboxFrameTemplate_Angleur">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0" y="12"/>
                                                 </Anchors>
                                             </Frame>
                                             <Frame name="$parent_AutoLoot" parentKey="autoLoot" inherits="CheckboxFrameTemplate_Angleur">
                                                 <Anchors>
-                                                    <Anchor point="TOP" relativeTo="$parent_Audio" relativePoint="BOTTOM" x="0"/>
+                                                    <Anchor point="LEFT" relativeTo="$parent_Title" relativePoint="RIGHT" x="0" y="-10"/>
                                                 </Anchors>
                                             </Frame>
                                         </Frames>

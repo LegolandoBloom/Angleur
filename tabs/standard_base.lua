@@ -24,8 +24,10 @@ function Angleur_SetTab1(self)
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
     self.ultraFocus.audio.text:SetText(T["Audio"])
     self.ultraFocus.audio.text:SetFontObject(SpellFont_Small)
+    self.ultraFocus.audio.checkbox:ClearAllPoints()
+    self.ultraFocus.audio.checkbox:SetPoint("TOPLEFT", self.ultraFocus.audio, "TOPLEFT")
     self.ultraFocus.audio.text:ClearAllPoints()
-    self.ultraFocus.audio.text:SetPoint("LEFT", self.ultraFocus.audio, "RIGHT")
+    self.ultraFocus.audio.text:SetPoint("LEFT", self.ultraFocus.audio.checkbox, "RIGHT")
     self.ultraFocus.audio.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true
@@ -44,8 +46,10 @@ function Angleur_SetTab1(self)
 
     self.ultraFocus.autoLoot.text:SetText(T["Temp. Auto Loot "])
     self.ultraFocus.autoLoot.text:SetFontObject(SpellFont_Small)
+    self.ultraFocus.autoLoot.checkbox:ClearAllPoints()
+    self.ultraFocus.autoLoot.checkbox:SetPoint("TOPLEFT", self.ultraFocus.autoLoot, "TOPLEFT")
     self.ultraFocus.autoLoot.text:ClearAllPoints()
-    self.ultraFocus.autoLoot.text:SetPoint("LEFT", self.ultraFocus.autoLoot, "RIGHT")
+    self.ultraFocus.autoLoot.text:SetPoint("LEFT", self.ultraFocus.autoLoot.checkbox, "RIGHT")
     self.ultraFocus.autoLoot.text.tooltip = T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorCode("Auto-Loot") .. ", then turn it back off after you reel.\n\n" 
     .. colorGrae:WrapTextInColorCode("If you have ") .. colorYello:WrapTextInColorCode("Auto-Loot ") .. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")]
     self.ultraFocus.autoLoot.disabledText:SetJustifyH("LEFT")
