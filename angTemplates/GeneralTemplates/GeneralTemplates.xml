@@ -316,11 +316,6 @@
                         </OnLeave>
                     </Scripts>
                 </FontString>
-                <FontString name="$parent_DisabledText" parentKey="disabledText" justifyH="LEFT" hidden="true" inherits="SystemFont_Shadow_Small">
-                    <Anchors>
-                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT"/>
-                    </Anchors>
-                </FontString>
             </Layer>
         </Layers>
         <Frames>
@@ -339,6 +334,15 @@
                 <DisabledCheckedTexture file="Interface\Buttons\UI-CheckBox-Check-Disabled"/>
             </CheckButton>
         </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parent_DisabledText" parentKey="disabledText" justifyH="LEFT" hidden="true" inherits="SystemFont_Shadow_Small">
+                    <Anchors>
+                        <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
     </Frame>
 
 
