@@ -274,7 +274,7 @@ T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor
 T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Angleur 鱼漂扫描：") .. "请将出现的手柄" .. colorYello:WrapTextInColorCode("光标") .. "移入" .. colorRed:WrapTextInColorCode("指定方框内") .. "。"
 T["Bobber Scanner Configuration"] = "鱼漂扫描设置"
 T["Shows how far the camera will move downward from the 'Centered Position' to start the scan. " .. "Amount is based on your Max Zoom and chosen 'Elevation'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("显示相机从") .. colorYello:WrapTextInColorCode("“居中位置”") .. colorWhite:WrapTextInColorCode("向下移动以开始扫描的距离。\n距离取决于你的") .. colorYello:WrapTextInColorCode("最大镜头距离") .. "和所选" .. colorYello:WrapTextInColorCode("“高度”") .. colorGrae:WrapTextInColorCode("（鱼漂扫描菜单）")
-T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("高度：")
+T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("    高度：    ")
 T["Reset to Defaults"] = "恢复默认"
 T["Bobber Scan: Scan unsuccessful. Try changing the 'Elevation' setting, " .. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("鱼漂扫描：") .. "扫描失败。请尝试调整" .. colorYello:WrapTextInColorCode("“高度”") .. "设置，或在扫描菜单中点击鼠标投放框旁的" .. colorYello:WrapTextInColorCode("齿轮") .. "图标调整搜索区域宽度。"
 T["Scan Width"] = colorYello:WrapTextInColorCode("扫描宽度")
