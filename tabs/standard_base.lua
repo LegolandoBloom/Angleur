@@ -28,6 +28,9 @@ function Angleur_SetTab1(self)
     self.ultraFocus.audio.checkbox:SetPoint("TOPLEFT", self.ultraFocus.audio, "TOPLEFT")
     self.ultraFocus.audio.text:ClearAllPoints()
     self.ultraFocus.audio.text:SetPoint("LEFT", self.ultraFocus.audio.checkbox, "RIGHT")
+    self.ultraFocus.audio.text.tooltip = T["If checked, Angleur will adjust your audio settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
+    .. "Ambience & Music will be muted.\nSound Effects will be turned up.\n\nWhile Angleur is awake, \'Sound in Background\' will also be enabled(restored to previous on sleep).\n\n"
+    .. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."]
     self.ultraFocus.audio.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true

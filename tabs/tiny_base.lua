@@ -70,6 +70,7 @@ function Angleur_SetTab3(self)
 
     self.loginMessages.text:SetText(T["Login Messages"])
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
+    self.loginMessages.text.tooltip = T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."]
     self.loginMessages.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
@@ -91,6 +92,8 @@ function Angleur_SetTab3(self)
 
     self.debugMode.text:SetText(T["Debug Mode"])
     --self.debugMode.text:SetFontObject(SpellFont_Small)
+    self.debugMode.text.tooltip = T["If checked, Angleur will show developer debug messages. Useful to display when submitting bug reports through discord!\n\n" 
+    .. "Keep unchecked during regular use."]
     self.debugMode.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())

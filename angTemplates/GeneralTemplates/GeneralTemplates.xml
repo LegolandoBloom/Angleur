@@ -304,7 +304,7 @@
                     <Scripts>
                         <OnEnter>
                             if not self.tooltip then return end
-                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 3, -3)
                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                             GameTooltip:AddLine(colorBlu:WrapTextInColorCode(self:GetText()))
                             GameTooltip:AddLine(self.tooltip, 1, 1, 1, 0)
@@ -327,6 +327,22 @@
                 <HitRectInsets>
                     <AbsInset left="0" right="0" top="0" bottom="8"/>
                 </HitRectInsets>
+                <Scripts>
+                    <OnEnter>
+                        local text = self:GetParent().text
+                        if not text.tooltip then return end
+                        GameTooltip:SetOwner(text, "ANCHOR_BOTTOMRIGHT", 3, -3)
+                        local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                        GameTooltip:AddLine(colorBlu:WrapTextInColorCode(text:GetText()))
+                        GameTooltip:AddLine(text.tooltip, 1, 1, 1, 0)
+                        GameTooltip:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        local text = self:GetParent().text
+                        if not text.tooltip then return end
+                        GameTooltip:Hide()
+                    </OnLeave>
+                </Scripts>
                 <NormalTexture file="Interface\Buttons\UI-CheckBox-Up"/>
                 <PushedTexture file="Interface\Buttons\UI-CheckBox-Down"/>
                 <HighlightTexture file="Interface\Buttons\UI-CheckBox-Highlight" alphaMode="ADD"/>

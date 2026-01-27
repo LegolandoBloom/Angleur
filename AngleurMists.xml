@@ -6,7 +6,7 @@
             <OnLoad function="Angleur_OnLoad"/>
         </Scripts>
         <Frames>
-            <Button name="$parent_Visual" parentKey="visual" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
+            <Button name="$parent_Visual" parentKey="visual" clampedToScreen="true" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
                 <Size x="45" y="45"/>
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
@@ -139,7 +139,7 @@
                     </PreClick>
                 </Scripts>
             </Button>
-            <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
+            <Frame name="$parent_ConfigPanel" parentKey="configPanel" toplevel="true" clampedToScreen="true" FrameStrata="MEDIUM" inherits="BasicFrameTemplateWithInset" hidden="true">
                 <Size x="300" y="430"/>
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="UIParent" relativePoint="LEFT" x="500" y="100"/>
