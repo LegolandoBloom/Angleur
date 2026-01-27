@@ -225,7 +225,7 @@
                                     <Frame name="$parent_UltraFocus" parentKey="ultraFocus">
                                         <Size x="260" y="50"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-71"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-66"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -407,7 +407,7 @@
                                     </Frame>
                                     <Frame name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="5"/>
                                         </Anchors>
                                         <Frames>
                                             <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
@@ -594,12 +594,12 @@
                                 <Frames>
                                     <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-35"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-40"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_PoleSleep" parentKey="poleSleep" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-62"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-67"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="AngleurClassic_SliderAndEditControlTemplate">
@@ -637,12 +637,12 @@
                                     </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-260"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-265"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-290"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-295"/>
                                         </Anchors>
                                     </Frame>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
