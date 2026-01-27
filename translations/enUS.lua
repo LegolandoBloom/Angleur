@@ -780,3 +780,26 @@ T["If checked, Angleur will adjust your audio settings for you when you cast you
 .. "will also be enabled(restored to previous on sleep).\n\n" .. "If you want to " .. colorUnderlight:WrapTextInColorCode("change ")
 .. "the adjusted audio volume, go to " .. colorBlu:WrapTextInColorCode("Angleur ") .. "-> " .. colorBlu:WrapTextInColorCode("Tiny ") .. "-> " 
 .. colorBlu:WrapTextInColorCode("Master Volume(Ultra Focus) ") .. "and adjust from the slider."
+
+
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
+.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
+.. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") .. "to get a different one every time!"
+
+T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "If checked, Angleur will have you keep " 
+.. colorYello:WrapTextInColorCode("\'Reusable Oversized Bobber\' ") .. "applied."
+
+T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n" 
+.. "Pick \'Random Bobber\' to get a different one every time!"] = "Pick a Bobber from the " .. colorYello:WrapTextInColorCode("Crate of Bobbers") 
+.. ", and Angleur will have you keep it applied!\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Bobber\' ") .. "to get a different one every time!"
+
+
+T["Let Angleur take care of Audio & Loot settings for you."] = "Let Angleur take care of " .. colorYello:WrapTextInColorCode("Audio") .. " & " 
+.. colorYello:WrapTextInColorCode("Loot ") .. "settings for you."
+
+T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "Bind a dedicated " .. colorYello:WrapTextInColorCode("\'Re-Cast Key\'.\n\n")
+.. colorGrae:WrapTextInColorCode("Will be released back to you when not fishing.")
+
+T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Released BACK in Combat!)\n")
+
+T["Note for Mists:"] = "Note for Mists:"

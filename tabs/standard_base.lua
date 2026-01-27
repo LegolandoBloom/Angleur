@@ -22,6 +22,16 @@ function Angleur_SetTab1(self)
     end
 
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
+    self.ultraFocus.title:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 3, -3)
+        GameTooltip:AddLine(colorBlu:WrapTextInColorCode(self:GetText()))
+        GameTooltip:AddLine(T["Let Angleur take care of Audio & Loot settings for you."], 1, 1, 1, 0)
+        GameTooltip:Show()
+    end)
+    self.ultraFocus.title:SetScript("OnLeave", function(self)
+        GameTooltip:Hide()
+    end)
+    self.ultraFocus.title:SetText(T["Ultra Focus:"])
     self.ultraFocus.audio.text:SetText(T["Audio"])
     self.ultraFocus.audio.text:SetFontObject(SpellFont_Small)
     self.ultraFocus.audio.checkbox:ClearAllPoints()
@@ -96,6 +106,7 @@ function Angleur_SetTab1(self)
 
     self.recastEnable.text:SetText(T["Enable Recast Key"])
     self.recastEnable.disabledText:SetText(T[""])
+    self.recastEnable.text.tooltip = T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."]
     self.recastEnable.checkbox:SetScript("OnClick", function()
         if self.recastEnable.checkbox:GetChecked() then
             AngleurConfig.recastEnabled = true

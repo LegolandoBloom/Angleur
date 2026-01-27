@@ -301,7 +301,7 @@
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
                                                             GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
                                                             GameTooltip:AddLine(colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") .. 
-                                                            "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") .. "using \none button.", 1, 1, 1)
+                                                            "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") .. "using \none button.".. T["\n(Released BACK in Combat!)"], 1, 1, 1)
                                                             GameTooltip:AddLine(T["Note for Classic:"])
                                                             GameTooltip:AddLine(T["Mouseover the bobber\nto reel consistently."], 1, 1, 1)
                                                             GameTooltip:AddLine(T["(If it lands too far, the\nsoft-interact will miss it.)"], 0.8, 0.8, 0.8)

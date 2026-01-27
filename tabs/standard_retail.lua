@@ -107,6 +107,8 @@ end
 function retailStandardTab:ExtraButtons(tab1contents)
     tab1contents.raftEnable.text:SetText(T["Raft"])
     tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
+    tab1contents.raftEnable.text.tooltip = T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
+    .. "Pick \'Random Raft\' to get a different one every time!"]
     tab1contents.raftEnable.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.raftEnabled = true
@@ -129,6 +131,7 @@ function retailStandardTab:ExtraButtons(tab1contents)
     
     tab1contents.oversizedBobberEnable.text:SetText(T["Oversized Bobber"])
     tab1contents.oversizedBobberEnable.disabledText:SetText(T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"])
+    tab1contents.oversizedBobberEnable.text.tooltip = T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."]
     tab1contents.oversizedBobberEnable.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.oversizedEnabled = true
@@ -142,6 +145,8 @@ function retailStandardTab:ExtraButtons(tab1contents)
     
     tab1contents.crateBobberEnable.text:SetText(T["Crate of Bobbers"])
     tab1contents.crateBobberEnable.disabledText:SetText(T["Couldn't find \n any Crate Bobbers \n in toybox, feature disabled"])
+    tab1contents.crateBobberEnable.text.tooltip = T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n" 
+    .. "Pick \'Random Bobber\' to get a different one every time!"]
     tab1contents.crateBobberEnable.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.crateEnabled = true
