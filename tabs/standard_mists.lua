@@ -78,6 +78,7 @@ end
 function mistsStandardTab:ExtraButtons(tab1contents)
     tab1contents.baitEnable.text:SetText(T["Bait"])
     tab1contents.baitEnable.disabledText:SetText(T["Couldn't find any bait \n in your bags, feature disabled"])
+    tab1contents.baitEnable.text.tooltip = T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."]
     tab1contents.baitEnable.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.baitEnabled = true
@@ -102,6 +103,7 @@ function mistsStandardTab:ExtraButtons(tab1contents)
     if Angleur_CheckVersion() == 2 then
         tab1contents.raftEnable.text:SetText(T["Raft"])
         tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
+        tab1contents.raftEnable.text.tooltip = T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"]
         tab1contents.raftEnable.checkbox:SetScript("OnClick", function(self)
             if self:GetChecked() then
                 AngleurConfig.raftEnabled = true

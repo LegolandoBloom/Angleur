@@ -52,8 +52,8 @@ T["Standard"] = "Standard"
     T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
     .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
     .. "using \none button."] = colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") 
-    .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items and Configured Macros ") 
-    .. "using \none button."
+    .. ", use " .. colorPurple:WrapTextInColorCode("Toys") .. ", " .. colorBlu:WrapTextInColorCode(" Items ") .. "and" .. colorBlu:WrapTextInColorCode("\nConfigured Macros ") 
+    .. "using one button."
     
     T["Set your desired key by: "] = "Set your desired key by: "
     T["Clicking on the button\nthat appears below\nonce this option is selected."] = "Clicking on the button\nthat appears below\nonce this option is selected."
@@ -783,8 +783,9 @@ T["If checked, Angleur will adjust your audio settings for you when you cast you
 
 
 T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
-.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
-.. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") .. "to get a different one every time!"
+.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in " 
+.. colorDarkBlu:WrapTextInColorCode("water") .. "!\n"  .. "(Also keep the buff going afterwards)\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") 
+.. "to get a different one every time!"
 
 T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "If checked, Angleur will have you keep " 
 .. colorYello:WrapTextInColorCode("\'Reusable Oversized Bobber\' ") .. "applied."
@@ -803,3 +804,9 @@ T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fi
 T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Released BACK in Combat!)\n")
 
 T["Note for Mists:"] = "Note for Mists:"
+T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "Pick a " 
+.. colorYello:WrapTextInColorCode("Bait Item ") .."from the ones in your bags, and Angleur will keep it applied!" 
+.. colorGrae:WrapTextInColorCode("\n\nMake sure you pick one whose level isn't higher than yours.")
+
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur " 
+.. "will have you use it when you are in " .. colorDarkBlu:WrapTextInColorCode("water") .. "!\n(Also keep the buff going afterwards)"
