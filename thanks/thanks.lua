@@ -3,7 +3,8 @@ local T = Angleur_Translate
 local logoTable = {
     youtube = "Interface/AddOns/Angleur/images/youtube.png",
     kofi = "Interface/AddOns/Angleur/images/kofi.png",
-    patreon = "Interface/AddOns/Angleur/images/patreon.png"
+    patreon = "Interface/AddOns/Angleur/images/patreon.png",
+    NGA = "Interface/AddOns/Angleur/images/NGALogo.png",
 }
 -- r = 0.94, g = 0.368, b = 0.054 --> legendary orange
 -- r = 0.7, g = 0, b = 0.95 --> epic purple
@@ -11,14 +12,16 @@ local logoTable = {
 -- r = 0.33, g = 0.92, b = 0.06666 --> devil's green
 -- r = 0.82, g = 0.517, b = 0.195 --> coffee
 -- r = 0.9, g = 0.082, b = 0.384 --> rosa
+local colorWhite = CreateColor(1, 1, 1)
 local names = {
-    {text = "xScarlife\n", smalltext = "youtube.com/@xScarlifeGaming", r = 0.94, g = 0.368, b = 0.054, logo = "youtube"},
+    {text = "xScarlife\n", smalltext = "youtube.com/@xScarlifeGaming ", r = 0.94, g = 0.368, b = 0.054, logo = "youtube"},
     {text = "T3chnological", r = 1, g = 0.843, b = 0, logo = nil},
     {text = "Puco", r = 0.72, g = 0.25, b = 1},
     {text = "Trustyulf ", r = 0.62, g = 0.52, b = 0.38, logo = "kofi"},
-    {text = "ZamestoTV\n", smalltext = "youtube.com/@ZamestoTV", r = 0.25, g = 0.78, b = 0.92, logo = "youtube"},
+    {text = "ZamestoTV\n", smalltext = "youtube.com/@ZamestoTV ", r = 0.25, g = 0.78, b = 0.92, logo = "youtube"},
     {text = "Crazyyoungs", r = 0.17, g = 0.52, b = 0.23},
     {text = "Cathtail\n", smalltext = "@cathtail", r = 0.95, g = 0.43, b = 0.59},
+    {text = "大叔叔" .. colorWhite:WrapTextInColorCode(" - 明天启程 "), r = 1, g = 0.2, b = 0.2, logo = "NGA"},
 }
 
 local function iterateAndAdd(parent, anchorFrame)

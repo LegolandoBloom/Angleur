@@ -693,3 +693,67 @@ T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUn
 
 T["Angleur will no longer Sleep/Wake based on Fishing Rod equip status."] = colorBlu:WrapTextInColorCode("Angleur ") 
 .. "will no longer " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "based on Fishing Rod equip status."
+
+
+
+
+-- Swim Release Toggle
+T["Release When Swimming"] = "Release When Swimming"
+
+T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "If checked, " .. "the only action your "
+..colorYello:WrapTextInColorCode("OneKey / DoubleClick ") .. "will perform " .. colorDarkBlu:WrapTextInColorCode("while swimming ") .. "will be casting " .. colorBrown:WrapTextInColorCode("rafts.") .. "\n(If you already have one, the key will be released.)"
+
+T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water.")
+
+T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur will only have you cast rafts while swimming, then release the key afterward."
+
+T["Angleur will no longer release your keybind while swimming."] = "Angleur will no longer release your keybind while swimming."
+
+
+-- Missing Tooltips
+T["If checked, Angleur will show developer debug messages. Useful to display when submitting bug reports through discord!\n\n" 
+.. "Keep unchecked during regular use."] = "If checked, Angleur will show developer debug messages.\nUseful to display when submitting bug reports through " .. colorPurple:WrapTextInColorCode("discord!\n\n") 
+.. colorGrae:WrapTextInColorCode("Keep unchecked during regular use.")
+
+T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."] = "When unchecked, Angleur will stop showing Login messages.\n\n"
+.. colorGrae:WrapTextInColorCode("Login messages may contain useful tips, and can be re-enabled at any time.")
+
+T["If checked, Angleur will adjust your audio settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
+.. "Ambience & Music will be muted.\nSound Effects will be turned up.\n\nWhile Angleur is awake, \'Sound in Background\' will also be enabled(restored to previous on sleep).\n\n"
+.. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."] = "If checked, Angleur will adjust your audio " 
+.. "settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
+.. colorYello:WrapTextInColorCode("Ambience & Music ") .. "will be " .. colorRed:WrapTextInColorCode("muted.")
+.. colorYello:WrapTextInColorCode("\nSound Effects ") .. "will be " .. colorGreen:WrapTextInColorCode("turned up.") .. "\n\nWhile Angleur is awake, " .. colorYello:WrapTextInColorCode("\'Sound in Background\' ") 
+.. "will also be enabled(restored to previous on sleep).\n\n" .. "If you want to " .. colorUnderlight:WrapTextInColorCode("change ")
+.. "the adjusted audio volume, go to " .. colorBlu:WrapTextInColorCode("Angleur ") .. "-> " .. colorBlu:WrapTextInColorCode("Tiny ") .. "-> " 
+.. colorBlu:WrapTextInColorCode("Master Volume(Ultra Focus) ") .. "and adjust from the slider."
+
+
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
+.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in " 
+.. colorDarkBlu:WrapTextInColorCode("water") .. "!\n"  .. "(Also keep the buff going afterwards)\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") 
+.. "to get a different one every time!"
+
+T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "If checked, Angleur will have you keep " 
+.. colorYello:WrapTextInColorCode("\'Reusable Oversized Bobber\' ") .. "applied."
+
+T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n" 
+.. "Pick \'Random Bobber\' to get a different one every time!"] = "Pick a Bobber from the " .. colorYello:WrapTextInColorCode("Crate of Bobbers") 
+.. ", and Angleur will have you keep it applied!\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Bobber\' ") .. "to get a different one every time!"
+
+
+T["Let Angleur take care of Audio & Loot settings for you."] = "Let Angleur take care of " .. colorYello:WrapTextInColorCode("Audio") .. " & " 
+.. colorYello:WrapTextInColorCode("Loot ") .. "settings for you."
+
+T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "Bind a dedicated " .. colorYello:WrapTextInColorCode("\'Re-Cast Key\'.\n\n")
+.. colorGrae:WrapTextInColorCode("Will be released back to you when not fishing.")
+
+T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Released BACK in Combat!)\n")
+
+T["Note for Mists:"] = "Note for Mists:"
+T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "Pick a " 
+.. colorYello:WrapTextInColorCode("Bait Item ") .."from the ones in your bags, and Angleur will keep it applied!" 
+.. colorGrae:WrapTextInColorCode("\n\nMake sure you pick one whose level isn't higher than yours.")
+
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur " 
+.. "will have you use it when you are in " .. colorDarkBlu:WrapTextInColorCode("water") .. "!\n(Also keep the buff going afterwards)"
