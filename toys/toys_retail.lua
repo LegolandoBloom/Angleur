@@ -83,13 +83,13 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
     if next(ownedTable) == nil then return false end
     if #ownedTable == 0 then return false end
     if forceClear then alreadyRandomed[identifier] = false end
-    if alreadyRandomed[identifier] then 
+    if alreadyRandomed[identifier] then
         return true
     end
     local indexedOwnedToys = ownedTable
     -- ownedTable is initially unindexed, so we index it as 1,2,3,4... so we can use math.random()
     indexedOwnedToys = reorderTable(indexedOwnedToys)
-    local bufferToy 
+    local bufferToy
     local newRandomToy
     local leastRemainingCooldown = 0
     while next(indexedOwnedToys) ~= nil do
