@@ -84,6 +84,8 @@ local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable
         local allTrue = true
         for i, item in pairs(possibilityTable) do
             if item.itemID == itemID then
+                local _, link = C_Item.GetItemInfo(itemID)
+                Angleur_BetaPrint(debugChannel, "Requested item loaded: ", link)
                 item.loaded = true
             end
             if item.loaded ~= true then
@@ -92,6 +94,7 @@ local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable
         end
         if allTrue == true then
             self:SetScript("OnEvent", nil)
+            Angleur_BetaPrint(debugChannel, "all have finished loading, setting tables")
             Angleur_CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
             Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
         end
@@ -106,5 +109,3 @@ function Angleur_LoadItems()
     GetTimePreciseSec()
     requestItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
 end
-
-

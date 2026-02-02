@@ -147,6 +147,9 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.errorsDisabled == nil then
         Angleur_TinyOptions.errorsDisabled = true
     end
+    if Angleur_TinyOptions.debugLevel == nil then
+        Angleur_TinyOptions.debugLevel = 0
+    end
 
     if AngleurMinimapButton.hide == nil then
         AngleurMinimapButton.hide = false
@@ -397,17 +400,16 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
     -- DevTools_Dump(uniques)
 end
 
-local debugLevel = ang.debugLevel
 function Angleur_BetaPrint(debugChannel, text, ...)
-    if type(debugLevel) == "table" then
+    if type(ang.debugLevel) == "table" then
         local matched = false
-        for i, v in pairs(debugLevel) do
+        for i, v in pairs(ang.debugLevel) do
             if v == debugChannel then
                 matched = true
             end
         end
         if matched == false then return end
-    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+    elseif ang.debugLevel ~= 0 and ang.debugLevel ~= debugChannel then
         return
     end
     if Angleur_TinyOptions.errorsDisabled == false then
@@ -416,15 +418,15 @@ function Angleur_BetaPrint(debugChannel, text, ...)
 end
 
 function Angleur_BetaDump(debugChannel, dump)
-    if type(debugLevel) == "table" then
+    if type(ang.debugLevel) == "table" then
         local matched = false
-        for i, v in pairs(debugLevel) do
+        for i, v in pairs(ang.debugLevel) do
             if v == debugChannel then
                 matched = true
             end
         end
         if matched == false then return end
-    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+    elseif ang.debugLevel ~= 0 and ang.debugLevel ~= debugChannel then
         return
     end
     if Angleur_TinyOptions.errorsDisabled == false then
@@ -433,15 +435,15 @@ function Angleur_BetaDump(debugChannel, dump)
 end
 
 function Angleur_BetaTableToString(debugChannel, tbl)
-    if type(debugLevel) == "table" then
+    if type(ang.debugLevel) == "table" then
         local matched = false
-        for i, v in pairs(debugLevel) do
+        for i, v in pairs(ang.debugLevel) do
             if v == debugChannel then
                 matched = true
             end
         end
         if matched == false then return end
-    elseif debugLevel ~= 0 and debugLevel ~= debugChannel then
+    elseif ang.debugLevel ~= 0 and ang.debugLevel ~= debugChannel then
         return
     end
     if Angleur_TinyOptions.errorsDisabled == false then
