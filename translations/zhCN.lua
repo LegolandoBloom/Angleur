@@ -1,4 +1,4 @@
--- Translator: 大叔叔
+-- Translator: 明天启程
 
 if (GAME_LOCALE or GetLocale()) ~= "zhCN" then
     return
@@ -38,9 +38,9 @@ T["Angleur Configuration"] = "Angleur 设置"
 T["Having Problems?"] = "遇到问题？"
 T["Angleur Warning: Plater"] = "Angleur 警告：Plater"
 T["Okay"] = "确定"
-T["  Extra  "] = "  扩展  "
-T["  Tiny  "] = "  简洁  "
-T["Standard"] = "标准"
+T["  Extra  "] = "扩展"
+T["  Tiny  "] = "设置"
+T["Standard"] = "基础"
 T["Angleur Visual Button"] = "Angleur 视觉按钮"
 T["Shows what your next key press\nwill do. Not meant to be clicked."] = "显示下一次按键将执行的动作。\n无需点击。"
 T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")] = "钓鱼模式：" .. colorBlu:WrapTextInColorCode("双击\n")
@@ -59,7 +59,7 @@ T["Double-Click Fishing Mode"] = "双击钓鱼模式"
 T["Fish, Reel, cast Toys, Items and Macros using double mouse clicks!\n"] = "通过双击鼠标完成钓鱼、收竿、使用玩具、物品和宏！\n"
 T["Select which mouse button by:"] = "选择使用哪个鼠标按键："
 T["Not every toy will work!"] = "并非所有玩具都适用！"
-T["Extra Toys is a feature meant to provide flexible user customization, but not every toy is" .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine." .. " Test them out, experiment and have fun!\n"] = "额外玩具功能旨在提供灵活的自定义，但并非所有玩具都适用。\n指向性玩具、沉默类玩具、遥控玩具等可能会干扰钓鱼流程。\n请自行测试与尝试，享受乐趣！\n"
+T["Extra Toys is a feature meant to provide flexible user customization, but not every toy is" .. " created the same. Targeted toys, toys that silence you, remote controlled toys etc might mess with your fishing routine." .. " Test them out, experiment and have fun!\n"] = "扩展玩具功能旨在提供灵活的自定义，但并非所有玩具都适用。\n指向性玩具、沉默类玩具、遥控玩具等可能会干扰钓鱼流程。\n请自行测试与尝试，享受乐趣！\n"
 T["Fun toy recommendations from mod author, Legolando:"] = "插件作者 Legolando 推荐的趣味玩具："
 T["1) Tents such as Gnoll Tent to protect yourself from the sun as you fish." .. "\n2) Transformation toys such as Burning Defender's Medallion.\n3) Seating items like pillows so you can fish comfortably." .. "\n4) Darkmoon whistle if you want to be annoying.\nAnd other whacky combinations!"] = "1) 帐篷类玩具（如豺狼人帐篷），钓鱼时遮阳。\n2) 变形玩具（如燃烧卫士勋章）。\n3) 座椅类物品（如坐垫），舒适钓鱼。\n4) 暗月哨子，用于“恶作剧”。\n以及其他新奇组合！"
 T["Beta: " .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") .. "/reload."] = "测试版：" .. colorWhite:WrapTextInColorCode("如果遇到问题，\n请点击重置按钮，\n然后使用 /reload 重载界面。")
@@ -74,16 +74,16 @@ T["Fish, cast Toys, Items and Macros using double mouse clicks!\n"] = "双击鼠
 T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") .. "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ") .. "using \none button."] = colorBlu:WrapTextInColorCode("抛竿 ") .. "、" .. colorBlu:WrapTextInColorCode("收竿 ") .. "并" .. colorBlu:WrapTextInColorCode("使用物品与预设宏 ") .. "，一键完成。"
 T["Note for Classic:"] = "经典旧世提示："
 T[colorBlu:WrapTextInColorCode("Cast ") .. "your rod and " .. colorBlu:WrapTextInColorCode("use Items/Macros ") .. "using\ndouble mouse clicks!\n"] = colorBlu:WrapTextInColorCode("抛竿 ") .. "并" .. colorBlu:WrapTextInColorCode("使用物品/宏 ") .. "，通过双击鼠标完成！\n"
-T["Extra Toys"] = "额外玩具"
-T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " .. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("点击 ") .. "上方任意按钮，\n然后在弹出的" .. colorYello:WrapTextInColorCode("玩具箱 ") .. "中左键选择玩具。"
-T["Extra Items / Macros"] = "额外物品 / 宏"
-T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."] = "   " .. colorYello:WrapTextInColorCode("拖动 ") .. "一个可使用的" .. colorYello:WrapTextInColorCode("物品 ") .. "或" .. colorYello:WrapTextInColorCode("宏 ") .. "到上方任意格子中。"
+T["Extra Toys"] = "扩展玩具"
+T["   " .. colorYello:WrapTextInColorCode("Click ") .. "any of the buttons above\nthen select a toy with left click from\nthe " .. colorYello:WrapTextInColorCode("Toy Box ") .. "that pops up."] = "   " .. colorYello:WrapTextInColorCode("点击 ") .. "上方任意按钮，\n然后在弹出的" .. colorYello:WrapTextInColorCode("玩具箱") .. "中左键选择玩具。"
+T["Extra Items / Macros"] = "扩展物品 / 宏"
+T["   " .. colorYello:WrapTextInColorCode("Drag ") .. "a usable " .. colorYello:WrapTextInColorCode("Item ") .. "or a " .. colorYello:WrapTextInColorCode("Macro ") .. "into any of the boxes above."] = "   " .. colorYello:WrapTextInColorCode("拖动 ") .. "一个可使用的" .. colorYello:WrapTextInColorCode("物品") .. "或" .. colorYello:WrapTextInColorCode("宏") .. "到上方任意格子中。"
 T["Set Timer"] = "设置计时器"
 T["Toggle Equipment"] = "切换装备"
 T["Toggle Bags"] = "切换背包"
 T["Open Macros"] = "打开宏"
-T["Raft"] = "筏子"
-T["Couldn't find any rafts \n in toybox, feature disabled"] = "玩具箱中未找到筏子，\n功能已禁用"
+T["Raft"] = "渔筏"
+T["Couldn't find any rafts \n in toybox, feature disabled"] = "玩具箱中未找到渔筏，\n功能已禁用"
 T["Oversized Bobber"] = "超大鱼漂"
 T["Couldn't find \n Oversized Bobber in \n toybox, feature disabled"] = "在玩具箱中未找到\n超大鱼漂，\n功能已禁用"
 T["Crate of Bobbers"] = "鱼漂箱"
@@ -94,7 +94,7 @@ T["Temp. Auto Loot "] = "临时自动拾取 "
 T["If checked, Angleur will temporarily turn on " .. colorYello:WrapTextInColorCode("Auto-Loot") .. ", then turn it back off after you reel.\n\n" .. colorGrae:WrapTextInColorCode("If you have ") .. colorYello:WrapTextInColorCode("Auto-Loot ") .. colorGrae:WrapTextInColorCode("enabled anyway, this feature will be disabled automatically.")] = "勾选后，Angleur 将临时开启" .. colorYello:WrapTextInColorCode("自动拾取") .. "，收竿后自动关闭。\n\n" .. colorGrae:WrapTextInColorCode("若你已启用") .. colorYello:WrapTextInColorCode("自动拾取") .. colorGrae:WrapTextInColorCode("，此功能将自动禁用。")
 T["(Already on)"] = "（已开启）"
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "If you experience stiffness with the Double-Click, do a " .. colorYello:WrapTextInColorCode("/reload") .. " to fix it."] = colorBlu:WrapTextInColorCode("Angleur：") .. "若双击响应迟钝，请执行 " .. colorYello:WrapTextInColorCode("/reload") .. " 修复。"
-T["Rafts"] = "筏子"
+T["Rafts"] = "渔筏"
 T["Random Bobber"] = "随机鱼漂"
 T["Preferred Mouse Button"] = "首选鼠标按键"
 T["Right Click"] = "右键"
@@ -105,14 +105,14 @@ T["Disable Soft Interact"] = "禁用软交互"
 T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")] = "勾选后，Angleur 将在你停止钓鱼时关闭" .. colorYello:WrapTextInColorCode("软交互") .. "。\n\n" .. colorGrae:WrapTextInColorCode("适用于希望平时保持软交互关闭的玩家。")
 T["Can't change in combat."] = "战斗中无法更改。"
 T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."] = colorBlu:WrapTextInColorCode("Angleur ") .. "现在将在非钓鱼时关闭" .. colorYello:WrapTextInColorCode("软交互") .. "。"
-T["Dismount With Key"] = "按键下马"
-T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ") .. "when you use OneKey/DoubleClick.\n\n" .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")] = "勾选后，使用一键/双击时将" .. colorYello:WrapTextInColorCode("强制下马") .. "。\n\n" .. colorGrae:WrapTextInColorCode("骑乘时按键将不再自动释放。")
+T["Dismount With Key"] = "自动下马"
+T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ") .. "when you use OneKey/DoubleClick.\n\n" .. colorGrae:WrapTextInColorCode("Your key will no longer be released upon mounting.")] = "勾选后，使用一键/双击时将" .. colorYello:WrapTextInColorCode("自动下马") .. "。\n\n" .. colorGrae:WrapTextInColorCode("骑乘时，按键绑定将保持有效")
 T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now " .. colorYello:WrapTextInColorCode("dismount ") .. "you"] = colorBlu:WrapTextInColorCode("Angleur ") .. "将使你" .. colorYello:WrapTextInColorCode("下马")
 T["Disable Soft Icon"] = "禁用软目标图标"
 T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."] = "是否显示鱼漂上方的鱼钩图标。\n注意：这也会影响其他软目标物体的图标。"
 T["Soft target icon for game objects disabled."] = "已禁用游戏物体的软目标图标。"
 T["Soft target icon for game objects re-enabled."] = "已重新启用游戏物体的软目标图标。"
-T["Double Click Window"] = "双击时间窗口"
+T["Double Click Window"] = "双击灵敏度"
 T["Visual Size"] = "图示尺寸"
 T["Master Volume(Ultra Focus)"] = "主音量（专注模式）"
 T["Login Messages"] = "登录提示"
@@ -120,7 +120,7 @@ T["Debug Mode"] = "调试模式"
 T["Defaults"] = "恢复默认"
 T["Angleur Warning"] = "Angleur 警告"
 T["Are you sure you want to abandon the tutorial?"] = "      确定要放弃教程吗 ？      "
-T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"] = "（稍后可在简洁面板中点击“重新开始教程”）"
+T["(You can redo it later by clicking the Redo Button\nin the Tiny Panel)"] = "（稍后可在设置面板中点击“重新开始教程”）"
 T["Yes"] = "是"
 T["No"] = "否"
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."] = colorBlu:WrapTextInColorCode("Angleur：") .. "检测到 " .. colorYello:WrapTextInColorCode("Plater") .. "。"
@@ -129,10 +129,10 @@ T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to
 T[colorYello:WrapTextInColorCode("To Get Started:\n\n") .. "Choose your desired\n" .. colorBlu:WrapTextInColorCode("Fishing Method") .. " by\nclicking one of these buttons.\n\n"] = colorYello:WrapTextInColorCode("开始使用：\n\n") .. "请选择你想要的\n" .. colorBlu:WrapTextInColorCode("钓鱼模式") .. "，\n点击对应按钮即可。\n\n"
 T[colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Visual:\n\n") .. "Shows what your next input will do.\n" .. "Drag and place it anywhere you might like.\n\n" .. "You can also hide it by clicking its close button."] = colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("图示界面：\n\n") .. "显示下一次输入将执行的动作。\n" .. "可拖动并放置于任意位置。\n\n" .. "也可点击关闭按钮隐藏它。"
 T["Angleur works on a " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "system, so you don't have to reload your UI after you're done fishing.\n\n" .. colorBlu:WrapTextInColorCode("Right Click ") .. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button."] = "Angleur 采用" .. colorYello:WrapTextInColorCode("睡眠/唤醒") .. "机制，钓鱼结束后无需重载界面。\n\n" .. colorBlu:WrapTextInColorCode("右键点击") .. "可使 Angleur 进入睡眠，再次点击可唤醒。也可右键小地图按钮操作。"
-T["You can enable\n\nRafts,\n\nBobbers,\n\nand Ultra Focus(Audio/Temporary Auto Loot)\n\nby checking these boxes."] = "可通过勾选启用\n\n筏子、\n\n鱼漂、\n\n以及专注模式（音效/临时自动拾取）。"
+T["You can enable\n\nRafts,\n\nBobbers,\n\nand Ultra Focus(Audio/Temporary Auto Loot)\n\nby checking these boxes."] = "可通过勾选启用\n\n渔筏、\n\n鱼漂、\n\n以及专注模式（音效/临时自动拾取）。"
 T["Now, let's move to the " .. colorYello:WrapTextInColorCode("Extra ") .. "Tab. Click here."] = "现在进入" .. colorYello:WrapTextInColorCode("扩展") .. "标签页。点击此处。"
-T[colorPurple:WrapTextInColorCode("Extra Toys\n\n") .. "You can select a toy from the " .. colorYello:WrapTextInColorCode("Toy Box ") .. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n" .. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!"] = colorPurple:WrapTextInColorCode("额外玩具\n\n") .. "可从" .. colorYello:WrapTextInColorCode("玩具箱") .. "中选择玩具加入 Angleur 轮换。\n\n点击空槽打开玩具选择，或点击下一步继续。\n\n注意：并非所有玩具都适用，有些会使你沉默导致无法钓鱼。请自行尝试！"
-T[colorBrown:WrapTextInColorCode("Extra Items/Macros\n\n") .. "You can " .. colorYello:WrapTextInColorCode("Drag ") .. "items or macros here to add them to your Angleur rotation.\n\n" .. "These can be fishing hats, throwable fish, spells...\n\n" .. "You can even set custom timers for them by clicking the " .. colorYello:WrapTextInColorCode("stopwatch ") .. "icon that appears once you slot an item/macro.\n\nClick " .. colorYello:WrapTextInColorCode("Okay ") .. "to move on."] = colorBrown:WrapTextInColorCode("额外物品/宏\n\n") .. "可" .. colorYello:WrapTextInColorCode("拖动") .. "物品或宏至此，加入 Angleur 轮换。\n\n例如钓鱼帽、可投掷鱼类、法术等。\n\n放入物品/宏后，点击出现的" .. colorYello:WrapTextInColorCode("秒表") .. "图标可设置自定义计时器。\n\n点击" .. colorYello:WrapTextInColorCode("确定") .. "继续。"
+T[colorPurple:WrapTextInColorCode("Extra Toys\n\n") .. "You can select a toy from the " .. colorYello:WrapTextInColorCode("Toy Box ") .. "to add it to your Angleur rotation.\n\n Click on an empty slot to open toy selection, or click next to move on.\n\n" .. "Note: Not every toy will work, some silence you so you can't fish etc. Experiment around!"] = colorPurple:WrapTextInColorCode("扩展玩具\n\n") .. "可从" .. colorYello:WrapTextInColorCode("玩具箱") .. "中选择玩具加入 Angleur 轮换。\n\n点击空槽打开玩具选择，或点击下一步继续。\n\n注意：并非所有玩具都适用，有些会使你沉默导致无法钓鱼。请自行尝试！"
+T[colorBrown:WrapTextInColorCode("Extra Items/Macros\n\n") .. "You can " .. colorYello:WrapTextInColorCode("Drag ") .. "items or macros here to add them to your Angleur rotation.\n\n" .. "These can be fishing hats, throwable fish, spells...\n\n" .. "You can even set custom timers for them by clicking the " .. colorYello:WrapTextInColorCode("stopwatch ") .. "icon that appears once you slot an item/macro.\n\nClick " .. colorYello:WrapTextInColorCode("Okay ") .. "to move on."] = colorBrown:WrapTextInColorCode("扩展物品/宏\n\n") .. "可" .. colorYello:WrapTextInColorCode("拖动") .. "物品或宏至此，加入 Angleur 轮换。\n\n例如钓鱼帽、可投掷鱼类、法术等。\n\n放入物品/宏后，点击出现的" .. colorYello:WrapTextInColorCode("秒表") .. "图标可设置自定义计时器。\n\n点击" .. colorYello:WrapTextInColorCode("确定") .. "继续。"
 T["Click here if you need an example & explanation of use of macros for Angleur!"] = "如需 Angleur 宏的使用示例与说明，请点击此处！"
 T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "button Creates an item set for you and automatically adds your " .. "slotted items to it.\n\nNow, Angleur will automatically equip your slotted items when you " .. colorYello:WrapTextInColorCode("wake ") .."it up, and restore previous items when you put it back to " .. colorYello:WrapTextInColorCode("sleep.")] = "最后，点击" .. colorYello:WrapTextInColorCode("创建并添加") .. "按钮将为你创建一套装备方案，并自动加入已放入的物品。\n\n当你" .. colorYello:WrapTextInColorCode("唤醒") .. "Angleur 时，它会自动装备这些物品；睡眠时将恢复原有装备。"
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYello:WrapTextInColorCode("Patreon!")] = "欢迎通过 " .. colorYello:WrapTextInColorCode("Ko-Fi") .. " 或 " .. colorYello:WrapTextInColorCode("Patreon") .. "\n支持本项目！"
@@ -140,7 +140,7 @@ T["THANK YOU!"] = "感谢支持！"
 T["HOW?"] = "如何操作"
 T["Advanced Angling"] = "高级钓鱼"
 T[colorBlu:WrapTextInColorCode("Angleur ") .. "will have you cast the dragged item/macro\nif all of their below listed conditions are met."] = colorBlu:WrapTextInColorCode("Angleur ") .. "将在满足以下所有条件时施放拖入的物品/宏。"
-T[colorYello:WrapTextInColorCode("Items:\n") .. "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") .. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") .. "- Any valid macro that contains a spell or a usable item - /cast or /use. " .. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") .. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") .. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") .. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" .. "_____________________________________________"] = colorYello:WrapTextInColorCode("物品：\n") .. "- 背包或装备栏中的任意可使用物品。\n\n满足以下条件时：\n\n   1) " .. colorYello:WrapTextInColorCode("冷却完毕\n") .. "   2) " .. colorYello:WrapTextInColorCode("光环未激活") .. "（如有）\n" .. colorYello:WrapTextInColorCode("\n宏：\n") .. "- 任意包含法术或可使用物品的宏（/cast 或 /use）。\n\n满足以下条件时：\n\n   1) " .. colorYello:WrapTextInColorCode("宏条件") .. "满足\n" .. "   2) 法术/物品" .. colorYello:WrapTextInColorCode("冷却完毕\n") .. "                    且其\n   3) " .. colorYello:WrapTextInColorCode("光环未激活") .. "（如有）\n\n" .. colorYello:WrapTextInColorCode("重要：") .. "若使用宏条件，请在条件满足时拖入该宏。\n" .. "_____________________________________________"
+T[colorYello:WrapTextInColorCode("Items:\n") .. "- Any usable item from your bags or character equipment. " .. "\n\n Whenever:\n\n   1) " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "   2) " .. colorYello:WrapTextInColorCode("Aura Inactive") .. " (if present)\n" .. colorYello:WrapTextInColorCode("\nMacros:\n") .. "- Any valid macro that contains a spell or a usable item - /cast or /use. " .. "\n\n Whenever:\n\n   1) ".. colorYello:WrapTextInColorCode("Macro Conditions ") .. "are met\n" .. "   2) Spell/Item is " .. colorYello:WrapTextInColorCode("Off-Cooldown\n") .. "                    and their\n   3) " .. colorYello:WrapTextInColorCode("Auras Inactive") .. " (if present)\n\n" .. colorYello:WrapTextInColorCode("IMPORTANT: ") .. "If you are using Macro Conditionals, they need to be ACTIVE when you drag the macro to the slot.\n" .. "_____________________________________________"] = colorYello:WrapTextInColorCode("物品：\n") .. "- 背包或装备栏中的任意可使用物品。\n\n满足以下条件时：\n\n   1) " .. colorYello:WrapTextInColorCode("冷却完毕\n") .. "   2) " .. colorYello:WrapTextInColorCode("光环未激活") .. "（如有）\n" .. colorYello:WrapTextInColorCode("\n宏：\n") .. "- 任意包含法术或可使用物品的宏（/cast 或 /use）。\n\n满足以下条件时：\n\n   1) " .. colorYello:WrapTextInColorCode("宏条件") .. "满足\n" .. "   2) 法术/物品" .. colorYello:WrapTextInColorCode("冷却完毕\n") .."   3) ".."且其".. colorYello:WrapTextInColorCode("光环未激活") .. "（如有）\n\n" .. colorYello:WrapTextInColorCode("重要提示：") .. "若使用宏条件，请在条件满足时拖入该宏。\n" .. "_____________________________________________"
 T["Spell/Item has no Cooldown/Aura?\n" .. "Click " .. colorYello:WrapTextInColorCode("the Stopwatch ") .. "to set a manual timer.\n" .. colorYello:WrapTextInColorCode("                                                 (minutes:seconds)")] = "技能/物品没有冷却/光环？\n点击 " .. colorYello:WrapTextInColorCode("秒表") .. " 设置手动计时器。\n" .. colorYello:WrapTextInColorCode("                                                 (分钟:秒)")
 T["This will restart the tutorial, are you sure?"] = "  确定要重新开始教程吗 ？  "
 T["First install tutorial restarting."] = "首次安装教程已重新开始。"
@@ -176,7 +176,7 @@ T["All unslotted items in the set have been set to <ignore slot>."] = "该套装
 T["For passive items you'd like to add to your fishing gear, you can use the game's " .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set"] = "若要将被动物品加入钓鱼装备，可使用游戏内" .. colorYello:WrapTextInColorCode("装备管理器") .. "将其添加到 " .. colorBlu:WrapTextInColorCode("Angleur") .. " 套装。"
 T["Couldn't equip slotted item in time before combat"] = "战斗开始前未能及时装备已放入的物品"
 T["Slotted items successfully updated for your " .. colorYello:WrapTextInColorCode("Angleur Equipment Set.")] = "已成功更新" .. colorYello:WrapTextInColorCode("Angleur 装备方案") .. "中的已放入物品。"
-T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " .. colorYello:WrapTextInColorCode"Extra Items " .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") .. ", and creates one if there isn't already.\n\nIf you want to " .. colorRed:WrapTextInColorCode("remove ") .. "previously saved slotted items, you need to click the " .. colorRed:WrapTextInColorCode("Delete ") .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " .. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") .. "manually, and Angleur will swap them in and out like the rest."] = "   " .. colorYello:WrapTextInColorCode("更新/创建套装") .. "按钮会自动将“额外物品”槽中的可装备物品加入" .. colorBlu:WrapTextInColorCode("Angleur 套装") .. "，若不存在则会创建。\n\n若要" .. colorRed:WrapTextInColorCode("移除") .. "已保存的物品，请点击右上角的" .. colorRed:WrapTextInColorCode("删除") .. "按钮后重新创建，或手动修改装备方案。\n\n你也可以手动将" .. colorGrae:WrapTextInColorCode("被动物品") .. "加入" .. colorBlu:WrapTextInColorCode("Angleur 套装") .. "，Angleur 也会自动切换它们。"
+T["   The " .. colorYello:WrapTextInColorCode("Update/Create Set ") .. "Button automatically adds equippable items in your " .. colorYello:WrapTextInColorCode("Extra Items ") .. "slots to your " .. colorBlu:WrapTextInColorCode("Angleur Set") .. ", and creates one if there isn't already.\n\nIf you want to " .. colorRed:WrapTextInColorCode("remove ") .. "previously saved slotted items, you need to click the " .. colorRed:WrapTextInColorCode("Delete ") .. "Button to the top right, and then re-create the set - or manually change the item set.\n\nYou may also assign " .. colorGrae:WrapTextInColorCode("- Passive Items - ") .. "to your ".. colorBlu:WrapTextInColorCode("Angleur Set ") .. "manually, and Angleur will swap them in and out like the rest."] = "   " .. colorYello:WrapTextInColorCode("更新/创建套装") .. "按钮会自动将" .. colorYello:WrapTextInColorCode("扩展物品") .. "槽中的可装备物品加入" .. colorBlu:WrapTextInColorCode("Angleur 套装") .. "，若不存在则会创建。\n\n若要" .. colorRed:WrapTextInColorCode("移除") .. "已保存的物品，请点击右上角的" .. colorRed:WrapTextInColorCode("删除") .. "按钮后重新创建，或手动修改装备方案。\n\n你也可以手动将" .. colorGrae:WrapTextInColorCode("被动物品") .. "加入" .. colorBlu:WrapTextInColorCode("Angleur 套装") .. "，Angleur 也会自动切换它们。"
 T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."] = "背包中未找到该物品。若要用于装备切换，请手动加入 Angleur 套装或重新拖拽宏。"
 T["Equipping of the Angleur set disrupted due to sudden combat"] = "因突发战斗，Angleur 套装装备被中断"
 T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("Equipment Set ") .. " item. Remove it from the Angleur set in the equipment manager if you don't want Angleur to keep equipping it."] = "已移出 " .. colorBlu:WrapTextInColorCode("Angleur ") .. colorYello:WrapTextInColorCode("装备方案") .. " 的物品。若不希望 Angleur 继续装备它，请在装备管理器中将其移除。"
@@ -197,7 +197,7 @@ T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Macro successfully slotted. If y
 T["Timer set to: "] = "计时器设置为："
 T[" minutes, "] = " 分钟，"
 T[" seconds"] = " 秒"
-T["Default tiny settings restored"] = "简洁面板默认设置已恢复"
+T["Default tiny settings restored"] = "设置面板默认设置已恢复"
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"] = colorBlu:WrapTextInColorCode("Angleur：") .. "感谢使用 Angleur！"
 T["or "] = "或 "
 T["To access the configuration menu, type "] = "要打开设置菜单，请输入 "
@@ -207,14 +207,14 @@ T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable
 T["Angleur unexpected error: Modifier exists, but main key doesn't. Please let the author know."] = "Angleur 意外错误：存在修饰键但无主键。请通知作者。"
 T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to " .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "必须" .. colorGreen:WrapTextInColorCode("勾选开启") .. "才能让 Angleur 的快捷键" .. colorYello:WrapTextInColorCode("收竿/拾取") .. "鱼获。"
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "You are running an addon that interferes with" .. colorYello:WrapTextInColorCode("Soft-Interact.")] = colorBlu:WrapTextInColorCode("Angleur：") .. "检测到有插件干扰" .. colorYello:WrapTextInColorCode("软交互") .. "。"
-T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"] = "Angleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "简洁标签页（第3页）" .. colorYello:WrapTextInColorCode("-> ") .. "禁用软交互"
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact"] = "Angleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "设置标签页（第3页）" .. colorYello:WrapTextInColorCode("-> ") .. "禁用软交互"
 T["Must be " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur to reel properly."] = "必须" .. colorGreen:WrapTextInColorCode("勾选开启") .. "才能让 Angleur 正常收竿。"
 T["Nat's Hat"] = "纳特的帽子"
 T["Nat's Drinking Hat"] = "纳特的饮酒帽"
 T["Weather-Beaten Fishing Hat"] = "风蚀的钓鱼帽"
 T["please choose the toy with left click so that angleur can function properly"] = "请左键选择玩具，以确保 Angleur 正常工作"
 T["you do not own this toy. please select another"] = "你尚未拥有该玩具，请选择其他"
-T["Selected extra toy: "] = "已选择额外玩具："
+T["Selected extra toy: "] = "已选择扩展玩具："
 T["Toy selection deactivated"] = "玩具选择已停用"
 T["Bait"] = "鱼饵"
 T["Couldn't find any bait \n in your bags, feature disabled"] = "背包中未找到鱼饵，\n功能已禁用"
@@ -255,7 +255,7 @@ T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt S
 T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "施放技能或使用物品时可双向变身为狼人！\n\n内置拖放式宏制作器。"
 T["The following slotted items could not be added to your Angleur Equipment Set:"] = "以下已放入物品无法加入 Angleur 装备方案："
 T["Enable Recast Key"] = "启用重抛按键"
-T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur：") .. "版本已更新。请在设置面板中重新配置" .. colorYello:WrapTextInColorCode("“一键”") .. "模式。"
+T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."] = colorBlu:WrapTextInColorCode("Angleur：") .. "版本已更新。请在设置面板中重新配置" .. colorYello:WrapTextInColorCode("一键") .. "模式。"
 T["Enable Soft Interact"] = "启用软交互"
 T["Shows a visual range indicator when the bobber lands too far for the soft interact system to capture."] = "当鱼漂落点过远导致软交互系统无法捕获时，显示可视范围提示。"
 T["Warning Sound"] = "警告音效"
@@ -273,10 +273,10 @@ T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into th
 T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."] = colorBlu:WrapTextInColorCode("Angleur 鱼漂扫描：") .. "检测到手柄！请先施放一次" .. colorYello:WrapTextInColorCode("钓鱼") .. "触发光标模式，然后将其放入" .. colorRed:WrapTextInColorCode("指定方框内") .. "。"
 T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."] = colorBlu:WrapTextInColorCode("Angleur 鱼漂扫描：") .. "请将出现的手柄" .. colorYello:WrapTextInColorCode("光标") .. "移入" .. colorRed:WrapTextInColorCode("指定方框内") .. "。"
 T["Bobber Scanner Configuration"] = "鱼漂扫描设置"
-T["Shows how far the camera will move downward from the 'Centered Position' to start the scan. " .. "Amount is based on your Max Zoom and chosen 'Elevation'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("显示相机从") .. colorYello:WrapTextInColorCode("“居中位置”") .. colorWhite:WrapTextInColorCode("向下移动以开始扫描的距离。\n距离取决于你的") .. colorYello:WrapTextInColorCode("最大镜头距离") .. "和所选" .. colorYello:WrapTextInColorCode("“高度”") .. colorGrae:WrapTextInColorCode("（鱼漂扫描菜单）")
+T["Shows how far the camera will move downward from the 'Centered Position' to start the scan. " .. "Amount is based on your Max Zoom and chosen 'Elevation'(Bobber Scanner Menu)"] = colorWhite:WrapTextInColorCode("显示相机从") .. colorYello:WrapTextInColorCode("居中位置") .. colorWhite:WrapTextInColorCode("向下移动以开始扫描的距离。\n距离取决于你的") .. colorYello:WrapTextInColorCode("最大镜头距离") .. "和所选" .. colorYello:WrapTextInColorCode("高度") .. colorGrae:WrapTextInColorCode("（鱼漂扫描菜单）")
 T["ELEVATION:"] = colorUnderlight:WrapTextInColorCode("    高度：    ")
-T["Reset to Defaults"] = "恢复默认"
-T["Bobber Scan: Scan unsuccessful. Try changing the 'Elevation' setting, " .. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("鱼漂扫描：") .. "扫描失败。请尝试调整" .. colorYello:WrapTextInColorCode("“高度”") .. "设置，或在扫描菜单中点击鼠标投放框旁的" .. colorYello:WrapTextInColorCode("齿轮") .. "图标调整搜索区域宽度。"
+T["Reset to Defaults"] = "重置默认"
+T["Bobber Scan: Scan unsuccessful. Try changing the 'Elevation' setting, " .. "or the width of the search area in the Scanner menu by clicking the Gear icon next to the mouse drop-off box"] = colorBlu:WrapTextInColorCode("鱼漂扫描：") .. "扫描失败。请尝试调整" .. colorYello:WrapTextInColorCode("高度") .. "设置，或在扫描菜单中点击鼠标投放框旁的" .. colorYello:WrapTextInColorCode("齿轮") .. "图标调整搜索区域宽度。"
 T["Scan Width"] = colorYello:WrapTextInColorCode("扫描宽度")
 T["Scan Speed"] = colorYello:WrapTextInColorCode("扫描速度")
 T["Start Delay"] = colorYello:WrapTextInColorCode("开始延迟")
@@ -293,85 +293,72 @@ T["Angleur Bobber Scanner : WARNING! Camera Zoom changed during scan. " .. "This
 T["Disable Wall Warning"] = "关闭墙体警告"
 T["When unchecked, Bobber Scanner warn you with a chat message when your " .. "Camera Zoom changes during scan(when it's not supposed to). It's usually due to a wall that's behind you, and it is recommended to " .. "keep the warning 'enabled' so you can know when a fishing spot might cause issues."] = "取消勾选后，鱼漂扫描在扫描期间镜头距离变化时将不再提示。该问题通常是背后有墙体造成，建议保持" .. colorGreen:WrapTextInColorCode("开启") .. "以便发现可能有问题的钓鱼位置。"
 T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"] = "Angleur 的小众功能插件，用于实现用户提出的特殊功能需求。"
-T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") .. "General Settings" .. colorYello:WrapTextInColorCode(":") .. " Show soft-interact on game objects*"] = "Plater " .. colorYello:WrapTextInColorCode("-> ") .. "高级 " .. colorYello:WrapTextInColorCode("-> ") .. "常规设置" .. colorYello:WrapTextInColorCode(":") .. " 在游戏物体上显示软交互*"
 T["Has been " .. colorGreen:WrapTextInColorCode("checked ON ") .. "for Angleur's keybind to be able to " .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches."] = "已" .. colorGreen:WrapTextInColorCode("勾选开启") .. "，确保 Angleur 的快捷键可以" .. colorYello:WrapTextInColorCode("收竿/拾取") .. "鱼获。"
 T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Soft Interact has been turned " .. colorGreen:WrapTextInColorCode("ON ") .. "for you to be able to ".. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches. The previous values will be restored upon logout, so that if you uninstall Angleur you will have them back to normal."] = colorBlu:WrapTextInColorCode("Angleur：") .. "已为你开启" .. colorGreen:WrapTextInColorCode("软交互") .. "，以便" .. colorYello:WrapTextInColorCode("收竿/拾取") .. "鱼获。登出后将恢复原有设置，卸载 Angleur 也不会影响原设置。"
-T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n" .. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it " .. colorGreen:WrapTextInColorCode("ON.")] = "若你希望非钓鱼时" .. colorRed:WrapTextInColorCode("关闭") .. "软交互，请前往：\nAngleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "简洁标签页（第3页）" .. colorYello:WrapTextInColorCode("-> ") .. "禁用软交互\n并" .. colorGreen:WrapTextInColorCode("勾选开启") .. "。"
+T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n" .. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it " .. colorGreen:WrapTextInColorCode("ON.")] = "若你希望非钓鱼时" .. colorRed:WrapTextInColorCode("关闭") .. "软交互，请前往：\nAngleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "设置标签页（第3页）" .. colorYello:WrapTextInColorCode("-> ") .. "禁用软交互\n并" .. colorGreen:WrapTextInColorCode("勾选开启") .. "。"
 T["To stop seeing these messages, go to:"] = "若不想再看到这些消息，请前往："
-T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3),  and disable 'Login Messages'"] = "Angleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "简洁标签页（第3页），关闭“登录提示”"
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3),  and disable 'Login Messages'"] = "Angleur 设置面板 " .. colorYello:WrapTextInColorCode("-> ") .. "设置标签页（第3页），关闭“登录提示”"
 T["Can't change sleep state while in ghost form."] = "灵魂状态下无法切换睡眠状态。"
 T["Item equip interrupted by death/ghost-form"] = "因死亡/灵魂状态，装备被中断"
 T["Equipping of the Angleur set disrupted due to sudden death/ghost-form"] = "因死亡/灵魂状态，Angleur 套装装备被中断"
 T["Can't add toys while dead"] = "死亡时无法添加玩具"
 T["Place your cursor in the box\nbelow for the scanner to work."] = "将光标放在方框内，扫描才能工作。"
 T["Mouse needs to be in the indicated area for the scanner to work properly."] = "鼠标需在指定区域内，扫描才能正常工作。"
-T["Random Raft"] = "随机筏子"
+T["Random Raft"] = "随机渔筏"
 T["Angleur: Sharpened Tuskarr Spear(MoP) detected."] = colorBlu:WrapTextInColorCode("Angleur：") .. colorYello:WrapTextInColorCode("检测到锋利的海象人长矛（MoP）") .. "。"
 T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."] = "由于经典旧世中鱼竿占用主手栏位，此物品无法加入自动装备系统。"
 T["Please download the: "] = "请下载："
 T[" plugin from Curseforge if you want Angleur to use it for you."] = " 插件（Curseforge）以让 Angleur 使用它。"
-T["Sleep Without Fishing Rod"] = "无鱼竿睡眠"
+T["Sleep Without Fishing Rod"] = "无鱼竿时睡眠"
 T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."] = "勾选后，卸下鱼竿时 Angleur 将进入" .. colorYello:WrapTextInColorCode("睡眠") .. "。\n\n若你想在主手无鱼竿时钓鱼，请取消勾选。默认开启。"
 T["Angleur will no longer Sleep/Wake based on Fishing Rod equip status."] = colorBlu:WrapTextInColorCode("Angleur") .. "不再根据鱼竿装备状态" .. colorYello:WrapTextInColorCode("睡眠/唤醒") .. "。"
 T["Release When Swimming"] = "游泳时释放按键"
-T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "勾选后，游泳时一键/双击只会施放筏子。\n（若已拥有筏子，将释放按键。）"
-T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\n默认勾选。若你希望在水中使用额外玩具、物品、法术，请取消勾选。")
-T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur 在游泳时只会施放筏子，随后释放按键。"
+T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "勾选后，游泳时一键/双击只会施放渔筏。\n（若已拥有渔筏，将释放按键。）"
+T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\n默认勾选。若你希望在水中使用扩展玩具、物品、法术，请取消勾选。")
+T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur 在游泳时只会施放渔筏，随后释放按键。"
 T["Angleur will no longer release your keybind while swimming."] = "Angleur 在游泳时不再释放你的按键。"
-
-
 
 
 
 -- Missing Tooltips
 T["If checked, Angleur will show developer debug messages. Useful to display when submitting bug reports through discord!\n\n" 
-.. "Keep unchecked during regular use."] = "If checked, Angleur will show developer debug messages.\nUseful to display when submitting bug reports through " .. colorPurple:WrapTextInColorCode("discord!\n\n") 
-.. colorGrae:WrapTextInColorCode("Keep unchecked during regular use.")
+.. "Keep unchecked during regular use."] = "勾选后，Angleur 将显示开发者调试信息。通过 " .. colorPurple:WrapTextInColorCode("discord") .. " 提交错误报告时有用！\n\n" .. colorGrae:WrapTextInColorCode("日常使用时请保持取消勾选。")
 
-T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."] = "When unchecked, Angleur will stop showing Login messages.\n\n"
-.. colorGrae:WrapTextInColorCode("Login messages may contain useful tips, and can be re-enabled at any time.")
+T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."] = "取消勾选后，Angleur 将不再显示登录提示。\n\n" .. colorGrae:WrapTextInColorCode("登录提示可能包含有用信息，并可随时重新启用。")
 
 T["If checked, Angleur will adjust your audio settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
 .. "Ambience & Music will be muted.\nSound Effects will be turned up.\n\nWhile Angleur is awake, \'Sound in Background\' will also be enabled(restored to previous on sleep).\n\n"
-.. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."] = "If checked, Angleur will adjust your audio " 
-.. "settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
-.. colorYello:WrapTextInColorCode("Ambience & Music ") .. "will be " .. colorRed:WrapTextInColorCode("muted.")
-.. colorYello:WrapTextInColorCode("\nSound Effects ") .. "will be " .. colorGreen:WrapTextInColorCode("turned up.") .. "\n\nWhile Angleur is awake, " .. colorYello:WrapTextInColorCode("\'Sound in Background\' ") 
-.. "will also be enabled(restored to previous on sleep).\n\n" .. "If you want to " .. colorUnderlight:WrapTextInColorCode("change ")
-.. "the adjusted audio volume, go to " .. colorBlu:WrapTextInColorCode("Angleur ") .. "-> " .. colorBlu:WrapTextInColorCode("Tiny ") .. "-> " 
-.. colorBlu:WrapTextInColorCode("Master Volume(Ultra Focus) ") .. "and adjust from the slider."
-
+.. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."] = "勾选后，Angleur 将在抛竿时自动调整音频设置，收竿/拾取时恢复原值。\n\n"
+.. colorYello:WrapTextInColorCode("环境声与音乐") .. "将被" .. colorRed:WrapTextInColorCode("静音。")
+.. colorYello:WrapTextInColorCode("\n音效") .. "将被" .. colorGreen:WrapTextInColorCode("调高。") .. "\n\n"
+.. "Angleur 唤醒时，" .. colorYello:WrapTextInColorCode("后台声音") .. "也会启用（睡眠时恢复原状）。\n\n"
+.. "若要" .. colorUnderlight:WrapTextInColorCode("调整") .. "音频音量，请前往 " .. colorBlu:WrapTextInColorCode("Angleur") .. "->" .. colorBlu:WrapTextInColorCode("设置") .. "->"
+.. colorBlu:WrapTextInColorCode("主音量（专注模式）") .. "并使用滑块调整。"
 
 T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
-.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in " 
-.. colorDarkBlu:WrapTextInColorCode("water") .. "!\n"  .. "(Also keep the buff going afterwards)\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") 
-.. "to get a different one every time!"
+.. "Pick \'Random Raft\' to get a different one every time!"] = "选择一个" .. colorBrown:WrapTextInColorCode("渔筏") .. "，Angleur 会在你进入" .. colorDarkBlu:WrapTextInColorCode("水中") .. "时使用！\n（并保持增益效果）\n\n"
+.. "选择" .. colorYello:WrapTextInColorCode("随机渔筏") .. "每次获得不同的渔筏！"
 
-T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "If checked, Angleur will have you keep " 
-.. colorYello:WrapTextInColorCode("\'Reusable Oversized Bobber\' ") .. "applied."
+T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "勾选后，Angleur 会为你保持" .. colorYello:WrapTextInColorCode("可重复使用的超大鱼漂") .. "效果。"
 
 T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n" 
-.. "Pick \'Random Bobber\' to get a different one every time!"] = "Pick a Bobber from the " .. colorYello:WrapTextInColorCode("Crate of Bobbers") 
-.. ", and Angleur will have you keep it applied!\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Bobber\' ") .. "to get a different one every time!"
+.. "Pick \'Random Bobber\' to get a different one every time!"] = "从" .. colorYello:WrapTextInColorCode("鱼漂箱") .. "中选择鱼漂，Angleur 会保持其效果！\n\n"
+.. "选择" .. colorYello:WrapTextInColorCode("随机鱼漂") .. "每次获得不同的鱼漂！"
 
+T["Let Angleur take care of Audio & Loot settings for you."] = "让 Angleur 为你管理" .. colorYello:WrapTextInColorCode("音效") .. "与" .. colorYello:WrapTextInColorCode("拾取") .. "设置。"
 
-T["Let Angleur take care of Audio & Loot settings for you."] = "Let Angleur take care of " .. colorYello:WrapTextInColorCode("Audio") .. " & " 
-.. colorYello:WrapTextInColorCode("Loot ") .. "settings for you."
+T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "绑定一个专用的" .. colorYello:WrapTextInColorCode("重抛键") .. "。\n\n" 
+.. colorGrae:WrapTextInColorCode("非钓鱼时，按键将恢复为正常功能。")
 
-T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "Bind a dedicated " .. colorYello:WrapTextInColorCode("\'Re-Cast Key\'.\n\n")
-.. colorGrae:WrapTextInColorCode("Will be released back to you when not fishing.")
+T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n（进入战斗时按键恢复原功能）")
 
-T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Released BACK in Combat!)\n")
+T["Note for Mists:"] = "《熊猫人之谜》提示："
 
-T["Note for Mists:"] = "Note for Mists:"
-T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "Pick a " 
-.. colorYello:WrapTextInColorCode("Bait Item ") .."from the ones in your bags, and Angleur will keep it applied!" 
-.. colorGrae:WrapTextInColorCode("\n\nMake sure you pick one whose level isn't higher than yours.")
+T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "从背包中选择一个" .. colorYello:WrapTextInColorCode("鱼饵物品") .. "，Angleur 会保持其效果！"
+.. colorGrae:WrapTextInColorCode("\n\n请确保所选鱼饵等级不高于你的等级。")
 
-T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur " 
-.. "will have you use it when you are in " .. colorDarkBlu:WrapTextInColorCode("water") .. "!\n(Also keep the buff going afterwards)"
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "选择一个" .. colorBrown:WrapTextInColorCode("渔筏") .. "，Angleur 会在你进入" .. colorDarkBlu:WrapTextInColorCode("水中") .. "时使用！\n（并保持增益效果）"
 
 
 -- Forgotten line
-T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "This " 
-.. "is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."
+T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "这是经典旧世的限制（《熊猫人之谜》与正式服不受影响），因其缺少内置装备管理器，无法将被动物品加入 Angleur 套装。"

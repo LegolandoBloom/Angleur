@@ -21,7 +21,7 @@ local names = {
     {text = "ZamestoTV\n", smalltext = "youtube.com/@ZamestoTV ", r = 0.25, g = 0.78, b = 0.92, logo = "youtube"},
     {text = "Crazyyoungs", r = 0.17, g = 0.52, b = 0.23},
     {text = "Cathtail\n", smalltext = "@cathtail", r = 0.95, g = 0.43, b = 0.59},
-    {text = "大叔叔" .. colorWhite:WrapTextInColorCode(" - 明天启程 "), r = 1, g = 0.2, b = 0.2, logo = "NGA"},
+    {text = "明天启程 ", r = 1, g = 0.2, b = 0.2, logo = "NGA"},
 }
 
 local function iterateAndAdd(parent, anchorFrame)
