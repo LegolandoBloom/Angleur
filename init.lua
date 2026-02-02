@@ -150,7 +150,8 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.debugLevel == nil then
         Angleur_TinyOptions.debugLevel = 0
     end
-
+    ang.debugLevel = Angleur_TinyOptions.debugLevel
+    
     if AngleurMinimapButton.hide == nil then
         AngleurMinimapButton.hide = false
     end

@@ -39,7 +39,7 @@ function Angleur_SetupDebugUI(debugCheckboxFrame)
     local function setSelected(index)
         Angleur_TinyOptions.debugLevel = index
         ang.debugLevel = index
-        print("dropdown menu index: ", index, "has been selected")
+        print("Debug Level: ", debugLevels[index], "has been selected")
     end
     local function generatorFunction(owner, rootDescription)
         rootDescription:CreateTitle("Debug Level")
