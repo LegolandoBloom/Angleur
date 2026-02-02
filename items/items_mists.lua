@@ -53,7 +53,6 @@ function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibility
             if C_Item.GetItemCount(item.itemID) > 0 then
                 --print("in bag")
                 table.insert(ownedItemsTable, item)
-                foundUsableItem = true
             end
         end
     end
@@ -101,8 +100,6 @@ local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable
         item.loaded = false
         C_Item.RequestLoadItemDataByID(item.itemID)
     end
-    --if foundUsableItem == false then print("NOTHING FOUND") end
-    return foundUsableItem
 end
 
 function Angleur_LoadItems()
