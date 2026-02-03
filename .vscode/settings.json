@@ -130,7 +130,12 @@
         "CONQUEST_BRACKET_NAME_RBG",
         "CONQUEST_BRACKET_NAME_SOLO_SHUFFLE",
         "CONQUEST_BRACKET_NAME_BATTLEGROUND_BLITZ",
-        "AngleurRetail_FishingSpellTable"
+        "AngleurRetail_FishingSpellTable",
+        "Kiosk",
+        "TUTORIAL_SUPERTRACK_STEP_1",
+        "NPEV2_TALENTS_STARTER_BUILD",
+        "TALENT_MICRO_BUTTON_NO_HERO_SPEC",
+        "TALENT_MICRO_BUTTON_UNSPENT_TALENTS"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

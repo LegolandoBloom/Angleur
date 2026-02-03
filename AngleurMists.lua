@@ -876,9 +876,3 @@ function AngleurClassic_ToggleSoftInteract(activate)
         C_CVar.SetCVar("SoftTargetInteract", AngleurClassic_CVars.softInteract)
     end
 end
-
---[[ Disabled for Classic
-    function Angleur_HandleCVars()
-        Angleur_UltraFocusInteractOff(not Angleur_TinyOptions.turnOffSoftInteract)
-    end
-]]--

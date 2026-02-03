@@ -691,13 +691,6 @@ function Angleur_UltraFocusInteractOff(activate)
     end
 end
 
-
-function Angleur_HandleCVars()
-    if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
-        C_CVar.SetCVar("SoftTargetIconGameObject", "0")
-    end
-end
-
 local temp_Cvars = {
     softTargetInteract = nil,
 }

@@ -115,7 +115,9 @@ function Init_AngleurSavedVariables()
             AngleurClassicConfig.softInteract.recastWhenOOB = false
         end
     end
-    
+    if AngleurClassic_CVars == nil then
+        AngleurClassic_CVars = {}
+    end
 
     if AngleurCharacter.sleeping == nil then
         AngleurCharacter.sleeping = false
@@ -461,6 +463,11 @@ function Angleur_BetaTableToString(debugChannel, tbl)
     end
 end
 
+
+
+--**************************[1]****************************
+--**           Loading & Unloading of Angleur            **
+--**************************[1]****************************
 function Angleur_OnLoad(self)
     self.toyButton:SetAttribute("type", "macro")
     self.toyButton:RegisterForClicks("AnyDown", "AnyUp")
@@ -476,9 +483,83 @@ function Angleur_OnLoad(self)
     self:SetScript("OnUpdate", Angleur_OnUpdate)
 end
 
---**************************[1]****************************
---**Events Relating to the loading and unloading of stuff**
---**************************[1]****************************
+
+local function onLogin()
+    if AngleurCharacter.sleeping == false then
+        Angleur_EquipAngleurSet(false)
+    end
+    if not Angleur_TinyOptions.loginDisabled then
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"])
+        print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
+        if AngleurCharacter.sleeping == true then
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+            print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
+        elseif AngleurCharacter.sleeping == false then
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
+            print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
+        end
+    end
+end
+local function onReload()
+    if AngleurCharacter.sleeping == true then
+        if not Angleur_TinyOptions.loginDisabled then
+            print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
+            print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
+        end
+    end
+end
+
+local function load_not_retail()
+    if ang.gameVersion == 1 then return end
+    -- Order: Anywhere in PLAYER_ENTERING_WORLD
+    Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
+    AngleurClassic_ToggleSoftInteract(false)
+    -- Order: LoadItems & BaitEnchant back-to-back
+    Angleur_LoadItems()
+    Angleur_BaitEnchant()
+end
+
+local function load_retail()
+    if ang.gameVersion ~= 1 then return end
+    -- Order: CombatDelayer(LoadToys) & ExtraToyAuras back-to-back
+    Angleur_CombatDelayer(function()Angleur_LoadToys()end)
+    Angleur_ExtraToyAuras()
+
+    -- Order: After LoadToys()
+    Angleur_Auras()
+end
+local function load_mists()
+    if ang.gameVersion ~= 2 then return end  
+    -- Order: CombatDelayer(LoadToys) & ExtraToyAuras back-to-back
+    Angleur_CombatDelayer(function()Angleur_LoadToys()end)
+    Angleur_ExtraToyAuras()
+end
+
+local function cvars_load()
+    -- Order: Anywhere in PLAYER_ENTERING_WORLD
+    if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
+        C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+    end
+
+    if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
+    if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
+
+    if GetCVar("autoLootDefault") == "1" then
+        Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
+        AngleurConfig.ultraFocusAutoLootEnabled = false
+    end
+end
+
+
+local function cvars_unload()
+    if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
+        Angleur_UltraFocusBackground(false)
+    end
+    if ang.gameVersion == 1 then
+        Angleur_HandleTempCVars(false)
+    end
+end
+
 local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Interact Key|r|cnHIGHLIGHT_FONT_COLOR: allows you to interact with NPCs and objects using a keypress|n|n|r|cnRED_FONT_COLOR:Assign an Interact Key binding under Control options|r"
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
@@ -486,35 +567,14 @@ function Angleur_EventLoader(self, event, unit, ...)
         Init_AngleurSavedVariables()
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
-        if ang.gameVersion == 1 then
-            self.visual.texture:SetTexture("Interface/ICONS/UI_Profession_Fishing")
-        else
-            self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
-        end
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
+        -- return if zone change
         if unit == false and arg4 == false then return end
         if unit == true then
-            if AngleurCharacter.sleeping == false then
-                Angleur_EquipAngleurSet(false)
-            end
-            if not Angleur_TinyOptions.loginDisabled then
-                print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Thank you for using Angleur!"])
-                print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
-                if AngleurCharacter.sleeping == true then
-                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
-                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
-                elseif AngleurCharacter.sleeping == false then
-                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
-                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
-                end
-            end
+            onLogin()
         elseif arg4 == true then
-            if AngleurCharacter.sleeping == true then
-                if not Angleur_TinyOptions.loginDisabled then
-                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
-                    print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
-                end
-            end
+            onReload()
         end
 
         --Check if the Plugins of Angleur have loaded
@@ -530,57 +590,38 @@ function Angleur_EventLoader(self, event, unit, ...)
         --__________________________________________________________________________
         -- We also need CreateSlots Before ExtraItems_Load
         Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
+        
+        -- Version based load functions
+        load_retail()
+        load_not_retail()
+        load_mists()
 
-        if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
-        if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        if ang.gameVersion ~= 1 then
-            Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
-        end
-        if GetCVar("autoLootDefault") == "1" then
-            Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
-            AngleurConfig.ultraFocusAutoLootEnabled = false
-        end
+        cvars_load()
+
+
         Init_AngleurVisual()
-        if ang.gameVersion == 1 then
-            Angleur_HandleCVars()
-        end
-        if ang.gameVersion ~= 1 then
-            AngleurClassic_ToggleSoftInteract(false)
-        end
         HelpTip:Hide(UIParent, helpTipCloseText)
-        Angleur_CombatDelayer(function()Angleur_LoadToys()end)
-
-        if ang.gameVersion ~= 1 then
-            Angleur_LoadItems()
-        end
-        if ang.gameVersion == 1 then
-            Angleur_Auras()
-        end
-        Angleur_ExtraToyAuras()
         Angleur_ExtraItemAuras()
         if AngleurMinimapButton.hide == false then
             Angleur_InitMinimapButton()
         end
-        if ang.gameVersion ~= 1 then
-            Angleur_BaitEnchant()
-        end
+
+        ---------------------------------------------------------
         Angleur_EquipmentManager()
         if ang.gameVersion ~= 1 then
+            -- MUST load BETWEEN EquipmentManager() & SetSleep() 
             AngleurClassic_CheckFishingPoleEquipped()
         end
         Angleur_SetSleep()
+        ---------------------------------------------------------
+        
         if AngleurTutorial.part > 1 and AngleurConfig.chosenMethod == "oneKey" and not AngleurConfig.angleurKey then
             Angleur.configPanel:Show()
             Angleur.configPanel.tab1.contents.fishingMethod.oneKey.contents.angleurKey.warning:Show()
         end
         Angleur_FirstInstall()
     elseif event == "PLAYER_LOGOUT" then
-        if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
-            Angleur_UltraFocusBackground(false)
-        end
-        if ang.gameVersion == 1 then
-            Angleur_HandleTempCVars(false)
-        end
+        cvars_unload()
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         if ang.gameVersion == 1 or ang.gameVerson == 2 then
@@ -594,6 +635,9 @@ function Angleur_EventLoader(self, event, unit, ...)
     elseif event == "PLAYER_REGEN_ENABLED" then
     end
 end
+
+
+
 
 
 
