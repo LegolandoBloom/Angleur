@@ -28,7 +28,7 @@ SlashCmdList["ANGLEURRESET"] = function()
     Angleur_FirstInstall()
 end
 
-SLASH_ANGLEURSLEEP1 = T["/angsleep"]
+SLASH_ANGLEURSLEEP1 = "/angsleep"
 SlashCmdList["ANGLEURSLEEP"] = function()
     if InCombatLockdown() then
         print(T["Can't change sleep state in combat."])
@@ -51,8 +51,9 @@ SlashCmdList["ANGLEURSLEEP"] = function()
     end
 end
 
-SLASH_ANGLEURSETTINGS1 = T["/angleur"]
-SLASH_ANGLEURSETTINGS2 = T["/angang"]
+SLASH_ANGLEURSETTINGS1 = "/angleur"
+SLASH_ANGLEURSETTINGS2 = "/angang"
+SLASH_ANGLEURSETTINGS3 = "/ang"
 SlashCmdList["ANGLEURSETTINGS"] = function() 
     if InCombatLockdown() then
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "cannot open " .. colorYello:WrapTextInColorCode("Config Panel ") .. "in combat."])
