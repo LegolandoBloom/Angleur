@@ -28,20 +28,6 @@ local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
     SetOverrideBindingSpell(owner, isPriority, key, spell)
 end
 
-function Angleur_OnLoad(self)
-    self.toyButton:SetAttribute("type", "macro")
-    self.toyButton:RegisterForClicks("AnyDown", "AnyUp")
-    self:RegisterEvent("ADDON_LOADED")
-    self:RegisterEvent("PLAYER_ENTERING_WORLD")
-    self:RegisterEvent("PLAYER_LOGOUT")
-    self:RegisterEvent("ADDONS_UNLOADING")
-    self:RegisterEvent("PLAYER_STARTED_MOVING")
-    self:RegisterEvent("PLAYER_REGEN_DISABLED")
-    self:RegisterEvent("PLAYER_DEAD")
-    self:RegisterEvent("PLAYER_REGEN_ENABLED")
-    self:SetScript("OnEvent", Angleur_EventLoader)
-    self:SetScript("OnUpdate", Angleur_OnUpdate)
-end
 
 local erapusuThreshold = 0.3
 local erapusuCounter = 0
@@ -66,7 +52,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         Init_AngleurSavedVariables()
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
-        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+            self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end
         if unit == true then
@@ -104,29 +90,27 @@ function Angleur_EventLoader(self, event, unit, ...)
         --__________________________________________________________________________
         -- We also need CreateSlots Before ExtraItems_Load
         Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
-        
+
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
+            Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
         if GetCVar("autoLootDefault") == "1" then
             Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
             AngleurConfig.ultraFocusAutoLootEnabled = false
         end
         Init_AngleurVisual()
-        --Angleur_HandleCVars()
-        AngleurClassic_ToggleSoftInteract(false)
+            AngleurClassic_ToggleSoftInteract(false)
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_CombatDelayer(function()Angleur_LoadToys()end)
-        Angleur_LoadItems()
-        --Angleur_Auras()
+            Angleur_LoadItems()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItemAuras()
         if AngleurMinimapButton.hide == false then
             Angleur_InitMinimapButton()
         end
-        Angleur_BaitEnchant()
+            Angleur_BaitEnchant()
         Angleur_EquipmentManager()
-        AngleurClassic_CheckFishingPoleEquipped()
+            AngleurClassic_CheckFishingPoleEquipped()
         Angleur_SetSleep()
         if AngleurTutorial.part > 1 and AngleurConfig.chosenMethod == "oneKey" and not AngleurConfig.angleurKey then
             Angleur.configPanel:Show()
