@@ -639,25 +639,63 @@ end
 
 
 
-
-
-
-local temp_Cvars = {
-    softTargetInteract = nil,
+local temp_CVars = {
+    SoftTargetInteract = {
+        active = false, cached = nil, setTo = "3", updating = false,
+    },
 }
--- activate: set vs release
-function Angleur_HandleTempCVars(activate)
-    if activate == true then
-        temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-        Angleur_BetaPrint(debugChannel, "Set CVAR SoftTargetInteract", "to: ", C_CVar.GetCVar("SoftTargetInteract"))
-    elseif activate == false then
-        if temp_Cvars.softTargetInteract then
-            C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
-        end
+
+local cVarFrame = CreateFrame("Frame")
+cVarFrame:RegisterEvent("CVAR_UPDATE")
+cVarFrame:SetScript("OnEvent", function(self, event, unit, ...)
+    local arg4 = ...
+    if event ~= "CVAR_UPDATE" then return end
+    local cVar = temp_CVars[unit]
+    if not cVar then return end
+    if cVar.updating == true then
+        print("CVar updated by addon, dont overwrite")
+        return
+    end
+    print("CVar updated manually, Overwriting")
+    cVar.cached = arg4
+end)
+
+function Angleur_TempCVars(key, activate)
+    if not key then
+        print("temp CVar key missing")
+        return
+    end
+    local cVar = temp_CVars[key]
+    if activate then
+        if cVar.active == true then return end
+        cVar.cached = C_CVar.GetCVar(key)
+        cVar.updating = true
+        C_CVar.SetCVar(key, cVar.setTo)
+        cVarFrame:SetScript("OnUpdate", function(self)
+            cVar.updating = false
+            self:SetScript("OnUpdate", nil)
+        end)
+        cVar.active = true
+        print(GetTime())
+    else
+        if cVar.active == false then return end
+        print("cached was: ", cVar.cached)
+        cVar.updating = true
+        C_CVar.SetCVar(key, cVar.cached)
+        cVarFrame:SetScript("OnUpdate", function(self)
+            cVar.updating = false
+            self:SetScript("OnUpdate", nil)
+        end)
+        cVar.cached = nil
+        cVar.active = false
+        print(GetTime())
     end
 end
+
 
 function Angleur_Unloader()
 
 end
+
+-- /run Angleur_TempCVars("SoftTargetInteract", true)
+-- /run Angleur_TempCVars("SoftTargetInteract", false)
