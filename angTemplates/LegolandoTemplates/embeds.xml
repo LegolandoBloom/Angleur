@@ -7,5 +7,7 @@
     <Include file="Legolando_SimplePromotionTemplate\Legolando_SimplePromotionTemplate.xml"/>
 
     <Include file="Legolando_KeybindButtonTemplate\Legolando_KeybindButtonTemplate.xml"/>
+
+    <Include file="Legolando_TempCVarHandlerTemplate\Legolando_TempCVarHandlerTemplate.xml"/>
     
 </Ui>
