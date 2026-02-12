@@ -509,11 +509,19 @@ local function onReload()
     end
 end
 
+local temp_CVars = {
+    SoftTargetInteract = {
+        active = false, cached = nil, setTo = "3", updating = false,
+    },
+}
+Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_YourAddon")
+Angleur_TempCVarHandler.tempCVarsTable = temp_CVars
+Angleur_TempCVarHandler:Init()
+
 local function load_not_retail()
     if ang.gameVersion == 1 then return end
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
-    AngleurClassic_ToggleSoftInteract(false)
     -- Order: LoadItems & BaitEnchant back-to-back
     Angleur_LoadItems()
     Angleur_BaitEnchant()
@@ -598,7 +606,6 @@ function Angleur_EventLoader(self, event, unit, ...)
 
         cvars_load()
 
-
         Init_AngleurVisual()
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_ExtraItemAuras()
@@ -637,65 +644,50 @@ function Angleur_EventLoader(self, event, unit, ...)
 end
 
 
-
-
-local temp_CVars = {
-    SoftTargetInteract = {
-        active = false, cached = nil, setTo = "3", updating = false,
-    },
-}
-
-local cVarFrame = CreateFrame("Frame")
-cVarFrame:RegisterEvent("CVAR_UPDATE")
-cVarFrame:SetScript("OnEvent", function(self, event, unit, ...)
-    local arg4 = ...
-    if event ~= "CVAR_UPDATE" then return end
-    local cVar = temp_CVars[unit]
-    if not cVar then return end
-    if cVar.updating == true then
-        print("CVar updated by addon, dont overwrite")
-        return
-    end
-    print("CVar updated manually, Overwriting")
-    cVar.cached = arg4
-end)
-
-function Angleur_TempCVars(key, activate)
-    if not key then
-        print("temp CVar key missing")
-        return
-    end
-    local cVar = temp_CVars[key]
-    if activate then
-        if cVar.active == true then return end
-        cVar.cached = C_CVar.GetCVar(key)
-        cVar.updating = true
-        C_CVar.SetCVar(key, cVar.setTo)
-        cVarFrame:SetScript("OnUpdate", function(self)
-            cVar.updating = false
-            self:SetScript("OnUpdate", nil)
-        end)
-        cVar.active = true
-        print(GetTime())
-    else
-        if cVar.active == false then return end
-        print("cached was: ", cVar.cached)
-        cVar.updating = true
-        C_CVar.SetCVar(key, cVar.cached)
-        cVarFrame:SetScript("OnUpdate", function(self)
-            cVar.updating = false
-            self:SetScript("OnUpdate", nil)
-        end)
-        cVar.cached = nil
-        cVar.active = false
-        print(GetTime())
-    end
-end
-
-
 function Angleur_Unloader()
-
+    Angleur_TempCVarHandler:ReleaseAll()
 end
+
+
+
+
+-- SOON TO BE MADE OBSOLETE
+local temp_Cvars = {
+    softTargetInteract = nil,
+}
+-- activate: set vs release
+function Angleur_HandleTempCVars(activate)
+    if activate == true then
+        temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
+        C_CVar.SetCVar("SoftTargetInteract", 3)
+        Angleur_BetaPrint(debugChannel, "Set CVAR SoftTargetInteract", "to: ", C_CVar.GetCVar("SoftTargetInteract"))
+    elseif activate == false then
+        if temp_Cvars.softTargetInteract then
+            C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
+        end
+    end
+end
+function Angleur_UltraFocusInteractOff(activate)
+    if activate == true then
+        C_CVar.SetCVar("SoftTargetInteract", 3)
+    elseif activate == false then
+        C_CVar.SetCVar("SoftTargetInteract", 1)
+    end
+end
+function AngleurClassic_ToggleSoftInteract(activate)
+    local current = C_CVar.GetCVar("SoftTargetInteract")
+    if activate == true then
+        AngleurClassic_CVars.softInteract = current
+        C_CVar.SetCVar("SoftTargetInteract", 3)
+    elseif activate == false and AngleurClassic_CVars.softInteract and current ~= AngleurClassic_CVars.softInteract then
+        C_CVar.SetCVar("SoftTargetInteract", AngleurClassic_CVars.softInteract)
+    end
+end
+
+
+
+
+
 
 -- /run Angleur_TempCVars("SoftTargetInteract", true)
 -- /run Angleur_TempCVars("SoftTargetInteract", false)

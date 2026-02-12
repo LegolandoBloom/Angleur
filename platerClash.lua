@@ -20,8 +20,6 @@ function Angleur_FixPlater()
         --                  using HandeTempCVars. On PLAYER_LEAVING_WORLD I call it again to restore default values
         --                                     Also tell the player about the Plater interaction
         --__________________________________________________________________________________________________________________________________
-        Angleur_HandleTempCVars(true)
-        -- Note that we call HandleTempCVars even if Plater isn't loaded, in case any other addon does the same thing in the future
         if not Angleur_TinyOptions.loginDisabled then
             if C_AddOns.IsAddOnLoaded("Plater") then
                 print("----------------------------------------------------------------------------------------------------------------------------------")

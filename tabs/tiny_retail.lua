@@ -48,11 +48,11 @@ function retailTinyTab:ExtraButtons(tab3_contents)
         end
         if self:GetChecked() then
             Angleur_TinyOptions.turnOffSoftInteract = true
-            Angleur_UltraFocusInteractOff(false)
+            Angleur_TempCVarHandler:Release("SoftTargetInteract")
             print(T[colorBlu:WrapTextInColorCode("Angleur ") .. "will now turn off " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "when you aren't fishing."])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.turnOffSoftInteract = false
-            Angleur_UltraFocusInteractOff(true)
+            Angleur_TempCVarHandler:Set("SoftTargetInteract")
         end
     end)
     if Angleur_TinyOptions.turnOffSoftInteract == true then

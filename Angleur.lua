@@ -113,6 +113,7 @@ local function checkMounted()
     end
     return false
 end
+local firstCast = true
 local fishingSpellTable = AngleurRetail_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5 = ...
@@ -162,19 +163,23 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --__________________________________________________________________________________________________________________________________
         --                                                  ! PLATER MEASURE !
         -- Plater somehow turns off softInteract AFTER everything loads which is why I have to forcibly enable it on the FIRST FISHING CAST
-        --                  using HandeTempCVars. On PLAYER_LEAVING_WORLD I call it again to restore default values
+        --                  using Angleur_TempCVarHandler. On PLAYER_LOGOUT I call it again to restore default values
         --                                     Also tell the player about the Plater interaction
         --__________________________________________________________________________________________________________________________________
-        Angleur_FixPlater()
+        if firstCast then
+            Angleur_TempCVarHandler:Set("SoftTargetInteract")
+            Angleur_FixPlater()
+            firstCast = false
+        end
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(true) end
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract") end
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_UltraFocusInteractOff(false) end
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract") end
         if isChosenKeyDown() == false then
             midFishing = false
             EventRegistry:TriggerEvent("Angleur_StopFishing")
@@ -593,7 +598,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.wakeUpButton:Show()
         Angleur.configPanel.decoration:Hide()
         if Angleur_TinyOptions.turnOffSoftInteract == true then
-            Angleur_UltraFocusInteractOff(false)
+            Angleur_TempCVarHandler:Release("SoftTargetInteract")
         end
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(false)
@@ -679,30 +684,6 @@ function Angleur_UltraFocusAutoLoot(activate)
         if Angleur_CVars.autoLoot ~= nil then
             SetCVar("autoLootDefault", Angleur_CVars.autoLoot) 
             Angleur_CVars.autoLoot = false
-        end
-    end
-end
-
-function Angleur_UltraFocusInteractOff(activate)
-    if activate == true then
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false then
-        C_CVar.SetCVar("SoftTargetInteract", 1)
-    end
-end
-
-local temp_Cvars = {
-    softTargetInteract = nil,
-}
--- activate: set vs release
-function Angleur_HandleTempCVars(activate)
-    if activate == true then
-        temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-        Angleur_BetaPrint(debugChannel, "Set CVAR SoftTargetInteract", "to: ", C_CVar.GetCVar("SoftTargetInteract"))
-    elseif activate == false then
-        if temp_Cvars.softTargetInteract then
-            C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
         end
     end
 end

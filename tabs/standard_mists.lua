@@ -152,7 +152,7 @@ function mistsStandardTab:ExtraButtons(tab1contents)
             end
         elseif self:GetChecked() == false then
             AngleurClassicConfig.softInteract.enabled = false
-            AngleurClassic_ToggleSoftInteract(false)
+            Angleur_TempCVarHandler:Release("SoftTargetInteract")
             tab1contents.softInteract.bobberScanner:Hide()
             tab1contents.softInteract.warningSound:Hide()
             tab1contents.softInteract.recastWhenOOB:Hide()

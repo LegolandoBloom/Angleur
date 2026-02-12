@@ -208,7 +208,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
         if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
         if AngleurClassicConfig.softInteract.enabled == true then
-            AngleurClassic_ToggleSoftInteract(true)
+            Angleur_TempCVarHandler:Set("SoftTargetInteract")
         end
     elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
         if unit ~= "player" then return end
@@ -221,7 +221,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
         if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
         if AngleurClassicConfig.softInteract.enabled == true then
-            AngleurClassic_ToggleSoftInteract(false)
+            Angleur_TempCVarHandler:Release("SoftTargetInteract")
         end
         if isChosenKeyDown() == false then
             midFishing = false
@@ -600,7 +600,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.tab2:DesaturateHierarchy(1)
         Angleur.configPanel.wakeUpButton:Show()
         Angleur.configPanel.decoration:Hide()
-        AngleurClassic_ToggleSoftInteract(false)
+        Angleur_TempCVarHandler:Release("SoftTargetInteract")
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_UltraFocusBackground(false)
         end
@@ -680,15 +680,5 @@ function Angleur_UltraFocusAutoLoot(activate)
             SetCVar("autoLootDefault", Angleur_CVars.autoLoot) 
             Angleur_CVars.autoLoot = false
         end
-    end
-end
-
-function AngleurClassic_ToggleSoftInteract(activate)
-    local current = C_CVar.GetCVar("SoftTargetInteract")
-    if activate == true then
-        AngleurClassic_CVars.softInteract = current
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false and AngleurClassic_CVars.softInteract and current ~= AngleurClassic_CVars.softInteract then
-        C_CVar.SetCVar("SoftTargetInteract", AngleurClassic_CVars.softInteract)
     end
 end
