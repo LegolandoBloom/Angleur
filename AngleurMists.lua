@@ -801,17 +801,6 @@ function Angleur_SetSleep()
     Angleur_SetMinimapSleep()
 end
 
-function Angleur_UltraFocusBackground(activate)
-    if activate == true then
-        Angleur_CVars.ultraFocus.backgroundOn = GetCVar("Sound_EnableSoundWhenGameIsInBG")
-        SetCVar("Sound_EnableSoundWhenGameIsInBG", 1)
-        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
-    elseif activate == false then
-        if Angleur_CVars.ultraFocus.backgroundOn ~= nil then SetCVar("Sound_EnableSoundWhenGameIsInBG", Angleur_CVars.ultraFocus.backgroundOn) end
-        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
-    end
-end
-
 function Angleur_UltraFocusAudio(activate)
     if activate == true then
         Angleur_CVars.ultraFocus.musicOn = GetCVar("Sound_EnableMusic")

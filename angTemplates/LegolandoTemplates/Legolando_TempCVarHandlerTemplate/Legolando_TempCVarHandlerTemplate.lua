@@ -34,49 +34,64 @@ function Legolando_TempCVarHandlerMixin_Angleur:Init()
     end)
 end
 
-function Legolando_TempCVarHandlerMixin_Angleur:Set(key)
+function Legolando_TempCVarHandlerMixin_Angleur:Set(...)
+    local keys = {...}
     local teeburu = self.tempCVarsTable
     if not teeburu or next(teeburu) == nil then 
         print("No valid Temp CVars Table")
         return
     end
-    if not key or not teeburu[key] then
-        print("temp CVar key or its referenced element is missing")
+    if not keys then
+        print("temp CVar key(s) is missing")
         return
     end
-    local cVar = teeburu[key]
-    if cVar.active == true then return end
-    cVar.cached = C_CVar.GetCVar(key)
-    cVar.updating = true
-    C_CVar.SetCVar(key, cVar.setTo)
-    self:SetScript("OnUpdate", function(self)
-        cVar.updating = false
-        self:SetScript("OnUpdate", nil)
-    end)
-    cVar.active = true
+    for i, key in ipairs(keys) do
+        if not teeburu[key] then 
+            print("temp CVar key's referenced element is missing")
+        else
+            local cVar = teeburu[key]
+            if cVar.active == true then return end
+            cVar.cached = C_CVar.GetCVar(key)
+            cVar.updating = true
+            C_CVar.SetCVar(key, cVar.setTo)
+            self:SetScript("OnUpdate", function(self)
+                cVar.updating = false
+                self:SetScript("OnUpdate", nil)
+            end)
+            cVar.active = true
+        end
+    end
+    
     -- print(GetTime())
 end
 
-function Legolando_TempCVarHandlerMixin_Angleur:Release(key)
+function Legolando_TempCVarHandlerMixin_Angleur:Release(...)
+    local keys = {...}
     local teeburu = self.tempCVarsTable
     if not teeburu or next(teeburu) == nil then 
         print("No valid Temp CVars Table")
         return
     end
-    if not key or not teeburu[key] then
-        print("temp CVar key or its referenced element is missing")
+    if not keys then
+        print("temp CVar key(s) is missing")
         return
     end
-    local cVar = teeburu[key]
-    if cVar.active == false then return end
-    cVar.updating = true
-    C_CVar.SetCVar(key, cVar.cached)
-    self:SetScript("OnUpdate", function(self)
-        cVar.updating = false
-        self:SetScript("OnUpdate", nil)
-    end)
-    cVar.cached = nil
-    cVar.active = false
+    for i, key in ipairs(keys) do
+        if not teeburu[key] then 
+            print("temp CVar key's referenced element is missing")
+        else
+            local cVar = teeburu[key]
+            if cVar.active == false then return end
+            cVar.updating = true
+            C_CVar.SetCVar(key, cVar.cached)
+            self:SetScript("OnUpdate", function(self)
+                cVar.updating = false
+                self:SetScript("OnUpdate", nil)
+            end)
+            cVar.cached = nil
+            cVar.active = false
+        end
+    end
     -- print(GetTime())
 end
 

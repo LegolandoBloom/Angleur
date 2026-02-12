@@ -513,8 +513,11 @@ local temp_CVars = {
     SoftTargetInteract = {
         active = false, cached = nil, setTo = "3", updating = false,
     },
+    Sound_EnableSoundWhenGameIsInBG = {
+        active = false, cached = nil, setTo = "1", updating = false,
+    },
 }
-Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_YourAddon")
+Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
 Angleur_TempCVarHandler.tempCVarsTable = temp_CVars
 Angleur_TempCVarHandler:Init()
 
@@ -555,16 +558,6 @@ local function cvars_load()
     if GetCVar("autoLootDefault") == "1" then
         Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
         AngleurConfig.ultraFocusAutoLootEnabled = false
-    end
-end
-
-
-local function cvars_unload()
-    if AngleurConfig.ultraFocusAudioEnabled == true and AngleurCharacter.sleeping == false then
-        Angleur_UltraFocusBackground(false)
-    end
-    if ang.gameVersion == 1 then
-        Angleur_HandleTempCVars(false)
     end
 end
 
@@ -628,7 +621,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
         Angleur_FirstInstall()
     elseif event == "PLAYER_LOGOUT" then
-        cvars_unload()
+        Angleur_Unload()
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
         if ang.gameVersion == 1 or ang.gameVerson == 2 then
@@ -644,7 +637,7 @@ function Angleur_EventLoader(self, event, unit, ...)
 end
 
 
-function Angleur_Unloader()
+function Angleur_Unload()
     Angleur_TempCVarHandler:ReleaseAll()
 end
 
@@ -684,7 +677,16 @@ function AngleurClassic_ToggleSoftInteract(activate)
     end
 end
 
-
+function Angleur_UltraFocusBackground(activate)
+    if activate == true then
+        Angleur_CVars.ultraFocus.backgroundOn = GetCVar("Sound_EnableSoundWhenGameIsInBG")
+        SetCVar("Sound_EnableSoundWhenGameIsInBG", 1)
+        -- Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
+    elseif activate == false then
+        if Angleur_CVars.ultraFocus.backgroundOn ~= nil then SetCVar("Sound_EnableSoundWhenGameIsInBG", Angleur_CVars.ultraFocus.backgroundOn) end
+        -- Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
+    end
+end
 
 
 
