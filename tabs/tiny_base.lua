@@ -65,6 +65,7 @@ function Angleur_SetTab3(self)
     self.ultraFocusMaster:SetupSlider(1, 100, 100, 1, colorYello:WrapTextInColorCode(T["Master Volume(Ultra Focus)"]))
     self.ultraFocusMaster:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.ultraFocusMaster = value/100
+        Angleur_TempCVars["Sound_MasterVolume"].setTo = Angleur_TinyOptions.ultraFocusMaster
     end)
 
 

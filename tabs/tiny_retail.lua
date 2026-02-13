@@ -73,12 +73,12 @@ function retailTinyTab:ExtraButtons(tab3_contents)
             if C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
                 C_CVar.SetCVar("SoftTargetIconGameObject", "0")
             end
-            self.disabledTexture:Show()
+            self:GetParent().disabledTexture:Show()
             print(T["Soft target icon for game objects disabled."])
         elseif self:GetChecked() == false then
             Angleur_TinyOptions.softIconOff = false
             C_CVar.SetCVar("SoftTargetIconGameObject", "1")
-            self.disabledTexture:Hide()
+            self:GetParent().disabledTexture:Hide()
             print(T["Soft target icon for game objects re-enabled."])
         end
     end)
@@ -97,6 +97,7 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
         Angleur_TinyOptions.ultraFocusMaster = 1
+        Angleur_TempCVars["Sound_MasterVolume"].setTo = Angleur_TinyOptions.ultraFocusMaster
         Angleur_TinyOptions.loginDisabled = false
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0

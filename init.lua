@@ -39,8 +39,6 @@ AngleurConfig = {
     ultraFocusAudioEnabled = nil,
     ultraFocusAutoLootEnabled = nil,
     ultraFocusTurnOffInteract = nil,
-    ultraFocusingAudio = nil,
-    ultraFocusingAutoLoot = nil,
 }
 
 AngleurClassicConfig = {
@@ -509,17 +507,8 @@ local function onReload()
     end
 end
 
-local temp_CVars = {
-    SoftTargetInteract = {
-        active = false, cached = nil, setTo = "3", updating = false,
-    },
-    Sound_EnableSoundWhenGameIsInBG = {
-        active = false, cached = nil, setTo = "1", updating = false,
-    },
-}
-Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
-Angleur_TempCVarHandler.tempCVarsTable = temp_CVars
-Angleur_TempCVarHandler:Init()
+
+
 
 local function load_not_retail()
     if ang.gameVersion == 1 then return end
@@ -546,14 +535,56 @@ local function load_mists()
     Angleur_ExtraToyAuras()
 end
 
+
+-- Angleur_TempCVarHandler:Release("autoLootDefault")
+Angleur_TempCVars = {
+    SoftTargetInteract = {
+        active = false, cached = nil, setTo = "3", updating = false,
+    },
+    -- Ultra Focus Temp Auto Loot
+    autoLootDefault = {
+        active = false, cached = nil, setTo = "1", updating = false,
+    },
+    -- Ultra Focus Background
+    Sound_EnableSoundWhenGameIsInBG = {
+        active = false, cached = nil, setTo = "1", updating = false,
+    },
+    -- Ultra Focus Audio Regular
+    Sound_EnableMusic = {
+        active = false, cached = nil, setTo = "0", updating = false,
+    },
+    Sound_EnableAmbience = {
+        active = false, cached = nil, setTo = "0", updating = false,
+    },
+    Sound_EnableDialog = {
+        active = false, cached = nil, setTo = "0", updating = false,
+    },
+    Sound_EnableSFX = {
+        active = false, cached = nil, setTo = "1", updating = false,
+    },
+    Sound_SFXVolume = {
+        active = false, cached = nil, setTo = "1.0", updating = false,
+    },
+    Sound_EnableAllSound = {
+        active = false, cached = nil, setTo = "1", updating = false,
+    },
+    -- Angleur_TempCVars["Sound_MasterVolume"].setTo =  Angleur_TinyOptions.ultraFocusMaster --> must be assigned every time ultraFocusMaster is changed
+    Sound_MasterVolume = {
+        active = false, cached = nil, setTo = Angleur_TinyOptions.ultraFocusMaster, updating = false,
+    },
+}
+Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
+Angleur_TempCVarHandler.tempCVarsTable = Angleur_TempCVars
+Angleur_TempCVarHandler:Init()
 local function cvars_load()
+    -- Need to re-assign here because when table is first created Saved Vars haven't loaded yet
+    Angleur_TempCVars["Sound_MasterVolume"].setTo =  Angleur_TinyOptions.ultraFocusMaster
+
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
         C_CVar.SetCVar("SoftTargetIconGameObject", "0")
     end
 
-    if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
-    if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
 
     if GetCVar("autoLootDefault") == "1" then
         Angleur.configPanel.tab1.contents.ultraFocus.autoLoot:greyOut()
@@ -636,60 +667,6 @@ function Angleur_EventLoader(self, event, unit, ...)
     end
 end
 
-
 function Angleur_Unload()
     Angleur_TempCVarHandler:ReleaseAll()
 end
-
-
-
-
--- SOON TO BE MADE OBSOLETE
-local temp_Cvars = {
-    softTargetInteract = nil,
-}
--- activate: set vs release
-function Angleur_HandleTempCVars(activate)
-    if activate == true then
-        temp_Cvars.softTargetInteract = C_CVar.GetCVar("SoftTargetInteract")
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-        Angleur_BetaPrint(debugChannel, "Set CVAR SoftTargetInteract", "to: ", C_CVar.GetCVar("SoftTargetInteract"))
-    elseif activate == false then
-        if temp_Cvars.softTargetInteract then
-            C_CVar.SetCVar("SoftTargetInteract", temp_Cvars.softTargetInteract)
-        end
-    end
-end
-function Angleur_UltraFocusInteractOff(activate)
-    if activate == true then
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false then
-        C_CVar.SetCVar("SoftTargetInteract", 1)
-    end
-end
-function AngleurClassic_ToggleSoftInteract(activate)
-    local current = C_CVar.GetCVar("SoftTargetInteract")
-    if activate == true then
-        AngleurClassic_CVars.softInteract = current
-        C_CVar.SetCVar("SoftTargetInteract", 3)
-    elseif activate == false and AngleurClassic_CVars.softInteract and current ~= AngleurClassic_CVars.softInteract then
-        C_CVar.SetCVar("SoftTargetInteract", AngleurClassic_CVars.softInteract)
-    end
-end
-
-function Angleur_UltraFocusBackground(activate)
-    if activate == true then
-        Angleur_CVars.ultraFocus.backgroundOn = GetCVar("Sound_EnableSoundWhenGameIsInBG")
-        SetCVar("Sound_EnableSoundWhenGameIsInBG", 1)
-        -- Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound set to: ", GetCVar("Sound_EnableSoundWhenGameIsInBG"))
-    elseif activate == false then
-        if Angleur_CVars.ultraFocus.backgroundOn ~= nil then SetCVar("Sound_EnableSoundWhenGameIsInBG", Angleur_CVars.ultraFocus.backgroundOn) end
-        -- Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UltraFocusBackground ") .. ": BG Sound restored to previous value, which was: ", Angleur_CVars.ultraFocus.backgroundOn)
-    end
-end
-
-
-
-
--- /run Angleur_TempCVars("SoftTargetInteract", true)
--- /run Angleur_TempCVars("SoftTargetInteract", false)

@@ -135,7 +135,8 @@
         "TUTORIAL_SUPERTRACK_STEP_1",
         "NPEV2_TALENTS_STARTER_BUILD",
         "TALENT_MICRO_BUTTON_NO_HERO_SPEC",
-        "TALENT_MICRO_BUTTON_UNSPENT_TALENTS"
+        "TALENT_MICRO_BUTTON_UNSPENT_TALENTS",
+        "Angleur_SetTab1"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

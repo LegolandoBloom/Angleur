@@ -64,6 +64,7 @@ function mistsTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
         Angleur_TinyOptions.ultraFocusMaster = 1
+        Angleur_TempCVars["Sound_MasterVolume"].setTo = Angleur_TinyOptions.ultraFocusMaster
         Angleur_TinyOptions.loginDisabled = false
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0

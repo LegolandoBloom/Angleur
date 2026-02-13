@@ -45,12 +45,12 @@ function Angleur_SetTab1(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true
             if AngleurCharacter.sleeping == false then
-                Angleur_UltraFocusBackground(true)
+                Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
             end
         elseif self:GetChecked() == false then
             AngleurConfig.ultraFocusAudioEnabled = false
-            Angleur_UltraFocusAudio(false)
-            Angleur_UltraFocusBackground(false)
+            Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
+            Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
         end
     end)
     if AngleurConfig.ultraFocusAudioEnabled == true then

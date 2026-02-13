@@ -167,18 +167,22 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --                                     Also tell the player about the Plater interaction
         --__________________________________________________________________________________________________________________________________
         if firstCast then
-            Angleur_TempCVarHandler:Set("SoftTargetInteract")
             Angleur_FixPlater()
+            Angleur_TempCVarHandler:Set("SoftTargetInteract")
             firstCast = false
         end
-        if AngleurConfig.ultraFocusAudioEnabled then Angleur_UltraFocusAudio(true) end
-        if AngleurConfig.ultraFocusAutoLootEnabled then Angleur_UltraFocusAutoLoot(true) end
+        if AngleurConfig.ultraFocusAudioEnabled then 
+            Angleur_TempCVarHandler:Set("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
+        end
+        if AngleurConfig.ultraFocusAutoLootEnabled then
+            Angleur_TempCVarHandler:Set("autoLootDefault")
+        end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract") end
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
-        if AngleurConfig.ultraFocusingAudio then Angleur_UltraFocusAudio(false) end
-        if AngleurConfig.ultraFocusingAutoLoot then Angleur_UltraFocusAutoLoot(false) end
+        Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
+        Angleur_TempCVarHandler:Release("autoLootDefault")
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract") end
         if isChosenKeyDown() == false then
             midFishing = false
@@ -601,7 +605,8 @@ function Angleur_SetSleep()
             Angleur_TempCVarHandler:Release("SoftTargetInteract")
         end
         if AngleurConfig.ultraFocusAudioEnabled == true then
-            Angleur_UltraFocusBackground(false)
+            Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
+            
         end
         Angleur_FishingForAttentionAura()
         EventRegistry:TriggerEvent("Angleur_Sleep")
@@ -612,7 +617,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.wakeUpButton:Hide()
         Angleur.configPanel.decoration:Show()
         if AngleurConfig.ultraFocusAudioEnabled == true then
-            Angleur_UltraFocusBackground(true)
+            Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
         end
         -- Angleur's Plugin Addon, Angleur_Underlight
         if ang.loadedPlugins.undang then
@@ -621,60 +626,4 @@ function Angleur_SetSleep()
         EventRegistry:TriggerEvent("Angleur_Wake")
     end
     Angleur_SetMinimapSleep()
-end
-
-
-
-function Angleur_UltraFocusAudio(activate)
-    if activate == true then
-        Angleur_CVars.ultraFocus.musicOn = GetCVar("Sound_EnableMusic")
-        SetCVar("Sound_EnableMusic", 0)
-        Angleur_CVars.ultraFocus.ambienceOn = GetCVar("Sound_EnableAmbience")
-        SetCVar("Sound_EnableAmbience", 0)
-        Angleur_CVars.ultraFocus.dialogOn = GetCVar("Sound_EnableDialog")
-        SetCVar("Sound_EnableDialog", 0)
-        Angleur_CVars.ultraFocus.effectsOn = GetCVar("Sound_EnableSFX")
-        SetCVar("Sound_EnableSFX", 1)
-        Angleur_CVars.ultraFocus.effectsVolume = GetCVar("Sound_SFXVolume")
-        SetCVar("Sound_SFXVolume", 1.0)
-        Angleur_CVars.ultraFocus.masterOn = GetCVar("Sound_EnableAllSound")
-        SetCVar("Sound_EnableAllSound", 1)
-        Angleur_CVars.ultraFocus.masterVolume = GetCVar("Sound_MasterVolume")
-        SetCVar("Sound_MasterVolume", Angleur_TinyOptions.ultraFocusMaster)
-        AngleurConfig.ultraFocusingAudio = true
-        --[[
-            print("Music: " , Angleur_CVars.ultraFocus.musicOn)
-            print("Ambience: " , Angleur_CVars.ultraFocus.ambienceOn)
-            print("Dialog: " , Angleur_CVars.ultraFocus.dialogOn)
-            print("SFX: " , Angleur_CVars.ultraFocus.effectsOn)
-            print("SFX-Volume: " , Angleur_CVars.ultraFocus.effectsVolume)
-        ]]--
-    elseif activate == false then
-        if Angleur_CVars.ultraFocus.musicOn ~= nil then SetCVar("Sound_EnableMusic", Angleur_CVars.ultraFocus.musicOn) end
-        if Angleur_CVars.ultraFocus.ambienceOn ~= nil then SetCVar("Sound_EnableAmbience", Angleur_CVars.ultraFocus.ambienceOn) end
-        if Angleur_CVars.ultraFocus.dialogOn ~= nil then SetCVar("Sound_EnableDialog", Angleur_CVars.ultraFocus.dialogOn) end
-        if Angleur_CVars.ultraFocus.effectsOn ~= nil then SetCVar("Sound_EnableSFX", Angleur_CVars.ultraFocus.effectsOn) end
-        if Angleur_CVars.ultraFocus.effectsVolume ~= nil then SetCVar("Sound_SFXVolume", Angleur_CVars.ultraFocus.effectsVolume) end
-        if Angleur_CVars.ultraFocus.masterOn ~= nil then SetCVar("Sound_EnableAllSound", Angleur_CVars.ultraFocus.masterOn) end
-        if Angleur_CVars.ultraFocus.masterVolume ~= nil then SetCVar("Sound_MasterVolume", Angleur_CVars.ultraFocus.masterVolume) end
-
-        AngleurConfig.ultraFocusingAudio = false
-        --print("Ultra Focus Disabled")
-    end
-end
-
-function Angleur_UltraFocusAutoLoot(activate)
-    if activate == true then
-        local autoLootBefore = GetCVar("autoLootDefault")
-        if autoLootBefore == 1 then return end
-        AngleurConfig.ultraFocusingAutoLoot = true
-        Angleur_CVars.autoLoot = autoLootBefore
-        SetCVar("autoLootDefault", 1)
-    elseif activate == false then
-        AngleurConfig.ultraFocusingAutoLoot = false
-        if Angleur_CVars.autoLoot ~= nil then
-            SetCVar("autoLootDefault", Angleur_CVars.autoLoot) 
-            Angleur_CVars.autoLoot = false
-        end
-    end
 end
