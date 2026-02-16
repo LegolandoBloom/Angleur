@@ -35,7 +35,7 @@ function Legolando_TempCVarHandlerMixin_Angleur:Init()
 end
 
 local onUpdate_FramePool = CreateFramePool("Frame", nil, nil, function(framePool, frame)
-    print("Remaining: ", framePool:GetNumActive())
+    -- print("Remaining: ", framePool:GetNumActive())
     frame:ClearAllPoints()
     frame:SetScript("OnUpdate", nil)
     frame:Hide()
