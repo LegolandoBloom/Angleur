@@ -270,7 +270,7 @@ function Legolando_HelpTipTemplateMixin_Angleur:GoToNextPart()
 end
 
 function Legolando_HelpTipTemplateMixin_Angleur:ShowActivePart()
-	thisPart = self.parts[self.partActive]
+	local thisPart = self.parts[self.partActive]
     self:AnchorAndRotate(thisPart)
     self:Layout(thisPart)
     self:Show()
