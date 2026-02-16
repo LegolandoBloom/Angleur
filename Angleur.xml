@@ -291,7 +291,6 @@
                                                         if not self:IsDragging() then
                                                             local T = Angleur_Translate
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
-                                                            GameTooltip:SetPadding(200, 300)
                                                             local colorBlu = CreateColor(0.61, 0.85, 0.92)
                                                             local colorPurple = CreateColor(0.64, 0.3, 0.71)
                                                             GameTooltip:AddLine(T["One-Key Fishing Mode"], 1.0, 0.82, 0.0, true)
@@ -352,7 +351,6 @@
                                                         if not self:IsDragging() then
                                                             local T = Angleur_Translate
                                                             GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", -45)
-                                                            GameTooltip:SetPadding(400, 300)
                                                             GameTooltip:AddLine(T["Double-Click Fishing Mode"], 1.0, 0.82, 0.0, true)
                                                             GameTooltip:AddLine(T["Fish, Reel, cast Toys, Items and Macros using double mouse clicks!\n"], 1, 1, 1, true)                                                            GameTooltip:Show()
                                                         end

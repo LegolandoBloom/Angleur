@@ -213,7 +213,6 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
-        print(event)
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
         if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
@@ -248,7 +247,6 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
-        print(event)
         Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
         Angleur_TempCVarHandler:Release("autoLootDefault")
         if AngleurClassicConfig.softInteract.enabled == true then
