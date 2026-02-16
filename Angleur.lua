@@ -606,7 +606,6 @@ function Angleur_SetSleep()
         end
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
-            
         end
         Angleur_FishingForAttentionAura()
         EventRegistry:TriggerEvent("Angleur_Sleep")
