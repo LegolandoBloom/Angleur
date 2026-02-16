@@ -38,7 +38,7 @@ function Angleur_FixPlater()
                 print("----------------------------------------------------------------------------------------------------------------------------------")
                 print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Soft Interact has been turned " .. colorGreen:WrapTextInColorCode("ON ") .. "for you to be able to "
                 .. colorYello:WrapTextInColorCode("Reel/Loot ") .. "your catches. The previous values will be restored upon logout, so that if you uninstall Angleur you will have them back to normal."])
-                print(T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to: " 
+                print(T["If you want Soft-Interact to be " .. colorRed:WrapTextInColorCode("TURNED OFF ") .. "when not fishing, go to:\n" 
                 .. "Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ") .. "Tiny tab(tab 3) " .. colorYello:WrapTextInColorCode("-> ") .. "Disable Soft-Interact\nand check it " 
                 .. colorGreen:WrapTextInColorCode("ON.")])
                 print("----------------------------------------------------------------------------------------------------------------------------------")
