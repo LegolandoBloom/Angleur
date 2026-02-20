@@ -1,9 +1,5 @@
 -- Translator: 明天启程
 
-if true then
-    return
-end
-
 if (GAME_LOCALE or GetLocale()) ~= "zhCN" then
     return
 end
