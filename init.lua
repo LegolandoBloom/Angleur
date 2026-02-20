@@ -282,11 +282,11 @@ AngleurRetail_FishingSpellTable = {
     301092,
 }
 
--- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
+-- 1 : Retail | 2 : MoP(Or Cata)(Or Titan Reforged) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
         return 1
-    elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == 19 then
+    elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == 19 or WOW_PROJECT_ID == WOW_PROJECT_WRATH_CLASSIC then
         return 2
     elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
         return 3
