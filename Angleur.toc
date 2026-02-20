@@ -1,13 +1,12 @@
-## Interface: 120001
-## Title: Angleur
-## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
-## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
-## Version: Angleur @project-version@
+## Interface: 38000
+## Title: Angleur - Titan Reforged Classic
+## Notes: WotLK based, Titan Reforged Compatible Version of Angleur!
+## Version: Angleur Titan Reforged @project-version@
 ## Author: LegolandoBloom
-## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
-## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI
+## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars, AngleurClassic_CVars
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
-## X-Curse-Project-ID: 893895
+## X-Curse-Project-ID:
 
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
@@ -25,27 +24,27 @@
 libraries\embeds.xml
 translations\translations.xml
 #@end-no-lib-strip@
-angTemplates\GeneralTemplates\RetailTemplates.xml
-angTemplates\GeneralTemplates\RetailTemplates.lua
+angTemplates\GeneralTemplates\ClassicTemplates.lua
+angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
 
 debug.lua
 init.lua
-Angleur.lua
+AngleurTitan.lua
 
-toys\toys_retail.lua
+toys\toys_mists.lua
 toys\toys_base.lua
 
+items\items_mists.lua
 items\items_base.lua
 
-eqMan\eqMan_retail.lua
 eqMan\eqMan_base.lua
 
 tabs\tabs-general.lua
-tabs\standard_retail.lua
+tabs\standard_mists.lua
 tabs\standard_base.lua
 tabs\extra_with.lua
-tabs\tiny_retail.lua
+tabs\tiny_mists.lua
 tabs\tiny_base.lua
 
 doubleClick.lua
@@ -54,9 +53,12 @@ advancedAngling.lua
 slashcommands.lua
 minimap.lua
 animations.xml
-platerClash.lua
 
-Angleur.xml
+bobberScanner\Legolando_CheckboxTemplate\Legolando_CheckboxTemplate.xml
+bobberScanner\Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml
+bobberScanner\bobberScanner.lua
+
+AngleurTitan.xml
 
 thanks\thanks.lua
 thanks\thanks.xml
