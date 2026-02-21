@@ -124,4 +124,37 @@
         </Scripts>
     </Frame>
     
+
+    <Frame parent="Angleur_ConfigPanel" parentKey="projectBy" hidden="false" scale="0.65">
+        <Size x="256" y="64"/>
+        <Anchors>
+            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="60" y="0"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/copyrightlogo.png" hidden="false">
+                    <Size x="256" y="64"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativePoint="TOPLEFT" x="0" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnEnter>
+                GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 120, 12)
+                GameTooltip:AddLine("In light of the recent addon plagiarism controversy:")
+                local colorRed = CreateColor(1, 0, 0)
+                GameTooltip:AddLine("As an Addon Author who does this purely out of passion and a desire to create,\nI " .. colorRed:WrapTextInColorCode("DO NOT ") 
+                ..  "condone ANY unauthorized:\n" .. "- Forking,\n- Copying,\n- Repurposing, " .. "\n- Re-Publishing or \n- Porting " 
+                .. "\nof my code to any extent. \n\nIf you, as a user, come across someone doing any of these, please let me know\nso that I can take steps to " 
+                .. "get the plagiarised projects taken down using any\nmeans I have.\n\nIf you are an addon developer who uses Large Language Models to make\naddons, "
+                .. "any \'Accidental\' copying of my code by the machine will also not be\nexcused.", 1, 1, 1)
+                GameTooltip:Show()
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide()
+            </OnLeave>
+        </Scripts>
+    </Frame>
 </Ui>
