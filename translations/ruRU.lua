@@ -673,92 +673,92 @@ T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ")
 
 -- Thing I forgot for the bobber scanner
 T["Place your cursor in the box\nbelow for the scanner to work."] = "Наведите курсор на поле ниже,\nчтобы активировать сканер."
-T["Mouse needs to be in the indicated area for the scanner to work properly."] = "Mouse needs to be in the indicated area for the scanner to work properly."
+T["Mouse needs to be in the indicated area for the scanner to work properly."] = "Мышь должна находиться в указанной области, чтобы сканер работал корректно."
 
 -- Random Raft
-T["Random Raft"] = "Random Raft"
+T["Random Raft"] = "Случайный плот"
 
 -- NicheOptions Tuskarr Spear
-T["Angleur: Sharpened Tuskarr Spear(MoP) detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Sharpened Tuskarr Spear(MoP)") .. " detected."
-T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."] = "Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."
-T["Please download the: "] = "Please download the: "
-T[" plugin from Curseforge if you want Angleur to use it for you."] = " plugin from Curseforge if you want Angleur to use it for you."
+T["Angleur: Sharpened Tuskarr Spear(MoP) detected."] = colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Заостренное копье клыкарра (MoP)") .. " обнаружено."
+T["Due to the fishing rod taking up the mainhand slot in Classic, this item cannot be added to the Auto-Equip System."] = "Из-за того, что удочка занимает слот основного оружия в Classic, этот предмет нельзя добавить в систему авто-экипировки."
+T["Please download the: "] = "Пожалуйста, скачайте: "
+T[" plugin from Curseforge if you want Angleur to use it for you."] = " плагин с Curseforge, если хотите, чтобы Angleur использовал его за вас."
 
 
 -- Sleep/Wake with Rod disable (Mists)
-T["Sleep Without Fishing Rod"] = "Sleep Without Fishing Rod"
+T["Sleep Without Fishing Rod"] = "Спящий режим без удочки"
 
-T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."] = "If checked, Angleur will go to " 
-.. colorYello:WrapTextInColorCode("Sleep ") .. "when you unequip your fishing rod.\n\n" .. colorGrae:WrapTextInColorCode("Uncheck if you want to fish without a rod in the main hand slot. On by default.")
+T["If checked, Angleur will go to Sleep when you unequip your fishing rod.\n\nUncheck if you want to fish without a rod in the main hand slot. On by default."] = "Если отмечено, Angleur будет переходить в " 
+.. colorYello:WrapTextInColorCode("Спящий режим ") .. "при снятии удочки.\n\n" .. colorGrae:WrapTextInColorCode("Снимите галочку, если хотите рыбачить без удочки в слоте основного оружия. Включено по умолчанию.")
 
 T["Angleur will no longer Sleep/Wake based on Fishing Rod equip status."] = colorBlu:WrapTextInColorCode("Angleur ") 
-.. "will no longer " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "based on Fishing Rod equip status."
+.. "больше не будет переходить в " .. colorYello:WrapTextInColorCode("Спящий/Бодрствующий режим ") .. "в зависимости от экипировки удочки."
 
 
 
 
 -- Swim Release Toggle
-T["Release When Swimming"] = "Release When Swimming"
+T["Release When Swimming"] = "Отпускать клавишу при плавании"
 
-T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "If checked, " .. "the only action your "
-..colorYello:WrapTextInColorCode("OneKey / DoubleClick ") .. "will perform " .. colorDarkBlu:WrapTextInColorCode("while swimming ") .. "will be casting " .. colorBrown:WrapTextInColorCode("rafts.") .. "\n(If you already have one, the key will be released.)"
+T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] = "Если отмечено, то единственное действие, которое будет выполнять ваша привязка " 
+.. colorYello:WrapTextInColorCode("OneKey / DoubleClick ") .. "во время " .. colorDarkBlu:WrapTextInColorCode("плавания ") 
+.. "— это забрасывание " .. colorBrown:WrapTextInColorCode("плота.") .. "\n(Если плот уже активен, клавиша будет отпущена.)"
 
-T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water.")
+T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."] = colorGrae:WrapTextInColorCode("\n\nВключено по умолчанию, снимите галочку, если хотите использовать дополнительные игрушки, предметы, заклинания под водой.")
 
-T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur will only have you cast rafts while swimming, then release the key afterward."
+T["Angleur will only have you cast rafts while swimming, then release the key afterward."] = "Angleur будет заставлять вас забрасывать только плоты во время плавания, а затем отпускать клавишу."
 
-T["Angleur will no longer release your keybind while swimming."] = "Angleur will no longer release your keybind while swimming."
-
+T["Angleur will no longer release your keybind while swimming."] = "Angleur больше не будет отпускать вашу привязку клавиши во время плавания."
 
 -- Missing Tooltips
 T["If checked, Angleur will show developer debug messages. Useful to display when submitting bug reports through discord!\n\n" 
-.. "Keep unchecked during regular use."] = "If checked, Angleur will show developer debug messages.\nUseful to display when submitting bug reports through " .. colorPurple:WrapTextInColorCode("discord!\n\n") 
-.. colorGrae:WrapTextInColorCode("Keep unchecked during regular use.")
+.. "Keep unchecked during regular use."] = "Если отмечено, Angleur будет выводить отладочные сообщения для разработчиков.\nЭто полезно при отправке баг-репортов через " .. colorPurple:WrapTextInColorCode("discord!\n\n") 
+.. colorGrae:WrapTextInColorCode("При обычной игре оставляйте выключенным..")
 
-T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."] = "When unchecked, Angleur will stop showing Login messages.\n\n"
-.. colorGrae:WrapTextInColorCode("Login messages may contain useful tips, and can be re-enabled at any time.")
+T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."] = "Если снята галочка, Angleur перестанет показывать сообщения при входе.\n\n"
+.. colorGrae:WrapTextInColorCode("Сообщения при входе могут содержать полезные советы и могут быть включены в любой момент.")
 
 T["If checked, Angleur will adjust your audio settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
 .. "Ambience & Music will be muted.\nSound Effects will be turned up.\n\nWhile Angleur is awake, \'Sound in Background\' will also be enabled(restored to previous on sleep).\n\n"
-.. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."] = "If checked, Angleur will adjust your audio " 
-.. "settings for you when you cast your rod, and restore them to the previous values when you reel/loot.\n\n" 
-.. colorYello:WrapTextInColorCode("Ambience & Music ") .. "will be " .. colorRed:WrapTextInColorCode("muted.")
-.. colorYello:WrapTextInColorCode("\nSound Effects ") .. "will be " .. colorGreen:WrapTextInColorCode("turned up.") .. "\n\nWhile Angleur is awake, " .. colorYello:WrapTextInColorCode("\'Sound in Background\' ") 
-.. "will also be enabled(restored to previous on sleep).\n\n" .. "If you want to " .. colorUnderlight:WrapTextInColorCode("change ")
-.. "the adjusted audio volume, go to " .. colorBlu:WrapTextInColorCode("Angleur ") .. "-> " .. colorBlu:WrapTextInColorCode("Tiny ") .. "-> " 
-.. colorBlu:WrapTextInColorCode("Master Volume(Ultra Focus) ") .. "and adjust from the slider."
+.. "If you want to change the adjusted audio volume, go to Angleur->Tiny->Master Volume(Ultra Focus) and adjust from the slider."] = "Если отмечено, Angleur будет автоматически настраивать аудио " 
+.. "при забросе удочки и восстанавливать предыдущие значения при подсечке/луте.\n\n" 
+.. colorYello:WrapTextInColorCode("Окружение и музыка ") .. "будут " .. colorRed:WrapTextInColorCode("отключены.")
+.. colorYello:WrapTextInColorCode("\nЗвуковые эффекты ") .. "будут " .. colorGreen:WrapTextInColorCode("усилены.") .. "\n\nПока Angleur активен, " .. colorYello:WrapTextInColorCode("\'Звук в фоне\' ") 
+.. "также будет включён (восстанавливается к предыдущему значению при переходе в сон).\n\n" .. "Если вы хотите " .. colorUnderlight:WrapTextInColorCode("изменить ")
+.. "уровень настроенной громкости, перейдите в " .. colorBlu:WrapTextInColorCode("Angleur ") .. "-> " .. colorBlu:WrapTextInColorCode("Tiny ") .. "-> " 
+.. colorBlu:WrapTextInColorCode("Master Volume(Ultra Focus) ") .. "и отрегулируйте его ползунком."
 
 
-T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n" 
-.. "Pick \'Random Raft\' to get a different one every time!"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur will have you use it when you are in " 
-.. colorDarkBlu:WrapTextInColorCode("water") .. "!\n"  .. "(Also keep the buff going afterwards)\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Raft\' ") 
-.. "to get a different one every time!"
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)\n\n"
+.. "Pick \'Random Raft\' to get a different one every time!"] = "Выберите " .. colorBrown:WrapTextInColorCode("плот") .. ", и Angleur будет использовать его автоматически, когда вы в "
+.. colorDarkBlu:WrapTextInColorCode("воде") .. "!\n(А также поддерживать бафф после этого)\n\n"
+.. "Выберите " .. colorYello:WrapTextInColorCode("\'Случайный плот\' ") .. ", чтобы каждый раз использовался разный!"
 
-T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "If checked, Angleur will have you keep " 
-.. colorYello:WrapTextInColorCode("\'Reusable Oversized Bobber\' ") .. "applied."
+T["If checked, Angleur will have you keep \'Reusable Oversized Bobber\' applied."] = "Если отмечено, Angleur будет поддерживать наложенный "
+.. colorYello:WrapTextInColorCode("\'Многоразовый увеличенный поплавок\'.")
 
-T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n" 
-.. "Pick \'Random Bobber\' to get a different one every time!"] = "Pick a Bobber from the " .. colorYello:WrapTextInColorCode("Crate of Bobbers") 
-.. ", and Angleur will have you keep it applied!\n\n" .. "Pick " .. colorYello:WrapTextInColorCode("\'Random Bobber\' ") .. "to get a different one every time!"
+T["Pick a Bobber from the Crate of Bobbers, and Angleur will have you keep it applied!\n\n"
+.. "Pick \'Random Bobber\' to get a different one every time!"] = "Выберите поплавок из " .. colorYello:WrapTextInColorCode("Ящика с поплавками")
+.. ", и Angleur будет поддерживать его активным!\n\n"
+.. "Выберите " .. colorYello:WrapTextInColorCode("\'Случайный поплавок\' ") .. ", чтобы каждый раз был разный!"
 
+T["Let Angleur take care of Audio & Loot settings for you."] = "Пусть Angleur позаботится о настройках " .. colorYello:WrapTextInColorCode("звука") .. " и "
+.. colorYello:WrapTextInColorCode("добычи ") .. "за вас."
 
-T["Let Angleur take care of Audio & Loot settings for you."] = "Let Angleur take care of " .. colorYello:WrapTextInColorCode("Audio") .. " & " 
-.. colorYello:WrapTextInColorCode("Loot ") .. "settings for you."
+T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "Привяжите отдельную клавишу " .. colorYello:WrapTextInColorCode("\'Повторный заброс\'.\n\n")
+.. colorGrae:WrapTextInColorCode("Клавиша будет возвращена вам, когда вы не рыбачите.")
 
-T["Bind a dedicated \'Re-Cast Key\'.\n\nWill be released back to you when not fishing."] = "Bind a dedicated " .. colorYello:WrapTextInColorCode("\'Re-Cast Key\'.\n\n")
-.. colorGrae:WrapTextInColorCode("Will be released back to you when not fishing.")
+T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Возвращается в БОЮ!)\n")
 
-T["\n(Released BACK in Combat!)"] = colorGrae:WrapTextInColorCode("\n(Released BACK in Combat!)\n")
+T["Note for Mists:"] = "Примечание для Mists:"
 
-T["Note for Mists:"] = "Note for Mists:"
-T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "Pick a " 
-.. colorYello:WrapTextInColorCode("Bait Item ") .."from the ones in your bags, and Angleur will keep it applied!" 
-.. colorGrae:WrapTextInColorCode("\n\nMake sure you pick one whose level isn't higher than yours.")
+T["Pick a Bait Item from the ones in your bags, and Angleur will keep it applied!\n\nMake sure you pick one whose level isn't higher than yours."] = "Выберите предмет-приманку из сумки, и Angleur будет её поддерживать!\n\n"
+.. colorGrae:WrapTextInColorCode("Убедитесь, что выбрали приманку не выше вашего уровня.")
 
-T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "Pick a " .. colorBrown:WrapTextInColorCode("Raft") .. ", and Angleur " 
-.. "will have you use it when you are in " .. colorDarkBlu:WrapTextInColorCode("water") .. "!\n(Also keep the buff going afterwards)"
+T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"] = "Выберите " .. colorBrown:WrapTextInColorCode("плот") .. ", и Angleur "
+.. "будет использовать его, когда вы в " .. colorDarkBlu:WrapTextInColorCode("воде") .. "!\n(А также поддерживать бафф после этого)"
 
 
 -- Forgotten line
-T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "This " 
-.. "is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."
+T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "Это "
+.. "ограничение версии Classic (в Mists и Retail такого нет), поскольку в ней отсутствует полноценный встроенный менеджер экипировки, который позволял бы помещать пассивные предметы в набор Angleur."
