@@ -280,6 +280,8 @@ AngleurRetail_FishingSpellTable = {
     1252746,
     -- Hot-Spring Gulper Fishing
     301092,
+    -- Void Hole Fishing
+    1224771,
 }
 
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
