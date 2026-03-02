@@ -131,6 +131,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
     elseif event == "PLAYER_SOFT_INTERACT_CHANGED" then
         if issecretvalue(arg4) then return end
+        iceFishing = false
+        compressedOceanFishing = false
         if arg4 then
             local subbed = string.gsub(arg4, "%-0%-3767%-2444%-2424%-", "")
             if subbed then
@@ -150,9 +152,13 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                     compressedOceanFishing = true
                 end
             end
-        elseif iceFishing == true or compressedOceanFishing == true then
-            iceFishing = false
-            compressedOceanFishing = false
+            -- print(UnitNameFromGUID(arg4))
+            local oceanicVortex = string.gsub(arg4, "%-0%-1471%-2771%-136997%-", "")
+            if oceanicVortex then
+                if string.match(arg4, "%-240236%-") then
+                    compressedOceanFishing = true
+                end
+            end
         end
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
