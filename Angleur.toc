@@ -55,6 +55,7 @@ slashcommands.lua
 minimap.lua
 animations.xml
 platerClash.lua
+midnight.lua
 
 Angleur.xml
 
