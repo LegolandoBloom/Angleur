@@ -85,6 +85,9 @@ function Init_AngleurSavedVariables()
     if AngleurConfig.ultraFocusAutoLootEnabled == nil then
         AngleurConfig.ultraFocusAutoLootEnabled = false
     end
+    if AngleurConfig.patientEnabled == nil then
+        AngleurConfig.patientEnabled = true
+    end
     if AngleurConfig.chosenBait == nil then
         AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
     end
@@ -529,6 +532,8 @@ local function load_retail()
 
     -- Order: After LoadToys()
     Angleur_Auras()
+
+    Angleur_LoadMidnight()
 end
 local function load_mists()
     if ang.gameVersion ~= 2 then return end  

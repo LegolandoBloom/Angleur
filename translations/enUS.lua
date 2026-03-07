@@ -818,3 +818,13 @@ T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also k
 -- Forgotten line
 T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "This " 
 .. "is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."
+
+
+
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[Patient Treasure] ") .. "Spawned. Be quick and grab it! Good luck with the mount egg:\n"
+T["Patient Chest"] = "Patient Chest"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n" 
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("for ") .. colorDarkBlu:WrapTextInColorCode("[Patient Chest]\n\n") .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image " 
+.. "of Reno Jackson warning you about the treasure.\n\n" .. colorGrae:WrapTextInColorCode("Note: The sound is also that of Reno Jackson\n\n") .. colorGrae:WrapTextInColorCode("We're gonna be rich!")
