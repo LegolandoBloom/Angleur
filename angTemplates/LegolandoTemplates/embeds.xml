@@ -9,5 +9,7 @@
     <Include file="Legolando_KeybindButtonTemplate\Legolando_KeybindButtonTemplate.xml"/>
 
     <Include file="Legolando_TempCVarHandlerTemplate\Legolando_TempCVarHandlerTemplate.xml"/>
+
+    <Include file="Legolando_ScanAnim\Legolando_ScanAnim.xml"/>
     
 </Ui>

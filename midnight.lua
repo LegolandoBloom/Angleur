@@ -96,7 +96,6 @@ function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == true then
         patientEnable.checkbox:SetChecked(true)
     end
-
     
     local voidFinderEnable = CreateFrame("Frame", "Angleur_ConfigPanel_Tab1_Contents_VoidCheckbox", tabContents, "CheckboxFrameTemplate_Angleur")
     voidFinderEnable:SetPoint("TOPLEFT", tabContents.recastEnable.text, "BOTTOMLEFT", 0, -7)
@@ -190,6 +189,8 @@ local function checkPatientAura()
                 recentlyCalled = false
             end)
         end
+    else
+        return false
     end
 end
 
