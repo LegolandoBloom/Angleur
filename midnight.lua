@@ -14,6 +14,11 @@ function Angleur_LoadMidnight()
     patientEnable.text:SetPoint("LEFT", patientEnable.checkbox, "RIGHT")
     patientEnable.text:SetFontObject(SpellFont_Small)
 
+    local newTexture = patientEnable:CreateTexture("Angleur_New!", "ARTWORK")
+    newTexture:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture:SetSize(58, 29)
+    newTexture:SetPoint("LEFT", patientEnable.text, "RIGHT")
+
     patientEnable.text:SetText(T["Patient Chest"])
     patientEnable.text.tooltip = T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n" 
     .. "We're gonna be rich!"]
@@ -28,7 +33,6 @@ function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == true then
         patientEnable.checkbox:SetChecked(true)
     end
-    PlaySoundFile("Interface/AddOns/Angleur/images/newfeature.png")
 end
 
 
