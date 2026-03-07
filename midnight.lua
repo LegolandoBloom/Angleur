@@ -27,7 +27,7 @@ local NETHER_EGG_ITEMID = 268730
 
 function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == nil then
-        AngleurConfig.patientEnabled = true
+        AngleurConfig.patientEnabled = false
     end
     if AngleurConfig.voidFinderEnabled == nil then
         AngleurConfig.voidFinderEnabled = false
