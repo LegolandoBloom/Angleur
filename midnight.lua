@@ -42,7 +42,7 @@ patientFrame:SetPoint("CENTER", UIParent, "CENTER")
 patientFrame:HookScript("OnShow", function(self)
     PlaySoundFile("Interface/AddOns/Angleur/sounds/renoRich.mp3")
     self.ProcStartAnim:Play()
-    Angleur_SingleDelayer(5, 0, 1, self, nil, function()
+    Angleur_SingleDelayer(7, 0, 1, self, nil, function()
         self:Hide()
     end)
     local link
