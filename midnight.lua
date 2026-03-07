@@ -41,13 +41,15 @@ function Angleur_LoadMidnight()
     patientEnable.text:ClearAllPoints()
     patientEnable.text:SetPoint("LEFT", patientEnable.checkbox, "RIGHT")
     patientEnable.text:SetFontObject(SpellFont_Small)
+    patientEnable.disabledText:SetText("Patient Chest\nTemporarily Disabled")
+    patientEnable:greyOut()
 
-    local newTexture = patientEnable:CreateTexture("Angleur_New!", "ARTWORK")
-    newTexture:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
-    newTexture:SetSize(58, 29)
-    newTexture:SetPoint("LEFT", patientEnable.text, "RIGHT")
+    -- local newTexture = patientEnable:CreateTexture("Angleur_New!", "ARTWORK")
+    -- newTexture:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    -- newTexture:SetSize(58, 29)
+    -- newTexture:SetPoint("LEFT", patientEnable.text, "RIGHT")
 
-    patientEnable.text:SetText(T["Patient Chest"])
+    patientEnable.text:SetText()
     patientEnable.text.tooltip = T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n" 
     .. "We're gonna be rich!"]
     patientEnable.checkbox:SetScript("OnClick", function(self)
@@ -133,6 +135,7 @@ reno:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT")
 local timerFrame = CreateFrame("Frame")
 local recentlyCalled = false
 local function checkPatientAura()
+    if true then return end
     if AngleurConfig.patientEnabled == false then return end
     if AngleurCharacter.sleeping then return end
     --Checks for raft aura
