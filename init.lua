@@ -532,8 +532,6 @@ local function load_retail()
 
     -- Order: After LoadToys()
     Angleur_Auras()
-
-    Angleur_LoadMidnight()
 end
 local function load_mists()
     if ang.gameVersion ~= 2 then return end  
@@ -608,6 +606,9 @@ function Angleur_EventLoader(self, event, unit, ...)
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+        if ang.gameVersion == 1 then
+            Angleur_LoadMidnight()
+        end
     elseif event == "PLAYER_ENTERING_WORLD" then
         -- return if zone change
         if unit == false and arg4 == false then return end

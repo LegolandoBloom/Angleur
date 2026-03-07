@@ -25,6 +25,41 @@ local NETHER_EGG_ITEMID = 268730
 -- </Frame>
 
 
+
+local secureActionButton = CreateFrame("Button", "Angleur_VoidSecureAction", UIParent, "SecureActionButtonTemplate")
+secureActionButton:SetAttribute("type", "macro")
+secureActionButton:SetAttribute("macrotext", "/tar Hyper\n/cleartarget [dead]\n/stopmacro [noexists]\n/tm 7")
+secureActionButton:RegisterEvent("PLAYER_REGEN_DISABLED")
+secureActionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
+local function override_Set()
+    if not InCombatLockdown() and AngleurConfig.voidFinderEnabled and AngleurConfig.voidFinderKey then
+        SetOverrideBindingClick(secureActionButton, false, AngleurConfig.voidFinderKey, "Angleur_VoidSecureAction")
+    end
+end
+local function override_Release()
+    if not InCombatLockdown() then 
+        ClearOverrideBindings(secureActionButton)
+    end
+end
+secureActionButton:SetScript("OnEvent", function(self, event, unit, ...)
+    local arg4, arg5 = ...
+    unit, arg4, arg5 = scrubsecretvalues(unit, arg4, arg5)
+    if event == "PLAYER_REGEN_DISABLED" then
+        override_Release()
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        override_Set()
+    end
+end)
+
+EventRegistry:RegisterCallback("Angleur_Sleep", function()
+    override_Release()
+end)
+EventRegistry:RegisterCallback("Angleur_Wake", function()
+    override_Set()
+end)
+
+
+
 function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == nil then
         AngleurConfig.patientEnabled = false
@@ -67,28 +102,38 @@ function Angleur_LoadMidnight()
     voidFinderEnable:SetPoint("TOPLEFT", tabContents.recastEnable.text, "BOTTOMLEFT", 0, -7)
 
     local voidFinderKey = CreateFrame("Button", "Angleur_ConfigPanel_Tab1_Contents_VoidKey", voidFinderEnable, "Legolando_KeybindButtonTemplate_Angleur")
-    voidFinderKey:SetParentKey("voidFinderKey")
+    voidFinderKey:SetParentKey("voidFinderKeyU")
     voidFinderKey:SetSize(80, 20)
     voidFinderKey:SetPoint("LEFT", voidFinderEnable.checkbox, "RIGHT")
     voidFinderKey:Hide()
+    voidFinderKey.onBindFunction = function()
+        if AngleurConfig.voidFinderKey then
+            override_Set()
+        else
+            override_Release()
+        end
+    end
 
     voidFinderEnable.text:SetText("Void Finder")
     voidFinderEnable.disabledText:SetText(T["Coming Soon!"])
-    voidFinderEnable:greyOut()
+    -- voidFinderEnable:greyOut()
 
     voidFinderEnable.text.tooltip = T["Macro-Bound Key to find and mark Void Pools easily!"]
     voidFinderEnable.checkbox:SetScript("OnClick", function()
         if voidFinderEnable.checkbox:GetChecked() then
             AngleurConfig.voidFinderEnabled = true
             voidFinderKey:Show()
+            override_Set()
         elseif voidFinderEnable.checkbox:GetChecked() == false then
             AngleurConfig.voidFinderEnabled = false
             voidFinderKey:Hide()
+            override_Release()
         end
     end)
     if AngleurConfig.voidFinderEnabled == true then
         voidFinderEnable.checkbox:SetChecked(true)
         voidFinderKey:Show()
+        override_Set()
     end
 
     voidFinderKey.savedVarTable = AngleurConfig
@@ -126,6 +171,7 @@ local reno = patientFrame:CreateTexture("Angleur_PatientReno", "ARTWORK")
 reno:SetTexture("Interface/AddOns/Angleur/images/renojackson.png")
 reno:SetSize(650, 650)
 reno:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT")
+reno:SetAlpha(0.6)
 
 
 
@@ -160,7 +206,7 @@ end
 
 
 
-patientFrame:RegisterUnitEvent("UNIT_AURA", "player")
+patientFrame:RegisterEvent("UNIT_AURA")
 patientFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 patientFrame:RegisterEvent("PLAYER_LOGIN")
 patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
