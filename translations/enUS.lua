@@ -828,3 +828,7 @@ T["Patient Chest"] = "Patient Chest"
 T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n" 
 .. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("for ") .. colorDarkBlu:WrapTextInColorCode("[Patient Chest]\n\n") .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image " 
 .. "of Reno Jackson warning you about the treasure.\n\n" .. colorGrae:WrapTextInColorCode("Note: The sound is also that of Reno Jackson\n\n") .. colorGrae:WrapTextInColorCode("We're gonna be rich!")
+
+T["Macro-Bound Key to find and mark Void Pools easily!"] = "Macro-Bound Key to find and mark Void Pools easily!"
+
+T["Coming Soon!"] = "Coming Soon!"

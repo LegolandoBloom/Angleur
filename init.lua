@@ -39,6 +39,10 @@ AngleurConfig = {
     ultraFocusAudioEnabled = nil,
     ultraFocusAutoLootEnabled = nil,
     ultraFocusTurnOffInteract = nil,
+    -- midnight.lua
+    patientEnabled = nil,
+    voidFinderEnabled = nil,
+    voidFinderKey = nil,
 }
 
 AngleurClassicConfig = {
@@ -85,16 +89,12 @@ function Init_AngleurSavedVariables()
     if AngleurConfig.ultraFocusAutoLootEnabled == nil then
         AngleurConfig.ultraFocusAutoLootEnabled = false
     end
-    if AngleurConfig.patientEnabled == nil then
-        AngleurConfig.patientEnabled = true
-    end
     if AngleurConfig.chosenBait == nil then
         AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
     end
     if AngleurConfig.recastEnabled == nil then
         AngleurConfig.recastEnabled = false
     end
-
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 or gameVersion == 3 then
         if AngleurClassicConfig == nil then

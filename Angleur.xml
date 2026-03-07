@@ -403,7 +403,7 @@
                                         </Anchors>
                                         <Frames>
                                             <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
-                                                <Size x="100" y="22"/>
+                                                <Size x="80" y="20"/>
                                                 <Anchors>
                                                     <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
                                                 </Anchors>
@@ -413,7 +413,7 @@
                                     <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
-                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-13"/>
+                                            <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-23"/>
                                         </Anchors>
                                         <Scripts>
                                             <OnClick>
@@ -427,7 +427,7 @@
                                         <Layers>
                                             <Layer level="ARTWORK">
                                                 <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/returnbuttonholder.png">
-                                                    <Size x="52" y="52"/>
+                                                    <Size x="46" y="46"/>
                                                     <Anchors>
                                                         <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPLEFT" y="0"/>
                                                     </Anchors>

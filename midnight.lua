@@ -4,7 +4,35 @@ local PATIENT_SPELLID1 = 1269521
 local PATIENT_SPELLID2 = 1235378
 local NETHER_EGG_ITEMID = 268730
 
+
+--_______________________________________________________________________________________________________________________________________________________
+--_______________________________________________________________________ UI PART _______________________________________________________________________
+--_______________________________________________________________________________________________________________________________________________________
+
+
+-- <Frame name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="CheckboxFrameTemplate_Angleur">
+--     <Anchors>
+--         <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
+--     </Anchors>
+--     <Frames>
+--         <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
+--             <Size x="100" y="22"/>
+--             <Anchors>
+--                 <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+--             </Anchors>
+--         </Button>
+--     </Frames>
+-- </Frame>
+
+
 function Angleur_LoadMidnight()
+    if AngleurConfig.patientEnabled == nil then
+        AngleurConfig.patientEnabled = true
+    end
+    if AngleurConfig.voidFinderEnabled == nil then
+        AngleurConfig.voidFinderEnabled = false
+    end
+
     local tabContents = Angleur_ConfigPanel_Tab1_Contents
     local patientEnable = CreateFrame("Frame", "Angleur_ConfigPanel_Tab1_Contents_PatientCheckbox", tabContents, "CheckboxFrameTemplate_Angleur")
     patientEnable:SetPoint("TOPLEFT", tabContents.ultraFocus.audio.text, "TOPRIGHT", 0, 7)
@@ -33,7 +61,45 @@ function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == true then
         patientEnable.checkbox:SetChecked(true)
     end
+
+    
+    local voidFinderEnable = CreateFrame("Frame", "Angleur_ConfigPanel_Tab1_Contents_VoidCheckbox", tabContents, "CheckboxFrameTemplate_Angleur")
+    voidFinderEnable:SetPoint("TOPLEFT", tabContents.recastEnable.text, "BOTTOMLEFT", 0, -7)
+
+    local voidFinderKey = CreateFrame("Button", "Angleur_ConfigPanel_Tab1_Contents_VoidKey", voidFinderEnable, "Legolando_KeybindButtonTemplate_Angleur")
+    voidFinderKey:SetParentKey("voidFinderKey")
+    voidFinderKey:SetSize(80, 20)
+    voidFinderKey:SetPoint("LEFT", voidFinderEnable.checkbox, "RIGHT")
+    voidFinderKey:Hide()
+
+    voidFinderEnable.text:SetText("Void Finder")
+    voidFinderEnable.disabledText:SetText(T["Coming Soon!"])
+    voidFinderEnable:greyOut()
+
+    voidFinderEnable.text.tooltip = T["Macro-Bound Key to find and mark Void Pools easily!"]
+    voidFinderEnable.checkbox:SetScript("OnClick", function()
+        if voidFinderEnable.checkbox:GetChecked() then
+            AngleurConfig.voidFinderEnabled = true
+            voidFinderKey:Show()
+        elseif voidFinderEnable.checkbox:GetChecked() == false then
+            AngleurConfig.voidFinderEnabled = false
+            voidFinderKey:Hide()
+        end
+    end)
+    if AngleurConfig.voidFinderEnabled == true then
+        voidFinderEnable.checkbox:SetChecked(true)
+        voidFinderKey:Show()
+    end
+
+    voidFinderKey.savedVarTable = AngleurConfig
+    voidFinderKey.keybindRef = "voidFinderKey"
 end
+
+--_______________________________________________________________________________________________________________________________________________________
+
+
+
+
 
 
 
@@ -92,7 +158,7 @@ end
 
 
 
-patientFrame:RegisterEvent("UNIT_AURA")
+patientFrame:RegisterUnitEvent("UNIT_AURA", "player")
 patientFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 patientFrame:RegisterEvent("PLAYER_LOGIN")
 patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
