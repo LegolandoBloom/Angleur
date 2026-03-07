@@ -133,6 +133,8 @@ reno:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT")
 local timerFrame = CreateFrame("Frame")
 local recentlyCalled = false
 local function checkPatientAura()
+    if AngleurConfig.patientEnabled == false then return end
+    if AngleurCharacter.sleeping then return end
     --Checks for raft aura
     if C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID1) or C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID2) then
         if not recentlyCalled then
@@ -162,7 +164,6 @@ patientFrame:RegisterUnitEvent("UNIT_AURA", "player")
 patientFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 patientFrame:RegisterEvent("PLAYER_LOGIN")
 patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
-    if AngleurConfig.patientEnabled == false then return end
     local arg4, arg5 = ...
     unit, arg4, arg5 = scrubsecretvalues(unit, arg4, arg5)
     if event == "UNIT_AURA" and unit == "player" then
