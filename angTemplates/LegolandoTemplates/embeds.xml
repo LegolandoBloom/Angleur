@@ -10,6 +10,6 @@
 
     <Include file="Legolando_TempCVarHandlerTemplate\Legolando_TempCVarHandlerTemplate.xml"/>
 
-    <Include file="Legolando_ScanAnim\Legolando_ScanAnim.xml"/>
+    <Include file="Legolando_MouseScanAnim\Legolando_MouseScanAnim.xml"/>
     
 </Ui>

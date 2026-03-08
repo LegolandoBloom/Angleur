@@ -28,10 +28,14 @@ local NETHER_EGG_ITEMID = 268730
 -- </Frame>
 
 
+local anim = CreateFrame("Frame", "Angleur_VoidScanAnim", UIParent, "Legolando_MouseScanAnim_Angleur")
+anim:SetSize(256, 256)
+anim:SetPoint("CENTER")
+anim:Hide()
 
 local secureActionButton = CreateFrame("Button", "Angleur_VoidSecureAction", UIParent, "SecureActionButtonTemplate")
 secureActionButton:SetAttribute("type", "macro")
-secureActionButton:SetAttribute("macrotext", "/tar Hyper\n/cleartarget [dead]\n/stopmacro [noexists]\n/tm 7")
+secureActionButton:SetAttribute("macrotext", "/tar Hyper\n/cleartarget [dead]\n/stopmacro [noexists]\n/script PlaySound(5274)\n/tm 8")
 secureActionButton:RegisterEvent("PLAYER_REGEN_DISABLED")
 secureActionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 local function override_Set()
@@ -52,6 +56,11 @@ secureActionButton:SetScript("OnEvent", function(self, event, unit, ...)
     elseif event == "PLAYER_REGEN_ENABLED" then
         override_Set()
     end
+end)
+secureActionButton:SetScript("PostClick", function()
+    PlaySoundFile("Interface/AddOns/Angleur/sounds/scansound.ogg")
+    anim:Hide()
+    anim:Show()
 end)
 
 EventRegistry:RegisterCallback("Angleur_Sleep", function()
@@ -192,6 +201,7 @@ local function checkPatient()
 end
 
 local function handleAuras(updateInfo)
+    if InCombatLockdown() then return end
     if AngleurConfig.patientEnabled == false then return end
     if not updateInfo then return end
     if AngleurCharacter.sleeping then return end
@@ -245,6 +255,7 @@ end
 
 
 
+
 patientFrame:RegisterEvent("UNIT_AURA")
 patientFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 patientFrame:RegisterEvent("PLAYER_LOGIN")
@@ -263,5 +274,7 @@ end)
 
 SLASH_PATIENTTEST1 = "/renotest"
 SlashCmdList["PATIENTTEST"] = function() 
-   patientFrame:Show()
+    patientFrame:Show()
+    anim:Hide()
+    anim:Show()
 end

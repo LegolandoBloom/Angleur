@@ -1,0 +1,42 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Script file="Legolando_MouseScanAnim.lua"/> 
+
+    <Frame name="Legolando_MouseScanAnim_Angleur" virtual="true" mixin="Legolando_MouseScanAnimMixin_Angleur">
+        <Layers>
+            <Layer level="ARTWORK">
+                <!-- <Texture parentKey="ProcStartFlipbook" atlas="UI-HUD-ActionBar-Proc-Start-Flipbook" alpha="1">
+                    <Size x="150" y="150"/>
+                    <Anchors>
+                    <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture> -->
+                <Texture parentKey="ProcLoopFlipbook">
+                    <Size x="156" y="156"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Animations>
+            <AnimationGroup parentKey="ProcLoop">
+                <!-- <Alpha childKey="ProcLoopFlipbook" duration=".001" order="0" fromAlpha="1" toAlpha="1"/> -->
+                <FlipBook parentKey="FlipAnim" childKey="ProcLoopFlipbook" duration="0.5" order="0" flipBookRows="2" flipBookColumns="6" flipBookFrames="12" flipBookFrameWidth="225" flipBookFrameHeight="225"/>
+                <Scripts>
+                    <OnFinished>
+                        self:GetParent():Hide()
+                    </OnFinished>                    
+                </Scripts>
+            </AnimationGroup>
+        </Animations>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnHide method="OnHide"/>
+            <OnShow method="OnShow"/>
+        </Scripts>
+    </Frame>
+
+    
+</Ui>
