@@ -128,100 +128,6 @@
         <OnLoad method="OnLoad"/>
         </Scripts>
     </Frame>
-
-
-    <Frame name="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" setAllPoints="true" virtual="true">
-      <Layers>
-        <Layer level="BACKGROUND">
-          <Texture parentKey="TopLeftCorner" atlas="UI-Frame-DiamondMetal-CornerTopLeft" useAtlasSize="true">
-            <Anchors>
-              <Anchor point="TOPLEFT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="TopRightCorner" atlas="UI-Frame-DiamondMetal-CornerTopRight" useAtlasSize="true">
-            <Anchors>
-              <Anchor point="TOPRIGHT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="BottomLeftCorner" atlas="UI-Frame-DiamondMetal-CornerBottomLeft" useAtlasSize="true">
-            <Anchors>
-              <Anchor point="BOTTOMLEFT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="BottomRightCorner" atlas="UI-Frame-DiamondMetal-CornerBottomRight" useAtlasSize="true">
-            <Anchors>
-              <Anchor point="BOTTOMRIGHT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="TopEdge" atlas="_UI-Frame-DiamondMetal-EdgeTop" useAtlasSize="true" horizTile="true">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="TOPRIGHT"/>
-              <Anchor point="TOPRIGHT" relativeKey="$parent.TopRightCorner" relativePoint="TOPLEFT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="BottomEdge" atlas="_UI-Frame-DiamondMetal-EdgeBottom" useAtlasSize="true" horizTile="true">
-            <Anchors>
-              <Anchor point="BOTTOMLEFT" relativeKey="$parent.BottomLeftCorner" relativePoint="BOTTOMRIGHT"/>
-              <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="BOTTOMLEFT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="LeftEdge" atlas="!UI-Frame-DiamondMetal-EdgeLeft" useAtlasSize="true" vertTile="true">
-            <Anchors>
-              <Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="BOTTOMLEFT"/>
-              <Anchor point="BOTTOMLEFT" relativeKey="$parent.BottomLeftCorner" relativePoint="TOPLEFT"/>
-            </Anchors>
-          </Texture>
-          <Texture parentKey="RightEdge" atlas="!UI-Frame-DiamondMetal-EdgeRight" useAtlasSize="true" vertTile="true">
-            <Anchors>
-              <Anchor point="TOPRIGHT" relativeKey="$parent.TopRightCorner" relativePoint="BOTTOMRIGHT"/>
-              <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="TOPRIGHT"/>
-            </Anchors>
-          </Texture>
-        </Layer>
-      </Layers>
-    </Frame>
-
-    <Frame name="Legolando_PortedSecureDialogBorderTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
-      <Layers>
-        <Layer level="BACKGROUND" textureSubLevel="-5">
-          <!-- TODO: Convert this to atlas -->
-          <Texture parentKey="Bg" file="Interface\DialogFrame\UI-DialogBox-Background" horizTile="true" vertTile="true">
-            <Anchors>
-              <Anchor point="TOPLEFT" x="7" y="-7"/>
-              <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
-            </Anchors>
-          </Texture>
-        </Layer>
-      </Layers>
-    </Frame>
- 
-    <Frame name="Legolando_PortedSecureDialogBorderDarkTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
-      <Layers>
-        <Layer level="BACKGROUND" textureSubLevel="-5">
-          <!-- TODO: Convert this to atlas -->
-          <Texture parentKey="Bg" file="Interface\DialogFrame\UI-DialogBox-Background-Dark" horizTile="true" vertTile="true">
-            <Anchors>
-              <Anchor point="TOPLEFT" x="7" y="-7"/>
-              <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
-            </Anchors>
-          </Texture>
-        </Layer>
-      </Layers>
-    </Frame>
- 
-    <Frame name="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
-      <Layers>
-        <Layer level="BACKGROUND" textureSubLevel="-5">
-          <Texture parentKey="Bg">
-            <Anchors>
-              <Anchor point="TOPLEFT" x="7" y="-7"/>
-              <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
-            </Anchors>
-            <Color r="0" g="0" b="0" a="1"/>
-          </Texture>
-        </Layer>
-      </Layers>
-    </Frame>
     <!-- ____________________________________[1]______________________________________________ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -241,21 +147,22 @@
                     self.popup:Show()
                 end
             </OnClick>
-            <OnHide>
-                self.popup:Hide()
-            </OnHide>
         </Scripts>
         <Frames>
-            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true">
+            <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">
                 <Size x="300" y="150"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>
                 </Anchors>
-                <Scripts>
-                    <OnShow>
-                        self.Border:Raise()
-                    </OnShow>
-                </Scripts>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="18" y="-19"/>
+                            </Anchors>
+                        </FontString>
+                    </Layer>
+                </Layers>
                 <Frames>
                     <Frame name="$parent_Tabs" parentKey="tabs" inherits="Legolando_PortedTabSystemTemplate_Angleur">    
                         <Size x="1" y="1"/>
@@ -266,18 +173,7 @@
                             <KeyValue key="spacing" value="0.1" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
-                    <Frame parentKey="Border" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
-                        <Layers>
-                            <Layer level="ARTWORK">
-                                <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" x="18" y="-19"/>
-                                    </Anchors>
-                                </FontString>
-                            </Layer>
-                        </Layers>
-                    </Frame>
+                    <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>                   
                     <Button parentKey="$parent.CloseButton" inherits="UIPanelCloseButton">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="-2" y="-2"/>

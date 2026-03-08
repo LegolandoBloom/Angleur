@@ -5,7 +5,7 @@
 
     <Script file="Legolando_CollapseConfigTemplate.lua"/>
 
-    <Button name="Legolando_CollapseConfig_SimpleSquareButtonTemplate_AngleurBobScan" virtual="true">
+    <Button name="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
         <Size x="26" y="26"/>
         <Layers>
             <Layer level="ARTWORK" textureSubLevel="1">
@@ -55,7 +55,7 @@
         <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
     </Button>
 
-    <Button name="Legolando_CollapseConfigTemplate_AngleurBobScan" mixin="Legolando_CollapseConfigMixin_AngleurBobScan" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_AngleurBobScan" virtual="true">
+    <Button name="Legolando_CollapseConfigTemplate_Angleur" mixin="Legolando_CollapseConfigMixin_Angleur" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
         <KeyValues>
             <KeyValue key="savedVarTable" value="" type="table"/>
         </KeyValues>
@@ -67,9 +67,6 @@
                     self.popup:Show()
                 end
             </OnClick>
-            <OnHide>
-                self.popup:Hide()
-            </OnHide>
         </Scripts>
         <Frames>
             <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">
@@ -88,19 +85,14 @@
                 </Layers>
                 <Frames>
                     <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
-                    <Frame name= "$parent_TempMaxZoom" parentKey="tempMaxZoom" inherits="SliderAndEditControlTemplate">
+                    <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
                         </Anchors>
                     </Frame>
-                    <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
-                        <Anchors>
-                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-60"/>
-                        </Anchors>
-                    </Frame>
                     <Frame name= "$parent_ScanSpeed" parentKey="scanSpeed" inherits="SliderAndEditControlTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-100"/>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-80"/>
                         </Anchors>
                     </Frame>
                     <Frame name= "$parent_StartDelay" parentKey="startDelay" inherits="SliderAndEditControlTemplate">

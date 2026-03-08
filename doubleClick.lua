@@ -43,19 +43,24 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if button ~= angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID] then return end
     local bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
-    if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
-        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_StuckFix ") .. ": Double Click mouse look released")
-        if 
-            bobberScanner 
-            or ang.otherAddons.opie 
-        then
-            -- DO NOTHING
-            -- to allow double-click fishing over other frames when:
-            -- Bobber Scanner is being used
-            -- OPie is loaded
-        else
-            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("DoubleClick ") .. ": Mouse is over a UI Frame. Don't trigger Double-Click Fishing.")
-            return 
+    if not WorldFrame:IsMouseMotionFocus() then
+        local focus = GetMouseFoci()[1]
+        if focus then
+            local objType = focus.GetObjectType and focus:GetObjectType()
+            if objType == "Button" or objType == "EditBox" or objType == "CheckButton" or objType == "Slider" then
+                if
+                    bobberScanner
+                    or ang.otherAddons.opie
+                then
+                    -- DO NOTHING
+                    -- to allow double-click fishing over other frames when:
+                    -- Bobber Scanner is being used
+                    -- OPie is loaded
+                else
+                    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("DoubleClick ") .. ": Mouse is over an interactive UI Frame. Don't trigger Double-Click Fishing.")
+                    return
+                end
+            end
         end
     end
     if event == "GLOBAL_MOUSE_UP" then
@@ -71,20 +76,20 @@ function Angleur_DoubleClickWatcher(self, event, button)
                 angleurDoubleClick.watching = false
                 --print("no longer watching")
                 Angleur_ActionHandler(Angleur)
-            end)
+            end, "doubleClickWatch")
         else
             angleurDoubleClick.watching = false
+            -- Cancel the watching timer so it doesn't fire a spurious third ActionHandler call
+            for poolFrame in angleurDelayers:EnumerateActive() do
+                if poolFrame.uniqueIdentifier == "doubleClickWatch" then
+                    angleurDelayers:Release(poolFrame)
+                    break
+                end
+            end
             --print("Watch ended manually")
             Angleur_ActionHandler(Angleur)
         end
     elseif event == "GLOBAL_MOUSE_DOWN" then
-        if angleurDoubleClick.watching == true then
-            if IsMouseButtonDown(angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID]) then
-                MouselookStart()
-            else
-                MouselookStop()
-            end
-        end
         angleurDoubleClick.heldDown = true
         Angleur_PoolDelayer(0.2, 0, 0.05, angleurDelayers, function()
             if angleurDoubleClick.heldDown then
@@ -94,7 +99,7 @@ function Angleur_DoubleClickWatcher(self, event, button)
                     --print("Still being held")
                 end
             end
-        end, 
+        end,
         function()
             if angleurDoubleClick.heldDown then
                 --print("held too long, ignoring MOUSEUP")

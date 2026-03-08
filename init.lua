@@ -153,7 +153,7 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.visualScale == nil then
         Angleur_TinyOptions.visualScale = 1
     end
-    
+
     if Angleur_TinyOptions.loginDisabled == nil then
         Angleur_TinyOptions.loginDisabled = false
     end
@@ -164,7 +164,7 @@ function Init_AngleurSavedVariables()
         Angleur_TinyOptions.debugLevel = 0
     end
     ang.debugLevel = Angleur_TinyOptions.debugLevel
-    
+
     if AngleurAudio == nil then
         AngleurAudio = {}
     end
@@ -209,7 +209,7 @@ function Init_AngleurSavedVariables()
     end
     --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
-    
+
     Angleur_AngleurKey.savedVarTable = AngleurConfig
     Angleur_AngleurKey.keybindRef = "angleurKey"
     Angleur_AngleurKey.baseRef = "angleurKey_Base"
@@ -263,7 +263,7 @@ AngleurMoP_FishingPoleTable = {
     -----------------
     --MoP Additions--
     -----------------
-    84661, --Dragon Fishing Pole  
+    84661, --Dragon Fishing Pole
     84660, --Pandaren Fishing Pole
 }
 AngleurMoP_FishingSpellTable = {
@@ -332,7 +332,7 @@ end
 ang.gameVersion = Angleur_CheckVersion()
 
 -- USE TO CHECK VERSIONS
--- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail" 
+-- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail"
 -- or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC and "Cata"
 -- or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC and "Vanilla" or "I don't know")
 
@@ -350,7 +350,7 @@ function Angleur_SingleDelayer(delay, timeElapsed, elapsedThreshhold, delayFrame
             delay = delay - timeElapsed
             timeElapsed = 0
         end
-        
+
         if delay <= 0 then
             self:SetScript("OnUpdate", nil)
             if endFunk then endFunk() end
@@ -385,7 +385,7 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
     -- ______________________________________________________________________________________________________
     -- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ unique Identifier --> optional argument ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     -- If optional argument is provided, there will only be a SINGLE INSTANCEe of that type of delayer
-    -- running at one time, and any calls of Angleur_PoolDelayer with that specific 'uniqueIdentifier' 
+    -- running at one time, and any calls of Angleur_PoolDelayer with that specific 'uniqueIdentifier'
     -- argument will release the one beforehand, overriding it.
     -- ______________________________________________________________________________________________________
     if uniqueIdentifier then
@@ -401,8 +401,8 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
     delayFrame:Show()
     delayFrame:SetScript("OnUpdate", function(self, elapsed)
         timeElapsed = timeElapsed + elapsed
-        if timeElapsed > elapsedThreshhold then 
-            if cycleFunk then 
+        if timeElapsed > elapsedThreshhold then
+            if cycleFunk then
                 if cycleFunk() == true then
                     delayFramePool:Release(self)
                     return
@@ -527,7 +527,7 @@ local function onLogin()
         print(T["To access the configuration menu, type "] .. colorYello:WrapTextInColorCode("/angleur ") .. T["or "] .. colorYello:WrapTextInColorCode("/angang") .. ".")
         if AngleurCharacter.sleeping == true then
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
-            print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])    
+            print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
         elseif AngleurCharacter.sleeping == false then
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Is awake. To temporarily disable, type " .. colorYello:WrapTextInColorCode("/angsleep ")])
             print(T["or " .. colorYello:WrapTextInColorCode("Right-Click ") .. "the Visual Button."])
@@ -565,7 +565,7 @@ local function load_retail()
     Angleur_Auras()
 end
 local function load_mists()
-    if ang.gameVersion ~= 2 then return end  
+    if ang.gameVersion ~= 2 then return end
     -- Order: CombatDelayer(LoadToys) & ExtraToyAuras back-to-back
     Angleur_CombatDelayer(function()Angleur_LoadToys()end)
     Angleur_ExtraToyAuras()
@@ -607,7 +607,7 @@ Angleur_TempCVars = {
     Sound_EnableAllSound = {
         active = false, cached = nil, setTo = "1", updating = false,
     },
-    -- Angleur_TempCVars["Sound_MasterVolume"].setTo =  Angleur_TinyOptions.ultraFocusMaster --> must be assigned every time ultraFocusMaster is changed 
+    -- Angleur_TempCVars["Sound_MasterVolume"].setTo =  Angleur_TinyOptions.ultraFocusMaster --> must be assigned every time ultraFocusMaster is changed
     -- Also goes for the other sliders!
     Sound_MasterVolume = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusMaster, updating = false,
@@ -642,7 +642,7 @@ local function cvars_load()
     Angleur_TempCVars["Sound_SFXVolume"].setTo =  AngleurAudio.ultraFocusSFX
     Angleur_TempCVars["Sound_AmbienceVolume"].setTo =  AngleurAudio.ultraFocusAmbience
     Angleur_TempCVars["Sound_DialogVolume"].setTo =  AngleurAudio.ultraFocusDialog
-    
+
 
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
@@ -699,7 +699,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         --__________________________________________________________________________
         -- We also need CreateSlots Before ExtraItems_Load
         Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
-        
+
         -- Version based load functions
         load_retail()
         load_not_retail()
@@ -717,12 +717,12 @@ function Angleur_EventLoader(self, event, unit, ...)
         ---------------------------------------------------------
         Angleur_EquipmentManager()
         if ang.gameVersion ~= 1 then
-            -- MUST load BETWEEN EquipmentManager() & SetSleep() 
+            -- MUST load BETWEEN EquipmentManager() & SetSleep()
             AngleurClassic_CheckFishingPoleEquipped()
         end
         Angleur_SetSleep()
         ---------------------------------------------------------
-        
+
         if AngleurTutorial.part > 1 and AngleurConfig.chosenMethod == "oneKey" and not AngleurConfig.angleurKey then
             Angleur.configPanel:Show()
             Angleur.configPanel.tab1.contents.fishingMethod.oneKey.contents.angleurKey.warning:Show()

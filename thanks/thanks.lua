@@ -69,7 +69,7 @@ end
 
 
 local addonsTable = {
-    [1] = { 
+    [1] = {
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-niche.png",
             link = "https://www.curseforge.com/wow/addons/angleur-nicheoptions",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-niche.png",
@@ -79,7 +79,7 @@ local addonsTable = {
             tooltipTitle = "Angleur_NicheOptions",
             tooltipText = T["Niche functionality plugin for Angleur. Adding niche user requests through this plugin!"],
     },
-    [2] = { 
+    [2] = {
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-ang-und.png",
             link = "https://www.curseforge.com/wow/addons/angleur-underlight",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.jpg",
@@ -89,7 +89,7 @@ local addonsTable = {
             tooltipTitle = "Angleur_Underlight",
             tooltipText = T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."],
     },
-    [3] = { 
+    [3] = {
         icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
         link = "https://www.curseforge.com/wow/addons/thievery",
         tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-thievery.jpg",
@@ -99,7 +99,7 @@ local addonsTable = {
         tooltipTitle = "Thievery",
         tooltipText = T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."],
     },
-    [4] = { 
+    [4] = {
         icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
         link = "https://www.curseforge.com/wow/addons/true-form",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-trueform.jpg",

@@ -24,17 +24,17 @@ angleurToys = {
     --raftPossibilities = {{toyID = 111111, spellID = 111111}, {toyID = 222222, spellID = 222222}, {toyID = 333333, spellID = 333333}} --filled with fake toys for testing purposes, normally quoted out
     ownedRafts = {},
     selectedRaftTable = {name = 0, toyID = 0, spellID = 0, icon = 0, hasToy = false, loaded = false},
-    
+
     oversizedBobberPossibilities = {
-        {toyID = 444444, spellID = 444444}, 
-        {toyID = 555555, spellID = 555555}, 
-        {name = "Reusable Oversized Bobber", toyID = 202207, spellID = 397827, icon = 236576}, 
+        {toyID = 444444, spellID = 444444},
+        {toyID = 555555, spellID = 555555},
+        {name = "Reusable Oversized Bobber", toyID = 202207, spellID = 397827, icon = 236576},
         {toyID = 666666, spellID = 666666}
     },
     --local oversizedBobberPossibilities = {{toyID = 444444, spellID = 444444}, {toyID = 555555, spellID = 555555}, {toyID = 666666, spellID = 666666}}
     ownedOversizedBobbers = {},
     selectedOversizedBobberTable = {name = 0, toyID = 0, spellID = 0, icon = 0, hasToy = false, loaded = false},
-    
+
     crateBobberPossibilities = {
         {name = T["Crate of Bobbers: Can of Worms"], toyID = 142528, spellID = 231291, icon = 236197},
         {name = T["Crate of Bobbers: Carved Wooden Helm"], toyID = 147307, spellID = 240803, icon = 463008},
@@ -159,7 +159,7 @@ function Angleur_ToyBoxOverlay_Activate(self, overlay)
         print(T["Can't add toys while dead"])
         return
     end
-    
+
     angleurToys.extraToySlotHolder = self
     if not CollectionsJournal then
         C_AddOns.LoadAddOn("Blizzard_Collections")
@@ -179,7 +179,7 @@ function Angleur_ToyBoxOverlay_Activate(self, overlay)
     Angleur.toyBoxOverlay.textBackground:SetPoint("TOPLEFT", ToyBox, "TOPLEFT", 29, -30)
     Angleur.toyBoxOverlay.text:SetPoint("CENTER", Angleur.toyBoxOverlay.textBackground, "CENTER", -15, 9)
     Angleur.toyBoxOverlay:Show()
-    
+
     if angleurToys.toyBoxCloseHookSet == false then
         ToyBox:HookScript("OnHide", function()
             Angleur.toyBoxOverlay:Hide()
@@ -219,11 +219,11 @@ function Angleur_ToyBoxOverlay_Watch(self, button)
             print(T["you do not own this toy. please select another"])
             return
         end
-        
+
         print(T["Selected extra toy: "], C_ToyBox.GetToyLink(self.itemID))
         local toyInfo = {C_ToyBox.GetToyInfo(self.itemID)}
         -- [1]itemID [2]toyName [3]icon
-        
+
         local parentKey = angleurToys.extraToySlotHolder:GetParentKey()
         --Cant get spellID here
         Angleur_SlottedExtraToys[parentKey].toyID = toyInfo[1]
@@ -257,7 +257,7 @@ function Angleur_ToyBoxOverlay_CaptureSpellID(self, event, unit, ...)
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ToyBoxOverlay_CaptureSpellID ") .. ": Previous method: ", arg6)
         local parentKey = angleurToys.extraToySlotHolder:GetParentKey()
         Angleur_SlottedExtraToys[parentKey].spellID = arg6
-    elseif event == "UNIT_SPELLCAST_FAILED" and unit == "player" then 
+    elseif event == "UNIT_SPELLCAST_FAILED" and unit == "player" then
         local parentKey = angleurToys.extraToySlotHolder:GetParentKey()
         Angleur_SlottedExtraToys[parentKey].spellID = arg5
     end
@@ -276,9 +276,9 @@ function Angleur_ToyBox_RemoveExtraToy(self)
     Angleur_SlottedExtraToys[keyofParent].toyID = 0
     Angleur_SlottedExtraToys[keyofParent].spellID = 0
     Angleur_SlottedExtraToys[keyofParent].icon = 0
-    
+
     local grandParent = parent:GetParent()
     Angleur_LoadExtraToys(grandParent)
-    
+
     self:Hide()
 end
