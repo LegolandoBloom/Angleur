@@ -27,8 +27,8 @@ local debugLevels = {
     [5] = "UI Tabs",
     [6] = "Double Click",
     [7] = "Bobber Scanner",
+    [8] = "Midnight Exclusives",
 }
-
 function Angleur_SetupDebugUI(debugCheckboxFrame)
     local function isSelected(index) 
         local isSelected = index == Angleur_TinyOptions.debugLevel
@@ -43,7 +43,7 @@ function Angleur_SetupDebugUI(debugCheckboxFrame)
     end
     local function generatorFunction(owner, rootDescription)
         rootDescription:CreateTitle("Debug Level")
-        for index = 0, 7 do
+        for index = 0, #debugLevels do
             local elementdescription = rootDescription:CreateRadio(debugLevels[index], isSelected, setSelected, index)
         end
     end

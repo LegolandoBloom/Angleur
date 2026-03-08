@@ -1,7 +1,10 @@
 local T = Angleur_Translate
+local debugChannel = 8
+local colorDebug = CreateColor(0.2, 0.21, 0.54) -- void blue
 
-local PATIENT_SPELLID1 = 1269521
-local PATIENT_SPELLID2 = 1235378
+local IMMOLATION_AURA_SPELLID = 258920 -- for testing
+local PATIENT_SPELLID1 =  1269521 -- ActualID: 1269521
+local PATIENT_SPELLID2 = 1235378 -- Actual ID: 1235378
 local NETHER_EGG_ITEMID = 268730
 
 
@@ -153,45 +156,80 @@ local patientFrame = CreateFrame("Frame", "Angleur_PatientChestFrame", UIParent,
 local uiParent_w, uiParent_h = UIParent:GetSize()
 patientFrame:SetSize(uiParent_w * 2, uiParent_h * 2)
 patientFrame:SetPoint("CENTER", UIParent, "CENTER")
+patientFrame:SetAlpha(0.7)
 patientFrame:HookScript("OnShow", function(self)
     PlaySoundFile("Interface/AddOns/Angleur/sounds/renoRich.mp3")
     self.ProcStartAnim:Play()
-    Angleur_SingleDelayer(7, 0, 1, self, nil, function()
+    Angleur_SingleDelayer(5, 0, 1, self, nil, function()
         self:Hide()
     end)
     local link
     if eggLoaded then
-        _, link = C_Item.GetItemInfo(268730)
+        _, link = C_Item.GetItemInfo(NETHER_EGG_ITEMID)
     end
-    print(T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] .. "--------------- ", link .. " ---------------")
+    print(T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] .. "---------------------------------------- ", link .. " ----------------------------------------")
 end)
 patientFrame:Hide()
 local reno = patientFrame:CreateTexture("Angleur_PatientReno", "ARTWORK")
 reno:SetTexture("Interface/AddOns/Angleur/images/renojackson.png")
 reno:SetSize(650, 650)
 reno:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT")
-reno:SetAlpha(0.6)
+reno:SetIgnoreParentAlpha(true)
+reno:SetAlpha(1)
 
 
-
-
+local activeAuras = {}
 local timerFrame = CreateFrame("Frame")
 local recentlyCalled = false
-local function checkPatientAura()
-    if AngleurConfig.patientEnabled == false then return end
-    if AngleurCharacter.sleeping then return end
-    --Checks for raft aura
-    if C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID1) or C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID2) then
-        if not recentlyCalled then
-            recentlyCalled = true
-            patientFrame:Show()
-            Angleur_SingleDelayer(30, 0, 1, timerFrame, nil, function(self)
-                recentlyCalled = false
-            end)
-        end
-    else
-        return false
+local function checkPatient()
+    if not recentlyCalled then
+        recentlyCalled = true
+        patientFrame:Show()
+        Angleur_SingleDelayer(30, 0, 1, timerFrame, nil, function(self)
+            recentlyCalled = false
+        end)
     end
+end
+
+local function handleAuras(updateInfo)
+    if AngleurConfig.patientEnabled == false then return end
+    if not updateInfo then return end
+    if AngleurCharacter.sleeping then return end
+
+    local added = updateInfo.addedAuras
+    local removed = updateInfo.removedAuraInstanceIDs
+    -- Added Auras
+    if added then
+        for i, v in pairs(added) do
+            local spellID = v.spellId
+            if spellID == PATIENT_SPELLID1 or spellID == PATIENT_SPELLID2 then
+                activeAuras[v.auraInstanceID] = spellID
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Added", activeAuras[v.auraInstanceID], "Instance ID: ", v.auraInstanceID)
+                checkPatient()
+            end
+        end
+    end
+    -- Updated Auras
+
+    -- Removed Auras
+    if removed then
+        for i, v in pairs(removed) do
+            if activeAuras[v] then
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Removed", activeAuras[v], "Instance ID: ", v)
+                activeAuras[v] = nil
+            end
+        end
+    end
+    
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Active Auras:")
+    Angleur_BetaDump(debugChannel, activeAuras)
+
+    -- --Checks for raft aura
+    -- if C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID1) or C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID2) then
+    --     
+    -- else
+    --     return false
+    -- end
 end
 
 
@@ -215,7 +253,7 @@ patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
     unit, arg4, arg5 = scrubsecretvalues(unit, arg4, arg5)
     if event == "UNIT_AURA" and unit == "player" then
         -- print("oh my gah")
-        checkPatientAura()
+        handleAuras(arg4)
     elseif event == "PLAYER_LOGIN" then
         C_Item.RequestLoadItemDataByID(NETHER_EGG_ITEMID)
     elseif event == "ITEM_DATA_LOAD_RESULT" and unit == NETHER_EGG_ITEMID and arg4 == true then
