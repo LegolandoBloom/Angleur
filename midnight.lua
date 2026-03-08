@@ -8,9 +8,8 @@ local PATIENT_SPELLID2 = 1235378 -- Actual ID: 1235378
 local NETHER_EGG_ITEMID = 268730
 
 
---_______________________________________________________________________________________________________________________________________________________
---_______________________________________________________________________ UI PART _______________________________________________________________________
---_______________________________________________________________________________________________________________________________________________________
+
+--______________________________________________ Void Finder ______________________________________________
 
 local anim = CreateFrame("Frame", "Angleur_VoidScanAnim", UIParent, "Legolando_MouseScanAnim_Angleur")
 anim:SetSize(256, 256)
@@ -53,9 +52,12 @@ end)
 EventRegistry:RegisterCallback("Angleur_Wake", function()
     override_Set()
 end)
+--_________________________________________________________________________________________________________
 
 
-
+--_______________________________________________________________________________________________________________________________________________________
+--_______________________________________________________________________ UI PART _______________________________________________________________________
+--_______________________________________________________________________________________________________________________________________________________
 function Angleur_LoadMidnight()
     if AngleurConfig.patientEnabled == nil then
         AngleurConfig.patientEnabled = false
@@ -149,7 +151,6 @@ function Angleur_LoadMidnight()
     newTexture2:SetSize(58, 29)
     newTexture2:SetPoint("LEFT", voidFinderKey, "RIGHT")
 end
-
 --_______________________________________________________________________________________________________________________________________________________
 
 
@@ -157,7 +158,7 @@ end
 
 
 
-
+-- _______________________________________ PATIENT CHEST _______________________________________
 local eggLoaded = false
 local patientFrame = CreateFrame("Frame", "Angleur_PatientChestFrame", UIParent, "AngleurPorted_ActionBarButtonSpellActivationAlert")
 
@@ -235,9 +236,6 @@ local function handleAuras(updateInfo)
     Angleur_BetaDump(debugChannel, activeAuras)
 end
 
-
-
-
 patientFrame:RegisterEvent("UNIT_AURA")
 patientFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 patientFrame:RegisterEvent("PLAYER_LOGIN")
@@ -253,6 +251,8 @@ patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
         eggLoaded = true
     end
 end)
+-- _____________________________________________________________________________________________
+
 
 SLASH_PATIENTTEST1 = "/renotest"
 SlashCmdList["PATIENTTEST"] = function() 
