@@ -12,22 +12,6 @@ local NETHER_EGG_ITEMID = 268730
 --_______________________________________________________________________ UI PART _______________________________________________________________________
 --_______________________________________________________________________________________________________________________________________________________
 
-
--- <Frame name="$parent_RecastCheckbox" parentKey="recastEnable" inherits="CheckboxFrameTemplate_Angleur">
---     <Anchors>
---         <Anchor point="TOPLEFT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMLEFT" x="0" y="13"/>
---     </Anchors>
---     <Frames>
---         <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
---             <Size x="100" y="22"/>
---             <Anchors>
---                 <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
---             </Anchors>
---         </Button>
---     </Frames>
--- </Frame>
-
-
 local anim = CreateFrame("Frame", "Angleur_VoidScanAnim", UIParent, "Legolando_MouseScanAnim_Angleur")
 anim:SetSize(256, 256)
 anim:SetPoint("CENTER")
@@ -89,10 +73,7 @@ function Angleur_LoadMidnight()
     patientEnable.text:SetPoint("LEFT", patientEnable.checkbox, "RIGHT")
     patientEnable.text:SetFontObject(SpellFont_Small)
 
-    local newTexture = patientEnable:CreateTexture("Angleur_New!", "ARTWORK")
-    newTexture:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
-    newTexture:SetSize(58, 29)
-    newTexture:SetPoint("LEFT", patientEnable.text, "RIGHT")
+
 
     patientEnable.text:SetText(T["Patient Chest"])
     patientEnable.text.tooltip = T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n" 
@@ -112,10 +93,17 @@ function Angleur_LoadMidnight()
     local voidFinderEnable = CreateFrame("Frame", "Angleur_ConfigPanel_Tab1_Contents_VoidCheckbox", tabContents, "CheckboxFrameTemplate_Angleur")
     voidFinderEnable:SetPoint("TOPLEFT", tabContents.recastEnable.text, "BOTTOMLEFT", 0, -7)
 
+    local vortex = voidFinderEnable:CreateTexture("Angleur_VortexTexture", "ARTWORK")
+    vortex:SetTexture("Interface/AddOns/Angleur/images/vortex.png")
+    vortex:SetSize(24, 24)
+    vortex:SetPoint("LEFT", voidFinderEnable.checkbox, "RIGHT", -3, 0)
+    vortex:SetIgnoreParentAlpha(true)
+    vortex:SetAlpha(1)
+
     local voidFinderKey = CreateFrame("Button", "Angleur_ConfigPanel_Tab1_Contents_VoidKey", voidFinderEnable, "Legolando_KeybindButtonTemplate_Angleur")
     voidFinderKey:SetParentKey("voidFinderKeyU")
     voidFinderKey:SetSize(80, 20)
-    voidFinderKey:SetPoint("LEFT", voidFinderEnable.checkbox, "RIGHT")
+    voidFinderKey:SetPoint("LEFT", vortex, "RIGHT", -3, 0)
     voidFinderKey:Hide()
     voidFinderKey.onBindFunction = function()
         if AngleurConfig.voidFinderKey then
@@ -127,7 +115,6 @@ function Angleur_LoadMidnight()
 
     voidFinderEnable.text:SetText("Void Finder")
     voidFinderEnable.disabledText:SetText(T["Coming Soon!"])
-    -- voidFinderEnable:greyOut()
 
     voidFinderEnable.text.tooltip = T["Macro-Bound Key to find and mark Void Pools easily!"]
     voidFinderEnable.checkbox:SetScript("OnClick", function()
@@ -149,6 +136,18 @@ function Angleur_LoadMidnight()
 
     voidFinderKey.savedVarTable = AngleurConfig
     voidFinderKey.keybindRef = "voidFinderKey"
+
+
+
+    local newTexture1 = patientEnable:CreateTexture("Angleur_New1!", "ARTWORK")
+    newTexture1:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture1:SetSize(58, 29)
+    newTexture1:SetPoint("LEFT", patientEnable.text, "RIGHT")
+
+    local newTexture2 = patientEnable:CreateTexture("Angleur_New2!", "ARTWORK")
+    newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture2:SetSize(58, 29)
+    newTexture2:SetPoint("LEFT", voidFinderKey, "RIGHT")
 end
 
 --_______________________________________________________________________________________________________________________________________________________
@@ -219,7 +218,9 @@ local function handleAuras(updateInfo)
             end
         end
     end
+
     -- Updated Auras
+    -- nothing
 
     -- Removed Auras
     if removed then
@@ -230,28 +231,9 @@ local function handleAuras(updateInfo)
             end
         end
     end
-    
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Active Auras:")
     Angleur_BetaDump(debugChannel, activeAuras)
-
-    -- --Checks for raft aura
-    -- if C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID1) or C_UnitAuras.GetPlayerAuraBySpellID(PATIENT_SPELLID2) then
-    --     
-    -- else
-    --     return false
-    -- end
 end
-
-
-
--- <Frame parent="Angleur" name="AngleurSet_AlertAnim" frameStrata="TOOLTIP" toplevel="true" inherits="AngleurPorted_ActionBarButtonSpellActivationAlert" hidden="true">
---     <Size x="64" y="64"/>
---     <Scripts>
---         <OnEnter>
---             self:Hide()
---         </OnEnter>
---     </Scripts>
--- </Frame>
 
 
 
