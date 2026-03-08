@@ -206,8 +206,8 @@ local function handleAuras(updateInfo)
     if not updateInfo then return end
     if AngleurCharacter.sleeping then return end
 
-    local added = updateInfo.addedAuras
-    local removed = updateInfo.removedAuraInstanceIDs
+    local added = scrubsecretvalues(updateInfo.addedAuras)
+    local removed = scrubsecretvalues(updateInfo.removedAuraInstanceIDs)
     -- Added Auras
     if added then
         for i, v in pairs(added) do
