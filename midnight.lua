@@ -178,7 +178,7 @@ patientFrame:HookScript("OnShow", function(self)
     if eggLoaded then
         _, link = C_Item.GetItemInfo(NETHER_EGG_ITEMID)
     end
-    print(T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] .. "---------------------------------------- ", link .. " ----------------------------------------")
+    print(T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] .. "---------------------------------------- ", link, " ----------------------------------------")
 end)
 patientFrame:Hide()
 local reno = patientFrame:CreateTexture("Angleur_PatientReno", "ARTWORK")
