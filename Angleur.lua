@@ -174,7 +174,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         --__________________________________________________________________________________________________________________________________
         if firstCast then
             Angleur_FixPlater()
-            Angleur_TempCVarHandler:Set("SoftTargetInteract")
+            Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
             firstCast = false
         end
         if AngleurConfig.ultraFocusAudioEnabled then 
@@ -183,13 +183,13 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAutoLootEnabled then
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract") end
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
         Angleur_TempCVarHandler:Release("autoLootDefault")
-        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract") end
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
         if isChosenKeyDown() == false then
             midFishing = false
             EventRegistry:TriggerEvent("Angleur_StopFishing")
@@ -608,7 +608,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.wakeUpButton:Show()
         Angleur.configPanel.decoration:Hide()
         if Angleur_TinyOptions.turnOffSoftInteract == true then
-            Angleur_TempCVarHandler:Release("SoftTargetInteract")
+            Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
         end
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")

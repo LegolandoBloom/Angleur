@@ -237,7 +237,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
         if AngleurClassicConfig.softInteract.enabled == true then
-            Angleur_TempCVarHandler:Set("SoftTargetInteract")
+            Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
         end
     elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
         if unit ~= "player" then return end
@@ -250,7 +250,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
         Angleur_TempCVarHandler:Release("autoLootDefault")
         if AngleurClassicConfig.softInteract.enabled == true then
-            Angleur_TempCVarHandler:Release("SoftTargetInteract")
+            Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
         end
         if isChosenKeyDown() == false then
             midFishing = false
@@ -696,7 +696,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.tab2:DesaturateHierarchy(1)
         Angleur.configPanel.wakeUpButton:Show()
         Angleur.configPanel.decoration:Hide()
-        Angleur_TempCVarHandler:Release("SoftTargetInteract")
+        Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
         if AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
         end

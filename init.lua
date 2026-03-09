@@ -546,6 +546,12 @@ Angleur_TempCVars = {
     SoftTargetInteract = {
         active = false, cached = nil, setTo = "3", updating = false,
     },
+    SoftTargetInteractRange = {
+        active = false, cached = nil, setTo = "15", updating = false,
+    },
+    SoftTargetInteractRangeIsHard = {
+        active = false, cached = nil, setTo = "0", updating = false,
+    },
     -- Ultra Focus Temp Auto Loot
     autoLootDefault = {
         active = false, cached = nil, setTo = "1", updating = false,
@@ -678,7 +684,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         if firstMove == true and AngleurCharacter.sleeping == false then
             firstMove = false
             if Angleur_TinyOptions.turnOffSoftInteract == false then
-                Angleur_TempCVarHandler:Set("SoftTargetInteract")
+                Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
             end
         end
     end
