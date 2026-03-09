@@ -23,6 +23,7 @@ secureActionButton:RegisterEvent("PLAYER_REGEN_DISABLED")
 secureActionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 local function override_Set()
     if not InCombatLockdown() and AngleurConfig.voidFinderEnabled and AngleurConfig.voidFinderKey then
+        ClearOverrideBindings(secureActionButton)
         SetOverrideBindingClick(secureActionButton, false, AngleurConfig.voidFinderKey, "Angleur_VoidSecureAction")
     end
 end
