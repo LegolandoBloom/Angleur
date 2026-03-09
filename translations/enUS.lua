@@ -829,6 +829,10 @@ T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound,
 .. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("for ") .. colorDarkBlu:WrapTextInColorCode("[Patient Chest]\n\n") .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image " 
 .. "of Reno Jackson warning you about the treasure.\n\n" .. colorGrae:WrapTextInColorCode("Note: The sound is also that of Reno Jackson\n\n") .. colorGrae:WrapTextInColorCode("We're gonna be rich!")
 
-T["Macro-Bound Key to find and mark Void Pools easily!"] = "Macro-Bound Key to find and mark Void Pools easily!"
 
 T["Coming Soon!"] = "Coming Soon!"
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker." 
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "Macro-Bound Key to find and mark Void Pools easily!" 
+.. "\n\nWhen you press it, if there is a nearby " .. colorDarkBlu:WrapTextInColorCode("Void Pool") .. ", it will be marked on your minimap & in-game with a skull marker." 
+.. colorGrae:WrapTextInColorCode("\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor")

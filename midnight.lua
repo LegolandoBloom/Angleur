@@ -119,7 +119,8 @@ function Angleur_LoadMidnight()
     voidFinderEnable.text:SetText("Void Finder")
     voidFinderEnable.disabledText:SetText(T["Coming Soon!"])
 
-    voidFinderEnable.text.tooltip = T["Macro-Bound Key to find and mark Void Pools easily!"]
+    voidFinderEnable.text.tooltip = T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker." 
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"]
     voidFinderEnable.checkbox:SetScript("OnClick", function()
         if voidFinderEnable.checkbox:GetChecked() then
             AngleurConfig.voidFinderEnabled = true
@@ -150,7 +151,7 @@ function Angleur_LoadMidnight()
     local newTexture2 = patientEnable:CreateTexture("Angleur_New2!", "ARTWORK")
     newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
     newTexture2:SetSize(58, 29)
-    newTexture2:SetPoint("LEFT", voidFinderKey, "RIGHT")
+    newTexture2:SetPoint("TOP", voidFinderEnable.text, "BOTTOM", 10, 0)
 end
 --_______________________________________________________________________________________________________________________________________________________
 
