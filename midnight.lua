@@ -22,7 +22,7 @@ secureActionButton:SetAttribute("macrotext", "/tar Hyper\n/cleartarget [dead]\n/
 secureActionButton:RegisterEvent("PLAYER_REGEN_DISABLED")
 secureActionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 local function override_Set()
-    if not InCombatLockdown() and AngleurConfig.voidFinderEnabled and AngleurConfig.voidFinderKey then
+    if not InCombatLockdown() and AngleurCharacter.sleeping == false and AngleurConfig.voidFinderEnabled and AngleurConfig.voidFinderKey then
         ClearOverrideBindings(secureActionButton)
         SetOverrideBindingClick(secureActionButton, false, AngleurConfig.voidFinderKey, "Angleur_VoidSecureAction")
     end
@@ -203,7 +203,7 @@ local function checkPatient()
 end
 
 local function handleAuras(updateInfo)
-    if InCombatLockdown() then return end
+    local inCombat = InCombatLockdown()
     if AngleurConfig.patientEnabled == false then return end
     if not updateInfo then return end
     if AngleurCharacter.sleeping then return end
@@ -211,9 +211,9 @@ local function handleAuras(updateInfo)
     local added = scrubsecretvalues(updateInfo.addedAuras)
     local removed = scrubsecretvalues(updateInfo.removedAuraInstanceIDs)
     -- Added Auras
-    if added then
+    if added and not inCombat then
         for i, v in pairs(added) do
-            local spellID = v.spellId
+            local spellID = scrubsecretvalues(v.spellId)
             if spellID == PATIENT_SPELLID1 or spellID == PATIENT_SPELLID2 then
                 activeAuras[v.auraInstanceID] = spellID
                 Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Added", activeAuras[v.auraInstanceID], "Instance ID: ", v.auraInstanceID)
@@ -225,7 +225,7 @@ local function handleAuras(updateInfo)
     -- Updated Auras
     -- nothing
 
-    -- Removed Auras
+    -- Removed Auras - These are never secret, so we can access them in combat
     if removed then
         for i, v in pairs(removed) do
             if activeAuras[v] then
