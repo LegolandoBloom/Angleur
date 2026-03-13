@@ -16,9 +16,30 @@ anim:SetSize(256, 256)
 anim:SetPoint("CENTER")
 anim:Hide()
 
+local LOCALISATION_VORTEX = {
+    ["enUS"] = "Hyper-Compressed",
+    ["deDE"] = "Ziel für hyperkomprimierten",
+    ["esES"] = "Objetivo de Océano hipercomprimido",
+    ["esMX"] = "Objetivo de Océano hipercomprimido",
+    ["frFR"] = "Cible d'océan hyper-comprimé",
+    ["itIT"] = "Bersaglio dell'Oceano Ultra Compresso",
+    ["koKR"] = "초압축 바다 대상",
+    ["ptBR"] = "Alvo de Oceano Hipercomprimido",
+    ["ruRU"] = "Гиперсжатый",
+    ["zhCN"] = "压缩海洋的目标",
+    ["zhTW"] = "超壓縮海洋目標",
+}
+local locale = GAME_LOCALE or GetLocale()
+local vortex_name = "Hyper-Compressed"
+if locale and LOCALISATION_VORTEX[locale] then
+    vortex_name = LOCALISATION_VORTEX[locale]
+end
+
 local secureActionButton = CreateFrame("Button", "Angleur_VoidSecureAction", UIParent, "SecureActionButtonTemplate")
+secureActionButton:RegisterForClicks("AnyUp", "AnyDown")
 secureActionButton:SetAttribute("type", "macro")
-secureActionButton:SetAttribute("macrotext", "/tar Hyper\n/cleartarget [dead]\n/stopmacro [noexists]\n/script PlaySound(5274)\n/tm 8")
+-- SLASH_TARGET_MARKER1 --> Causes an issue on ptBR Clients: "You aren't part of that group"
+secureActionButton:SetAttribute("macrotext", "/tar " .. vortex_name .. "\n/cleartarget [dead]\n/stopmacro [noexists]\n/script PlaySound(5274)\n" .. SLASH_TARGET_MARKER3 .. " 8")
 secureActionButton:RegisterEvent("PLAYER_REGEN_DISABLED")
 secureActionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
 local function override_Set()

@@ -137,7 +137,9 @@
         "TALENT_MICRO_BUTTON_NO_HERO_SPEC",
         "TALENT_MICRO_BUTTON_UNSPENT_TALENTS",
         "Angleur_SetTab1",
-        "ID"
+        "ID",
+        "SLASH_TARGET_MARKER1",
+        "SLASH_TARGET_MARKER3"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
