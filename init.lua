@@ -681,6 +681,7 @@ function Angleur_EventLoader(self, event, unit, ...)
     elseif event == "PLAYER_REGEN_ENABLED" then
     elseif event == "PLAYER_STARTED_MOVING" then
         if ang.gameVersion ~= 1 then return end
+        if InCombatLockdown() then return end
         if firstMove == true and AngleurCharacter.sleeping == false then
             firstMove = false
             if Angleur_TinyOptions.turnOffSoftInteract == false then
