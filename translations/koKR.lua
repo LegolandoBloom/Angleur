@@ -198,7 +198,10 @@ T["Master Volume(Ultra Focus)"] = "전체 음량[집중 모드]"
 T["Login Messages"] = "로그인 메세지"
 T["Debug Mode"] = "디버그 모드"
 T["Defaults"] = "기본값"
-
+T["Show/Hide visual with addon comp"] = "애드온 메뉴로 아이콘 표시/숨김"
+T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."] = "체크 시 애드온 메뉴 버튼을 우클릭해 절전/해제할 때 아이콘이 표시되거나 숨겨집니다."
+T["Note:"] = "참고:"
+T["When unchecked, the visual will remain shown and be restored."] = "체크 해제 시 아이콘은 계속 표시되며 복원됩니다."
 
 --firstInstall
 T["Angleur Warning"] = "Angleur Warning"

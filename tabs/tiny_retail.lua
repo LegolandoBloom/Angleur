@@ -14,9 +14,9 @@ local retailTinyTab = ang.retail.tinyTab
 function retailTinyTab:ExtraButtons(tab3_contents)
     tab3_contents.swimRelease.text:SetText(T["Release When Swimming"])
     --tab3_contents.swimRelease.text:SetFontObject(SpellFont_Small)
-    tab3_contents.swimRelease.text.tooltip = T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"] 
+    tab3_contents.swimRelease.text.tooltip = T["If checked, the only action your OneKey/DoubleClick will perform while swimming will be casting rafts.\n(If you already have one, the key will be released.)"]
     .. T["\n\nChecked by default, uncheck if you want to use Extra Toys, Items, Spells while submerged in water."]
-    
+
     tab3_contents.swimRelease.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
@@ -35,10 +35,9 @@ function retailTinyTab:ExtraButtons(tab3_contents)
         tab3_contents.swimRelease.checkbox:SetChecked(true)
     end
 
-
     tab3_contents.offInteract.text:SetText(T["Disable Soft Interact"])
     --tab3_contents.offInteract.text:SetFontObject(SpellFont_Small)
-    tab3_contents.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
+    tab3_contents.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n"
     .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")]
     tab3_contents.offInteract.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
@@ -86,6 +85,32 @@ function retailTinyTab:ExtraButtons(tab3_contents)
         tab3_contents.softIconOff.checkbox:SetChecked(true)
         tab3_contents.softIconOff.disabledTexture:Show()
     end
+
+    tab3_contents.compartmentSleepStatus.text:SetText(T["Show/Hide visual with addon comp"])
+    tab3_contents.compartmentSleepStatus.text.tooltip =
+        T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."]
+        .. "\n\n"
+        .. CreateColor(1, 0, 0):WrapTextInColorCode(T["Note:"])
+        .. " "
+        .. T["When unchecked, the visual will remain shown and be restored."]
+    tab3_contents.compartmentSleepStatus.checkbox:SetScript("OnClick", function(self)
+        if InCombatLockdown() then
+            self:SetChecked(not self:GetChecked())
+            print(T["Can't change in combat."])
+            return
+        end
+
+        AngleurConfig.showCompartmentSleepStatusIcon = self:GetChecked()
+
+        if AngleurConfig.showCompartmentSleepStatusIcon then
+            Angleur_ApplyCompartmentVisualPreference()
+        elseif not AngleurConfig.visualHidden then
+            Angleur.visual:Show()
+            Angleur.visual:Raise()
+            AngleurConfig.compartmentVisualHidden = false
+        end
+    end)
+    tab3_contents.compartmentSleepStatus.checkbox:SetChecked(AngleurConfig.showCompartmentSleepStatusIcon)
 end
 
 function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
@@ -102,6 +127,8 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0
         ang.debugLevel = 0
+        AngleurConfig.showCompartmentSleepStatusIcon = true
+        AngleurConfig.compartmentVisualHidden = false
         tab3_contents.offInteract.checkbox:SetChecked(false)
         tab3_contents.dismount.checkbox:SetChecked(false)
         tab3_contents.swimRelease.checkbox:SetChecked(true)
@@ -110,6 +137,7 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         tab3_contents.visualSize:SetValue(10)
         tab3_contents.ultraFocusMaster:SetValue(100)
         tab3_contents.loginMessages.checkbox:SetChecked(true)
+        tab3_contents.compartmentSleepStatus.checkbox:SetChecked(true)
         tab3_contents.debugMode.checkbox:SetChecked(false)
         tab3_contents.debugMode.dropdown:Hide()
         print(T["Default tiny settings restored"])

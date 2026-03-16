@@ -192,6 +192,10 @@ T["Master Volume(Ultra Focus)"] = "Громкость (Ультра Фокус)"
 T["Login Messages"] = "Сообщения при входе"
 T["Debug Mode"] = "Режим отладки"
 T["Defaults"] = "Сбросить"
+T["Show/Hide visual with addon comp"] = "Показывать/скрывать значок через меню аддона"
+T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."] = "Если включено, правый клик по кнопке меню аддона для Сон/Пробуждение будет показывать или скрывать значок."
+T["Note:"] = "Примечание:"
+T["When unchecked, the visual will remain shown and be restored."] = "Если флажок снят, значок останется видимым и будет восстановлен."
 
 --firstInstall
 T["Angleur Warning"] = "Предупреждение Angleur"

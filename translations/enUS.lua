@@ -193,7 +193,10 @@ T["Master Volume(Ultra Focus)"] = "Master Volume(Ultra Focus)"
 T["Login Messages"] = "Login Messages"
 T["Debug Mode"] = "Debug Mode"
 T["Defaults"] = "Defaults"
-
+T["Show/Hide visual with addon comp"] = "Show/Hide visual with addon comp"
+T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."] = "When checked, right-clicking the addon compartment button to Sleep/Wake will show or hide the visual."
+T["Note:"] = "Note:"
+T["When unchecked, the visual will remain shown and be restored."] = "When unchecked, the visual will remain shown and be restored."
 
 --firstInstall
 T["Angleur Warning"] = "Angleur Warning"

@@ -716,16 +716,21 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-230"/>
                                         </Anchors>
                                     </Frame>
-                                    <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-284"/>
-                                        </Anchors>
-                                    </Frame>
-                                    <Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-313"/>
-                                        </Anchors>
-                                    </Frame>
+									<Frame name="$parent_CompartmentSleepStatus" parentKey="compartmentSleepStatus" inherits="CheckboxFrameTemplate_Angleur">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-284"/>
+										</Anchors>
+									</Frame>
+									<Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-313"/>
+										</Anchors>
+									</Frame>
+									<Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
+										<Anchors>
+											<Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-342"/>
+										</Anchors>
+									</Frame>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
                                         <Size x="72" y="42"/>
                                         <Anchors>

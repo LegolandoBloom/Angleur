@@ -43,6 +43,8 @@ AngleurConfig = {
     patientEnabled = nil,
     voidFinderEnabled = nil,
     voidFinderKey = nil,
+    showCompartmentSleepStatusIcon = nil,
+    compartmentVisualHidden = nil,
 }
 
 AngleurClassicConfig = {
@@ -88,6 +90,12 @@ function Init_AngleurSavedVariables()
     end
     if AngleurConfig.ultraFocusAutoLootEnabled == nil then
         AngleurConfig.ultraFocusAutoLootEnabled = false
+    end
+    if AngleurConfig.showCompartmentSleepStatusIcon == nil then
+        AngleurConfig.showCompartmentSleepStatusIcon = true
+    end
+    if AngleurConfig.compartmentVisualHidden == nil then
+        AngleurConfig.compartmentVisualHidden = false
     end
     if AngleurConfig.chosenBait == nil then
         AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
@@ -650,6 +658,10 @@ function Angleur_EventLoader(self, event, unit, ...)
         Angleur_ExtraItemAuras()
         if AngleurMinimapButton.hide == false then
             Angleur_InitMinimapButton()
+        end
+
+        if Angleur_ApplyCompartmentVisualPreference then
+            Angleur_ApplyCompartmentVisualPreference()
         end
 
         ---------------------------------------------------------

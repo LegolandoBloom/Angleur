@@ -193,7 +193,10 @@ T["Master Volume(Ultra Focus)"] = "Gesamtlautstärke(Aufmerksamkeit)"
 T["Login Messages"] = "Einloggensnachrichten"
 T["Debug Mode"] = "Debug Modus"
 T["Defaults"] = "Standard-\nwerte"
-
+T["Show/Hide visual with addon comp"] = "Symbol über Addon-Menü ein/ausblenden"
+T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."] = "Wenn aktiviert, zeigt oder versteckt ein Rechtsklick auf die Addon-Menü-Schaltfläche beim Schlafen/Aufwecken das Symbol."
+T["Note:"] = "Hinweis:"
+T["When unchecked, the visual will remain shown and be restored."] = "Wenn deaktiviert, bleibt das Symbol sichtbar und wird wiederhergestellt."
 
 --firstInstall
 T["Angleur Warning"] = "Angleur Warnung"

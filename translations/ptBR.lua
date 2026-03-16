@@ -199,7 +199,10 @@ T["Master Volume(Ultra Focus)"] = "Volume Mestre (Ultra Foco)"
 T["Login Messages"] = "Mensagens de Login"
 T["Debug Mode"] = "Modo Debug"
 T["Defaults"] = "Padrão"
-
+T["Show/Hide visual with addon comp"] = "Mostrar/ocultar ícone pelo menu addon"
+T["When checked, right-clicking the addon compartment button to sleep/wake will also show/hide the visual."] = "Se marcado, clicar com o botão direito no botão do menu addon para Dormir/Acordar mostrará ou ocultará o ícone."
+T["Note:"] = "Nota:"
+T["When unchecked, the visual will remain shown and be restored."] = "Se desmarcado, o ícone permanecerá visível e será restaurado."
 
 --firstInstall
 T["Angleur Warning"] = "Aviso do Angleur"

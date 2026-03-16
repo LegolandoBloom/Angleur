@@ -9,6 +9,8 @@
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
+## AddonCompartmentFunc: onAddonCompartmentClick
+
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
 ## Category-esES: Profesiones

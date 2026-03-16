@@ -4,6 +4,64 @@ local colorWhite = CreateColor(1, 1, 1)
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 
 local minimapButtonCreated = false
+local compartmentTemporarilyHidVisual = false
+
+function Angleur_ApplyCompartmentVisualPreference()
+    if not Angleur or not Angleur.visual or AngleurConfig.visualHidden then
+        return
+    end
+
+    local hide = AngleurConfig.showCompartmentSleepStatusIcon and AngleurCharacter.sleeping
+
+    if hide then
+        Angleur.visual:Hide()
+    else
+        Angleur.visual:Show()
+        Angleur.visual:Raise()
+    end
+
+    AngleurConfig.compartmentVisualHidden = hide
+end
+
+function Angleur_ToggleSleep(updateVisual)
+    if InCombatLockdown() then
+        print(T["Can't change sleep state in combat."])
+        return
+    end
+
+    if UnitIsDeadOrGhost("player") then
+        print(T["Can't change sleep state while in ghost form."])
+        return
+    end
+
+    local awake = AngleurCharacter.sleeping
+
+    AngleurCharacter.sleeping = not AngleurCharacter.sleeping
+    Angleur_SetSleep()
+
+    if awake then
+        Angleur_EquipAngleurSet(true)
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
+    else
+        Angleur_UnequipAngleurSet()
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
+    end
+
+    if updateVisual then
+        Angleur_ApplyCompartmentVisualPreference()
+    end
+end
+
+function onAddonCompartmentClick(addonName, buttonName)
+    if buttonName == "RightButton" then
+        Angleur_ToggleSleep(true)
+    elseif Angleur.configPanel:IsShown() then
+        Angleur.configPanel:Hide()
+    else
+        Angleur.configPanel:Show()
+    end
+end
+
 function Angleur_InitMinimapButton()
     local mapData = LibStub("LibDataBroker-1.1"):NewDataObject("AngleurMap", {  
         type = "launcher",  
@@ -11,25 +69,8 @@ function Angleur_InitMinimapButton()
         icon = "Interface\\AddOns\\Angleur\\images\\angminimap.png",
         OnClick = function(self, b) 
             if b == "RightButton" then
-                if InCombatLockdown() then
-                    print(T["Can't change sleep state in combat."])
-                    return
-                end
-                if UnitIsDeadOrGhost("player") then
-                    print(T["Can't change sleep state while in ghost form."])
-                    return
-                end
-                if AngleurCharacter.sleeping == true then
-                    AngleurCharacter.sleeping = false
-                    Angleur_SetSleep()
-                    Angleur_EquipAngleurSet(true)
-                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
-                elseif AngleurCharacter.sleeping == false then
-                    AngleurCharacter.sleeping = true
-                    Angleur_SetSleep()
-                    Angleur_UnequipAngleurSet()
-                    print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
-                end
+                -- Minimap button keeps original behavior and does not apply compartment-only visual rules
+                Angleur_ToggleSleep(nil)
             elseif b == "LeftButton" then
                 Angleur.configPanel:Show()
             elseif b == "MiddleButton" then
@@ -60,8 +101,8 @@ function Angleur_InitMinimapButton()
     Angleur_SetMinimapSleep()
 end
 
-SLASH_ANGLEURMINIMAP1 = T["/angmini"]
-SlashCmdList["ANGLEURMINIMAP"] = function()
+    SLASH_ANGLEURMINIMAP1 = T["/angmini"]
+    SlashCmdList["ANGLEURMINIMAP"] = function()
     if minimapButtonCreated == false then 
         Angleur_InitMinimapButton()
         return
