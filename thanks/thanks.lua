@@ -23,6 +23,7 @@ local names = {
     {text = "Cathtail\n", smalltext = "@cathtail", r = 0.95, g = 0.43, b = 0.59},
     {text = "明天启程 ", r = 1, g = 0.2, b = 0.2, logo = "NGA"},
     {text = "RaemMoreay ", r = 0.54, g = 0.54, b = 0.95, logo = "kofi"},
+    {text = "Moloch ", r = 1.00, g = 0.96, b = 0.41, logo = "kofi"},
 }
 
 local function iterateAndAdd(parent, anchorFrame)
