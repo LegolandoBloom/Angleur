@@ -45,6 +45,10 @@ AngleurConfig = {
     voidFinderKey = nil,
 }
 
+AngleurAudio = {
+    
+}
+
 AngleurClassicConfig = {
     softInteract = {
         enabled = false,

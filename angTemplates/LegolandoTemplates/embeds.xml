@@ -11,5 +11,8 @@
     <Include file="Legolando_TempCVarHandlerTemplate\Legolando_TempCVarHandlerTemplate.xml"/>
 
     <Include file="Legolando_MouseScanAnim\Legolando_MouseScanAnim.xml"/>
+
+    <Include file="Legolando_SimpleSquareButtonTemplate\Legolando_SimpleSquareButtonTemplate.xml"/>
+    <Include file="Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml"/>
     
 </Ui>

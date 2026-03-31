@@ -13,14 +13,7 @@ local mistsStandardTab = ang.mists.standardTab
 local mistsToys = ang.mists.toys
 local retailToys = ang.retail.toys
 
-function Angleur_SetTab1(self)
-    local gameVersion = Angleur_CheckVersion()
-    if gameVersion == 1 then
-        retailStandardTab:ExtraButtons(self)
-    elseif gameVersion == 2 or gameVersion == 3 then
-        mistsStandardTab:ExtraButtons(self)
-    end
-
+local function setupAudio(self)
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
     self.ultraFocus.title:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 3, -3)
@@ -56,6 +49,22 @@ function Angleur_SetTab1(self)
     if AngleurConfig.ultraFocusAudioEnabled == true then
         self.ultraFocus.audio.checkbox:SetChecked(true)
     end
+
+    local audioConfig = CreateFrame("Button", "Angleur_UltraFocusAudio_CollapseConfig", self.ultraFocus.audio.checkbox, "Legolando_CollapseConfigTemplate_Angleur")
+    -- audioConfig:SetSize(52, 52)
+    audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
+end
+
+function Angleur_SetTab1(self)
+    local gameVersion = Angleur_CheckVersion()
+    if gameVersion == 1 then
+        retailStandardTab:ExtraButtons(self)
+    elseif gameVersion == 2 or gameVersion == 3 then
+        mistsStandardTab:ExtraButtons(self)
+    end
+
+    setupAudio(self)
+
 
     self.ultraFocus.autoLoot.text:SetText(T["Temp. Auto Loot "])
     self.ultraFocus.autoLoot.text:SetFontObject(SpellFont_Small)

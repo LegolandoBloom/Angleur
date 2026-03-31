@@ -90,7 +90,7 @@ function Angleur_LoadMidnight()
 
     local tabContents = Angleur_ConfigPanel_Tab1_Contents
     local patientEnable = CreateFrame("Frame", "Angleur_ConfigPanel_Tab1_Contents_PatientCheckbox", tabContents, "CheckboxFrameTemplate_Angleur")
-    patientEnable:SetPoint("TOPLEFT", tabContents.ultraFocus.audio.text, "TOPRIGHT", 0, 7)
+    patientEnable:SetPoint("TOPLEFT", tabContents.ultraFocus.audio.text, "TOPRIGHT", 25, 7)
     patientEnable.checkbox:ClearAllPoints()
     patientEnable.checkbox:SetPoint("TOPLEFT", patientEnable, "TOPLEFT")
     patientEnable.text:ClearAllPoints()
@@ -167,7 +167,7 @@ function Angleur_LoadMidnight()
     local newTexture1 = patientEnable:CreateTexture("Angleur_New1!", "ARTWORK")
     newTexture1:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
     newTexture1:SetSize(58, 29)
-    newTexture1:SetPoint("LEFT", patientEnable.text, "RIGHT")
+    newTexture1:SetPoint("TOPRIGHT", patientEnable.text, "BOTTOMRIGHT", 10, 5)
 
     local newTexture2 = patientEnable:CreateTexture("Angleur_New2!", "ARTWORK")
     newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
