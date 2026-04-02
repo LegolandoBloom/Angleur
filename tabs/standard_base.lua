@@ -13,6 +13,13 @@ local mistsStandardTab = ang.mists.standardTab
 local mistsToys = ang.mists.toys
 local retailToys = ang.retail.toys
 
+
+-- <Frame name= "$parent_UltraFocusMaster" parentKey="ultraFocusMaster" inherits="SliderAndEditControlTemplate">
+--     <Anchors>
+--         <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-230"/>
+--     </Anchors>
+-- </Frame>
+
 local function setupAudio(self)
     local audioConfig = CreateFrame("Button", "Angleur_UltraFocusAudio_CollapseConfig", self.ultraFocus.audio.checkbox, "Legolando_CollapseConfigTemplate_Angleur")
     -- audioConfig:SetSize(52, 52)

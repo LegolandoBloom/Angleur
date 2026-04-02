@@ -711,11 +711,6 @@
                                             </Frame>
                                         </Frames>
                                     </Frame>
-                                    <Frame name= "$parent_UltraFocusMaster" parentKey="ultraFocusMaster" inherits="SliderAndEditControlTemplate">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-230"/>
-                                        </Anchors>
-                                    </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-284"/>
