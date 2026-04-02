@@ -1,10 +1,10 @@
-Legolando_CollapseConfigMixin_Angleur = {}
+Legolando_CollapseConfigMixin_AngleurBobScan = {}
 
-function Legolando_CollapseConfigMixin_Angleur:Init()
+function Legolando_CollapseConfigMixin_AngleurBobScan:Init()
 
 end
 
-function Legolando_CollapseConfigMixin_Angleur:Update()
+function Legolando_CollapseConfigMixin_AngleurBobScan:Update()
     local teeburu = self.savedVarTable
     if not teeburu then
         print("checkbox parent doesn't have a saved variable table attached")

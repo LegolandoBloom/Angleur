@@ -14,6 +14,11 @@ local mistsToys = ang.mists.toys
 local retailToys = ang.retail.toys
 
 local function setupAudio(self)
+    local audioConfig = CreateFrame("Button", "Angleur_UltraFocusAudio_CollapseConfig", self.ultraFocus.audio.checkbox, "Legolando_CollapseConfigTemplate_Angleur")
+    -- audioConfig:SetSize(52, 52)
+    audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
+    audioConfig:Hide()
+
     self.ultraFocus.title:SetText(T["Ultra Focus:"])
     self.ultraFocus.title:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 3, -3)
@@ -37,22 +42,23 @@ local function setupAudio(self)
     self.ultraFocus.audio.checkbox:SetScript("OnClick", function(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true
+            audioConfig:Show()
             if AngleurCharacter.sleeping == false then
                 Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
             end
         elseif self:GetChecked() == false then
             AngleurConfig.ultraFocusAudioEnabled = false
+            audioConfig:Hide()
             Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_SFXVolume", "Sound_EnableAllSound", "Sound_MasterVolume")
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
         end
     end)
     if AngleurConfig.ultraFocusAudioEnabled == true then
         self.ultraFocus.audio.checkbox:SetChecked(true)
+        audioConfig:Show()
     end
 
-    local audioConfig = CreateFrame("Button", "Angleur_UltraFocusAudio_CollapseConfig", self.ultraFocus.audio.checkbox, "Legolando_CollapseConfigTemplate_Angleur")
-    -- audioConfig:SetSize(52, 52)
-    audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
+
 end
 
 function Angleur_SetTab1(self)

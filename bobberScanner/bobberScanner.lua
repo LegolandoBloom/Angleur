@@ -181,7 +181,7 @@ local function loadUserSettings()
     scannerArea:Adjust()
 end
 
-local collapseConfig = CreateFrame("Button", "AngleurBobberScanner_CollapseConfig", cameraFrame, "Legolando_CollapseConfigTemplate_Angleur")
+local collapseConfig = CreateFrame("Button", "AngleurBobberScanner_CollapseConfig", cameraFrame, "Legolando_CollapseConfigTemplate_AngleurBobScan")
 collapseConfig:SetPoint("LEFT", cameraFrame, "RIGHT", 3, 0)
 collapseConfig.tooltip = T["Open Config"]
 collapseConfig.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")

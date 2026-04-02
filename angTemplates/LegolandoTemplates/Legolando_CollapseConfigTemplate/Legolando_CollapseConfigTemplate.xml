@@ -173,7 +173,8 @@
                             <KeyValue key="spacing" value="0.1" type="number"/>
                         </KeyValues>
                     </Frame>
-                    <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>                   
+                    <!-- Options: SecureDialogBorderTemplate | SecureDialogBorderDarkTemplate | SecureDialogBorderOpaqueTemplate | SecureDialogBorderNoCenterTemplate -->
+                    <Frame parentKey="Border" inherits="SecureDialogBorderOpaqueTemplate"/>                   
                     <Button parentKey="$parent.CloseButton" inherits="UIPanelCloseButton">
                         <Anchors>
                             <Anchor point="TOPRIGHT" x="-2" y="-2"/>

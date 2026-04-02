@@ -5,7 +5,7 @@
 
     <Script file="Legolando_CollapseConfigTemplate.lua"/>
 
-    <Button name="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
+    <Button name="Legolando_CollapseConfig_SimpleSquareButtonTemplate_AngleurBobScan" virtual="true">
         <Size x="26" y="26"/>
         <Layers>
             <Layer level="ARTWORK" textureSubLevel="1">
@@ -55,7 +55,7 @@
         <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
     </Button>
 
-    <Button name="Legolando_CollapseConfigTemplate_Angleur" mixin="Legolando_CollapseConfigMixin_Angleur" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_Angleur" virtual="true">
+    <Button name="Legolando_CollapseConfigTemplate_AngleurBobScan" mixin="Legolando_CollapseConfigMixin_AngleurBobScan" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_AngleurBobScan" virtual="true">
         <KeyValues>
             <KeyValue key="savedVarTable" value="" type="table"/>
         </KeyValues>
