@@ -39,8 +39,6 @@ function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.poleSleep = true
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
-        Angleur_TinyOptions.ultraFocusMaster = 1
-        Angleur_TempCVars["Sound_MasterVolume"].setTo = Angleur_TinyOptions.ultraFocusMaster
         Angleur_TinyOptions.loginDisabled = false
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0
@@ -49,7 +47,6 @@ function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
         tab3_contents.poleSleep.checkbox:SetChecked(true)
         tab3_contents.doubleClickWindow:SetValue(4)
         tab3_contents.visualSize:SetValue(10)
-        tab3_contents.ultraFocusMaster:SetValue(100)
         tab3_contents.loginMessages.checkbox:SetChecked(true)
         tab3_contents.debugMode.checkbox:SetChecked(false)
         tab3_contents.debugMode.dropdown:Hide()

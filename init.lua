@@ -80,7 +80,6 @@ Angleur_TinyOptions = {
     allowDismount = false,
     doubleClickWindow = 0.4,
     visualScale = 1,
-    ultraFocusMaster = 1,
     loginDisabled = false,
     errorsDisabled = true,
     softIconOff = false,
