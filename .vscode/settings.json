@@ -139,7 +139,10 @@
         "Angleur_SetTab1",
         "ID",
         "SLASH_TARGET_MARKER1",
-        "SLASH_TARGET_MARKER3"
+        "SLASH_TARGET_MARKER3",
+        "ICON_SELECTION_CLICK",
+        "ICON_SELECTION_NOTINLIST",
+        "SEARCH_RESULTS_SHOW_COUNT"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

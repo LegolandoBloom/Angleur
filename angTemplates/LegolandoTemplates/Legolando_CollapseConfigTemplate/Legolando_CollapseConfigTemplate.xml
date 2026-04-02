@@ -147,6 +147,9 @@
                     self.popup:Show()
                 end
             </OnClick>
+            <OnHide>
+                self.popup:Hide()
+            </OnHide>
         </Scripts>
         <Frames>
             <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">

@@ -61,14 +61,6 @@ function Angleur_SetTab3(self)
         --DevTools_Dump({Angleur.visual:GetPoint(1)})
     end)
 
-    self.ultraFocusMaster.ValueBox:SetNumericFullRange()
-    self.ultraFocusMaster:SetupSlider(1, 100, Angleur_TinyOptions.ultraFocusMaster * 100, 1, colorYello:WrapTextInColorCode(T["Master Volume(Ultra Focus)"]))
-    self.ultraFocusMaster:SetCallback(function(value, isUserInput)
-        Angleur_TinyOptions.ultraFocusMaster = value/100
-        Angleur_TempCVars["Sound_MasterVolume"].setTo = Angleur_TinyOptions.ultraFocusMaster
-    end)
-
-
     self.loginMessages.text:SetText(T["Login Messages"])
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
     self.loginMessages.text.tooltip = T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."]
