@@ -847,3 +847,10 @@ T["Adjust Audio Levels"] = "Adjust Audio Levels"
 T["Defaults\n(Recommended)"] = "Defaults\n(Recommended)"
 
 T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: Default audio settings restored"
+T["Toggle Background Audio"] = "Toggle Background Audio"
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping." 
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "If enabled, "
+.. "Angleur will turn " .. colorGreen:WrapTextInColorCode("on ") .. colorYello:WrapTextInColorCode("\"Sound in the Background\" ") .. "when " .. colorGreen:WrapTextInColorCode("awake")
+..", and " .. colorRed:WrapTextInColorCode("restore ") .. "it to its previous value when " .. colorRed:WrapTextInColorCode("sleeping").. "."
+.. colorGrae:WrapTextInColorCode("\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon.")

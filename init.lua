@@ -46,7 +46,7 @@ AngleurConfig = {
 }
 
 AngleurAudio = {
-    
+    checkboxes = {}
 }
 
 AngleurClassicConfig = {
@@ -178,7 +178,12 @@ function Init_AngleurSavedVariables()
     if AngleurAudio.ultraFocusDialog == nil then
         AngleurAudio.ultraFocusDialog = 0
     end
-
+    if AngleurAudio.checkboxes == nil then
+        AngleurAudio.checkboxes = {}
+    end
+    if AngleurAudio.checkboxes.toggleBG == nil then
+        AngleurAudio.checkboxes.toggleBG = true
+    end
 
     if AngleurMinimapButton.hide == nil then
         AngleurMinimapButton.hide = false

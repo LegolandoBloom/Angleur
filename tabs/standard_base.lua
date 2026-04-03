@@ -31,7 +31,7 @@ local function setupAudio(self)
     audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
     audioConfig.icon:SetTexture("Interface/AddOns/Angleur/images/audiooptions.png")
     audioConfig.tooltip= T["Adjust Audio Levels"]
-    audioConfig.popup:SetSize(270, 292)
+    audioConfig.popup:SetSize(270, 345)
     audioConfig.popup.title:SetText(T["Ultra Focus: Audio Settings"])
     audioConfig:Hide()
 
@@ -85,6 +85,28 @@ local function setupAudio(self)
         Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
     end)
 
+
+    local audioCheckboxes = CreateFrame("Frame", "Angleur_UltraFocusAudio_Checkboxes", audioConfig.popup, "Legolando_CheckboxesTemplate_Angleur")
+    audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -255)
+    audioCheckboxes.savedVarTable = AngleurAudio.checkboxes
+
+    local backgroundToggle = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_ToggleBackground", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
+    backgroundToggle:SetPoint("TOPLEFT", audioCheckboxes, "TOPLEFT")
+    backgroundToggle.text:SetText(T["Toggle Background Audio"])
+    backgroundToggle.tooltip = T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping." 
+    .. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."]
+    backgroundToggle.reference = "toggleBG"
+    backgroundToggle.onClickCallback = function(self, checked) 
+        if checked == true then
+            if AngleurCharacter.sleeping == false and AngleurConfig.ultraFocusAudioEnabled == true then
+                Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
+            end
+        elseif checked == false then
+            Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")       
+        end
+    end
+    audioCheckboxes:Update()
+
     local defaults = CreateFrame("Button", "Angleur_UltraFocusAudio_Defaults", audioConfig.popup, "GameMenuButtonTemplate")
     defaults:SetSize(120, 42)
     defaults:SetPoint("BOTTOMRIGHT", audioConfig.popup, "BOTTOMRIGHT", -12, 10)
@@ -111,6 +133,12 @@ local function setupAudio(self)
         dialogSlider:SetValue(DEFAULT_DIALOG * 100)
         Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
 
+
+        backgroundToggle.checkbox:SetChecked(true)
+        AngleurAudio.checkboxes.toggleBG = true
+        if AngleurCharacter.sleeping == false and AngleurConfig.ultraFocusAudioEnabled == true then
+            Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
+        end
         print(T["Ultra Focus: Default audio settings restored"])
     end)
 
@@ -138,7 +166,7 @@ local function setupAudio(self)
         if self:GetChecked() then
             AngleurConfig.ultraFocusAudioEnabled = true
             audioConfig:Show()
-            if AngleurCharacter.sleeping == false then
+            if AngleurCharacter.sleeping == false and AngleurAudio.checkboxes.toggleBG == true then
                 Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
             end
         elseif self:GetChecked() == false then

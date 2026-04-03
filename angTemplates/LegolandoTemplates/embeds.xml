@@ -14,5 +14,7 @@
 
     <Include file="Legolando_SimpleSquareButtonTemplate\Legolando_SimpleSquareButtonTemplate.xml"/>
     <Include file="Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml"/>
+
+    <Include file="Legolando_CheckboxFrameTemplate\Legolando_CheckboxFrameTemplate.xml"/>
     
 </Ui>

@@ -709,7 +709,7 @@ function Angleur_SetSleep()
         Angleur.configPanel.tab2:DesaturateHierarchy(0)
         Angleur.configPanel.wakeUpButton:Hide()
         Angleur.configPanel.decoration:Show()
-        if AngleurConfig.ultraFocusAudioEnabled == true then
+        if AngleurConfig.ultraFocusAudioEnabled == true and AngleurAudio.checkboxes.toggleBG == true then
             Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
         end
         EventRegistry:TriggerEvent("Angleur_Wake")
