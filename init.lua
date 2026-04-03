@@ -166,18 +166,19 @@ function Init_AngleurSavedVariables()
     if AngleurAudio.ultraFocusMaster == nil then
         AngleurAudio.ultraFocusMaster = 1
     end
-    if AngleurAudio.ultraFocusSFX == nil then
-        AngleurAudio.ultraFocusSFX = 1
-    end
     if AngleurAudio.ultraFocusMusic == nil then
         AngleurAudio.ultraFocusMusic = 0
     end
-    if AngleurAudio.ultraFocusDialog == nil then
-        AngleurAudio.ultraFocusDialog = 0
+    if AngleurAudio.ultraFocusSFX == nil then
+        AngleurAudio.ultraFocusSFX = 1
     end
     if AngleurAudio.ultraFocusAmbience == nil then
         AngleurAudio.ultraFocusAmbience = 0
     end
+    if AngleurAudio.ultraFocusDialog == nil then
+        AngleurAudio.ultraFocusDialog = 0
+    end
+
 
     if AngleurMinimapButton.hide == nil then
         AngleurMinimapButton.hide = false
@@ -601,17 +602,17 @@ Angleur_TempCVars = {
     Sound_MasterVolume = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusMaster, updating = false,
     },
-    Sound_SFXVolume = {
-        active = false, cached = nil, setTo = AngleurAudio.ultraFocusSFX, updating = false,
-    },
     Sound_MusicVolume = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusMusic, updating = false,
     },
-    Sound_DialogVolume = {
-        active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
+    Sound_SFXVolume = {
+        active = false, cached = nil, setTo = AngleurAudio.ultraFocusSFX, updating = false,
     },
     Sound_AmbienceVolume = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusAmbience, updating = false,
+    },
+    Sound_DialogVolume = {
+        active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
     },
 }
 
@@ -622,10 +623,10 @@ Angleur_TempCVarHandler:Init()
 local function cvars_load()
     -- Need to re-assign here because when table is first created Saved Vars haven't loaded yet
     Angleur_TempCVars["Sound_MasterVolume"].setTo =  AngleurAudio.ultraFocusMaster
-    Angleur_TempCVars["Sound_SFXVolume"].setTo =  AngleurAudio.ultraFocusSFX
     Angleur_TempCVars["Sound_MusicVolume"].setTo =  AngleurAudio.ultraFocusMusic
-    Angleur_TempCVars["Sound_DialogVolume"].setTo =  AngleurAudio.ultraFocusDialog
+    Angleur_TempCVars["Sound_SFXVolume"].setTo =  AngleurAudio.ultraFocusSFX
     Angleur_TempCVars["Sound_AmbienceVolume"].setTo =  AngleurAudio.ultraFocusAmbience
+    Angleur_TempCVars["Sound_DialogVolume"].setTo =  AngleurAudio.ultraFocusDialog
 
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then

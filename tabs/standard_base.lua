@@ -45,8 +45,18 @@ local function setupAudio(self)
         Angleur_TempCVars["Sound_MasterVolume"].setTo = AngleurAudio.ultraFocusMaster
     end)
 
+    local musicSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_MusicSlider", audioConfig.popup, "SliderAndEditControlTemplate")
+    musicSlider:SetScale(0.9)
+    musicSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -97)
+    musicSlider.ValueBox:SetNumericFullRange()
+    musicSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusMusic * 100, 1, colorYello:WrapTextInColorCode(T["Music Volume"]))
+    musicSlider:SetCallback(function(value, isUserInput)
+        AngleurAudio.ultraFocusMusic = value/100
+        Angleur_TempCVars["Sound_MusicVolume"].setTo = AngleurAudio.ultraFocusMusic
+    end)
+
     local sfxSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_SFXSlider", audioConfig.popup, "SliderAndEditControlTemplate")
-    sfxSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -97)
+    sfxSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -138)
     sfxSlider:SetScale(0.9)
     sfxSlider.ValueBox:SetNumericFullRange()
     sfxSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusSFX * 100, 1, colorYello:WrapTextInColorCode(T["Effects Volume"]))
@@ -55,29 +65,9 @@ local function setupAudio(self)
         Angleur_TempCVars["Sound_SFXVolume"].setTo = AngleurAudio.ultraFocusSFX
     end)
 
-    local musicSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_MusicSlider", audioConfig.popup, "SliderAndEditControlTemplate")
-    musicSlider:SetScale(0.9)
-    musicSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -138)
-    musicSlider.ValueBox:SetNumericFullRange()
-    musicSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusMusic * 100, 1, colorYello:WrapTextInColorCode(T["Music Volume"]))
-    musicSlider:SetCallback(function(value, isUserInput)
-        AngleurAudio.ultraFocusMusic = value/100
-        Angleur_TempCVars["Sound_MusicVolume"].setTo = AngleurAudio.ultraFocusMusic
-    end)
-
-    local dialogSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_DialogSlider", audioConfig.popup, "SliderAndEditControlTemplate")
-    dialogSlider:SetScale(0.9)
-    dialogSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -179)
-    dialogSlider.ValueBox:SetNumericFullRange()
-    dialogSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusDialog * 100, 1, colorYello:WrapTextInColorCode(T["Dialog Volume"]))
-    dialogSlider:SetCallback(function(value, isUserInput)
-        AngleurAudio.ultraFocusDialog = value/100
-        Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
-    end)
-
     local ambienceSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_AmbienceSlider", audioConfig.popup, "SliderAndEditControlTemplate")
     ambienceSlider:SetScale(0.9)
-    ambienceSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -220)
+    ambienceSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -179)
     ambienceSlider.ValueBox:SetNumericFullRange()
     ambienceSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusAmbience * 100, 1, colorYello:WrapTextInColorCode(T["Ambience Volume"]))
     ambienceSlider:SetCallback(function(value, isUserInput)
@@ -85,33 +75,41 @@ local function setupAudio(self)
         Angleur_TempCVars["Sound_AmbienceVolume"].setTo = AngleurAudio.ultraFocusAmbience
     end)
 
+    local dialogSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_DialogSlider", audioConfig.popup, "SliderAndEditControlTemplate")
+    dialogSlider:SetScale(0.9)
+    dialogSlider:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 34, -220)
+    dialogSlider.ValueBox:SetNumericFullRange()
+    dialogSlider:SetupSlider(0, 100, AngleurAudio.ultraFocusDialog * 100, 1, colorYello:WrapTextInColorCode(T["Dialog Volume"]))
+    dialogSlider:SetCallback(function(value, isUserInput)
+        AngleurAudio.ultraFocusDialog = value/100
+        Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
+    end)
+
     local defaults = CreateFrame("Button", "Angleur_UltraFocusAudio_Defaults", audioConfig.popup, "GameMenuButtonTemplate")
     defaults:SetSize(120, 42)
     defaults:SetPoint("BOTTOMRIGHT", audioConfig.popup, "BOTTOMRIGHT", -12, 10)
-    -- local defaultsText = defaults:CreateFontString(nil, "ARTWORK", "Game12Font_o1")
     defaults.Text:SetFontObject("Game12Font_o1")
-    -- defaults.Text:SetScale(0.8)
     defaults.Text:SetText(colorYello:WrapTextInColorCode(T["Defaults\n(Recommended)"]))
     defaults:SetScript("OnClick", function()
         AngleurAudio.ultraFocusMaster = DEFAULT_MASTER
         masterSlider:SetValue(DEFAULT_MASTER * 100)
         Angleur_TempCVars["Sound_MasterVolume"].setTo = AngleurAudio.ultraFocusMaster
 
-        AngleurAudio.ultraFocusSFX = DEFAULT_SFX
-        sfxSlider:SetValue(DEFAULT_SFX * 100)
-        Angleur_TempCVars["Sound_SFXVolume"].setTo = AngleurAudio.ultraFocusSFX
-
         AngleurAudio.ultraFocusMusic = DEFAULT_MUSIC
         musicSlider:SetValue(DEFAULT_MUSIC * 100)
         Angleur_TempCVars["Sound_MusicVolume"].setTo = AngleurAudio.ultraFocusMusic
 
-        AngleurAudio.ultraFocusDialog = DEFAULT_DIALOG
-        dialogSlider:SetValue(DEFAULT_DIALOG * 100)
-        Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
+        AngleurAudio.ultraFocusSFX = DEFAULT_SFX
+        sfxSlider:SetValue(DEFAULT_SFX * 100)
+        Angleur_TempCVars["Sound_SFXVolume"].setTo = AngleurAudio.ultraFocusSFX
 
         AngleurAudio.ultraFocusAmbience = DEFAULT_AMBIENCE
         ambienceSlider:SetValue(DEFAULT_AMBIENCE * 100)
         Angleur_TempCVars["Sound_AmbienceVolume"].setTo = AngleurAudio.ultraFocusAmbience
+
+        AngleurAudio.ultraFocusDialog = DEFAULT_DIALOG
+        dialogSlider:SetValue(DEFAULT_DIALOG * 100)
+        Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
 
         print(T["Ultra Focus: Default audio settings restored"])
     end)
