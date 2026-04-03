@@ -844,3 +844,6 @@ T["Music Volume"] = "Music Volume"
 T["Dialog Volume"] = "Dialog Volume"
 T["Ambience Volume"] = "Ambience Volume"
 T["Adjust Audio Levels"] = "Adjust Audio Levels"
+T["Defaults\n(Recommended)"] = "Defaults\n(Recommended)"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: Default audio settings restored"
