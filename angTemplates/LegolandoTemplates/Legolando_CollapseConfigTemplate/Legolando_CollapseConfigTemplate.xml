@@ -181,7 +181,7 @@
       </Layers>
     </Frame>
 
-    <Frame name="Legolando_PortedSecureDialogBorderTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate" virtual="true">
+    <Frame name="Legolando_PortedSecureDialogBorderTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
       <Layers>
         <Layer level="BACKGROUND" textureSubLevel="-5">
           <!-- TODO: Convert this to atlas -->
@@ -195,7 +195,7 @@
       </Layers>
     </Frame>
  
-    <Frame name="Legolando_PortedSecureDialogBorderDarkTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate" virtual="true">
+    <Frame name="Legolando_PortedSecureDialogBorderDarkTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
       <Layers>
         <Layer level="BACKGROUND" textureSubLevel="-5">
           <!-- TODO: Convert this to atlas -->
@@ -209,7 +209,7 @@
       </Layers>
     </Frame>
  
-    <Frame name="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate" virtual="true">
+    <Frame name="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur" inherits="Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur" virtual="true">
       <Layers>
         <Layer level="BACKGROUND" textureSubLevel="-5">
           <Texture parentKey="Bg">
