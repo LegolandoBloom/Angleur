@@ -3,7 +3,7 @@
 
     <Script file="Legolando_CheckboxTemplate.lua"/>
 
-    <CheckButton name="Legolando_CheckboxTemplate_Angleur" mixin="Legolando_CheckboxMixin_Angleur" virtual="true">
+    <CheckButton name="Legolando_CheckboxTemplate_AngleurBobScan" mixin="Legolando_CheckboxMixin_AngleurBobScan" virtual="true">
 		<Size x="24" y="24"/>
 		<HitRectInsets>
 			<AbsInset left="0" right="0" top="0" bottom="8"/>

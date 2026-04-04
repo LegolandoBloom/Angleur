@@ -1,6 +1,6 @@
-Legolando_CheckboxMixin_Angleur = {};
+Legolando_CheckboxMixin_AngleurBobScan = {};
 
-function Legolando_CheckboxMixin_Angleur:greyOut()
+function Legolando_CheckboxMixin_AngleurBobScan:greyOut()
     self:SetChecked(false)
     self:Disable()
     self.text:SetTextColor(0.9, 0.9, 0.9)
@@ -10,7 +10,7 @@ function Legolando_CheckboxMixin_Angleur:greyOut()
     end
 end
 
-function Legolando_CheckboxMixin_Angleur:reposition()
+function Legolando_CheckboxMixin_AngleurBobScan:reposition()
     local width, height = self.text:GetSize()
     self.text:ClearAllPoints()
     self.text:SetPoint("RIGHT", self, "LEFT")
@@ -19,7 +19,7 @@ function Legolando_CheckboxMixin_Angleur:reposition()
     self:AdjustPointsOffset(width, 0)
 end
 
-function Legolando_CheckboxMixin_Angleur:OnClick()
+function Legolando_CheckboxMixin_AngleurBobScan:OnClick()
     local grandParent = self:GetParent():GetParent()
     local teeburu = grandParent.savedVarTable
     if not self.reference then 
