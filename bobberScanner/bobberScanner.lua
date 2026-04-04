@@ -34,6 +34,9 @@ local function bScanner_SavedVariables()
     if AngleurBobberScannerUI == nil then
         AngleurBobberScannerUI = {}
     end
+    if AngleurBobberScannerUI.tempMaxZoom == nil then
+        AngleurBobberScannerUI.tempMaxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    end
     if AngleurBobberScannerUI.method == nil then
         AngleurBobberScannerUI.method = 1
     end
@@ -375,6 +378,7 @@ function cameraFrame:stopAll()
     MoveViewDownStop()
     MoveViewUpStop()
     MoveViewOutStop()
+    Angleur_TempCVarHandler:Release("cameraDistanceMaxZoomFactor")
     active = false
     setupZoom = nil
     self:SetScript("OnUpdate", nil)
@@ -447,6 +451,9 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         self:stopAll()
         Angleur_BetaPrint(debugChannel, "Camera Frame: Timed out")
     end)
+    if AngleurBobberScannerUI.tempMaxZoom ~= GetCVar("cameraDistanceMaxZoomFactor") then
+        Angleur_TempCVarHandler:Set("cameraDistanceMaxZoomFactor")
+    end
     MoveViewOutStart(16)
     Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
         MoveViewOutStop()

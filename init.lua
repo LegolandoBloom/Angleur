@@ -619,6 +619,11 @@ Angleur_TempCVars = {
     Sound_DialogVolume = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
     },
+
+    -- Bobber Scanner
+    cameraDistanceMaxZoomFactor = {
+        active = false, cached = nil, setTo = AngleurBobberScannerUI.tempMaxZoom, updating = false,
+    },
 }
 
 
@@ -632,6 +637,8 @@ local function cvars_load()
     Angleur_TempCVars["Sound_SFXVolume"].setTo =  AngleurAudio.ultraFocusSFX
     Angleur_TempCVars["Sound_AmbienceVolume"].setTo =  AngleurAudio.ultraFocusAmbience
     Angleur_TempCVars["Sound_DialogVolume"].setTo =  AngleurAudio.ultraFocusDialog
+    
+    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom
 
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
