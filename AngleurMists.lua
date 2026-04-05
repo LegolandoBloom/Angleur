@@ -520,7 +520,7 @@ function Angleur_ActionHandler(self)
     --______________________________________________________________________________________________________________________________________
     --              Interaction of Raft & Swimming - A bit more complex logic structure, hence the grouping together 
     --______________________________________________________________________________________________________________________________________
-    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded and C_ToyBox.IsToyUsable(angleurToys.selectedRaftTable.toyID)
+    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded and C_PlayerInfo.CanUseItem(angleurToys.selectedRaftTable.toyID)
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining 
     if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
         local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
