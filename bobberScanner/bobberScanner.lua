@@ -27,6 +27,8 @@ local ZFACTOR_STR = 1.3
 local UI_WIDTH_MAX = 1318
 local UI_HEIGHT_MAX = 768
 
+local TEMP_MAXZOOM = nil
+
 local active = false
 
 
@@ -180,6 +182,8 @@ local function loadUserSettings()
     if AngleurBobberScannerUI.startDelay then
         WAIT_TIME = AngleurBobberScannerUI.startDelay
     end
+
+    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom    
     
     scannerArea:Adjust()
 end
@@ -198,6 +202,7 @@ end)
 collapseConfig.popup.defaults.text:SetText(T["Reset to Defaults"])
 collapseConfig.popup.defaults:SetScript("OnClick", function()
     AngleurBobberScanner_CheckMethod(1)
+    collapseConfig.popup.maxZoom:SetValue(2)
     collapseConfig.popup.scanWidth:SetValue(25)
     collapseConfig.popup.scanSpeed:SetValue(4)
     collapseConfig.popup.startDelay:SetValue(1)
@@ -266,6 +271,12 @@ for i=1,4,1 do
         GameTooltip:Hide()
     end)
 end
+
+collapseConfig.popup.scanWidth.ValueBox:SetNumericFullRange()
+collapseConfig.popup.scanWidth:SetCallback(function(value, isUserInput)
+    AngleurBobberScannerUI.scanWidth = value/100
+    loadUserSettings()
+end)
 
 collapseConfig.popup.scanWidth.ValueBox:SetNumericFullRange()
 collapseConfig.popup.scanWidth:SetCallback(function(value, isUserInput)
@@ -451,9 +462,6 @@ function cameraFrame:setup(lines, verticalTime, horizontalTime, moveLeft, zoomFa
         self:stopAll()
         Angleur_BetaPrint(debugChannel, "Camera Frame: Timed out")
     end)
-    if AngleurBobberScannerUI.tempMaxZoom ~= GetCVar("cameraDistanceMaxZoomFactor") then
-        Angleur_TempCVarHandler:Set("cameraDistanceMaxZoomFactor")
-    end
     MoveViewOutStart(16)
     Angleur_SingleDelayer(WAIT_TIME, 0, WAIT_TIME, cameraFrame, nil, function()
         MoveViewOutStop()
@@ -518,6 +526,9 @@ function Angleur_BobberScanner()
     MoveViewDownStart(0)
     MoveViewOutStart(0)
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    if maxZoom ~= AngleurBobberScannerUI.tempMaxZoom then
+        Angleur_TempCVarHandler:Set("cameraDistanceMaxZoomFactor")
+    end
     -- The factor that determines how strong zoom's effect is
     local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
     local zoomFactor_vOffset = zoomFactor
