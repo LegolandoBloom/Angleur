@@ -418,6 +418,12 @@ function Angleur_ActionHandler(self)
     --              Interaction of Raft & Swimming - A bit more complex logic structure, hence the grouping together 
     --______________________________________________________________________________________________________________________________________
     -- Why does C_ToyBox.IsToyUsable() cause bug??
+    -- These will sometimes return false after combat even when they are usable
+    -- /dump C_PlayerInfo.CanUseItem(85500)
+    -- /dump C_ToyBox.IsToyUsable(85500)
+    -- The spell approach seems to work
+    -- /dump C_Item.GetItemSpell(85500)
+    -- /dump C_Spell.IsSpellUsable(124036)
     local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded and C_PlayerInfo.CanUseItem(angleurToys.selectedRaftTable.toyID)
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining
     if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then

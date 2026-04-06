@@ -39,6 +39,8 @@ local function bScanner_SavedVariables()
     if AngleurBobberScannerUI.tempMaxZoom == nil then
         AngleurBobberScannerUI.tempMaxZoom = GetCVar("cameraDistanceMaxZoomFactor")
     end
+    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom
+
     if AngleurBobberScannerUI.method == nil then
         AngleurBobberScannerUI.method = 1
     end
