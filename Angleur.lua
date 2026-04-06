@@ -421,10 +421,11 @@ function Angleur_ActionHandler(self)
     -- These will sometimes return false after combat even when they are usable
     -- /dump C_PlayerInfo.CanUseItem(85500)
     -- /dump C_ToyBox.IsToyUsable(85500)
-    -- The spell approach seems to work
+    -- The spell approach always returns true regardless of item usability requirements
     -- /dump C_Item.GetItemSpell(85500)
     -- /dump C_Spell.IsSpellUsable(124036)
-    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded and C_PlayerInfo.CanUseItem(angleurToys.selectedRaftTable.toyID)
+    -- TLDR: Don't do the usability check, the old approach works well enough :P
+    local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining
     if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
         local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
@@ -458,7 +459,7 @@ function Angleur_ActionHandler(self)
 
     -- Why does C_ToyBox.IsToyUsable() cause bug??
     local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-    local oversizedReady = angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and C_PlayerInfo.CanUseItem(angleurToys.selectedOversizedBobberTable.toyID) and not oversizedBobbered and cooldownOversized == 0
+    local oversizedReady = angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0
     if oversizedReady then
         action =  "oversized"
         performAction(self, assignKey, action)
@@ -474,7 +475,7 @@ function Angleur_ActionHandler(self)
     end
     -- Why does C_ToyBox.IsToyUsable() cause bug??
     local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
-    local crateReady = (AngleurConfig.crateEnabled and not crateBobbered) and (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0) and angleurToys.selectedCrateBobberTable.loaded and C_PlayerInfo.CanUseItem(angleurToys.selectedCrateBobberTable.toyID)
+    local crateReady = (AngleurConfig.crateEnabled and not crateBobbered) and (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0) and angleurToys.selectedCrateBobberTable.loaded
     if crateReady then
         action =  "crate"
         performAction(self, assignKey, action)
