@@ -88,24 +88,24 @@
                 </Layers>
                 <Frames>
                     <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
-                    <Frame name= "$parent_MaxZoom" parentKey="maxZoom" inherits="SliderAndEditControlTemplate">
+                    <Frame name= "$parent_TempMaxZoom" parentKey="tempMaxZoom" inherits="SliderAndEditControlTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
                         </Anchors>
                     </Frame>
                     <Frame name= "$parent_ScanWidth" parentKey="scanWidth" inherits="SliderAndEditControlTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-80"/>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-60"/>
                         </Anchors>
                     </Frame>
                     <Frame name= "$parent_ScanSpeed" parentKey="scanSpeed" inherits="SliderAndEditControlTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-140"/>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-100"/>
                         </Anchors>
                     </Frame>
                     <Frame name= "$parent_StartDelay" parentKey="startDelay" inherits="SliderAndEditControlTemplate">
                         <Anchors>
-                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-200"/>
+                            <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-140"/>
                         </Anchors>
                         <Layers>
                             <Layer level="ARTWORK">

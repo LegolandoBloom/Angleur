@@ -620,10 +620,9 @@ Angleur_TempCVars = {
         active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
     },
 
-    -- Bobber Scanner 
-    -- dont include setTo here, we will set it up in bobberscanner.lua
+    -- !!  INITIALIZED in bobberscanner.lua  !!
     -- cameraDistanceMaxZoomFactor = {
-    --     active = false, cached = nil, updating = false,
+    --     active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
     -- },
 }
 

@@ -36,10 +36,14 @@ local function bScanner_SavedVariables()
     if AngleurBobberScannerUI == nil then
         AngleurBobberScannerUI = {}
     end
+
+    -- Initialize with user's max zoom so we don't mess with zoom unless they specifically want it
     if AngleurBobberScannerUI.tempMaxZoom == nil then
         AngleurBobberScannerUI.tempMaxZoom = GetCVar("cameraDistanceMaxZoomFactor")
     end
-    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom
+    Angleur_TempCVars.cameraDistanceMaxZoomFactor = {
+        active = false, cached = nil, setTo = AngleurBobberScannerUI.tempMaxZoom, updating = false,
+    }
 
     if AngleurBobberScannerUI.method == nil then
         AngleurBobberScannerUI.method = 1
@@ -138,7 +142,8 @@ scannerArea:Hide()
 local CONVERSION_FACTOR = 0.8
 local OFFSET_CONVERSION_FACTOR = 1/3
 function scannerArea:Adjust()
-    local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    -- local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+    local maxZoom = AngleurBobberScannerUI.tempMaxZoom
     -- The factor that determines how strong zoom's effect is
     local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
     local zoomFactor_vOffset = zoomFactor
@@ -185,7 +190,7 @@ local function loadUserSettings()
         WAIT_TIME = AngleurBobberScannerUI.startDelay
     end
 
-    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom    
+    Angleur_TempCVars["cameraDistanceMaxZoomFactor"].setTo =  AngleurBobberScannerUI.tempMaxZoom
     
     scannerArea:Adjust()
 end
@@ -204,11 +209,10 @@ end)
 collapseConfig.popup.defaults.text:SetText(T["Reset to Defaults"])
 collapseConfig.popup.defaults:SetScript("OnClick", function()
     AngleurBobberScanner_CheckMethod(1)
-    collapseConfig.popup.maxZoom:SetValue(2)
+    collapseConfig.popup.tempMaxZoom:SetValue(2)
     collapseConfig.popup.scanWidth:SetValue(25)
     collapseConfig.popup.scanSpeed:SetValue(4)
     collapseConfig.popup.startDelay:SetValue(1)
-
 end)
 
 local function config_updateMethod(id)
@@ -274,9 +278,10 @@ for i=1,4,1 do
     end)
 end
 
-collapseConfig.popup.scanWidth.ValueBox:SetNumericFullRange()
-collapseConfig.popup.scanWidth:SetCallback(function(value, isUserInput)
-    AngleurBobberScannerUI.scanWidth = value/100
+collapseConfig.popup.tempMaxZoom.ValueBox:SetNumeric(false)
+collapseConfig.popup.tempMaxZoom:SetCallback(function(value, isUserInput)
+    local formatted = string.format("%.1f", value)
+    AngleurBobberScannerUI.tempMaxZoom = tonumber(formatted)
     loadUserSettings()
 end)
 
@@ -293,8 +298,8 @@ collapseConfig.popup.scanSpeed:SetCallback(function(value, isUserInput)
 end)
 
 
-collapseConfig.popup.startDelay.ValueBox:SetNumeric(false)
 collapseConfig.popup.startDelay.unitText:SetText("sec")
+collapseConfig.popup.startDelay.ValueBox:SetNumeric(false)
 collapseConfig.popup.startDelay:SetCallback(function(value, isUserInput)
     local formatted = string.format("%.1f", value)
     AngleurBobberScannerUI.startDelay = tonumber(formatted)
@@ -325,10 +330,25 @@ end)
 --_______________________________________________________________________
 EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ownerID, ...)
     --________________________
-    scannerArea:Adjust()
     bScanner_SavedVariables()
+    scannerArea:Adjust()
     collapseConfig.popup[AngleurBobberScannerUI.method]:SetChecked(true)
     AngleurBobberScanner_CheckMethod(AngleurBobberScannerUI.method)
+    collapseConfig.popup.tempMaxZoom:SetupSlider(1, 4, AngleurBobberScannerUI.tempMaxZoom, 0.1, T["Zoom Out To"])
+    collapseConfig.popup.tempMaxZoom.Slider:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", -177, 0)
+        GameTooltip:AddLine(T["Zoom Out To"])
+        GameTooltip:AddLine(T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"])
+        GameTooltip:AddLine(T["Recommended Value: 2\n"])
+        GameTooltip:AddLine(T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."])
+        GameTooltip:Show()
+    end)
+    collapseConfig.popup.tempMaxZoom:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+    
+
+
     collapseConfig.popup.scanWidth:SetupSlider(5, 100, AngleurBobberScannerUI.scanWidth * 100, 5, T["Scan Width"])
     collapseConfig.popup.scanSpeed:SetupSlider(1, 10, AngleurBobberScannerUI.scanSpeed * 10, 1, T["Scan Speed"])
     collapseConfig.popup.startDelay:SetupSlider(0.1, 5, AngleurBobberScannerUI.startDelay, 0.1, T["Start Delay"])
@@ -496,7 +516,7 @@ function Angleur_BobberScanner_HandleGamepad(cursorMode, toPrint)
         text:SetText(T["GAMEPAD MODE: After casting \'fishing\', move the cursor that appears into the box below to use."])
         textSet = true
     end
-    if cursorMode then 
+    if cursorMode then
         Angleur_SetCursorForGamePad(true)
     end
     if toPrint then 
@@ -522,14 +542,10 @@ function Angleur_BobberScanner()
         print("Error: Bobber Scanner called on unregistered game version")
         return
     end
-    MoveViewRightStart(0)
-    MoveViewUpStart(0)
-    MoveViewLeftStart(0)
-    MoveViewDownStart(0)
-    MoveViewOutStart(0)
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
     if maxZoom ~= AngleurBobberScannerUI.tempMaxZoom then
         Angleur_TempCVarHandler:Set("cameraDistanceMaxZoomFactor")
+        maxZoom = AngleurBobberScannerUI.tempMaxZoom
     end
     -- The factor that determines how strong zoom's effect is
     local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
@@ -542,6 +558,11 @@ function Angleur_BobberScanner()
     local lines = V_LINES * V_DIST_MULTIPLIER
     active = true
     setupZoom = nil
+    MoveViewRightStart(0)
+    MoveViewUpStart(0)
+    MoveViewLeftStart(0)
+    MoveViewDownStart(0)
+    MoveViewOutStart(0)
     Angleur_SetCursorForGamePad(true)
     cameraFrame:setup(lines, vTime, hTime, false, zoomFactor_vOffset)
     scannerArea:Adjust()
