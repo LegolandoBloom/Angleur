@@ -543,9 +543,12 @@ function Angleur_BobberScanner()
         return
     end
     local maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
-    if maxZoom ~= AngleurBobberScannerUI.tempMaxZoom then
+    if maxZoom ~= tostring(AngleurBobberScannerUI.tempMaxZoom) then
         Angleur_TempCVarHandler:Set("cameraDistanceMaxZoomFactor")
-        maxZoom = AngleurBobberScannerUI.tempMaxZoom
+        maxZoom = GetCVar("cameraDistanceMaxZoomFactor")
+        Angleur_BetaPrint(debugChannel, "Temp Max Zoom Set to:", maxZoom)
+    else
+        Angleur_BetaPrint(debugChannel, "User Zoom value same as temp, not changing.", maxZoom)
     end
     -- The factor that determines how strong zoom's effect is
     local zoomFactor = (maxZoom + ZFACTOR_STR) / (ZFACTOR_STR + 1)
