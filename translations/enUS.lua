@@ -855,7 +855,7 @@ T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and 
 ..", and " .. colorRed:WrapTextInColorCode("restore ") .. "it to its previous value when " .. colorRed:WrapTextInColorCode("sleeping").. "."
 .. colorGrae:WrapTextInColorCode("\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon.")
 
-T["Zoom Out To"] = colorYello:WrapTextInColorCode("Zoom Out To")
+T["Zoom Out To"] = colorPurple:WrapTextInColorCode("! NEW ! ") .. colorYello:WrapTextInColorCode("Zoom Out To")
 T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode("How far out the camera will ") .. "zoom out " .. colorWhite:WrapTextInColorCode("before starting the scan. Higher value => farther.\n")
 T["Recommended Value: 2\n"] = colorGrae:WrapTextInColorCode("Recommended Value: 2\n")
 T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("If there is an object BEHIND your character that forces your camera angle to change, try setting it to a ") 
