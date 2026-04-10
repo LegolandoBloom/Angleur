@@ -17,7 +17,7 @@ ang.loadedPlugins.niche = false
 ang.otherAddons = {}
 ang.otherAddons.opie = false
 ang.otherAddons.plater = false
-ang.otherAddons.toyboxE = false
+ang.otherAddons.toyboxEnhanced = false
 
 angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
     frame:ClearAllPoints()
@@ -684,7 +684,11 @@ function Angleur_EventLoader(self, event, unit, ...)
         -- Check if clashing addons have loaded
         ang.otherAddons.opie = C_AddOns.IsAddOnLoaded("OPie")
         ang.otherAddons.plater = C_AddOns.IsAddOnLoaded("Plater")
-        ang.otherAddons.toyboxE = C_AddOns.IsAddOnLoaded("ToyBoxEnhanced")
+        ang.otherAddons.toyboxEnhanced = C_AddOns.IsAddOnLoaded("ToyBoxEnhanced")
+        Angleur_BetaPrint(0, colorBlu:WrapTextInColorCode("Angleur_Init: ") .. ": Clashing Addon Load Status:")
+        Angleur_BetaPrint(0, colorGreen:WrapTextInColorCode("OPie: "), ang.otherAddons.opie)
+        Angleur_BetaPrint(0, colorGreen:WrapTextInColorCode("Plater: "), ang.otherAddons.plater)
+        Angleur_BetaPrint(0, colorGreen:WrapTextInColorCode("ToyBoxEnhanced: "), ang.otherAddons.toyboxEnhanced)
 
         --__________________________________________________________________________
         -- Can't set Tab 2 on "ADDON_LOADED" because we need data from NicheOptions

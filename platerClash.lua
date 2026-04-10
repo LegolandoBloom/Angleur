@@ -6,6 +6,8 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 local colorGreen = CreateColor(0, 1, 0)
 local colorRed = CreateColor(1, 0, 0)
 
+local addonName, ang = ...
+
 local firstCast = false
 function Angleur_FixPlater()
     if firstCast then return end
@@ -21,7 +23,7 @@ function Angleur_FixPlater()
         --                                     Also tell the player about the Plater interaction
         --__________________________________________________________________________________________________________________________________
         if not Angleur_TinyOptions.loginDisabled then
-            if C_AddOns.IsAddOnLoaded("Plater") then
+            if ang.otherAddons.plater then
                 print("----------------------------------------------------------------------------------------------------------------------------------")
                 print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."])
                 print(T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") 

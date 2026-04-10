@@ -169,7 +169,7 @@ function Angleur_ToyBoxOverlay_Activate(self, overlay)
     end
     CollectionsJournal_SetTab(CollectionsJournal, 3)
 
-    if C_AddOns.IsAddOnLoaded("ToyBoxEnhanced") then
+    if ang.otherAddons.toyboxEnhanced then
         if not ToyBox.EnhancedLayer then return end
         ToyBox.EnhancedLayer:Hide()
     end
@@ -183,7 +183,7 @@ function Angleur_ToyBoxOverlay_Activate(self, overlay)
     if angleurToys.toyBoxCloseHookSet == false then
         ToyBox:HookScript("OnHide", function()
             Angleur.toyBoxOverlay:Hide()
-            if C_AddOns.IsAddOnLoaded("ToyBoxEnhanced") then
+            if ang.otherAddons.toyboxEnhanced then
                 if not ToyBox.EnhancedLayer then return end
                 if ToyBox.EnhancedLayer:IsShown() then return end
                 ToyBox.EnhancedLayer:Show()

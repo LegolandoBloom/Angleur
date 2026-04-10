@@ -6,6 +6,8 @@ local colorGreen = CreateColor(0, 1, 0)
 local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 
+local addonName, ang = ...
+
 AngleurTutorial = {
     part = 1
 }
@@ -41,7 +43,7 @@ AngleurTutorial = {
 ]]--
 
 local function platerWarning()
-    if C_AddOns.IsAddOnLoaded("Plater") then
+    if ang.otherAddons.plater then
         print("----------------------------------------------------------------------------")
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. colorYello:WrapTextInColorCode("Plater ") .. "detected."])
         print(T["Plater " .. colorYello:WrapTextInColorCode("-> ") .. "Advanced " .. colorYello:WrapTextInColorCode("-> ") .. "General Settings" 
