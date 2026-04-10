@@ -3,6 +3,8 @@ local T = Angleur_Translate
 local debugChannel = 6
 local colorDebug = CreateColor(0.9, 0.47, 1) -- lily
 
+local addonName, ang = ...
+
 angleurDoubleClick = {
     watching = false,
     heldDown = false,
@@ -39,13 +41,21 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if AngleurConfig.chosenMethod ~= "doubleClick" then return end
     if AngleurCharacter.sleeping then return end
     if button ~= angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID] then return end
+    local bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
     if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
-        if not AngleurClassicConfig.softInteract.enabled or not AngleurClassicConfig.softInteract.bobberScanner then
-            --print("Mouse on another frame, ignoring")
-            return 
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_StuckFix ") .. ": Double Click mouse look released")
+        if 
+            bobberScanner 
+            or ang.otherAddons.opie 
+        then
+            -- DO NOTHING
+            -- to allow double-click fishing over other frames when:
+            -- Bobber Scanner is being used
+            -- OPie is loaded
         else
-            --needed for bobber Scanner double click fishing
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("DoubleClick ") .. ": Mouse is over a UI Frame. Don't trigger Double-Click Fishing.")
+            return 
         end
     end
     if event == "GLOBAL_MOUSE_UP" then

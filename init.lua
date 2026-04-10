@@ -14,6 +14,11 @@ ang.loadedPlugins = {}
 ang.loadedPlugins.undang = false
 ang.loadedPlugins.niche = false
 
+ang.otherAddons = {}
+ang.otherAddons.opie = false
+ang.otherAddons.plater = false
+ang.otherAddons.toyboxE = false
+
 angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(framePool, frame)
     frame:ClearAllPoints()
     frame:SetScript("OnUpdate", nil)
@@ -675,6 +680,11 @@ function Angleur_EventLoader(self, event, unit, ...)
         --Check if the Plugins of Angleur have loaded
         ang.loadedPlugins.undang = C_AddOns.IsAddOnLoaded("Angleur_Underlight")
         ang.loadedPlugins.niche = C_AddOns.IsAddOnLoaded("Angleur_NicheOptions")
+
+        -- Check if clashing addons have loaded
+        ang.otherAddons.opie = C_AddOns.IsAddOnLoaded("OPie")
+        ang.otherAddons.plater = C_AddOns.IsAddOnLoaded("Plater")
+        ang.otherAddons.toyboxE = C_AddOns.IsAddOnLoaded("ToyBoxEnhanced")
 
         --__________________________________________________________________________
         -- Can't set Tab 2 on "ADDON_LOADED" because we need data from NicheOptions
