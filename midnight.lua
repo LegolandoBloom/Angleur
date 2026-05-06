@@ -5,10 +5,7 @@ local colorDebug = CreateColor(0.2, 0.21, 0.54) -- void blue
 local IMMOLATION_AURA_SPELLID = 258920 -- for testing
 local PATIENT_SPELLID1 =  1269521 -- ActualID: 1269521
 local PATIENT_SPELLID2 = 1235378 -- Actual ID: 1235378
-local ABYSS_SPELLID = 1225598
-
 local NETHER_EGG_ITEMID = 268730
-
 
 
 
@@ -166,12 +163,6 @@ function Angleur_LoadMidnight()
     voidFinderKey.keybindRef = "voidFinderKey"
 
 
-    local crossHairFrame = CreateFrame("Frame","Angleur_AbyssAngling_Crosshair", UIParent)
-    crossHairFrame:SetPoint("CENTER", 0, 80)
-    crossHairFrame:SetSize(32, 32)
-    local crossTexture = crossHairFrame:CreateTexture("Angleur_AbyssAngling_Crosshair_Texture", "ARTWORK")
-    crossTexture:SetAllPoints()
-    crossTexture:SetTexture("Interface/CURSOR/Crosshairs.blp")
 
     local newTexture1 = patientEnable:CreateTexture("Angleur_New1!", "ARTWORK")
     newTexture1:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
@@ -240,7 +231,6 @@ local function handleAuras(updateInfo)
 
     local added = scrubsecretvalues(updateInfo.addedAuras)
     local removed = scrubsecretvalues(updateInfo.removedAuraInstanceIDs)
-    local updated = scrubsecretvalues(updateInfo.updatedAuraInstanceIDs)
     -- Added Auras
     if added and not inCombat then
         for i, v in pairs(added) do
@@ -249,21 +239,11 @@ local function handleAuras(updateInfo)
                 activeAuras[v.auraInstanceID] = spellID
                 Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Added", activeAuras[v.auraInstanceID], "Instance ID: ", v.auraInstanceID)
                 checkPatient()
-            elseif spellID == ABYSS_SPELLID then
-                print("you are abyss diving")
             end
         end
     end
 
     -- Updated Auras
-    if updated then
-        for i, v in pairs(updated) do
-            if activeAuras[v] and activeAuras[v] == ABYSS_SPELLID then
-                print("update: you are still abyss diving")
-                
-            end
-        end
-    end
     -- nothing
 
     -- Removed Auras - These are never secret, so we can access them in combat

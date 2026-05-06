@@ -316,8 +316,6 @@ AngleurRetail_FishingSpellTable = {
     301092,
     -- Void Hole Fishing
     1224771,
-    -- Abyss Angler Fishing
-    1286703,
 }
 
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
