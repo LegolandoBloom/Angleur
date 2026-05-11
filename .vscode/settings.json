@@ -142,8 +142,7 @@
         "SLASH_TARGET_MARKER3",
         "ICON_SELECTION_CLICK",
         "ICON_SELECTION_NOTINLIST",
-        "SEARCH_RESULTS_SHOW_COUNT",
-        "ngleurr_AddonCompartment_OnLeave"
+        "SEARCH_RESULTS_SHOW_COUNT"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
