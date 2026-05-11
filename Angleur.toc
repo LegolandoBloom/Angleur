@@ -9,6 +9,10 @@
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
+## AddonCompartmentFunc: Angleur_AddonCompartment_OnClick
+## AddonCompartmentFuncOnEnter: Angleur_AddonCompartment_OnEnter
+## AddonCompartmentFuncOnLeave: Angleur_AddonCompartment_OnLeave
+
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
 ## Category-esES: Profesiones
@@ -53,6 +57,7 @@ firstInstall.lua
 advancedAngling.lua
 slashcommands.lua
 minimap.lua
+addonCompartment.lua
 animations.xml
 platerClash.lua
 midnight.lua
