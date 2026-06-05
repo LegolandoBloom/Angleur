@@ -8,14 +8,14 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture name="$parentIcon" parentKey="icon" />
-                <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
+                <!-- <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
                         <Anchor point="CENTER" relativeKey="$parent.icon"/>
                     </Anchors>
                     <MaskedTextures>
                         <MaskedTexture childKey="icon"/>
                     </MaskedTextures>
-                </MaskTexture>
+                </MaskTexture> -->
                 <Texture parentKey="SlotBackground" atlas="UI-HUD-ActionBar-IconFrame-Background" setAllPoints="true"/>
                 <!-- <Texture parentKey="SlotArt" atlas="ui-hud-actionbar-iconframe-slot" setAllPoints="true"/> -->
             </Layer>
