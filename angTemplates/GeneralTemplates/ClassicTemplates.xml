@@ -8,6 +8,7 @@
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture name="$parentIcon" parentKey="icon" />
+                <!-- Had to comment because Classic Era hasn't received the new Edit Mode patch yet. Might re-enable or delete altogether as I can't honestly tell the difference -->
                 <!-- <MaskTexture parentKey="IconMask" atlas="UI-HUD-ActionBar-IconFrame-Mask" hWrapMode="CLAMPTOBLACKADDITIVE" vWrapMode="CLAMPTOBLACKADDITIVE">
                     <Anchors>
                         <Anchor point="CENTER" relativeKey="$parent.icon"/>
