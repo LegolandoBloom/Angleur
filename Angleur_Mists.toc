@@ -1,4 +1,4 @@
-## Interface: 50503
+## Interface: 50504
 ## Title: Angleur - Mists of Pandaria Classic
 ## Notes: Mists of Pandaria Version of the Ultimate One Button Fishing AddOn, Angleur!
 ## Notes-ruRU: Версия Mists of Pandaria лучшего дополнения для рыбалки одной кнопкой, Angleur!
