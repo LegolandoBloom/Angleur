@@ -4,6 +4,9 @@ local lego = ang.lego
 
 local T = Angleur_Translate
 
+local FRAMEHEIGHT_WITH_SMALLTEXT = 36
+local FRAMEHEIGHT_WITHOUT_SMALLTEXT = 28
+
 local logoTable = {
     youtube = "Interface/AddOns/Angleur/images/youtube.png",
     kofi = "Interface/AddOns/Angleur/images/kofi.png",
@@ -44,28 +47,25 @@ local function createScrollBox(thanksFrame)
     ScrollView:SetElementExtentCalculator(function(dataIndex, data)
     local smallText = data.data.smallText
     if smallText then
-        data.heightExtent = 36
+        data.heightExtent = FRAMEHEIGHT_WITH_SMALLTEXT
     else
-        data.heightExtent = 28
+        data.heightExtent = FRAMEHEIGHT_WITHOUT_SMALLTEXT
     end
     return data.heightExtent
 end)
 
     local function Initializer(frame, node)
         local data = node:GetData()
-        local color = CreateColor(data.r, data.g, data.b)
-        local text = data.text
-        local smallText = data.smallText
-        local logo = data.logo
+        local color, text, smallText, logo = CreateColor(data.r, data.g, data.b), data.text, data.smallText, data.logo
         local logoAnchor = frame.text
         frame.text:SetText(color:WrapTextInColorCode(text))
         if smallText then
-            frame:SetSize(100, 36)
+            frame:SetSize(100, FRAMEHEIGHT_WITH_SMALLTEXT)
             frame.smallText:SetText(colorWhite:WrapTextInColorCode(smallText))
             frame.smallText:Show()
             logoAnchor = frame.smallText
         else
-            frame:SetSize(100, 28)
+            frame:SetSize(100, FRAMEHEIGHT_WITHOUT_SMALLTEXT)
             frame.smallText:SetText()
             frame.smallText:Hide()
         end
@@ -86,7 +86,7 @@ end)
     ScrollView:SetDataProvider(dataProvider)
     return dataProvider
 end
-
+-- print(color:WrapTextInColorCode("What what test what"))
 local function addToScrollBox(thanksFrame, dataProvider)
     lego.table_randomSort(names)
     for i, v in pairs(names) do
