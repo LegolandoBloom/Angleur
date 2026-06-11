@@ -1,6 +1,8 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
+    <Include file="lego_lua.lua"/>
+
     <Include file="Legolando_HelpTipTemplate\Legolando_HelpTipTemplate.xml"/>
 
     <Include file="Legolando_PictureTooltipTemplate\Legolando_PictureTooltipTemplate.xml"/>
