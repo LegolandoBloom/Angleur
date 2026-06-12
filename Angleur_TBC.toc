@@ -59,5 +59,6 @@ bobberScanner\bobberScanner.lua
 
 AngleurTBC.xml
 
+thanks\thanksTemplates.xml
 thanks\thanks.lua
 thanks\thanks.xml
