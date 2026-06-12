@@ -711,20 +711,25 @@
                                             </Frame>
                                         </Frames>
                                     </Frame>
+                                    <Frame name="$parent_ShowMinimapButton" parentKey="showMinimapButton" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-240"/>
+                                        </Anchors>
+                                    </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-264"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-275"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-293"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-300"/>
                                         </Anchors>
                                     </Frame>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
                                         <Size x="72" y="42"/>
                                         <Anchors>
-                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="85"/>
+                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="73"/>
                                         </Anchors>
                                     </Button>
                                     <Button name="$parent_RedoTutorial" parentKey="redoTutorial" inherits="UIPanelSquareButton">

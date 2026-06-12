@@ -630,6 +630,11 @@
                                             </Frame>
                                         </Frames>
                                     </Frame>
+                                    <Frame name="$parent_ShowMinimapButton" parentKey="showMinimapButton" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-215"/>
+                                        </Anchors>
+                                    </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-235"/>

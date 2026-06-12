@@ -142,7 +142,14 @@
         "SLASH_TARGET_MARKER3",
         "ICON_SELECTION_CLICK",
         "ICON_SELECTION_NOTINLIST",
-        "SEARCH_RESULTS_SHOW_COUNT"
+        "SEARCH_RESULTS_SHOW_COUNT",
+        "CUSTOM",
+        "ALT_KEY",
+        "CTRL_KEY",
+        "SHIFT_KEY",
+        "NONE_KEY",
+        "VIDEO_OPTIONS_NEED_CLIENTRESTART",
+        "VIDEO_OPTIONS_RECOMMENDED"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

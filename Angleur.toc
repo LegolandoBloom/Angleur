@@ -57,6 +57,7 @@ firstInstall.lua
 advancedAngling.lua
 slashcommands.lua
 minimap.lua
+addonsTab.lua
 addonCompartment.lua
 animations.xml
 platerClash.lua

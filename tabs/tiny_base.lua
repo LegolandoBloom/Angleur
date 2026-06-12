@@ -61,6 +61,29 @@ function Angleur_SetTab3(self)
         --DevTools_Dump({Angleur.visual:GetPoint(1)})
     end)
 
+    self.showMinimapButton.text:SetText(T["Show Minimap Button"])
+    --self.loginMessages.text:SetFontObject(SpellFont_Small)
+    self.showMinimapButton.text.tooltip = T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."]
+    self.showMinimapButton.checkbox:SetScript("OnClick", function(self)
+        if InCombatLockdown() then
+            self:SetChecked(not self:GetChecked())
+            print(T["Can't change in combat."])
+            return
+        end
+        if self:GetChecked() then
+            AngleurMinimapButton.show = true
+            Angleur_ToggleMinimapButton(true)
+            print(T["Minimap button enabled"])
+        elseif self:GetChecked() == false then
+            AngleurMinimapButton.show = false
+            Angleur_ToggleMinimapButton(false)
+            print(T["Minimap button disabled"])
+        end
+    end)
+    if AngleurMinimapButton.show == true then
+        self.showMinimapButton.checkbox:SetChecked(true)
+    end
+
     self.loginMessages.text:SetText(T["Login Messages"])
     --self.loginMessages.text:SetFontObject(SpellFont_Small)
     self.loginMessages.text.tooltip = T["When unchecked, Angleur will stop showing Login messages.\n\nLogin messages may contain useful tips, and can be re-enabled at any time."]

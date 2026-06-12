@@ -859,3 +859,9 @@ T["How far out the camera will zoom out before starting the scan. Higher value =
 T["Recommended Value: 2\n"] = colorGrae:WrapTextInColorCode("Recommended Value: 2\n")
 T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("If there is an object BEHIND your character that forces your camera angle to change, try setting it to a ") 
 .. colorRed:WrapTextInColorCode("lower ") .. colorWhite:WrapTextInColorCode("value.")
+
+
+T["Show Minimap Button"] = "Show Minimap Button"
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "Uncheck to hide minimap, or middle-mouse-click on the minimap button."
+T["Minimap button enabled"] = "Minimap button enabled"
+T["Minimap button disabled"] = "Minimap button disabled"

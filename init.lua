@@ -190,8 +190,8 @@ function Init_AngleurSavedVariables()
         AngleurAudio.checkboxes.toggleBG = true
     end
 
-    if AngleurMinimapButton.hide == nil then
-        AngleurMinimapButton.hide = false
+    if AngleurMinimapButton.show == nil then
+        AngleurMinimapButton.show = true
     end
 
     if AngleurTutorial.part == nil then
@@ -710,10 +710,10 @@ function Angleur_EventLoader(self, event, unit, ...)
         Init_AngleurVisual()
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_ExtraItemAuras()
-        if AngleurMinimapButton.hide == false then
+        if AngleurMinimapButton.show then
             Angleur_InitMinimapButton()
         end
-
+        Angleur_LoadAddonsTab()
         ---------------------------------------------------------
         Angleur_EquipmentManager()
         if ang.gameVersion ~= 1 then

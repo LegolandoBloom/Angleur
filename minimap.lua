@@ -33,8 +33,8 @@ function Angleur_InitMinimapButton()
             elseif b == "LeftButton" then
                 Angleur.configPanel:Show()
             elseif b == "MiddleButton" then
-                self:Hide()
-                AngleurMinimapButton.hide = true
+                AngleurMinimapButton.show = false
+                Angleur_ToggleMinimapButton(false)
                 print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Icon hidden, " .. colorYello:WrapTextInColorCode("/angmini ") .. "to show."])
             end
         end,
@@ -55,7 +55,7 @@ function Angleur_InitMinimapButton()
     icon:Register("AngleurMap", mapData , AngleurMinimapButton)
     minimapButtonCreated = true
     LibDBIcon10_AngleurMap:Show()
-    AngleurMinimapButton.hide = false
+    AngleurMinimapButton.show = true
     Angleur_CreateWeaponSwapFrames()
     Angleur_SetMinimapSleep()
 end
@@ -66,13 +66,22 @@ SlashCmdList["ANGLEURMINIMAP"] = function()
         Angleur_InitMinimapButton()
         return
     end
-    if LibDBIcon10_AngleurMap:IsShown() then
-        LibDBIcon10_AngleurMap:Hide()
-        AngleurMinimapButton.hide = true
-    else
+    AngleurMinimapButton.show = not AngleurMinimapButton.show
+    Angleur_ToggleMinimapButton(AngleurMinimapButton.show)
+end
+
+function Angleur_ToggleMinimapButton(enable)
+    if minimapButtonCreated == false then
+        Angleur_InitMinimapButton()
+        return
+    end
+    if enable == true then
         LibDBIcon10_AngleurMap:Show()
-        AngleurMinimapButton.hide = false
         Angleur_CreateWeaponSwapFrames()
+        Angleur.configPanel.tab3.contents.showMinimapButton.checkbox:SetChecked(true)
+    elseif enable == false then
+        LibDBIcon10_AngleurMap:Hide()
+        Angleur.configPanel.tab3.contents.showMinimapButton.checkbox:SetChecked(false)
     end
 end
 

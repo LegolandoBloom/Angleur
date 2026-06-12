@@ -96,6 +96,10 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.softIconOff = false
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
+        -- Minimap Button --
+        AngleurMinimapButton.show = true
+        Angleur_ToggleMinimapButton(true)
+        --------------------
         Angleur_TinyOptions.loginDisabled = false
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0
@@ -106,6 +110,9 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         tab3_contents.softIconOff.checkbox:SetChecked(false)
         tab3_contents.doubleClickWindow:SetValue(4)
         tab3_contents.visualSize:SetValue(10)
+        -- Minimap Button --
+        tab3_contents.showMinimapButton.checkbox:SetChecked(true)
+        --------------------
         tab3_contents.loginMessages.checkbox:SetChecked(true)
         tab3_contents.debugMode.checkbox:SetChecked(false)
         tab3_contents.debugMode.dropdown:Hide()
