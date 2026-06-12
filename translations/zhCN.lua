@@ -362,3 +362,9 @@ T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also k
 
 -- Forgotten line
 T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "这是经典旧世的限制（《熊猫人之谜》与正式服不受影响），因其缺少内置装备管理器，无法将被动物品加入 Angleur 套装。"
+
+
+
+-- Changed lines
+T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
+.. colorYello:WrapTextInColorCode("Ko-Fi!")

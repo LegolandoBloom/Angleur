@@ -260,9 +260,8 @@ T["And lastly, the " .. colorYello:WrapTextInColorCode("Create & Add ") .. "butt
 .. colorYello:WrapTextInColorCode("sleep.")
 
 --thanks
-T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi ")
-.. "or " .. colorYello:WrapTextInColorCode("Patreon!")] = "You can support the project\nby donating on " 
-.. colorYello:WrapTextInColorCode("Ko-Fi ") .. "or " .. colorYello:WrapTextInColorCode("Patreon!")
+T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project   \nby donating on " 
+.. colorYello:WrapTextInColorCode("Ko-Fi!")
 
 T["THANK YOU!"] = "THANK YOU!"
 

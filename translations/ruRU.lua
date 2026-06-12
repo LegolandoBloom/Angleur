@@ -762,3 +762,9 @@ T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also k
 -- Forgotten line
 T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."] = "Это "
 .. "ограничение версии Classic (в Mists и Retail такого нет), поскольку в ней отсутствует полноценный встроенный менеджер экипировки, который позволял бы помещать пассивные предметы в набор Angleur."
+
+
+
+-- Changed lines
+T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
+.. colorYello:WrapTextInColorCode("Ko-Fi!")
