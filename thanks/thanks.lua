@@ -42,7 +42,6 @@ local function createScrollBox(thanksFrame)
     local ScrollBar = CreateFrame("EventFrame", "Angleur_Thanks_ScrollBar", thanksFrame, "MinimalScrollBar")
     ScrollBar:SetPoint("LEFT", ScrollBox, "RIGHT")
     ScrollBar:SetSize(8, 230)
-    -- ScrollBar:SetPoint("BOTTOMLEFT", ScrollBox, "BOTTOMRIGHT")
     local ScrollView = CreateScrollBoxListTreeListView()
     ScrollUtil.InitScrollBoxListWithScrollBar(ScrollBox, ScrollBar, ScrollView)
 
@@ -88,7 +87,6 @@ end)
     ScrollView:SetDataProvider(dataProvider)
     return dataProvider
 end
--- print(color:WrapTextInColorCode("What what test what"))
 local function addToScrollBox(thanksFrame, dataProvider)
     lego.table_randomSort(names)
     for i, v in pairs(names) do
