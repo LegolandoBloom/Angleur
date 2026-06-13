@@ -73,11 +73,9 @@ function Angleur_SetTab3(self)
         if self:GetChecked() then
             AngleurMinimapButton.show = true
             Angleur_ToggleMinimapButton(true)
-            print(T["Minimap button enabled"])
         elseif self:GetChecked() == false then
             AngleurMinimapButton.show = false
             Angleur_ToggleMinimapButton(false)
-            print(T["Minimap button disabled"])
         end
     end)
     if AngleurMinimapButton.show == true then

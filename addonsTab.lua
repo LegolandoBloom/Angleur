@@ -15,7 +15,7 @@ function Angleur_LoadAddonsTab()
 
 
         local function OnSettingChanged(setting, value)
-            print("Setting changed:", setting:GetVariable(), value)
+            -- print("Setting changed:", setting:GetVariable(), value)
             Angleur_ToggleMinimapButton(value)
         end
         local setting = Settings.RegisterAddOnSetting(category, variable, variableKey, variableTbl, type(defaultValue), name, defaultValue)

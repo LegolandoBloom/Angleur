@@ -79,9 +79,11 @@ function Angleur_ToggleMinimapButton(enable)
         LibDBIcon10_AngleurMap:Show()
         Angleur_CreateWeaponSwapFrames()
         Angleur.configPanel.tab3.contents.showMinimapButton.checkbox:SetChecked(true)
+        print(T["Angleur: Minimap Button Shown"])
     elseif enable == false then
         LibDBIcon10_AngleurMap:Hide()
         Angleur.configPanel.tab3.contents.showMinimapButton.checkbox:SetChecked(false)
+        print(T["Angleur: Minimap Button Hidden"])
     end
 end
 

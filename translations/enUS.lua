@@ -863,8 +863,6 @@ T["If there is an object BEHIND your character that forces your camera angle to 
 
 T["Show Minimap Button"] = "Show Minimap Button"
 T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "Uncheck to hide minimap, or middle-mouse-click on the minimap button."
-T["Minimap button enabled"] = "Minimap button enabled"
-T["Minimap button disabled"] = "Minimap button disabled"
 
 
 T["Open Config Panel"] = "Open Config Panel"
@@ -873,3 +871,6 @@ T["You need to open the Config Panel to change Angleur's settings!"
 .. colorGrae:WrapTextInColorCode("\n\n(Hint) You can also:\n - type ") .. colorYello:WrapTextInColorCode("/ang") .. colorGrae:WrapTextInColorCode("\n - Double-Click the ") 
 .. colorYello:WrapTextInColorCode("Angleur Visual\n") .. colorGrae:WrapTextInColorCode(" - Click the ") .. colorYello:WrapTextInColorCode("Minimap/AddonCompartment Button") 
 .. colorGrae:WrapTextInColorCode("\nto open it.")
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Button Shown"
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Button Hidden"
