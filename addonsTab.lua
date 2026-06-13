@@ -22,7 +22,7 @@ function Angleur_LoadAddonsTab()
         setting:SetValueChangedCallback(OnSettingChanged)
 
         local tooltip = "This is a tooltip for the checkbox."
-        local cbox = Settings.CreateCheckbox(category, setting, tooltip)
+        local cbox1 = Settings.CreateCheckbox(category, setting, tooltip)
     end
 
     do

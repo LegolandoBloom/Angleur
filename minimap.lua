@@ -58,6 +58,7 @@ function Angleur_InitMinimapButton()
     AngleurMinimapButton.show = true
     Angleur_CreateWeaponSwapFrames()
     Angleur_SetMinimapSleep()
+    Angleur.configPanel.tab3.contents.showMinimapButton.checkbox:SetChecked(true)
 end
 
 SLASH_ANGLEURMINIMAP1 = T["/angmini"]
