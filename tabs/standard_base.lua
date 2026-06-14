@@ -105,6 +105,9 @@ local function setupAudio(self)
         local function setSelected(index)
             AngleurAudio.ultraFocusWhen = index
             print(T["Angleur: Ultra Focus will trigger on "] .. colorYello:WrapTextInColorCode(elementTable[index]) .. ".")
+            if elementTable[index] == "Sleep/Wake" then
+                Angleur_TempCVars_ToggleUltraFocusAudio(not AngleurCharacter.sleeping, "Sleep/Wake")
+            end
         end
         local function generatorFunction(owner, rootDescription)
             rootDescription:CreateTitle("Ultra Focus Activation Mode")
@@ -218,11 +221,11 @@ local function setupAudio(self)
             if AngleurCharacter.sleeping == false and AngleurAudio.checkboxes.toggleBG == true then
                 Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
             end
+            Angleur_TempCVars_ToggleUltraFocusAudio(true, "Sleep/Wake")
         elseif self:GetChecked() == false then
             AngleurConfig.ultraFocusAudioEnabled = false
             audioConfig:Hide()
-            Angleur_TempCVarHandler:Release("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_EnableAllSound")
-            Angleur_TempCVarHandler:Release("Sound_MasterVolume", "Sound_SFXVolume", "Sound_MusicVolume", "Sound_DialogVolume", "Sound_AmbienceVolume")
+            Angleur_TempCVars_ToggleUltraFocusAudio(false, "ForceRelease")
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")
         end
     end)
