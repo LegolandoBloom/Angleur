@@ -183,6 +183,9 @@ function Init_AngleurSavedVariables()
     if AngleurAudio.ultraFocusDialog == nil then
         AngleurAudio.ultraFocusDialog = 0
     end
+    if AngleurAudio.ultraFocusWhen == nil then
+        AngleurAudio.ultraFocusWhen = 1
+    end
     if AngleurAudio.checkboxes == nil then
         AngleurAudio.checkboxes = {}
     end

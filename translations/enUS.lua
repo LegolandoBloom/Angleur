@@ -874,3 +874,10 @@ T["You need to open the Config Panel to change Angleur's settings!"
 
 T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Button Shown"
 T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap Button Hidden"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Ultra Focus will trigger on "
+T["Activation Mode:"] = "Activation Mode:"
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n" 
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Choose when Angleur's Ultra Focus " .. colorGreen:WrapTextInColorCode("Activates") .. "/" .. colorRed:WrapTextInColorCode("Releases") .. ".\n\n" 
+.. colorYello:WrapTextInColorCode("Cast/Reel : ") .. "Will activate/release with every single cast " .. colorGrae:WrapTextInColorCode("(DEFAULT)\n\n") 
+.. colorYello:WrapTextInColorCode("Sleep/Wake : ") .. "Will only activate/release when you wake/sleep the addon\n"

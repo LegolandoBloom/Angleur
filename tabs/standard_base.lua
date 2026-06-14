@@ -31,7 +31,7 @@ local function setupAudio(self)
     audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
     audioConfig.icon:SetTexture("Interface/AddOns/Angleur/images/audiooptions.png")
     audioConfig.tooltip= T["Adjust Audio Levels"]
-    audioConfig.popup:SetSize(270, 345)
+    audioConfig.popup:SetSize(280, 360)
     audioConfig.popup:AdjustPointsOffset(-5, 5)
     audioConfig.popup.Border.title:SetText(T["Ultra Focus: Audio Settings"])
     audioConfig:Hide()
@@ -87,8 +87,56 @@ local function setupAudio(self)
     end)
 
 
+    do 
+        local scale = 0.9
+        local title = T["Activation Mode:"]
+        local tooltip = T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n"
+        .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+        .. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"]
+        local elementTable = {
+            [1] = "Cast/Reel",
+            [2] = "Sleep/Wake",
+        }
+        local function isSelected(index) 
+            local isSelected = index == AngleurAudio.ultraFocusWhen
+            if not isSelected then return false end
+            return true
+        end
+        local function setSelected(index)
+            AngleurAudio.ultraFocusWhen = index
+            print(T["Angleur: Ultra Focus will trigger on "] .. colorYello:WrapTextInColorCode(elementTable[index]) .. ".")
+        end
+        local function generatorFunction(owner, rootDescription)
+            rootDescription:CreateTitle("Ultra Focus Activation Mode")
+            for index = 1, #elementTable do
+                local elementdescription = rootDescription:CreateRadio(elementTable[index], isSelected, setSelected, index)
+            end
+        end
+        local dropdown = CreateFrame("DropdownButton", nil, audioConfig.popup, "WowStyle1DropdownTemplate")
+        dropdown:SetDefaultText("Choose thing")
+        dropdown:SetScale(scale)
+        local titleText = dropdown:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        titleText:SetScale(scale^-1)
+        titleText:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -248)
+        titleText:SetText(title)
+        -- previous SetPoint of dropdown without titleText
+        --       60 *(scale^-1), -270 *(scale^-1)
+        dropdown:SetPoint("LEFT", titleText, "RIGHT", 5, 0)
+        dropdown:SetupMenu(generatorFunction)
+        titleText:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 3, -3)
+            GameTooltip:AddLine(colorBlu:WrapTextInColorCode(title))
+            GameTooltip:AddLine(tooltip, 1, 1, 1, 0)
+            GameTooltip:Show()
+        end)
+        titleText:SetScript("OnLeave", function(self)
+            GameTooltip:Hide()
+        end)
+    end
+
+    -- Checkboxes --
     local audioCheckboxes = CreateFrame("Frame", "Angleur_UltraFocusAudio_Checkboxes", audioConfig.popup, "Legolando_CheckboxesTemplate_Angleur")
-    audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -255)
+    audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -280)
     audioCheckboxes.savedVarTable = AngleurAudio.checkboxes
 
     local backgroundToggle = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_ToggleBackground", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
@@ -107,7 +155,7 @@ local function setupAudio(self)
         end
     end
     audioCheckboxes:Update()
-
+    ----------------
     local defaults = CreateFrame("Button", "Angleur_UltraFocusAudio_Defaults", audioConfig.popup, "GameMenuButtonTemplate")
     defaults:SetSize(120, 42)
     defaults:SetPoint("BOTTOMRIGHT", audioConfig.popup, "BOTTOMRIGHT", -12, 10)
