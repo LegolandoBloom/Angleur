@@ -672,7 +672,7 @@ function Angleur_TempCVars_ToggleUltraFocusAudio(enable, trigger)
         -- if: Sleeping:False AND enable:False(Release) --> Return. We don't want to release when awake      
         -- if: Sleeping:True AND enable:True(Activate) --> Return. We don't want to activate when asleep
     if trigger == "Sleep/Wake" and AngleurCharacter.sleeping == enable then return end
-    if enable == true then
+    if enable == true and AngleurConfig.ultraFocusAudioEnabled == true then
         Angleur_TempCVarHandler:Set("Sound_EnableMusic", "Sound_EnableAmbience", "Sound_EnableDialog", "Sound_EnableSFX", "Sound_EnableAllSound")
         Angleur_TempCVarHandler:Set("Sound_MasterVolume", "Sound_SFXVolume", "Sound_MusicVolume", "Sound_DialogVolume", "Sound_AmbienceVolume")
     elseif enable == false then
