@@ -61,6 +61,7 @@ addonsTab.lua
 addonCompartment.lua
 animations.xml
 platerClash.lua
+audio.lua
 midnight.lua
 
 Angleur.xml

@@ -195,6 +195,9 @@ function Init_AngleurSavedVariables()
     if AngleurAudio.checkboxes.toggleBG == nil then
         AngleurAudio.checkboxes.toggleBG = true
     end
+    if AngleurAudio.checkboxes.recastReminder == nil then
+        AngleurAudio.checkboxes.recastReminder = true
+    end
 
     if AngleurMinimapButton.show == nil then
         AngleurMinimapButton.show = true
@@ -501,6 +504,19 @@ function Angleur_BetaTableToString(debugChannel, tbl)
         end
         print(tableToString)
     end
+end
+
+function Angleur_IsSecret(value)
+    if ang.gameVersion == 1 then
+        if issecretvalue(value) then return true end
+    end
+    return false
+end
+function Angleur_ScrubSecret(...)
+    if ang.gameVersion == 1 then
+        return scrubsecretvalues(...)
+    end
+    return ...
 end
 
 
