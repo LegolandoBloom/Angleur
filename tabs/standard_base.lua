@@ -1,5 +1,8 @@
 local T = Angleur_Translate
 
+local addonName, ang = ...
+local lego = ang.lego
+
 local debugChannel = 5
 
 local DEFAULT_MASTER = 1
@@ -86,7 +89,7 @@ local function setupAudio(self)
         Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
     end)
 
-
+    local dropdown
     do 
         local scale = 0.9
         local title = T["Activation Mode:"]
@@ -107,6 +110,8 @@ local function setupAudio(self)
             print(T["Angleur: Ultra Focus will trigger on "] .. colorYello:WrapTextInColorCode(elementTable[index]) .. ".")
             if elementTable[index] == "Sleep/Wake" then
                 Angleur_TempCVars_ToggleUltraFocusAudio(not AngleurCharacter.sleeping, "Sleep/Wake")
+            elseif elementTable[index] == "Cast/Reel" then
+                Angleur_TempCVars_ToggleUltraFocusAudio(false, "ForceRelease")
             end
         end
         local function generatorFunction(owner, rootDescription)
@@ -115,7 +120,7 @@ local function setupAudio(self)
                 local elementdescription = rootDescription:CreateRadio(elementTable[index], isSelected, setSelected, index)
             end
         end
-        local dropdown = CreateFrame("DropdownButton", nil, audioConfig.popup, "WowStyle1DropdownTemplate")
+        dropdown = CreateFrame("DropdownButton", nil, audioConfig.popup, "WowStyle1DropdownTemplate")
         dropdown:SetDefaultText("Choose thing")
         dropdown:SetScale(scale)
         local titleText = dropdown:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -185,6 +190,9 @@ local function setupAudio(self)
         dialogSlider:SetValue(DEFAULT_DIALOG * 100)
         Angleur_TempCVars["Sound_DialogVolume"].setTo = AngleurAudio.ultraFocusDialog
 
+        AngleurAudio.ultraFocusWhen = 1
+        dropdown:Update()
+        Angleur_TempCVars_ToggleUltraFocusAudio(false, "ForceRelease")
 
         backgroundToggle.checkbox:SetChecked(true)
         AngleurAudio.checkboxes.toggleBG = true

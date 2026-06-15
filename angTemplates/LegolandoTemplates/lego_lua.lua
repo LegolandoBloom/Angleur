@@ -12,3 +12,17 @@ function lego.table_randomSort(teeburu)
         teeburu[i], teeburu[j] = teeburu[j], teeburu[i]
     end
 end
+
+function lego.debugStack(includeCaller)
+    local depth = 3
+    if includeCaller then depth = 2 end
+    local trace = debugstack(depth, 5, 5)
+    -- debugstack puts a newline(\n) for each function, so we can split them like this
+    local split = strsplittable("\n", trace)
+    -- do get rid of the empty string after the last newline
+    if split[#split] == "" then
+        split[#split] = nil
+    end
+    print("\nCall stack: \n");
+    DevTools_Dump(split)
+end

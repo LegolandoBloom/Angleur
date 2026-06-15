@@ -683,7 +683,6 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     end
     return returnValue
 end
-
 --***********[~]**********
 
 function Angleur_SetSleep()

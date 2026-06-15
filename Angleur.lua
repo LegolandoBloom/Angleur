@@ -411,7 +411,6 @@ function Angleur_ActionHandler(self)
         return
     end
     
-    
     --______________________________________________________________________________________________________________________________________
     --              Interaction of Raft & Swimming - A bit more complex logic structure, hence the grouping together 
     --______________________________________________________________________________________________________________________________________
@@ -588,8 +587,8 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     end
     return returnValue
 end
-
 --***********[~]**********
+
 function Angleur_FishingForAttentionAura()
     if InCombatLockdown() then return end
     local fishingAura = C_UnitAuras.GetPlayerAuraBySpellID(394009)
@@ -603,7 +602,6 @@ function Angleur_FishingForAttentionAura()
         end
     end
 end
-
 
 function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then

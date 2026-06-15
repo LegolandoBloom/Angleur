@@ -591,9 +591,7 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     end
     return returnValue
 end
-
 --***********[~]**********
-
 
 function Angleur_SetSleep()
     if AngleurCharacter.sleeping == true then
