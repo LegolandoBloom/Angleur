@@ -55,6 +55,7 @@ slashcommands.lua
 minimap.lua
 addonsTab.lua
 animations.xml
+audio.lua
 
 bobberScanner\Legolando_CheckboxTemplate\Legolando_CheckboxTemplate.xml
 bobberScanner\Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml
