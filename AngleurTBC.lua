@@ -211,10 +211,10 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAutoLootEnabled then
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
-        
         if AngleurClassicConfig.softInteract.enabled == true then
             Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
         end
+        Angleur_RecastReminder_Start(arg5)
     elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
         if unit ~= "player" then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
@@ -245,6 +245,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         bobberWithinRange = false
         Angleur_SetCursorForGamePad(false)
+        Angleur_RecastReminder_Stop()
     elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or event == "MIRROR_TIMER_START" then
         if checkMounted() then 
             mounted = true

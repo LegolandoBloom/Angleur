@@ -1,40 +1,77 @@
+local debugChannel = 9
+local colorDebug = CreateColor(0.29, 1, 0) -- bright green
+
+PHASE1_SUBTRACTAMOUNT = 0.5
+PHASE2_DURATION = 2
+DELAYER_THRESHOLD = 0.5
+
+INFO_SPELLID_INDEX = 8
+
 -- function Angleur_EventHandler_Audio(self, event, unit, ...)
 
 -- end
-
 -- local audioHandlerFrame = CreateFrame("Frame")
 -- audioHandlerFrame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_START")
 -- audioHandlerFrame:RegisterEvent("UNIT_SPELLCAST_CHANNEL_STOP")
 -- audioHandlerFrame:SetScript("OnEvent", )
 
 
+local reminderDelayer = CreateFrame("Frame")
+-- 0 -> inactive | 1 -> first part active(waiting until channel ends) | 2 ->  second part active(waiting an arbitrary amount until audio warning)
+local scriptPhase = 0
+local function phase2()
+    scriptPhase = 2
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 complete, starting phase 2")
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 complete, starting phase 2")
+    Angleur_SingleDelayer(PHASE2_DURATION, 0, DELAYER_THRESHOLD, reminderDelayer, nil, function()
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 2 complete, playing sound")
+        PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
+    end)
+end
+local function phase1(channelDuration)
+    scriptPhase = 1
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 Delayer duration: ", channelDuration)
+    -- TODO: set a delayer that will play the sound effect upon expiry
+    Angleur_SingleDelayer(channelDuration, 0, DELAYER_THRESHOLD, reminderDelayer, nil, function()
+        phase2()
+    end)
+end
 
-function Angleur_CastTimer(spellID)
+function Angleur_RecastReminder_Start(spellID)
     if not AngleurAudio.checkboxes.recastReminder then return end
     local channelInfo = {UnitChannelInfo("player")}
     if not channelInfo then return end
-    local spellIDFromUnit = Angleur_ScrubSecret(channelInfo[8])
+    local spellIDFromUnit = Angleur_ScrubSecret(channelInfo[INFO_SPELLID_INDEX])
     if not spellIDFromUnit or spellIDFromUnit ~= spellID then 
-        print("This is not the same spell")
-        return 
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Channeled spell isn't fishing. Don't start.")
+        return
     end
-    print("Channel duration is: " )
+    if scriptPhase == 2 then
+        reminderDelayer:SetScript("OnUpdate", nil)
+        scriptPhase = 0
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 2 ended prematurely, removing script.")
+    end
     local durationObject = UnitChannelDuration("player")
-    DevTools_Dump(durationObject:GetTotalDuration())
-    DevTools_Dump(durationObject:GetClockTime())
-    DevTools_Dump(durationObject:GetEndTime())
-    -- TODO: set a delayer that will play the sound effect upon expiry
+    local channelDuration = durationObject:GetTotalDuration()
+    if not channelDuration then Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Channel duration nil. Returning.") return end
+    channelDuration = channelDuration - PHASE1_SUBTRACTAMOUNT
+    if channelDuration <= 0 then
+        Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Channel too short, not starting phase 1 of delayer. (" .. channelDuration .. ")")
+        return
+    end
+    phase1(channelDuration)
 end
 
--- /dump UnitChannelDuration("player")
-
-
-SLASH_ANGLEURDEST1 = "/dest"
-SlashCmdList["ANGLEURDEST"] = function() 
-    local teeburu = {"Bee", 2, "Dickbag"}
-    print(Angleur_IsSecret(teeburu))
-    DevTools_Dump(Angleur_ScrubSecret(teeburu))
-
-    DevTools_Dump(Angleur_ScrubSecret(teeburu[3]))
-    DevTools_Dump(Angleur_ScrubSecret(teeburu[4]))
+function Angleur_RecastReminder_Stop()
+    if scriptPhase ~= 1 then return end
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 ended prematurely, removing script.")
+    reminderDelayer:SetScript("OnUpdate", nil)
+    scriptPhase = 0
 end
+
+
+
+-- SLASH_ANGLEURAUDIOTEST1 = "/atest"
+-- SlashCmdList["ANGLEURAUDIOTEST"] = function() 
+--     PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
+-- end

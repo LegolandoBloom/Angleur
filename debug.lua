@@ -2,13 +2,15 @@
 local addonName, ang = ...
 
 -- 0: All
--- 1: Angleur.lua & Angleur.xml(+ Classic variants)
--- 2: toys
--- 3: items 
--- 4: eqMan + General Templates(CombatWeaponSwap portion)
--- 5: tabs
--- 6: doubleClick
--- 7: bobberScanner
+-- 1: Angleur.lua & Angleur.xml(+ Classic variants) - angleur blue
+-- 2: toys - purple
+-- 3: items - orange
+-- 4: eqMan + General Templates(CombatWeaponSwap portion) - yellow variants
+-- 5: tabs - no color
+-- 6: doubleClick - lily
+-- 7: bobberScanner - no color
+-- 8: midnight - void blue
+-- 9: audio - bright green
 
 
 -- 20: Angleur_Underlight
@@ -28,6 +30,7 @@ local debugLevels = {
     [6] = "Double Click",
     [7] = "Bobber Scanner",
     [8] = "Midnight Exclusives",
+    [9] = "Audio"
 }
 function Angleur_SetupDebugUI(debugCheckboxFrame)
     local function isSelected(index) 

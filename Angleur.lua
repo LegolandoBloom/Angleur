@@ -184,7 +184,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
-        Angleur_CastTimer(arg5)
+        Angleur_RecastReminder_Start(arg5)
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
@@ -206,6 +206,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 EventRegistry:TriggerEvent("Angleur_StopFishing")
             end)
         end
+        Angleur_RecastReminder_Stop()
     elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" then
         if checkMounted() then
             mounted = true
