@@ -881,3 +881,8 @@ T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Wi
 .. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Choose when Angleur's Ultra Focus " .. colorGreen:WrapTextInColorCode("Activates") .. "/" .. colorRed:WrapTextInColorCode("Releases") .. ".\n\n" 
 .. colorYello:WrapTextInColorCode("Cast/Reel : ") .. "Will activate/release with every single cast " .. colorGrae:WrapTextInColorCode("(DEFAULT)\n\n") 
 .. colorYello:WrapTextInColorCode("Sleep/Wake : ") .. "Will only activate/release when you wake/sleep the addon\n"
+
+T["Recast Reminder"] = "Recast Reminder"
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!" 
+.. "\n\nRecommended when fishing on the side while doing something else."] = "If enabled, Angleur will play a ".. colorYello:WrapTextInColorCode("sound effect ")
+.. "when your fishing cast runs out to remind you to cast again!" .. colorGrae:WrapTextInColorCode("\n\nRecommended when fishing on the side while doing something else.")

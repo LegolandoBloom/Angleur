@@ -34,7 +34,7 @@ local function setupAudio(self)
     audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
     audioConfig.icon:SetTexture("Interface/AddOns/Angleur/images/audiooptions.png")
     audioConfig.tooltip= T["Adjust Audio Levels"]
-    audioConfig.popup:SetSize(280, 360)
+    audioConfig.popup:SetSize(280, 380)
     audioConfig.popup:AdjustPointsOffset(-5, 5)
     audioConfig.popup.Border.title:SetText(T["Ultra Focus: Audio Settings"])
     audioConfig:Hide()
@@ -144,7 +144,7 @@ local function setupAudio(self)
 
     -- Checkboxes --
     local audioCheckboxes = CreateFrame("Frame", "Angleur_UltraFocusAudio_Checkboxes", audioConfig.popup, "Legolando_CheckboxesTemplate_Angleur")
-    audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -280)
+    audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -276)
     audioCheckboxes.savedVarTable = AngleurAudio.checkboxes
 
     local backgroundToggle = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_ToggleBackground", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
@@ -160,6 +160,20 @@ local function setupAudio(self)
             end
         elseif checked == false then
             Angleur_TempCVarHandler:Release("Sound_EnableSoundWhenGameIsInBG")       
+        end
+    end
+
+    local recastReminder = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_RecastReminder", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
+    recastReminder:SetPoint("TOPLEFT", audioCheckboxes, "TOPLEFT", 0, -25)
+    recastReminder.text:SetText(T["Recast Reminder"])
+    recastReminder.tooltip = T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!" 
+    .. "\n\nRecommended when fishing on the side while doing something else."]
+    recastReminder.reference = "recastReminder"
+    recastReminder.onClickCallback = function(self, checked)
+        if checked == true then
+            PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
+        elseif checked == false then
+
         end
     end
     audioCheckboxes:Update()
@@ -199,6 +213,10 @@ local function setupAudio(self)
         if AngleurCharacter.sleeping == false and AngleurConfig.ultraFocusAudioEnabled == true then
             Angleur_TempCVarHandler:Set("Sound_EnableSoundWhenGameIsInBG")
         end
+
+        recastReminder.checkbox:SetChecked(false)
+        AngleurAudio.checkboxes.recastReminder = false
+
         print(T["Ultra Focus: Default audio settings restored"])
     end)
 

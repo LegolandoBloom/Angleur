@@ -196,7 +196,7 @@ function Init_AngleurSavedVariables()
         AngleurAudio.checkboxes.toggleBG = true
     end
     if AngleurAudio.checkboxes.recastReminder == nil then
-        AngleurAudio.checkboxes.recastReminder = true
+        AngleurAudio.checkboxes.recastReminder = false
     end
 
     if AngleurMinimapButton.show == nil then

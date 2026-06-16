@@ -60,7 +60,6 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
-
 local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
         if not AngleurConfig.doubleClickChosenID then
