@@ -142,6 +142,7 @@ local function setupAudio(self)
         end)
     end
 
+    local recastReminder
     -- Checkboxes --
     local audioCheckboxes = CreateFrame("Frame", "Angleur_UltraFocusAudio_Checkboxes", audioConfig.popup, "Legolando_CheckboxesTemplate_Angleur")
     audioCheckboxes:SetPoint("TOPLEFT", audioConfig.popup, "TOPLEFT", 20, -276)
@@ -163,7 +164,7 @@ local function setupAudio(self)
         end
     end
 
-    local recastReminder = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_RecastReminder", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
+    recastReminder = CreateFrame("CheckButton", "Angleur_UltraFocusAudio_RecastReminder", audioCheckboxes, "Legolando_CheckboxFrameTemplate_Angleur")
     recastReminder:SetPoint("TOPLEFT", audioCheckboxes, "TOPLEFT", 0, -25)
     recastReminder.text:SetText(T["Recast Reminder"])
     recastReminder.tooltip = T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!" 
@@ -260,7 +261,10 @@ local function setupAudio(self)
         audioConfig:Show()
     end
 
-
+    local newTexture2 = recastReminder:CreateTexture("Angleur_New2!", "ARTWORK")
+    newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture2:SetSize(58, 29)
+    newTexture2:SetPoint("LEFT", recastReminder.checkbox, "RIGHT", 0, 0)
 end
 
 function Angleur_SetTab1(self)

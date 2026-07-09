@@ -161,18 +161,6 @@ function Angleur_LoadMidnight()
 
     voidFinderKey.savedVarTable = AngleurConfig
     voidFinderKey.keybindRef = "voidFinderKey"
-
-
-
-    local newTexture1 = patientEnable:CreateTexture("Angleur_New1!", "ARTWORK")
-    newTexture1:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
-    newTexture1:SetSize(58, 29)
-    newTexture1:SetPoint("TOPRIGHT", patientEnable.text, "BOTTOMRIGHT", 10, 5)
-
-    local newTexture2 = patientEnable:CreateTexture("Angleur_New2!", "ARTWORK")
-    newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
-    newTexture2:SetSize(58, 29)
-    newTexture2:SetPoint("TOP", voidFinderEnable.text, "BOTTOM", 10, 0)
 end
 --_______________________________________________________________________________________________________________________________________________________
 
