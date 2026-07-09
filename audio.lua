@@ -42,7 +42,6 @@ local scriptPhase = 0
 local function phase2()
     scriptPhase = 2
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 complete, starting phase 2")
-    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 complete, starting phase 2")
     Angleur_SingleDelayer(PHASE2_DURATION, 0, DELAYER_THRESHOLD, reminderDelayer, nil, function()
         scriptPhase = 0
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 2 complete, playing sound")
