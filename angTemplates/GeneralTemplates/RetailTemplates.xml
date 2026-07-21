@@ -1,6 +1,31 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">  
-
+    <Button name="BlablaButton" hidden="false" virtual="true">
+        <Size x="16" y="1"/>
+        <KeyValues>
+            <KeyValue key="expanded" value="false" type="boolean"/>
+        </KeyValues>
+        <Scripts>
+            <OnLoad>
+                self:GetNormalTexture():SetTexCoord(0.15625, 0.84375, 0, 0.5);
+                self:GetHighlightTexture():SetTexCoord(0.15625, 0.84375, 0.5, 1);
+            </OnLoad>
+            <OnClick>
+                if ( self.expanded ) then
+                    self:GetNormalTexture():SetTexCoord(0.15625, 0.84375, 0, 0.5);
+                    self:GetHighlightTexture():SetTexCoord(0.15625, 0.84375, 0.5, 1);
+                    self.expanded = false
+                else
+                    self.expanded = true
+                    self:GetNormalTexture():SetTexCoord(0.15625, 0.84375, 0.5, 0);
+                    self:GetHighlightTexture():SetTexCoord(0.15625, 0.84375, 1, 0.5);
+                end
+            </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
+        <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
+    </Button> 
+    
     <Button name="Angleur_SimplifiedActionButtonTemplate" virtual="true">
         <Size x="45" y="45"/>
         <Layers>

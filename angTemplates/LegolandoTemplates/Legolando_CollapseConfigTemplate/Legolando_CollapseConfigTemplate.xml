@@ -287,6 +287,108 @@
             </Frame>
         </Frames>
     </Button>
+
+
+<!--              
+    Legolando Note: 
+        I altered the original texture crop coordinates from "EquipmentFlyoutPopoutButtonTemplate" 
+              to make the button more precise, only clickable where the texture is visible.                                                                                                                               
+                                                                                            ┌───────────────────────┐                                          
+                                                                                            │      My Version       │                                          
+                                                                                            └───────────────────────┘                                          
+                                                                                                                                                    
+        Normal Coords(Rect):                                                       Normal Coords(Rect):                                                
+            Top: 0         __> Swap Top & Bottom                   ┌─┐                 Top: 0.062     __> Swap Top & Bottom                            
+            Bottom: 0.5    __> to turn upside down                 │ └─┐               Bottom: 0.437   __> to turn upside down                         
+            Left: 0.15625                                          │   └─┐             Left: 0.171                                                     
+            Right: 0.84375                                  ───────┘     └─┐           Right: 0.828                                                    
+                                                                            │                                                                           
+        Highlight Coords(Rect):                             ───────┐     ┌─┘       Highlight Coords(Rect):                                             
+            Top: 0.5       __> Swap Top & Bottom                   │   ┌─┘             Top: 0.562     __> Swap Top & Bottom                            
+            Bottom: 1       __> to turn upside down                │ ┌─┘               Bottom: 0.937   __> to turn upside down                         
+            Left: 0.15625                                          └─┘                 Left: 0.171                                                     
+            Right: 0.84375                                                             Right: 0.828                                                    
+-->
+    <Button name="Legolando_EquipmentFlyoutPopoutButtonTemplate_Angleur" hidden="false" virtual="true">
+        <Size x="16" y="16"/>
+        <KeyValues>
+            <KeyValue key="expanded" value="false" type="boolean"/>
+        </KeyValues>
+        <Scripts>
+            <OnLoad>
+                self:GetNormalTexture():SetTexCoord(0.171, 0.828, 0.062, 0.437)
+                self:GetHighlightTexture():SetTexCoord(0.171, 0.828, 0.562, 0.937)
+            </OnLoad>
+            <OnClick>
+                if ( self.expanded ) then
+                    self:GetNormalTexture():SetTexCoord(0.171, 0.828, 0.062, 0.437)
+                    self:GetHighlightTexture():SetTexCoord(0.171, 0.828, 0.562, 0.937)
+                    self.expanded = false
+                else
+                    self.expanded = true
+                    self:GetNormalTexture():SetTexCoord(0.171, 0.828, 0.437, 0.062)
+                    self:GetHighlightTexture():SetTexCoord(0.171, 0.828, 0.937, 0.562)
+                end
+            </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
+        <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
+    </Button> 
+
+    <Button name="Legolando_CollapseConfigTemplate2_Angleur" mixin="Legolando_CollapseConfigMixin2_Angleur" inherits="Legolando_EquipmentFlyoutPopoutButtonTemplate_Angleur" virtual="true">
+        <Size x="42" y="42"/>
+        <KeyValues>
+            <KeyValue key="savedVarTable" value="" type="table"/>
+        </KeyValues>
+        <Scripts>
+            <OnClick inherit="append">
+                if self.popup:IsShown() then
+                    self.popup:Hide()
+                else
+                    self.popup:Show()
+                end
+            </OnClick>
+            <OnHide>
+                self.popup:Hide()
+            </OnHide>
+        </Scripts>
+        <Frames>
+            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true">
+                <Size x="300" y="150"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnShow>
+                        self.Border:Raise()
+                    </OnShow>
+                </Scripts>
+                <Frames>
+                    <Frame name="$parent_Tabs" parentKey="tabs" inherits="Legolando_PortedTabSystemTemplate_Angleur">    
+                        <Size x="1" y="1"/>
+                        <Anchors>
+                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="8" y="6"/>
+                        </Anchors>
+                        <KeyValues>
+                            <KeyValue key="spacing" value="0.1" type="number"/>
+                        </KeyValues>
+                    </Frame>
+                    <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
+                    <Frame parentKey="Border" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
+                        <Layers>
+                            <Layer level="ARTWORK">
+                                <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
+                                    <Anchors>
+                                        <Anchor point="TOPLEFT" x="18" y="-19"/>
+                                    </Anchors>
+                                </FontString>
+                            </Layer>
+                        </Layers>
+                    </Frame>
+                </Frames>
+            </Frame>
+        </Frames>
+    </Button>
     <!-- ____________________________________[2]______________________________________________ -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 </Ui>

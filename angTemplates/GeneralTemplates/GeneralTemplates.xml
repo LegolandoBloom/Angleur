@@ -132,7 +132,7 @@
                     <OnEnter>
                         self.inputBoxes:Show()
                         self.inputBoxes:Raise()
-                        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0)
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 80, -5)
                         GameTooltip:AddLine(self.tooltipText, 1, 0.82, 0)
                         GameTooltip:Show()
                     </OnEnter>
@@ -150,7 +150,7 @@
                     <Frame name="$parent_InputBoxes" parentKey="inputBoxes" hidden="true">
                         <Size x="38" y="25"/>
                         <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-1"/>
+                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="1" y="-1"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="active" type="boolean" value="false"/>
@@ -280,6 +280,17 @@
                         </Frames>
                     </Frame>
                 </Frames>
+            </Button>
+            <Button name="$parent_MoreAdjustmentsCollapseButton" parentKey="collapseButton" toplevel="true" inherits="Legolando_CollapseConfigTemplate2_Angleur" hidden="false">
+                <Size x="16" y="8"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parent_TimeButton" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad inherit="append">
+                        self:Init(nil, "Right")
+                    </OnLoad>
+                </Scripts>
             </Button>
             <Button name="$parent_CloseButton" parentKey="closeButton" inherits="UIPanelCloseButtonNoScripts" hidden="true">
                 <Size x="20" y="20"/>

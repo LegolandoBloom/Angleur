@@ -95,3 +95,23 @@ end
 -- SlashCmdList["ANGLEURAUDIOTEST"] = function() 
 --     PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
 -- end
+
+-- local testButton = CreateFrame("Button", "TestyTest", UIParent, "BlablaButton")
+-- testButton:RotateTextures(math.pi/ 2)
+-- testButton:SetPoint("CENTER", UIParent, "CENTER")
+-- testButton:SetScale(3)
+-- testButton:Show()
+
+
+
+local testButton = CreateFrame("Button", "BlepGlep", UIParent, "Legolando_CollapseConfigTemplate2_Angleur")
+testButton:SetSize(16, 8)
+testButton:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+testButton.tooltip = "Open Config"
+testButton:Show()
+-- testButton.popup:SetSize(280, 380)
+-- testButton.popup:AdjustPointsOffset(-5, 5)
+testButton:SetScale(5)
+testButton:Init(nil, "Left")
+-- testButton.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")
+-- testButton.popup.title:SetText("Bobber Scanner Configuration")
