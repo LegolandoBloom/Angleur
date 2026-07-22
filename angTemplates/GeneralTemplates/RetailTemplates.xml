@@ -24,7 +24,7 @@
         </Scripts>
         <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
         <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
-    </Button> 
+    </Button>
     
     <Button name="Angleur_SimplifiedActionButtonTemplate" virtual="true">
         <Size x="45" y="45"/>

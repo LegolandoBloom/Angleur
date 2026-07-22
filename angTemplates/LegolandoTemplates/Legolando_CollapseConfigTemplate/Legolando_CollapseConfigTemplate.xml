@@ -331,9 +331,17 @@
                 end
             </OnClick>
         </Scripts>
-        <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
-        <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton"/>
-    </Button> 
+        <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton" parentKey="norm" setAllPoints="true">
+            <Anchors>
+                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
+            </Anchors>
+        </NormalTexture>
+        <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton" parentKey="hili" setAllPoints="true">
+            <Anchors>
+                <Anchor point="CENTER" relativeTo="$parent" relativePoint="CENTER" x="0" y="0"/>
+            </Anchors>
+        </HighlightTexture>
+    </Button>
 
     <Button name="Legolando_CollapseConfigTemplate2_Angleur" mixin="Legolando_CollapseConfigMixin2_Angleur" inherits="Legolando_EquipmentFlyoutPopoutButtonTemplate_Angleur" virtual="true">
         <Size x="42" y="42"/>

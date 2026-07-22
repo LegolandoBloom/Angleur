@@ -330,8 +330,16 @@ function Legolando_CollapseConfigMixin2_Angleur:Init(tabNames, expandTo)
         tabs:SetTabSelectedCallback(tabSelectedCallback)
         tabs:SetTab(1)
     end
-	if expandTo then
-		self:RotateTextures(enum_Rotation[expandTo])
+	if expandTo and expandTo ~= "Up" then
+		if expandTo == "Left" or expandTo == "Right" then
+			local x, y = self:GetSize()
+			print(x, y, "Are the sizes, now swapping")
+			self:SetSize(y, x)
+			self.hili:SetSize(x, y)
+			self.norm:SetSize(x, y)
+		end
+		self.hili:SetRotation(enum_Rotation[expandTo])
+		self.norm:SetRotation(enum_Rotation[expandTo])
 	end
 end
 

@@ -105,7 +105,7 @@ end
 
 
 local testButton = CreateFrame("Button", "BlepGlep", UIParent, "Legolando_CollapseConfigTemplate2_Angleur")
-testButton:SetSize(16, 8)
+testButton:SetSize(64, 4)
 testButton:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 testButton.tooltip = "Open Config"
 testButton:Show()
