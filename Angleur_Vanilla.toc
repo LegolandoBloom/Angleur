@@ -1,4 +1,4 @@
-## Interface: 11508
+## Interface: 11508, 11509
 ## Title: Angleur - Classic Era/SoD
 ## Notes: Classic Version of the Ultimate One Button Fishing AddOn, Angleur!
 ## Notes-ruRU: Версия Classic Era/SoD лучшего дополнения для рыбалки одной кнопкой, Angleur!
