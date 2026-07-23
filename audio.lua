@@ -105,13 +105,9 @@ end
 
 
 local testButton = CreateFrame("Button", "BlepGlep", UIParent, "Legolando_CollapseConfigTemplate2_Angleur")
-testButton:SetSize(64, 4)
+-- testButton:SetSize(64, 4)
 testButton:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
 testButton.tooltip = "Open Config"
 testButton:Show()
--- testButton.popup:SetSize(280, 380)
--- testButton.popup:AdjustPointsOffset(-5, 5)
-testButton:SetScale(5)
+testButton:SetScale(6)
 testButton:Init(nil, "Left")
--- testButton.icon:SetTexture("Interface/BUTTONS/UI-OptionsButton")
--- testButton.popup.title:SetText("Bobber Scanner Configuration")
