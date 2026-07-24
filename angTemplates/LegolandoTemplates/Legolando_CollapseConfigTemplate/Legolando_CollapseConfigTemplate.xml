@@ -314,6 +314,9 @@
                             self:Hide()
                         end
                     </OnEvent>
+                    <OnHide>
+                        self:GetParent().expandButton:SetState(false)
+                    </OnHide>
                 </Scripts>
                 <Frames>
                     <Frame name="$parent_Tabs" parentKey="tabs" inherits="Legolando_PortedTabSystemTemplate_Angleur">    

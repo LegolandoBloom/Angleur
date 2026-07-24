@@ -81,20 +81,9 @@
             <KeyValue key="expanded" value="false" type="boolean"/>
         </KeyValues>
         <Scripts>
-            <OnLoad>
-                self:GetNormalTexture():SetTexCoord(0.188, 0.828, 0.062, 0.437)
-                self:GetHighlightTexture():SetTexCoord(0.188, 0.828, 0.562, 0.937)
-            </OnLoad>
+            <OnLoad method="OnLoad"/>
             <OnClick>
-                if ( self.expanded ) then
-                    self:GetNormalTexture():SetTexCoord(0.188, 0.828, 0.062, 0.437)
-                    self:GetHighlightTexture():SetTexCoord(0.188, 0.828, 0.562, 0.937)
-                    self.expanded = false
-                else
-                    self.expanded = true
-                    self:GetNormalTexture():SetTexCoord(0.188, 0.828, 0.437, 0.062)
-                    self:GetHighlightTexture():SetTexCoord(0.188, 0.828, 0.937, 0.562)
-                end
+                self:SetState()
             </OnClick>
         </Scripts>
         <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton" parentKey="normal" setAllPoints="true"/>
