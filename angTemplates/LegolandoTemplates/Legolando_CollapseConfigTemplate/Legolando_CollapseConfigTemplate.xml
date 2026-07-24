@@ -296,13 +296,25 @@
                 </Anchors>
                 <Layers>
                     <Layer level="ARTWORK">
-                        <FontString parentKey="title" inherits="GameFontNormal" text="Template Title">
+                        <FontString parentKey="title" inherits="GameFontNormal" text="">
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="18" y="-19"/>
                             </Anchors>
                         </FontString>
                     </Layer>
                 </Layers>
+                <Scripts>
+                    <OnLoad>
+                        self:RegisterEvent("GLOBAL_MOUSE_DOWN")
+                    </OnLoad>
+                    <OnEvent>
+                        if event == "GLOBAL_MOUSE_DOWN" then
+                            if not self:IsShown() then return end
+                            if self:IsMouseOver() then return end
+                            self:Hide()
+                        end
+                    </OnEvent>
+                </Scripts>
                 <Frames>
                     <Frame name="$parent_Tabs" parentKey="tabs" inherits="Legolando_PortedTabSystemTemplate_Angleur">    
                         <Size x="1" y="1"/>

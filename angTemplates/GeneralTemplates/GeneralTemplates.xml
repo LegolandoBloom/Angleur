@@ -150,7 +150,7 @@
                     <Frame name="$parent_InputBoxes" parentKey="inputBoxes" hidden="true">
                         <Size x="38" y="25"/>
                         <Anchors>
-                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="1" y="-1"/>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-1"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="active" type="boolean" value="false"/>
@@ -281,18 +281,20 @@
                     </Frame>
                 </Frames>
             </Button>
-            <Button name="$parent_MoreAdjustmentsCollapseButton" parentKey="collapseButton" toplevel="true" inherits="Legolando_CollapseConfigTemplate2_Angleur" hidden="false">
-                <Size x="16" y="8"/>
+            <Frame name="$parent_MoreAdjustmentsCollapseButton" parentKey="collapseButton" toplevel="true" inherits="Legolando_CollapseConfigTemplate2_Angleur" hidden="false">
+                <Size x="1" y="1"/>
                 <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parent_TimeButton" relativePoint="RIGHT" x="-1" y="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$parent_TimeButton" relativePoint="BOTTOMLEFT" x="2" y="2"/>
                 </Anchors>
                 <Scripts>
                     <OnLoad inherit="append">
-                        self.popup:AdjustPointsOffset(-25, 10)
-                        self:Init(nil, "Right")
+                        self.expandButton:SetSize(18, 12)
+                        self.popup:AdjustPointsOffset(-6, 0)
+                        self.popup:SetSize(100, 70)
+                        self:Init(nil, "Down")
                     </OnLoad>
                 </Scripts>
-            </Button>
+            </Frame>
             <Button name="$parent_CloseButton" parentKey="closeButton" inherits="UIPanelCloseButtonNoScripts" hidden="true">
                 <Size x="20" y="20"/>
                 <Anchors>
