@@ -36,7 +36,7 @@ local function setupAudio(self)
     audioConfig.tooltip= T["Adjust Audio Levels"]
     audioConfig.popup:SetSize(280, 380)
     audioConfig.popup:AdjustPointsOffset(-5, 5)
-    audioConfig.popup.Border.title:SetText(T["Ultra Focus: Audio Settings"])
+    audioConfig.popup.title:SetText(T["Ultra Focus: Audio Settings"])
     audioConfig:Hide()
 
     local masterSlider = CreateFrame("Frame", "Angleur_UltraFocusAudio_MasterSlider", audioConfig.popup, "SliderAndEditControlTemplate")

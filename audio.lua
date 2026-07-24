@@ -89,25 +89,7 @@ function Angleur_RecastReminder_Stop()
     scriptPhase = 0
 end
 
-
-
 -- SLASH_ANGLEURAUDIOTEST1 = "/atest"
 -- SlashCmdList["ANGLEURAUDIOTEST"] = function() 
 --     PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
 -- end
-
--- local testButton = CreateFrame("Button", "TestyTest", UIParent, "BlablaButton")
--- testButton:RotateTextures(math.pi/ 2)
--- testButton:SetPoint("CENTER", UIParent, "CENTER")
--- testButton:SetScale(3)
--- testButton:Show()
-
-
-
-local testButton = CreateFrame("Button", "BlepGlep", UIParent, "Legolando_CollapseConfigTemplate2_Angleur")
--- testButton:SetSize(64, 4)
-testButton:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
-testButton.tooltip = "Open Config"
-testButton:Show()
-testButton:SetScale(6)
-testButton:Init(nil, "Left")

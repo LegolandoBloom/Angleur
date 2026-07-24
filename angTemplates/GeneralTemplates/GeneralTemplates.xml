@@ -284,10 +284,11 @@
             <Button name="$parent_MoreAdjustmentsCollapseButton" parentKey="collapseButton" toplevel="true" inherits="Legolando_CollapseConfigTemplate2_Angleur" hidden="false">
                 <Size x="16" y="8"/>
                 <Anchors>
-                    <Anchor point="LEFT" relativeTo="$parent_TimeButton" relativePoint="RIGHT" x="0" y="0"/>
+                    <Anchor point="LEFT" relativeTo="$parent_TimeButton" relativePoint="RIGHT" x="-1" y="0"/>
                 </Anchors>
                 <Scripts>
                     <OnLoad inherit="append">
+                        self.popup:AdjustPointsOffset(-25, 10)
                         self:Init(nil, "Right")
                     </OnLoad>
                 </Scripts>
