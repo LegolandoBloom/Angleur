@@ -73,8 +73,7 @@
             Bottom: 1       __> to turn upside down                │ ┌─┘               Bottom: 0.937   __> to turn upside down                         
             Left: 0.15625                                          └─┘                 Left: 0.188                                                     
             Right: 0.84375                                                            Right: 0.828                                                    
-
--->
+    -->
     <!-- The edited version of blizzard FrameXML's: EquipmentFlyoutPopoutButtonTemplate -->
     <Button name="Legolando_SimpleArrowPopoutButtonTemplate_Angleur" mixin="Legolando_SimpleArrowPopoutButtonTemplateMixin_Angleur" hidden="false" virtual="true">
         <Size x="8" y="8"/>

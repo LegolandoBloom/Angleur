@@ -55,6 +55,73 @@
         <HighlightTexture file="Interface\Buttons\UI-Common-MouseHilight" alphaMode="ADD"/>
     </Button>
 
+
+        <!-- FIXED? ==> Removed setAllPoints="true", no longer need to bury the border into a child frame for it to work, can just make the main frame inherit the template -->
+    <Frame name="Legolando_FixedSecureDialogBorderNoCenterTemplate_AngleurBobScan" virtual="true">
+      <Layers>
+        <Layer level="BACKGROUND">
+          <Texture parentKey="TopLeftCorner" atlas="UI-Frame-DiamondMetal-CornerTopLeft" useAtlasSize="true">
+            <Anchors>
+              <Anchor point="TOPLEFT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="TopRightCorner" atlas="UI-Frame-DiamondMetal-CornerTopRight" useAtlasSize="true">
+            <Anchors>
+              <Anchor point="TOPRIGHT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="BottomLeftCorner" atlas="UI-Frame-DiamondMetal-CornerBottomLeft" useAtlasSize="true">
+            <Anchors>
+              <Anchor point="BOTTOMLEFT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="BottomRightCorner" atlas="UI-Frame-DiamondMetal-CornerBottomRight" useAtlasSize="true">
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="TopEdge" atlas="_UI-Frame-DiamondMetal-EdgeTop" useAtlasSize="true" horizTile="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="TOPRIGHT"/>
+              <Anchor point="TOPRIGHT" relativeKey="$parent.TopRightCorner" relativePoint="TOPLEFT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="BottomEdge" atlas="_UI-Frame-DiamondMetal-EdgeBottom" useAtlasSize="true" horizTile="true">
+            <Anchors>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent.BottomLeftCorner" relativePoint="BOTTOMRIGHT"/>
+              <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="BOTTOMLEFT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="LeftEdge" atlas="!UI-Frame-DiamondMetal-EdgeLeft" useAtlasSize="true" vertTile="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="BOTTOMLEFT"/>
+              <Anchor point="BOTTOMLEFT" relativeKey="$parent.BottomLeftCorner" relativePoint="TOPLEFT"/>
+            </Anchors>
+          </Texture>
+          <Texture parentKey="RightEdge" atlas="!UI-Frame-DiamondMetal-EdgeRight" useAtlasSize="true" vertTile="true">
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeKey="$parent.TopRightCorner" relativePoint="BOTTOMRIGHT"/>
+              <Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="TOPRIGHT"/>
+            </Anchors>
+          </Texture>
+        </Layer>
+      </Layers>
+    </Frame>
+
+    <Frame name="Legolando_PortedSecureDialogBorderTemplate_AngleurBobScan" inherits="Legolando_FixedSecureDialogBorderNoCenterTemplate_AngleurBobScan" virtual="true">
+      <Layers>
+        <Layer level="BACKGROUND" textureSubLevel="-5">
+          <!-- TODO: Convert this to atlas -->
+          <Texture parentKey="Bg" file="Interface\DialogFrame\UI-DialogBox-Background" horizTile="true" vertTile="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" x="7" y="-7"/>
+              <Anchor point="BOTTOMRIGHT" x="-7" y="7"/>
+            </Anchors>
+          </Texture>
+        </Layer>
+      </Layers>
+    </Frame>
+
     <Button name="Legolando_CollapseConfigTemplate_AngleurBobScan" mixin="Legolando_CollapseConfigMixin_AngleurBobScan" inherits="Legolando_CollapseConfig_SimpleSquareButtonTemplate_AngleurBobScan" virtual="true">
         <KeyValues>
             <KeyValue key="savedVarTable" value="" type="table"/>
@@ -72,7 +139,7 @@
             </OnHide>
         </Scripts>
         <Frames>
-            <Frame name="$parent_Popup" parentKey="popup" toplevel="true" hidden="true" enableMouse="true">
+            <Frame name="$parent_Popup" parentKey="popup" toplevel="true" inherits="Legolando_PortedSecureDialogBorderTemplate_AngleurBobScan" hidden="true" enableMouse="true">
                 <Size x="600" y="226"/>
                 <Anchors>
                     <Anchor point="BOTTOM" relativeTo="$parent" relativePoint="TOP" x="0" y="0"/>
@@ -87,7 +154,6 @@
                     </Layer>
                 </Layers>
                 <Frames>
-                    <Frame parentKey="Border" inherits="SecureDialogBorderTemplate"/>
                     <Frame name= "$parent_TempMaxZoom" parentKey="tempMaxZoom" inherits="SliderAndEditControlTemplate">
                         <Anchors>
                             <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-30" y="-20"/>
