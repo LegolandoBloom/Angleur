@@ -81,3 +81,20 @@ function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     local colorPurple = CreateColor(0.64, 0.3, 0.71)
     Angleur_BetaPrint(4, colorPurple:WrapTextInColorCode("Angleur_CombatWeaponSwapButtonMixin: ") .. "setMacro: MACRO TEXT\n" , macroBody)
 end
+
+ExtraItemButtonMixin = {}
+
+local TestyTable = {}
+TestyTable.testSlider = -5
+
+function ExtraItemButtonMixin:OnLoad()
+    local popup = self.collapseButton.popup
+    local testSlider = CreateFrame("Slider", popup:GetDebugName() .. "_TestSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
+    testSlider:SetSize(62, 10)
+    testSlider:SetOrientation("HORIZONTAL")
+    print("why")
+    testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
+    testSlider.savedVarTable = TestyTable
+    testSlider.reference = "testSlider"
+    testSlider:Init(-10, 0, 1, "sec")
+end

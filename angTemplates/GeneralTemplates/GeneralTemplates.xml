@@ -83,8 +83,9 @@
         </Frames>
     </Button>
     
-    <Button name="ExtraItemButtonTemplate" inherits="Angleur_SimplifiedActionButtonTemplate" virtual="true">
+    <Button name="ExtraItemButtonTemplate" inherits="Angleur_SimplifiedActionButtonTemplate" mixin="ExtraItemButtonMixin" virtual="true">
         <Scripts>
+            <OnLoad method="OnLoad"/>
             <OnEnter>
                 if self.toyID ~= 0 and self.toyID then
                     GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)

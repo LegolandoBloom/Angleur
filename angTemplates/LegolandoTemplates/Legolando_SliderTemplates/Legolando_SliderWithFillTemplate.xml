@@ -1,0 +1,135 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <Script file="Legolando_SliderWithFillTemplate.lua"/>
+
+	<Frame name="Legolando_ResizableSliderBarTemplate_Angleur" mixin="Legolando_ResizableSliderBarMixin_Angleur" virtual="true">
+		<Layers>
+			<Layer level="ARTWORK">
+				<Texture parentKey="TopLeftCorner">
+					<Size x="6" y="6"/>
+					<Anchors>
+						<Anchor point="TOPLEFT"/>
+					</Anchors>
+					<TexCoords left="0.5" right="0.593" top="0.375" bottom="1" />
+					</Texture>
+				<Texture parentKey="TopRightCorner">
+					<Size x="6" y="6"/>
+					<Anchors>
+						<Anchor point="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.656" right="0.75" top="0.375" bottom="1" />
+					</Texture>
+				<Texture parentKey="TopEdge">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="TOPRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.TopRightCorner" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.593" right="0.656" top="0.375" bottom="1" />
+				</Texture>
+				<Texture parentKey="BottomLeftCorner">
+					<Size x="6" y="6"/>
+					<Anchors>
+						<Anchor point="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.75" right="0.843" top="0" bottom="0.625" />
+				</Texture>
+				<Texture parentKey="BottomRightCorner">
+					<Size x="6" y="6"/>
+					<Anchors>
+						<Anchor point="BOTTOMRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.906" right="1" top="0" bottom="0.625" />
+				</Texture>
+				<Texture parentKey="BottomEdge">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.BottomLeftCorner" relativePoint="TOPRIGHT"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="BOTTOMLEFT"/>
+					</Anchors>
+					<TexCoords left="0.843" right="0.906" top="0" bottom="0.625" />
+				</Texture>
+				<Texture parentKey="LeftEdge">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.TopLeftCorner" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomLeftCorner" relativePoint="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0" right="0.09375" top="0" bottom="1" />
+				</Texture>
+				<Texture parentKey="RightEdge">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativeKey="$parent.TopRightCorner" relativePoint="BOTTOMLEFT"/>
+						<Anchor point="BOTTOMRIGHT" relativeKey="$parent.BottomRightCorner" relativePoint="TOPRIGHT"/>
+					</Anchors>
+					<TexCoords left="0.15625" right="0.25" top="0" bottom="1" />
+				</Texture>
+			</Layer>
+		</Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+    </Frame>
+
+	<Slider name="Legolando_SliderColorFillTemplate_Angleur" mixin="Legolando_SliderColorFillMixin_Angleur" orientation="HORIZONTAL" scale="1" enableMouse="true" virtual="true">
+		<!-- <Size x="100" y="10"/> -->
+        <KeyValues>
+            <KeyValue key="fillFromStart" value="true" type="boolean"/>
+            <KeyValue key="thumbWidthScaler" value="1" type="number"/>
+            <KeyValue key="thumbHeightScaler" value="1" type="number"/>
+        </KeyValues>
+		<Frames>
+			<Frame name="$parent_Bar" parentKey="bar" inherits="Legolando_ResizableSliderBarTemplate_Angleur" useParentLevel="true">
+				<Anchors>
+            <Anchor point="CENTER"/>
+				</Anchors>
+				<Layers>
+					<Layer level="BACKGROUND">
+						<Texture parentKey="fill">
+                <Color r="1.0" g="0.82" b="0.0"/>
+						</Texture>
+					</Layer>
+				</Layers>
+			</Frame>
+			<EditBox name="$parent_EditBox" mixin="Legolando_SliderColorFillEditBoxMixin_Angleur" letters="2" parentKey="editBox" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+				<Size x="22" y="22"/>
+				<Anchors>
+					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
+				</Anchors>
+				<Scripts>
+					<OnEditFocusGained method="OnEditFocusGained"/>
+					<OnEditFocusLost method="OnEditFocusLost"/>
+					<OnLoad method="OnLoad"/>
+					<OnTabPressed>
+						if self:HasFocus() then
+							self:GetParent().seconds:SetFocus()
+						end
+					</OnTabPressed>
+					<OnEnterPressed>
+						self:ClearFocus()
+					</OnEnterPressed>
+					<OnEscapePressed>
+						self:ClearFocus()
+					</OnEscapePressed>
+				</Scripts>
+			</EditBox>
+		</Frames>
+		<Layers>
+			<Layer level="ARTWORK">
+				<FontString parentKey="unitText" text="units" inherits="GameFontHighlightExtraSmall">
+					<Anchors>
+						<Anchor point="TOP" relativePoint="BOTTOM" x="0" y="0"/>
+					</Anchors>
+					<Color r="1" g="1" b="1"/>
+				</FontString>
+			</Layer>
+		</Layers>
+		<ThumbTexture parentKey="thumb">
+        <!-- Size set in mixin, use KeyValues thumbWidthScaler and thumbHeightScaler to change thumb's size -->
+			  <!--  for orientation="HORIZONTAL": <Size x="13" y="19"/>  -->
+			  <!--  for orientation="VERTICAL": <Size x="19" y="13"/> -->
+        <!-- NEED TO SET AN ARBITRARY SIZE HERE OTHERWISE THE BOUNDS OF THUMB GET MIXED UP FOR THE INITAL SetValue on :Init() -->
+        <Size x="13" y="19"/>
+    </ThumbTexture>
+	</Slider>
+
+
+</Ui>

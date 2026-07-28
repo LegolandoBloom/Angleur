@@ -18,5 +18,7 @@
     <Include file="Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml"/>
 
     <Include file="Legolando_CheckboxFrameTemplate\Legolando_CheckboxFrameTemplate.xml"/>
+
+    <Include file="Legolando_SliderTemplates\Legolando_SliderWithFillTemplate.xml"/>
     
 </Ui>
