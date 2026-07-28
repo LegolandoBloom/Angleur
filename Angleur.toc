@@ -71,6 +71,7 @@ thanks\thanks.lua
 thanks\thanks.xml
 
 #@do-not-package@
+test\testTemplates.xml
 test\test.xml
 test\test.lua
 #@end-do-not-package@
