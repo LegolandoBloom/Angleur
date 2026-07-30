@@ -96,5 +96,5 @@ function ExtraItemButtonMixin:OnLoad()
     testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
     testSlider.savedVarTable = TestyTable
     testSlider.reference = "testSlider"
-    testSlider:Init(-10, 0, 1, "sec")
+    testSlider:Init(-100, 0, 5, "sec")
 end

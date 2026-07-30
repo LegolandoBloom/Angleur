@@ -1,0 +1,226 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <!-- Needs Angleur_WarningFrame to work, located in GeneralTemplates -->
+    
+    <Script file="Legolando_EditBoxTemplates.lua"/>
+
+
+    <EditBox name="Legolando_EditBoxNoTextureTemplate_Angleur" mixin="Legolando_EditBoxNoTextureMixin_Angleur" virtual="true">
+        <KeyValues>
+            <KeyValue key="showDebugBorder" value="false" type="boolean"/>
+        </KeyValues>
+        <FontString inherits="ChatFontNormal"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="debugBorder" setAllPoints="true" hidden="true">
+                    <Color r="1" g="0" b="0" a="0.2"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+            <OnEditFocusGained method="OnEditFocusGained"/>
+            <OnEditFocusLost method="OnEditFocusLost"/>
+            <OnTabPressed>
+                self:ClearFocus()
+            </OnTabPressed>
+            <OnEnterPressed>
+                self:ClearFocus()
+            </OnEnterPressed>
+            <OnEscapePressed>
+                self:ClearFocus()
+            </OnEscapePressed>
+        </Scripts>
+    </EditBox>
+    
+
+    <!-- <Frame name="Unaltered" parentKey="inputBoxes" hidden="true">
+        <Size x="38" y="25"/>
+        <Anchors>
+            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-1"/>
+        </Anchors>
+        <KeyValues>
+            <KeyValue key="active" type="boolean" value="false"/>
+        </KeyValues>
+        <Scripts>
+            <OnHide>
+                if self.active then
+                    Angleur_GetTimeFromBox(self)
+                    self.active = false
+                end
+            </OnHide>
+        </Scripts>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parent_Background" parentKey="background" file="Interface/COMMON/Common-CheckBox-Background">
+                    <Size x="38" y="25"/>
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-2" y="-3"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString text="min sec" inherits="GameFontHighlightExtraSmall">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="-2" y="-3"/>
+                    </Anchors>
+                    <Color r="1.0" g="0.82" b="0.0"/>
+                </FontString>
+                <FontString text=":" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="CENTER" x="1" y="2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <EditBox name="$parent_Min" letters="2" parentKey="minutes" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                <Size x="22" y="22"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnEditFocusGained>
+                        self:GetParent():Show()
+                        self:GetParent().active = true
+                        self:HighlightText()
+                    </OnEditFocusGained>
+                    <OnEditFocusLost>
+                        self:ClearHighlightText()
+                        Angleur_FillEditBox(self)
+                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
+                            self:GetParent():Hide()
+                        end
+                    </OnEditFocusLost>
+                    <OnLoad>
+                        self.Left:Hide()
+                        self.Middle:Hide()
+                        self.Right:Hide()
+                        self:RegisterEvent("GLOBAL_MOUSE_UP")
+                        self:SetScript("OnEvent", function(self, event, button) 
+                            if event ~= "GLOBAL_MOUSE_UP" then return end
+                            if button ~= "LeftButton" and button ~= "RightButton" then return end
+                            if self:IsMouseOver() == true then return end
+                            if self:GetParent():GetParent():IsMouseOver() == false then
+                                self:ClearFocus()
+                            end
+                        end)
+                    </OnLoad>
+                    <OnTabPressed>
+                        if self:HasFocus() then
+                            self:GetParent().seconds:SetFocus()
+                        end
+                    </OnTabPressed>
+                    <OnEnterPressed>
+                        self:ClearFocus()
+                    </OnEnterPressed>
+                    <OnEscapePressed>
+                        self:ClearFocus()
+                    </OnEscapePressed>
+                </Scripts>
+            </EditBox>
+            <EditBox name="$parent_Sec" letters="2" parentKey="seconds" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+                <Size x="22" y="22"/>
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parent_Min" relativePoint="RIGHT" x="0" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnEditFocusGained>
+                        self:GetParent():Show()
+                        self:GetParent().active = true
+                        self:HighlightText()
+                    </OnEditFocusGained>
+                    <OnEditFocusLost>
+                        self:ClearHighlightText()
+                        Angleur_FillEditBox(self)
+                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
+                            self:GetParent():Hide()
+                        end
+                    </OnEditFocusLost>
+                    <OnLoad>
+                        self.Left:Hide()
+                        self.Middle:Hide()
+                        self.Right:Hide()
+                        self:RegisterEvent("GLOBAL_MOUSE_UP")
+                        self:SetScript("OnEvent", function(self, event, button) 
+                            if event ~= "GLOBAL_MOUSE_UP" then return end
+                            if button ~= "LeftButton" and button ~= "RightButton" then return end
+                            if self:IsMouseOver() == true then return end
+                            if self:GetParent():GetParent():IsMouseOver() == false then
+                                self:ClearFocus()
+                            end
+                        end)
+                    </OnLoad>
+                    <OnTabPressed>
+                        if self:HasFocus() then
+                            self:ClearFocus()
+                        end
+                    </OnTabPressed>
+                    <OnEnterPressed>
+                        self:ClearFocus()
+                    </OnEnterPressed>
+                    <OnEscapePressed>
+                        self:ClearFocus()
+                    </OnEscapePressed>
+                </Scripts>
+            </EditBox>
+        </Frames>
+    </Frame> -->
+
+    <Frame name="Legolando_MinSecEditBoxesTemplate_Angleur" mixin="Legolando_MinSecEditBoxesMixin_Angleur" virtual="true">
+        <Size x="38" y="25"/>
+        <KeyValues>
+            <KeyValue key="active" type="boolean" value="false"/>
+        </KeyValues>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parent_Background" parentKey="background" file="Interface/COMMON/Common-CheckBox-Background">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeTo="$parent"/>
+                        <Anchor point="BOTTOMRIGHT" relativeTo="$parent"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <FontString text="min sec" inherits="GameFontHighlightExtraSmall">
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1.0" g="0.82" b="0.0"/>
+                </FontString>
+                <FontString text=":" inherits="GameFontNormalLarge">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="4"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+		<Frames>
+			<EditBox name="$parent_Min" letters="2" parentKey="minutes" autoFocus="false" enableMouse="true" inherits="Legolando_EditBoxNoTextureTemplate_Angleur" hidden="false">
+				<Size x="18" y="18"/>
+                 <Anchors>
+                    <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOP" x="2"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="showDebugBorder" value="true" type="boolean"/>
+                </KeyValues>
+				<Scripts>
+                    <OnTabPressed>
+                        self:GetParent().seconds:SetFocus()
+                    </OnTabPressed>
+				</Scripts>
+			</EditBox>
+            <EditBox name="$parent_Sec" letters="2" parentKey="seconds" autoFocus="false" numeric="true" enableMouse="true" inherits="Legolando_EditBoxNoTextureTemplate_Angleur" hidden="false">
+                <Size x="18" y="18"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOP" x="4" y="0"/>
+                </Anchors>
+                <KeyValues>
+                    <KeyValue key="showDebugBorder" value="true" type="boolean"/>
+                </KeyValues>
+            </EditBox>
+		</Frames>
+	</Frame>
+
+   
+</Ui>

@@ -69,6 +69,9 @@
         </Scripts>
     </Frame>
 
+	
+	
+
 	<Slider name="Legolando_SliderColorFillTemplate_Angleur" mixin="Legolando_SliderColorFillMixin_Angleur" orientation="HORIZONTAL" scale="1" enableMouse="true" virtual="true">
 		<!-- <Size x="100" y="10"/> -->
         <KeyValues>
@@ -89,7 +92,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			<EditBox name="$parent_EditBox" mixin="Legolando_SliderColorFillEditBoxMixin_Angleur" letters="2" parentKey="editBox" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+			<EditBox name="$parent_EditBox" mixin="Legolando_SliderColorFillEditBoxMixin_Angleur" letters="3" parentKey="editBox" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
 				<Size x="22" y="22"/>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>

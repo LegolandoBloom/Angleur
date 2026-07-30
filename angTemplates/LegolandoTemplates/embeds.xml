@@ -20,5 +20,8 @@
     <Include file="Legolando_CheckboxFrameTemplate\Legolando_CheckboxFrameTemplate.xml"/>
 
     <Include file="Legolando_SliderTemplates\Legolando_SliderWithFillTemplate.xml"/>
+
+    <Include file="Legolando_EditBoxTemplates\Legolando_EditBoxTemplates.xml"/>
+    
     
 </Ui>
