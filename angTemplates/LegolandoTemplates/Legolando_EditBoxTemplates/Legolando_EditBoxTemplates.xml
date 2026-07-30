@@ -202,7 +202,7 @@
                     <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOP" x="2"/>
                 </Anchors>
                 <KeyValues>
-                    <KeyValue key="showDebugBorder" value="true" type="boolean"/>
+                    <KeyValue key="showDebugBorder" value="false" type="boolean"/>
                 </KeyValues>
 				<Scripts>
                     <OnTabPressed>
@@ -216,11 +216,10 @@
                     <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOP" x="4" y="0"/>
                 </Anchors>
                 <KeyValues>
-                    <KeyValue key="showDebugBorder" value="true" type="boolean"/>
+                    <KeyValue key="showDebugBorder" value="false" type="boolean"/>
                 </KeyValues>
             </EditBox>
 		</Frames>
 	</Frame>
 
-   
 </Ui>

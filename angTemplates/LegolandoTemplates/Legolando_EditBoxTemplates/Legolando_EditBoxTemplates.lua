@@ -58,10 +58,7 @@ end
 function Legolando_MinSecEditBoxesMixin_Angleur:SeparateValues()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
-	if not teeburu or not reference or not teeburu[reference] then
-		print("Table or Reference missing for EditBoxes")
-		return
-	end
+
 	local value = teeburu[reference]
 	print("Saved value: ", teeburu[reference], "Separating...")
 	self.separateValues.minutes = math.floor(value / 60)
@@ -77,21 +74,17 @@ function Legolando_MinSecEditBoxesMixin_Angleur:CombineAndSaveToTable()
 		return
 	end
 	teeburu[reference] = combined
-	print("Timer set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
+	print("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
 	print("Total time in seconds: ", teeburu[reference])
 end
 
 function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 	local teeburu = self.savedVarTable
-    if not teeburu then
-        print("Min-sec editboxes don't have a saved variable table attached")
-        return
-    end
-    local reference = self.reference
-    if not reference then 
-        print("no min-sec editboxes reference string")
-        return
-    end
+	local reference = self.reference
+	if not teeburu or not reference or not teeburu[reference] then
+		print("Table or Reference missing for EditBoxes")
+		return
+	end
 	self.separateValues = {}
 	self:SeparateValues()
 	self:FillBoxes()
