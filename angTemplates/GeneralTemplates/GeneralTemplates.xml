@@ -133,7 +133,7 @@
                     <OnEnter>
                         self.inputBoxes:Show()
                         self.inputBoxes:Raise()
-                        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 80, 5)
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 0, 0)
                         GameTooltip:AddLine(self.tooltipText, 1, 0.82, 0)
                         GameTooltip:Show()
                     </OnEnter>
