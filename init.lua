@@ -735,11 +735,10 @@ function Angleur_EventLoader(self, event, unit, ...)
         -- Can't set Tab 2 on "ADDON_LOADED" because we need data from NicheOptions
         --      for CreateSlots, and we need CreateSlots to be before SetTab2
         --__________________________________________________________________________
-        Angleur_ExtraItems_CreateSlots(Angleur.configPanel.tab2.contents.extraItems)
+        Angleur_LoadExtraItems(self.configPanel.tab2.contents.extraItems)
         Angleur_SetTab2(self.configPanel.tab2)
         --__________________________________________________________________________
         -- We also need CreateSlots Before ExtraItems_Load
-        Angleur_ExtraItems_Load(Angleur.configPanel.tab2.contents.extraItems)
         
         -- Version based load functions
         load_retail()

@@ -35,29 +35,11 @@ Angleur_SlottedExtraItems = {
 
 ang.extraItems.slotCount = 3 
 local slotCount = ang.extraItems.slotCount
-function Angleur_ExtraItems_CreateSlots(self)
-    local parentName = self:GetDebugName()
+local function initializeSavedItems()
     if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].moreItems == true then
         ang.extraItems.slotCount = 6
         slotCount = 6
-        for i=1, slotCount, 1 do
-            self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
-            self[i]:SetPoint("LEFT", self, "LEFT", 18 + 54*(i - 1), 15)
-            self[i]:SetID(i)
-            self[i]:SetScale(0.85)
-            self[i].timeButton:SetScale(0.85)
-            self[i].closeButton:SetScale(0.85)
-        end
-    else
-        for i=1, slotCount, 1 do
-            self[i] = CreateFrame("Button", parentName .. i, self, "ExtraItemButtonTemplate")
-            self[i]:SetPoint("LEFT", self, "LEFT", 35 + 90*(i - 1), 15)
-            self[i]:SetID(i)
-        end
     end
-end
-
-local function initializeSavedItems()
     for i=1, slotCount, 1 do
         if not Angleur_SlottedExtraItems[i] or type(Angleur_SlottedExtraItems[i]) ~= "table" then
             Angleur_SlottedExtraItems[i] = {}
@@ -82,21 +64,41 @@ local function initializeSavedItems()
     end
     if not ang.loadedPlugins.niche or not AngleurNicheOptions_UI.checkboxes[1].moreItems then
         for i=4, 6, 1 do
-            local slot = Angleur_SlottedExtraItems[i]
-            if slot then slot = nil end
+            Angleur_SlottedExtraItems[i] = nil
         end
     end
 end
 
-function Angleur_ExtraItems_Load(self)
-    local gameVersion = Angleur_CheckVersion()
-    if gameVersion == 2 or gameVersion == 3 then
-        mistsItems:AdjustCloseButton(self)
+function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
+    local parentName = extraItemsFrame:GetDebugName()
+    if slotCount == 6 then
+        for i=1, slotCount, 1 do
+            extraItemsFrame[i] = CreateFrame("Button", parentName .. i, extraItemsFrame, "ExtraItemButtonTemplate")
+            extraItemsFrame[i]:SetPoint("LEFT", extraItemsFrame, "LEFT", 18 + 54*(i - 1), 15)
+            extraItemsFrame[i]:SetID(i)
+            extraItemsFrame[i]:SetScale(0.85)
+            extraItemsFrame[i].timeButton:SetScale(0.85)
+            extraItemsFrame[i].closeButton:SetScale(0.85)
+            extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
+            extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
+            extraItemsFrame[i].timeButton.inputBoxes:Init()
+        end
+    else
+        for i=1, slotCount, 1 do
+            extraItemsFrame[i] = CreateFrame("Button", parentName .. i, extraItemsFrame, "ExtraItemButtonTemplate")
+            extraItemsFrame[i]:SetPoint("LEFT", extraItemsFrame, "LEFT", 35 + 90*(i - 1), 15)
+            extraItemsFrame[i]:SetID(i)
+            extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
+            extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
+            extraItemsFrame[i].timeButton.inputBoxes:Init()
+        end
     end
-    initializeSavedItems()
+end
+
+function Angleur_UpdateExtraItems(extraItemsFrame)
     for i=1, slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
-        local slotFrame = self[i]
+        local slotFrame = extraItemsFrame[i]
         slot.loaded = false
         --slotFrame.name = slot.name
         --slotFrame.spellID = slot.spellID
@@ -106,14 +108,8 @@ function Angleur_ExtraItems_Load(self)
             slotFrame.closeButton:Show()
             slotFrame.Name:SetText(nil)
             slotFrame.timeButton:Show()
-            if slot.delay ~= nil then
-                slotFrame.timeButton.inputBoxes.minutes:SetNumber(math.floor(slot.delay / 60))
-                slotFrame.timeButton.inputBoxes.seconds:SetNumber(slot.delay % 60)
-                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.minutes)
-                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.seconds)
-            end
             local item = Item:CreateFromItemID(slot.itemID)
-            item:ContinueOnItemLoad(function(self)
+            item:ContinueOnItemLoad(function(extraItemsFrame)
                 slot.loaded = true
                 --print("Extra item loaded: ", item:GetItemLink())
             end)
@@ -122,12 +118,6 @@ function Angleur_ExtraItems_Load(self)
             slotFrame.closeButton:Show()
             slotFrame.Name:SetText(slot.macroName)
             slotFrame.timeButton:Show()
-            if slot.delay ~= nil then
-                slotFrame.timeButton.inputBoxes.minutes:SetNumber(math.floor(slot.delay / 60))
-                slotFrame.timeButton.inputBoxes.seconds:SetNumber(slot.delay % 60)
-                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.minutes)
-                Angleur_FillEditBox(slotFrame.timeButton.inputBoxes.seconds)
-            end
         else
             slotFrame.itemID = nil
             slotFrame.icon:SetTexture(nil)
@@ -136,6 +126,16 @@ function Angleur_ExtraItems_Load(self)
             slotFrame.timeButton:Hide()
         end
     end
+end
+
+function Angleur_LoadExtraItems(extraItemsFrame)
+    initializeSavedItems()
+    local gameVersion = Angleur_CheckVersion()
+    Angleur_ExtraItems_CreateSlots(extraItemsFrame)
+    if gameVersion == 2 or gameVersion == 3 then
+        mistsItems:AdjustCloseButton(extraItemsFrame)
+    end
+    Angleur_UpdateExtraItems(extraItemsFrame)
 end
 
 function Angleur_RemoveExtraItem(self)
@@ -166,7 +166,7 @@ function Angleur_RemoveExtraItem(self)
     slot.forceEquip = false
     local grandParent = parent:GetParent()
 
-    Angleur_ExtraItems_Load(grandParent)
+    Angleur_UpdateExtraItems(grandParent)
 end
 
 local typeToSlotID = {
@@ -286,7 +286,7 @@ function Angleur_GrabCursorItem(self)
     --DevTools_Dump(C_Item.GetItemInventoryType(itemLoc))
     --DevTools_Dump(GetItemInteractionInfo(itemLoc))
     checkForHats(itemID)
-    Angleur_ExtraItems_Load(self:GetParent())
+    Angleur_UpdateExtraItems(self:GetParent())
 end
 
 function Angleur_GrabCursorMacro(self, macroIndex)
@@ -346,27 +346,8 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         .. colorYello:WrapTextInColorCode("re-drag ") .. "the new version to the slot. You can also delete the macro to save space, Angleur will remember it."])
     end
     ClearCursor()
-    Angleur_ExtraItems_Load(self:GetParent())
+    Angleur_UpdateExtraItems(self:GetParent())
 end
-
-function Angleur_FillEditBox(self)
-    local number = self:GetNumber()
-    if number > 10 then return end
-    self:SetCursorPosition(0)
-    self:Insert(0)
-    if number > 0 then return end
-    self:SetCursorPosition(0)
-    self:Insert(0)
-end
-function Angleur_GetTimeFromBox(self)
-    local grandGrandParentID = self:GetParent():GetParent():GetID()
-    local slot = Angleur_SlottedExtraItems[grandGrandParentID]
-    slot.lastUpdateTime = 0
-    slot.remainingTime = 0
-    slot.delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
-    print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
-end
-
 
 local function clearCountdown(slot)
     slot.lastUpdateTime = 0

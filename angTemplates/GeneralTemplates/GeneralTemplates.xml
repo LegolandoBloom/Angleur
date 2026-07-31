@@ -133,7 +133,7 @@
                     <OnEnter>
                         self.inputBoxes:Show()
                         self.inputBoxes:Raise()
-                        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 80, -5)
+                        GameTooltip:SetOwner(self, "ANCHOR_TOPRIGHT", 80, 5)
                         GameTooltip:AddLine(self.tooltipText, 1, 0.82, 0)
                         GameTooltip:Show()
                     </OnEnter>
@@ -148,10 +148,10 @@
                     </OnClick>
                 </Scripts>
                 <Frames>
-                    <Frame name="$parent_InputBoxes" parentKey="inputBoxes" hidden="true">
+                    <Frame name="$parent_InputBoxes" parentKey="inputBoxes" inherits="Legolando_MinSecEditBoxesTemplate_Angleur" hidden="true">
                         <Size x="38" y="25"/>
                         <Anchors>
-                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-1"/>
+                            <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="1" y="-5"/>
                         </Anchors>
                         <KeyValues>
                             <KeyValue key="active" type="boolean" value="false"/>
@@ -164,121 +164,6 @@
                                 end
                             </OnHide>
                         </Scripts>
-                        <Layers>
-                            <Layer level="BACKGROUND">
-                                <Texture name="$parent_Background" parentKey="background" file="Interface/COMMON/Common-CheckBox-Background">
-                                    <Size x="38" y="25"/>
-                                    <Anchors>
-                                        <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-2" y="-3"/>
-                                    </Anchors>
-                                </Texture>
-                            </Layer>
-                            <Layer level="ARTWORK">
-                                <FontString text="min sec" inherits="GameFontHighlightExtraSmall">
-                                    <Anchors>
-                                        <Anchor point="BOTTOMLEFT" relativePoint="TOPLEFT" x="-2" y="-3"/>
-                                    </Anchors>
-                                    <Color r="1.0" g="0.82" b="0.0"/>
-                                </FontString>
-                                <FontString text=":" inherits="GameFontNormalLarge">
-                                    <Anchors>
-                                        <Anchor point="CENTER" x="1" y="2"/>
-                                    </Anchors>
-                                </FontString>
-                            </Layer>
-                        </Layers>
-                        <Frames>
-                            <EditBox name="$parent_Min" letters="2" parentKey="minutes" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
-                                <Size x="22" y="22"/>
-                                <Anchors>
-                                    <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT" x="0" y="0"/>
-                                </Anchors>
-                                <Scripts>
-                                    <OnEditFocusGained>
-                                        self:GetParent():Show()
-                                        self:GetParent().active = true
-                                        self:HighlightText()
-                                    </OnEditFocusGained>
-                                    <OnEditFocusLost>
-                                        self:ClearHighlightText()
-                                        Angleur_FillEditBox(self)
-                                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
-                                            self:GetParent():Hide()
-                                        end
-                                    </OnEditFocusLost>
-                                    <OnLoad>
-                                        self.Left:Hide()
-                                        self.Middle:Hide()
-                                        self.Right:Hide()
-                                        self:RegisterEvent("GLOBAL_MOUSE_UP")
-                                        self:SetScript("OnEvent", function(self, event, button) 
-                                            if event ~= "GLOBAL_MOUSE_UP" then return end
-                                            if button ~= "LeftButton" and button ~= "RightButton" then return end
-                                            if self:IsMouseOver() == true then return end
-                                            if self:GetParent():GetParent():IsMouseOver() == false then
-                                                self:ClearFocus()
-                                            end
-                                        end)
-                                    </OnLoad>
-                                    <OnTabPressed>
-                                        if self:HasFocus() then
-                                            self:GetParent().seconds:SetFocus()
-                                        end
-                                    </OnTabPressed>
-                                    <OnEnterPressed>
-                                        self:ClearFocus()
-                                    </OnEnterPressed>
-                                    <OnEscapePressed>
-                                        self:ClearFocus()
-                                    </OnEscapePressed>
-                                </Scripts>
-                            </EditBox>
-                            <EditBox name="$parent_Sec" letters="2" parentKey="seconds" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
-                                <Size x="22" y="22"/>
-                                <Anchors>
-                                    <Anchor point="LEFT" relativeTo="$parent_Min" relativePoint="RIGHT" x="0" y="0"/>
-                                </Anchors>
-                                <Scripts>
-                                    <OnEditFocusGained>
-                                        self:GetParent():Show()
-                                        self:GetParent().active = true
-                                        self:HighlightText()
-                                    </OnEditFocusGained>
-                                    <OnEditFocusLost>
-                                        self:ClearHighlightText()
-                                        Angleur_FillEditBox(self)
-                                        if self:GetParent():GetParent():IsMouseOver() == false and self:GetParent():IsMouseOver() == false then
-                                            self:GetParent():Hide()
-                                        end
-                                    </OnEditFocusLost>
-                                    <OnLoad>
-                                        self.Left:Hide()
-                                        self.Middle:Hide()
-                                        self.Right:Hide()
-                                        self:RegisterEvent("GLOBAL_MOUSE_UP")
-                                        self:SetScript("OnEvent", function(self, event, button) 
-                                            if event ~= "GLOBAL_MOUSE_UP" then return end
-                                            if button ~= "LeftButton" and button ~= "RightButton" then return end
-                                            if self:IsMouseOver() == true then return end
-                                            if self:GetParent():GetParent():IsMouseOver() == false then
-                                                self:ClearFocus()
-                                            end
-                                        end)
-                                    </OnLoad>
-                                    <OnTabPressed>
-                                        if self:HasFocus() then
-                                            self:ClearFocus()
-                                        end
-                                    </OnTabPressed>
-                                    <OnEnterPressed>
-                                        self:ClearFocus()
-                                    </OnEnterPressed>
-                                    <OnEscapePressed>
-                                        self:ClearFocus()
-                                    </OnEscapePressed>
-                                </Scripts>
-                            </EditBox>
-                        </Frames>
                     </Frame>
                 </Frames>
             </Button>

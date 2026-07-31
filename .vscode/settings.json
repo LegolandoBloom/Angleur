@@ -68,7 +68,7 @@
         "AngleurVanilla_FishingPoleTable",
         "Init_AngleurSavedVariables",
         "Angleur_ExtraItems_CreateSlots",
-        "Angleur_ExtraItems_Load",
+        "Angleur_LoadExtraItems",
         "Angleur_CombatDelayer",
         "AngleurMinimapButton",
         "Angleur_PoolDelayer",
