@@ -158,11 +158,19 @@
                         </KeyValues>
                         <Scripts>
                             <OnHide>
-                                if self.active then
-                                    Angleur_GetTimeFromBox(self)
-                                    self.active = false
-                                end
+                                self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
                             </OnHide>
+                            <OnShow inherit="append">
+                                self:RegisterEvent("GLOBAL_MOUSE_DOWN")
+                            </OnShow>
+                            <OnEvent>
+                                if event == "GLOBAL_MOUSE_DOWN" then
+                                    if not self:IsShown() then return end
+                                    if self:IsMouseOver() then return end
+                                    if self:GetParent():IsMouseOver() then return end
+                                    self:Hide()
+                                end
+                            </OnEvent>
                         </Scripts>
                     </Frame>
                 </Frames>

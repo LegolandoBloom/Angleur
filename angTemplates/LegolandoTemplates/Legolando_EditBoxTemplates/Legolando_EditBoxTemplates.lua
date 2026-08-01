@@ -28,10 +28,10 @@ end
 
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
+
 -- Good idea to force update every time it's shown
 -- to clear leftovers force when table values are changed from outside sources 
 function Legolando_MinSecEditBoxesMixin_Angleur:OnShow()
-	print("showing")
 	if not self.initiated then return end
 	self:UpdateBoxes()
 end
