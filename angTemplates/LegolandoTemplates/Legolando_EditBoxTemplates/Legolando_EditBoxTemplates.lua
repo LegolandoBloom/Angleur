@@ -28,6 +28,21 @@ end
 
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
+-- Good idea to force update every time it's shown
+-- to clear leftovers force when table values are changed from outside sources 
+function Legolando_MinSecEditBoxesMixin_Angleur:OnShow()
+	print("showing")
+	if not self.initiated then return end
+	self:UpdateBoxes()
+end
+
+-- Only need to call if table value is changed by outside source(ie: not the editbox itself)
+-- :Show() will also call :UpdateBoxes() and can be used as a replacement
+function Legolando_MinSecEditBoxesMixin_Angleur:UpdateBoxes()
+	self:SeparateValues()
+	self:FillBoxes()
+end
+
 local function addZeroesToEditBox(editBox)
     local number = editBox:GetNumber()
     if number > 10 then return end
@@ -77,6 +92,7 @@ function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 		print("Table or Reference missing for EditBoxes")
 		return
 	end
+	self.initiated = true
 	self.separateValues = {}
 	self:SeparateValues()
 	self:FillBoxes()
@@ -91,3 +107,4 @@ function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 		self:CombineAndSaveToTable()
 	end
 end
+
