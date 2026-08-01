@@ -26,17 +26,6 @@ end
 
 
 
-
-function Angleur_GetTimeFromBox(self)
-    local grandGrandParentID = self:GetParent():GetParent():GetID()
-    local slot = Angleur_SlottedExtraItems[grandGrandParentID]
-    slot.lastUpdateTime = 0
-    slot.remainingTime = 0
-    slot.delay = self.minutes:GetNumber() * 60 + self.seconds:GetNumber()
-    print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
-end
-
-
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
 local function addZeroesToEditBox(editBox)
@@ -76,6 +65,9 @@ function Legolando_MinSecEditBoxesMixin_Angleur:CombineAndSaveToTable()
 	teeburu[reference] = combined
 	print("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
 	print("Total time in seconds: ", teeburu[reference])
+	if self.onSaveCallback then
+		self.onSaveCallback(self, teeburu)
+	end
 end
 
 function Legolando_MinSecEditBoxesMixin_Angleur:Init()

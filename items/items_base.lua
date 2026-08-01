@@ -69,6 +69,14 @@ local function initializeSavedItems()
     end
 end
 
+
+
+local function onSaveCallback(_, slot)
+    -- DevTools_Dump(slot)
+    slot.lastUpdateTime = 0
+    slot.remainingTime = 0
+    print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
+end
 function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
     local parentName = extraItemsFrame:GetDebugName()
     if slotCount == 6 then
@@ -81,6 +89,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i].closeButton:SetScale(0.85)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
+            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
         end
     else
@@ -90,6 +99,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i]:SetID(i)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
+            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
         end
     end
