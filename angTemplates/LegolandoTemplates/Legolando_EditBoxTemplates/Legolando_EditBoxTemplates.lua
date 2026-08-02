@@ -33,12 +33,12 @@ Legolando_MinSecEditBoxesMixin_Angleur = {}
 -- to clear leftovers force when table values are changed from outside sources 
 function Legolando_MinSecEditBoxesMixin_Angleur:OnShow()
 	if not self.initiated then return end
-	self:UpdateBoxes()
+	self:Update()
 end
 
 -- Only need to call if table value is changed by outside source(ie: not the editbox itself)
--- :Show() will also call :UpdateBoxes() and can be used as a replacement
-function Legolando_MinSecEditBoxesMixin_Angleur:UpdateBoxes()
+-- :Show() will also call :Update() and can be used as a replacement
+function Legolando_MinSecEditBoxesMixin_Angleur:Update()
 	self:SeparateValues()
 	self:FillBoxes()
 end
@@ -69,17 +69,26 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SeparateValues()
 	self.separateValues.seconds = value % 60
 end
 
-function Legolando_MinSecEditBoxesMixin_Angleur:CombineAndSaveToTable()
-	local combined = self.separateValues.minutes * 60 + self.separateValues.seconds
+local function combineValues(minutes, seconds)
+	local combined = minutes * 60 + seconds
+	return combined
+end
+-- No need for parameters to SaveToTable since it will use self.separateValues for setting
+function Legolando_MinSecEditBoxesMixin_Angleur:SaveToTable()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
 	if not teeburu or not reference or not teeburu[reference] then
 		print("Table or Reference missing for EditBoxes")
 		return
 	end
-	teeburu[reference] = combined
+	teeburu[reference] = combineValues(self.separateValues.minutes, self.separateValues.seconds)
 	print("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
 	print("Total time in seconds: ", teeburu[reference])
+	if privateRegistry and privateRegistryString then
+		privateRegistry:TriggerEvent(privateRegistryString, self)
+	end
 	if self.onSaveCallback then
 		self.onSaveCallback(self, teeburu)
 	end
@@ -92,6 +101,14 @@ function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 		print("Table or Reference missing for EditBoxes")
 		return
 	end
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+	if privateRegistry and privateRegistryString then
+		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
+			if caller == self then return end
+			self:Update()
+		end)
+	end
 	self.initiated = true
 	self.separateValues = {}
 	self:SeparateValues()
@@ -99,12 +116,12 @@ function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 	self.minutes.callback = function(editBox, value) 
 		self.separateValues.minutes = value
 		addZeroesToEditBox(editBox)
-		self:CombineAndSaveToTable()
+		self:SaveToTable()
 	end
 	self.seconds.callback = function(editBox, value) 
 		self.separateValues.seconds = value
 		addZeroesToEditBox(editBox)
-		self:CombineAndSaveToTable()
+		self:SaveToTable()
 	end
 end
 

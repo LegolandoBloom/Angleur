@@ -96,7 +96,37 @@ local function handleThumb(slider, isHorizontal)
     end
 end
 
+-- omit --> whatever type of frame that called Update, as it will already have the new value set(by itself)
+function Legolando_SliderColorFillMixin_Angleur:Update()
+    local teeburu = self.savedVarTable
+    local reference = self.reference
+    local tableValue = teeburu[reference]
+    self:SetValue(tableValue)
+    self.unitText:SetText(tableValue .. " " .. self.unit)
+end
+
+function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
+    local teeburu = self.savedVarTable
+    if not teeburu then
+        print("Slider doesn't have a saved variable table attached")
+        return
+    end
+    local reference = self.reference
+    if not reference then 
+        print("no slider reference string")
+        return
+    end
+    local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+    teeburu[reference] = newValue
+    if privateRegistry and privateRegistryString then
+		privateRegistry:TriggerEvent(privateRegistryString, self)
+	end
+end
+
 function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
+    local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
     local isHorizontal = self:GetOrientation() == "HORIZONTAL"
     handleBar(self, isHorizontal)
     handleThumb(self, isHorizontal)
@@ -111,6 +141,13 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
         print("no slider reference string")
         return
     end
+    if privateRegistry and privateRegistryString then
+		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
+            print(privateRegistryString)
+			if caller == self then return end
+			self:Update()
+		end)
+	end
     if not unit then unit = "" end
     self.unit = unit
     self:SetMinMaxValues(min, max)
@@ -118,36 +155,15 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self:SetObeyStepOnDrag(true)
     self:SetValue(teeburu[reference])
     self.unitText:SetText(teeburu[reference] .. " " .. unit)
-    self:SetScript("OnValueChanged", function(self, value)
-        self:Update(value, "Slider")
+    self:SetScript("OnValueChanged", function(self, newValue)
+        self:SaveToTable(newValue)
+        self.editBox:Update(newValue)
         if self.onChangedCallback then
-            self.onChangedCallback(self, value)
+            self.onChangedCallback(self, newValue)
         end
     end)
 end
 
--- omit --> whatever type of frame that called Update, as it will already have the new value set(by itself)
-function Legolando_SliderColorFillMixin_Angleur:Update(newValue, omit)
-    local teeburu = self.savedVarTable
-    if not teeburu then
-        print("Slider doesn't have a saved variable table attached")
-        return
-    end
-    local reference = self.reference
-    if not reference then 
-        print("no slider reference string")
-        return
-    end
-    teeburu[reference] = newValue
-    print(omit)
-    if omit ~= "Slider" then
-        self:SetValue(newValue)
-    end
-    if omit ~= "EditBox" then
-        self.editBox:SetText(newValue)
-    end
-    self.unitText:SetText(newValue .. " " .. self.unit)
-end
 
 Legolando_SliderColorFillEditBoxMixin_Angleur = {}
 
@@ -170,7 +186,20 @@ end
 
 function Legolando_SliderColorFillEditBoxMixin_Angleur:OnEditFocusLost()
     self:ClearHighlightText()
-    local newValue = self:GetNumber()
-    self:GetParent():Update(newValue, "EditBox")
     self:UnregisterEvent("GLOBAL_MOUSE_UP")
+    local newValue = self:GetNumber()
+    self:SaveToTable(newValue)
+    self:GetParent():Update()
+end
+
+function Legolando_SliderColorFillEditBoxMixin_Angleur:Update()
+    local parent = self:GetParent()
+    -- Since the parent will always have been updated before editBox, we can get the value directly from parent
+    local valueFromParent = parent:GetValue()
+    self:SetText(valueFromParent)
+end
+
+function Legolando_SliderColorFillEditBoxMixin_Angleur:SaveToTable(newValue)
+    -- Use parent's save to table function since the table reference is theirs
+    self:GetParent():SaveToTable(newValue)
 end

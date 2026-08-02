@@ -87,6 +87,10 @@ ExtraItemButtonMixin = {}
 local TestyTable = {}
 TestyTable.testSlider = -5
 
+local testCR = CreateFromMixins(CallbackRegistryMixin)
+testCR:OnLoad()
+testCR:SetUndefinedEventsAllowed(true)
+
 function ExtraItemButtonMixin:OnLoad()
     local popup = self.collapseButton.popup
     local testSlider = CreateFrame("Slider", popup:GetDebugName() .. "_TestSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
@@ -96,5 +100,7 @@ function ExtraItemButtonMixin:OnLoad()
     testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
     testSlider.savedVarTable = TestyTable
     testSlider.reference = "testSlider"
+    testSlider.privateRegistry = testCR
+    testSlider.privateRegistryString = popup:GetDebugName() .. "DelayModifierChanged"
     testSlider:Init(-100, 0, 5, "sec")
 end

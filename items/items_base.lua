@@ -33,7 +33,7 @@ Angleur_SlottedExtraItems = {
     }
 }
 
-ang.extraItems.slotCount = 3 
+ang.extraItems.slotCount = 3
 local slotCount = ang.extraItems.slotCount
 local function initializeSavedItems()
     if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].moreItems == true then
@@ -71,11 +71,13 @@ end
 
 
 
-local function onSaveCallback(_, slot)
+local function editBox_Updater(editBoxes, slot)
     -- DevTools_Dump(slot)
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
     print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
+    local timeButton = editBoxes:GetParent()
+    if not timeButton:IsMouseOver() then editBoxes:Hide() end
 end
 function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
     local parentName = extraItemsFrame:GetDebugName()
@@ -86,6 +88,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i]:SetID(i)
             extraItemsFrame[i]:SetScale(0.85)
             extraItemsFrame[i].timeButton:SetScale(0.95)
+            extraItemsFrame[i].timeButton.inputBoxes:SetScale(0.8)
             extraItemsFrame[i].closeButton:SetScale(0.85)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
