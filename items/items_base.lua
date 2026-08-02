@@ -71,7 +71,7 @@ end
 
 
 
-local function editBox_Updater(editBoxes, slot)
+local function onSaveCallback(editBoxes, slot)
     -- DevTools_Dump(slot)
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
