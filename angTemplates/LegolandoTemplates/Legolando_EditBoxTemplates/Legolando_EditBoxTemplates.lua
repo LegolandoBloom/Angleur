@@ -105,7 +105,7 @@ function Legolando_MinSecEditBoxesMixin_Angleur:Init()
 	local privateRegistryString = self.privateRegistryString
 	if privateRegistry and privateRegistryString then
 		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
-			if caller == self then return end
+			if caller and caller == self then return end
 			self:Update()
 		end)
 	end
