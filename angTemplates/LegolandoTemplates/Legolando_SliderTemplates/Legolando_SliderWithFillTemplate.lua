@@ -143,7 +143,6 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     end
     if privateRegistry and privateRegistryString then
 		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
-            print(privateRegistryString)
 			if caller and caller == self then return end
 			self:Update()
 		end)
