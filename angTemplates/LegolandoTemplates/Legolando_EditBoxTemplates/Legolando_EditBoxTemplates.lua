@@ -25,7 +25,7 @@ function Legolando_EditBoxNoTextureMixin_Angleur:OnEditFocusLost()
 end
 
 
-
+-- Uses "Legolando_EditBoxNoTextureTemplate"
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
 
