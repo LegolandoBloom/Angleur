@@ -25,7 +25,7 @@ function Legolando_EditBoxNoTextureMixin_Angleur:OnEditFocusLost()
 end
 
 
--- Uses "Legolando_EditBoxNoTextureTemplate"
+-- Uses "Legolando_EditBoxNoTextureMixinTemplate"
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
 
@@ -90,7 +90,8 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SaveToTable()
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
 	if self.onSaveCallback then
-		self.onSaveCallback(self, teeburu)
+		-- Table is returned in case the original code wants to alter other indexes if & when value changes(used in Angleur'self items_base.lua)
+		self.onSaveCallback(self, teeburu[reference], teeburu)
 	end
 end
 

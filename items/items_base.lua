@@ -71,11 +71,11 @@ end
 
 
 
-local function onSaveCallback(editBoxes, slot)
+local function onSaveCallback(editBoxes, value, slot)
     -- DevTools_Dump(slot)
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
-    print(T["Timer set to: "], math.floor(slot.delay/60), T[" minutes, "], slot.delay%60, T[" seconds"])
+    print(T["Timer set to: "], math.floor(value/60), T[" minutes, "], value%60, T[" seconds"])
     local timeButton = editBoxes:GetParent()
     if not timeButton:IsMouseOver() then editBoxes:Hide() end
 end
