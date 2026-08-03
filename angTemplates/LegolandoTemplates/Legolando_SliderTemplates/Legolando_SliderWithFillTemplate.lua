@@ -96,13 +96,16 @@ local function handleThumb(slider, isHorizontal)
     end
 end
 
--- omit --> whatever type of frame that called Update, as it will already have the new value set(by itself)
+function Legolando_SliderColorFillMixin_Angleur:UpdateUnitText(value)
+    self.unitText:SetText(value .. " " .. self.unit)
+end
+
 function Legolando_SliderColorFillMixin_Angleur:Update()
     local teeburu = self.savedVarTable
     local reference = self.reference
     local tableValue = teeburu[reference]
     self:SetValue(tableValue)
-    self.unitText:SetText(tableValue .. " " .. self.unit)
+    self:UpdateUnitText(tableValue)
 end
 
 function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
@@ -116,9 +119,11 @@ function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
         print("no slider reference string")
         return
     end
+    teeburu[reference] = newValue
+    -- Also need to call this here too because :Update() for self wont be called when slider value is manually changed
+    self:UpdateUnitText(newValue)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
-    teeburu[reference] = newValue
     if privateRegistry and privateRegistryString then
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
