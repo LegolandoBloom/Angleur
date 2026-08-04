@@ -196,7 +196,7 @@
             </Layer>
         </Layers>
 		<Frames>
-			<EditBox name="$parent_Min" letters="2" parentKey="minutes" autoFocus="false" enableMouse="true" inherits="Legolando_EditBoxNoTextureTemplate_Angleur" hidden="false">
+			<EditBox name="$parent_Min" letters="2" parentKey="minutes" autoFocus="false" numeric="true" enableMouse="true" inherits="Legolando_EditBoxNoTextureTemplate_Angleur" hidden="false">
 				<Size x="18" y="18"/>
                  <Anchors>
                     <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOP" x="2"/>
