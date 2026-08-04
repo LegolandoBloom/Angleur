@@ -96,7 +96,6 @@ function ExtraItemButtonMixin:OnLoad()
     local testSlider = CreateFrame("Slider", popup:GetDebugName() .. "_TestSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
     testSlider:SetSize(62, 10)
     testSlider:SetOrientation("HORIZONTAL")
-    print("why")
     testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
     testSlider.savedVarTable = TestyTable
     testSlider.reference = "testSlider"

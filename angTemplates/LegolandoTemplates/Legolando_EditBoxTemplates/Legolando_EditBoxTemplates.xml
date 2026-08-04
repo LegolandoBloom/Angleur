@@ -167,7 +167,7 @@
         </Frames>
     </Frame> -->
 
-    <Frame name="Legolando_MinSecEditBoxesTemplate_Angleur" mixin="Legolando_MinSecEditBoxesMixin_Angleur" virtual="true">
+    <Frame name="Legolando_MinSecEditBoxesTemplate_Angleur" mixin="Legolando_MinSecEditBoxesMixin_Angleur" toplevel="true" virtual="true">
         <Size x="38" y="25"/>
         <KeyValues>
             <KeyValue key="active" type="boolean" value="false"/>

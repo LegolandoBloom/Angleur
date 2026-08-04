@@ -28,6 +28,10 @@ end
 -- Uses "Legolando_EditBoxNoTextureMixinTemplate"
 Legolando_MinSecEditBoxesMixin_Angleur = {}
 
+function Legolando_MinSecEditBoxesMixin_Angleur:debugPrint(...)
+	if not self.debug then return end
+	print(...)
+end
 
 -- Good idea to force update every time it's shown
 -- to clear leftovers force when table values are changed from outside sources 
@@ -64,7 +68,7 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SeparateValues()
 	local reference = self.reference
 
 	local value = teeburu[reference]
-	print("Saved value: ", teeburu[reference], "Separating...")
+	self:debugPrint("Saved value: ", teeburu[reference], "Separating...")
 	self.separateValues.minutes = math.floor(value / 60)
 	self.separateValues.seconds = value % 60
 end
@@ -84,8 +88,8 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SaveToTable()
 		return
 	end
 	teeburu[reference] = combineValues(self.separateValues.minutes, self.separateValues.seconds)
-	print("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
-	print("Total time in seconds: ", teeburu[reference])
+	self:debugPrint("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
+	self:debugPrint("Total time in seconds: ", teeburu[reference])
 	if privateRegistry and privateRegistryString then
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end

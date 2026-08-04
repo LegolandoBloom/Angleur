@@ -88,7 +88,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i]:SetID(i)
             extraItemsFrame[i]:SetScale(0.85)
             extraItemsFrame[i].timeButton:SetScale(0.95)
-            extraItemsFrame[i].timeButton.inputBoxes:SetScale(0.8)
+            extraItemsFrame[i].timeButton.inputBoxes:SetScale(0.95)
             extraItemsFrame[i].closeButton:SetScale(0.85)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
