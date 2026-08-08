@@ -170,14 +170,16 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
         end
     end)
 
+    -----------------------------------
+    -- Init() process of the EditBox --
+    -----------------------------------
     self.editBox.savedVarTable = teeburu
     self.editBox.reference = reference
     self.editBox.onSaveCallback = function(checkboxes, value, savedVarTable)
         print("self.editBoxy Editbox value: ", value)
     end
-    -- Optional (If You Want Multiple Elements To Be Able To Change The Same Value) --
     self.editBox.privateRegistry = privateRegistry
 	self.editBox.privateRegistryString = privateRegistryString
-    ----------------------------------------------------------------------------------
     self.editBox:Init(min, max)
+    -----------------------------------
 end
