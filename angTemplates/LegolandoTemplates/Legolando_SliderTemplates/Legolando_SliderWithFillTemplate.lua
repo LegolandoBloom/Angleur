@@ -161,49 +161,59 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self.unitText:SetText(teeburu[reference] .. " " .. unit)
     self:SetScript("OnValueChanged", function(self, newValue)
         self:SaveToTable(newValue)
-        self.editBox:Update(newValue)
         if self.onChangedCallback then
             self.onChangedCallback(self, newValue)
         end
     end)
+
+    self.editBox.savedVarTable = teeburu
+    self.editBox.reference = reference
+    self.editBox.onSaveCallback = function(checkboxes, value, savedVarTable)
+        print("self.editBoxy Editbox value: ", value)
+    end
+    -- Optional (If You Want Multiple Elements To Be Able To Change The Same Value) --
+    self.editBox.privateRegistry = privateRegistry
+	self.editBox.privateRegistryString = privateRegistryString
+    ----------------------------------------------------------------------------------
+    self.editBox:Init(min, max)
 end
 
 
-Legolando_SliderColorFillEditBoxMixin_Angleur = {}
+-- Legolando_SliderColorFillEditBoxMixin_Angleur = {}
 
-function Legolando_SliderColorFillEditBoxMixin_Angleur:OnLoad()
-    self:SetNumericFullRange(true)
-    self:SetScript("OnEvent", function(self, event, button) 
-        if event ~= "GLOBAL_MOUSE_UP" then return end
-        if button ~= "LeftButton" and button ~= "RightButton" then return end
-        if self:IsMouseOver() == true then return end
-        if self:GetParent():GetParent():IsMouseOver() == false then
-            self:ClearFocus()
-        end
-    end)
-end
+-- function Legolando_SliderColorFillEditBoxMixin_Angleur:OnLoad()
+--     self:SetNumericFullRange(true)
+--     self:SetScript("OnEvent", function(self, event, button) 
+--         if event ~= "GLOBAL_MOUSE_UP" then return end
+--         if button ~= "LeftButton" and button ~= "RightButton" then return end
+--         if self:IsMouseOver() == true then return end
+--         if self:GetParent():GetParent():IsMouseOver() == false then
+--             self:ClearFocus()
+--         end
+--     end)
+-- end
 
-function Legolando_SliderColorFillEditBoxMixin_Angleur:OnEditFocusGained()
-    self:HighlightText()
-    self:RegisterEvent("GLOBAL_MOUSE_UP")
-end
+-- function Legolando_SliderColorFillEditBoxMixin_Angleur:OnEditFocusGained()
+--     self:HighlightText()
+--     self:RegisterEvent("GLOBAL_MOUSE_UP")
+-- end
 
-function Legolando_SliderColorFillEditBoxMixin_Angleur:OnEditFocusLost()
-    self:ClearHighlightText()
-    self:UnregisterEvent("GLOBAL_MOUSE_UP")
-    local newValue = self:GetNumber()
-    self:SaveToTable(newValue)
-    self:GetParent():Update()
-end
+-- function Legolando_SliderColorFillEditBoxMixin_Angleur:OnEditFocusLost()
+--     self:ClearHighlightText()
+--     self:UnregisterEvent("GLOBAL_MOUSE_UP")
+--     local newValue = self:GetNumber()
+--     self:SaveToTable(newValue)
+--     self:GetParent():Update()
+-- end
 
-function Legolando_SliderColorFillEditBoxMixin_Angleur:Update()
-    local parent = self:GetParent()
-    -- Since the parent will always have been updated before editBox, we can get the value directly from parent
-    local valueFromParent = parent:GetValue()
-    self:SetText(valueFromParent)
-end
+-- function Legolando_SliderColorFillEditBoxMixin_Angleur:Update()
+--     local parent = self:GetParent()
+--     -- Since the parent will always have been updated before editBox, we can get the value directly from parent
+--     local valueFromParent = parent:GetValue()
+--     self:SetText(valueFromParent)
+-- end
 
-function Legolando_SliderColorFillEditBoxMixin_Angleur:SaveToTable(newValue)
-    -- Use parent's save to table function since the table reference is theirs
-    self:GetParent():SaveToTable(newValue)
-end
+-- function Legolando_SliderColorFillEditBoxMixin_Angleur:SaveToTable(newValue)
+--     -- Use parent's save to table function since the table reference is theirs
+--     self:GetParent():SaveToTable(newValue)
+-- end

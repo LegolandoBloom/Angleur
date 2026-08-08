@@ -69,8 +69,7 @@
         </Scripts>
     </Frame>
 
-	
-	
+
 
 	<Slider name="Legolando_SliderColorFillTemplate_Angleur" mixin="Legolando_SliderColorFillMixin_Angleur" orientation="HORIZONTAL" scale="1" enableMouse="true" virtual="true">
 		<!-- <Size x="100" y="10"/> -->
@@ -92,27 +91,11 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			<EditBox name="$parent_EditBox" mixin="Legolando_SliderColorFillEditBoxMixin_Angleur" letters="3" parentKey="editBox" numeric="true" enableMouse="false" autoFocus="false" hidden="false" inherits="InputBoxTemplate">
+			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" hidden="false" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
 				<Size x="22" y="22"/>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
 				</Anchors>
-				<Scripts>
-					<OnEditFocusGained method="OnEditFocusGained"/>
-					<OnEditFocusLost method="OnEditFocusLost"/>
-					<OnLoad method="OnLoad"/>
-					<OnTabPressed>
-						if self:HasFocus() then
-							self:GetParent().seconds:SetFocus()
-						end
-					</OnTabPressed>
-					<OnEnterPressed>
-						self:ClearFocus()
-					</OnEnterPressed>
-					<OnEscapePressed>
-						self:ClearFocus()
-					</OnEscapePressed>
-				</Scripts>
 			</EditBox>
 		</Frames>
 		<Layers>

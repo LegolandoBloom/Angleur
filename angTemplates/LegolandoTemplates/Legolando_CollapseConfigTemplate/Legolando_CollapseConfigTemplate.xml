@@ -248,7 +248,7 @@
         </Scripts>
         <Frames>
             <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
-            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
+            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" flattenRenderLayers="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
                 <Size x="300" y="150"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>

@@ -376,7 +376,7 @@
                                                         <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="50" y="-5"/>
                                                     </Anchors>
                                                         <Frames>
-                                                            <Frame name="$parent_DropDownMenu" parentKey="dropDownMenu" inherits="UIDropDownMenuTemplate">
+                                                            <Frame name="$parent_DropDownMenu" parentKey="dropDownMenu" flattenRenderLayers="true" inherits="UIDropDownMenuTemplate">
                                                                 <Anchors>
                                                                     <Anchor point="TOP" relativeTo="$parent" relativePoint="BOTTOM" x="-45" y="-25"/>
                                                                 </Anchors>

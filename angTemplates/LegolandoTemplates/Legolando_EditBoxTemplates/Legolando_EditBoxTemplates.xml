@@ -34,6 +34,21 @@
     </EditBox>
     
 
+    <EditBox name="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur" mixin="Legolando_NumericInputBoxWithForceNegativeMixin_Angleur" numericFullRange="true" inherits="InputBoxTemplate" virtual="true">
+        <Scripts>
+            <OnEnterPressed>
+                self:ClearFocus()
+            </OnEnterPressed>
+            <OnTabPressed>
+                self:ClearFocus()
+            </OnTabPressed>
+            <OnEditFocusGained method="OnEditFocusGained"/>
+            <OnEditFocusLost method="OnEditFocusLost"/>
+            <OnCursorChanged method="OnCursorChanged"/>
+            <OnTextChanged method="OnTextChanged"/>
+        </Scripts>
+    </EditBox>
+
     <!-- <Frame name="Unaltered" parentKey="inputBoxes" hidden="true">
         <Size x="38" y="25"/>
         <Anchors>
