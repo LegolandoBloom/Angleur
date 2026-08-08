@@ -6,7 +6,7 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:Update()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
 	local value = teeburu[reference]
-	print("Update value:", value)
+	print("EditBox:Update() => value:", value)
 	self:SetNumber(value)
 end
 
@@ -21,6 +21,7 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:SaveToTable()
 	end
 	teeburu[reference] = self:GetNumber()
 	if privateRegistry and privateRegistryString then
+		print("EditBox is triggering event")
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
 	if self.onSaveCallback then
@@ -43,7 +44,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:CheckMinMax()
 	local max = self.max
 	if not min or not max then return end
 	local number = self:GetNumber()
-	print("CheckMinMax number: ", number)
 	if number < min then
 		self:SetNumber(min)
 	elseif number > max then
@@ -84,7 +84,6 @@ end
 ------------------------------------------------------------------------------------------
 function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:OnCursorChanged(...)
 	if not self.forceNegative then return end
-	print("wobaam")
 	-- need to call GetCursorPosition because OnCursorChanged's parameters are REAL COORDINATE based(for whatever reason)
 	local pos = self:GetCursorPosition()
 	if pos == 0 then 
@@ -99,7 +98,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:OnTextChanged(u
 	if not userInput then return end
 	if not self.forceNegative then return end
 	local entry = self:GetNumber()
-	print("entry:", entry)
 	if entry > 0 then
 		self:InsertMinus()
 	end
@@ -113,7 +111,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:SetForcePositiv
 end
 
 function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:SetForceNegative()
-	print("setting force negative")
 	self.forceNegative = true
 	local newMax = self:GetMaxLetters() + 1
 	self:SetMaxLetters(newMax)
@@ -132,7 +129,8 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:Init(min, max)
 	if privateRegistry and privateRegistryString then
 		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
 			if caller and caller == self then return end
-			print("höh")
+			print(caller:GetDebugName(), caller)
+			print(self:GetDebugName(), self)
 			self:Update()
 		end)
 	end

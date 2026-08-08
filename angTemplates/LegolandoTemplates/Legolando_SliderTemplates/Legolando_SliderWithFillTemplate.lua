@@ -106,6 +106,7 @@ function Legolando_SliderColorFillMixin_Angleur:Update()
     local tableValue = teeburu[reference]
     self:SetValue(tableValue)
     self:UpdateUnitText(tableValue)
+    print("Slider val: ", self:GetValue())
 end
 
 function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
@@ -125,6 +126,7 @@ function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
     if privateRegistry and privateRegistryString then
+        print("Slider is triggering event")
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
 end
@@ -157,9 +159,11 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
+    print("Table value: ", teeburu[reference])
     self:SetValue(teeburu[reference])
     self.unitText:SetText(teeburu[reference] .. " " .. unit)
-    self:SetScript("OnValueChanged", function(self, newValue)
+    self:SetScript("OnValueChanged", function(self, newValue, userInput)
+        if not userInput then return end
         self:SaveToTable(newValue)
         if self.onChangedCallback then
             self.onChangedCallback(self, newValue)
