@@ -92,10 +92,18 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" hidden="true" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
-				<Size x="22" y="22"/>
+			<!-- 
+			Feel free to directly change:
+				- x Size(do NOT change y Size!)
+				- Anchoring
+				- scale
+			of the EditBox in your implementation of the slider.
+			      (either during or after frame creation)
+			-->
+			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" scale="0.95" hidden="true" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
+				<Size x="23" y="20"/>
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
+					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="2" y="0"/>
 				</Anchors>
 			</EditBox>
 		</Frames>

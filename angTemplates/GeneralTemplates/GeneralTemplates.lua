@@ -95,8 +95,10 @@ function ExtraItemButtonMixin:OnLoad()
     local popup = self.collapseButton.popup
     local testSlider = CreateFrame("Slider", popup:GetDebugName() .. "_TestSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
     testSlider:SetSize(62, 10)
+    testSlider:SetScale(0.9)
     testSlider:SetOrientation("HORIZONTAL")
     testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
+    testSlider.showEditBox = true
     testSlider.savedVarTable = TestyTable
     testSlider.reference = "testSlider"
     testSlider.privateRegistry = testCR
