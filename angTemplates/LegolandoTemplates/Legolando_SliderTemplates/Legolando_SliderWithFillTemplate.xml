@@ -77,6 +77,7 @@
             <KeyValue key="fillFromStart" value="true" type="boolean"/>
             <KeyValue key="thumbWidthScaler" value="1" type="number"/>
             <KeyValue key="thumbHeightScaler" value="1" type="number"/>
+            <KeyValue key="showEditBox" value="false" type="boolean"/>
         </KeyValues>
 		<Frames>
 			<Frame name="$parent_Bar" parentKey="bar" inherits="Legolando_ResizableSliderBarTemplate_Angleur" useParentLevel="true">
@@ -91,7 +92,7 @@
 					</Layer>
 				</Layers>
 			</Frame>
-			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" hidden="false" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
+			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" hidden="true" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
 				<Size x="22" y="22"/>
 				<Anchors>
 					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>

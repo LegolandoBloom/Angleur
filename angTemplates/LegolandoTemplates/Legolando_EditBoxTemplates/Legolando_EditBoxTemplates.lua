@@ -6,7 +6,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:Update()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
 	local value = teeburu[reference]
-	print("EditBox:Update() => value:", value)
 	self:SetNumber(value)
 end
 
@@ -21,7 +20,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:SaveToTable()
 	end
 	teeburu[reference] = self:GetNumber()
 	if privateRegistry and privateRegistryString then
-		print("EditBox is triggering event")
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
 	if self.onSaveCallback then
@@ -39,6 +37,7 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:RemoveLeftZeroe
 	end
 end
 
+-- Set to min/max values if out of bounds
 function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:CheckMinMax()
 	local min = self.min
 	local max = self.max
@@ -129,8 +128,6 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:Init(min, max)
 	if privateRegistry and privateRegistryString then
 		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
 			if caller and caller == self then return end
-			print(caller:GetDebugName(), caller)
-			print(self:GetDebugName(), self)
 			self:Update()
 		end)
 	end

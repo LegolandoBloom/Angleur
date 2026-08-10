@@ -106,7 +106,6 @@ function Legolando_SliderColorFillMixin_Angleur:Update()
     local tableValue = teeburu[reference]
     self:SetValue(tableValue)
     self:UpdateUnitText(tableValue)
-    print("Slider val: ", self:GetValue())
 end
 
 function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
@@ -126,8 +125,10 @@ function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
     if privateRegistry and privateRegistryString then
-        print("Slider is triggering event")
 		privateRegistry:TriggerEvent(privateRegistryString, self)
+	end
+    if self.onSaveCallback then
+		self.onSaveCallback(self, teeburu[reference], teeburu)
 	end
 end
 
@@ -148,38 +149,52 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
         print("no slider reference string")
         return
     end
-    if privateRegistry and privateRegistryString then
-		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
-			if caller and caller == self then return end
-			self:Update()
-		end)
-	end
+    -- __________________________________________ Special Case __________________________________________
+    --                SliderColorFill MUST communicate with childframe ForceNegativeBox 
+    --                      Thus requires an arbitrary registry and eventString 
+    --                even if there is no external frame they need to work together with
+    --                                     --------------------------
+    --         If a private registry and/or string is not given, create one and set the string to
+    --  the frame's debug name(if not given during creation it will have a unique string of random chars)
+    --___________________________________________________________________________________________________
+    if not privateRegistry then
+        privateRegistry = CreateFromMixins(CallbackRegistryMixin)
+        privateRegistry:OnLoad()
+        privateRegistry:SetUndefinedEventsAllowed(true)
+        self.privateRegistry = privateRegistry
+    end
+    if not privateRegistryString then
+        privateRegistryString = self:GetDebugName() .. "SliderValueChanged"
+        self.privateRegistryString = privateRegistryString
+    end
+    --___________________________________________________________________________________________________
+    privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
+        if caller and caller == self then return end
+        self:Update()
+    end)
+
     if not unit then unit = "" end
     self.unit = unit
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
-    print("Table value: ", teeburu[reference])
     self:SetValue(teeburu[reference])
     self.unitText:SetText(teeburu[reference] .. " " .. unit)
     self:SetScript("OnValueChanged", function(self, newValue, userInput)
         if not userInput then return end
         self:SaveToTable(newValue)
-        if self.onChangedCallback then
-            self.onChangedCallback(self, newValue)
-        end
     end)
 
+    if self.showEditBox == false then return end
     -----------------------------------
     -- Init() process of the EditBox --
     -----------------------------------
     self.editBox.savedVarTable = teeburu
     self.editBox.reference = reference
-    self.editBox.onSaveCallback = function(checkboxes, value, savedVarTable)
-        print("self.editBoxy Editbox value: ", value)
-    end
+    self.editBox.onSaveCallback = self.onSaveCallback
     self.editBox.privateRegistry = privateRegistry
 	self.editBox.privateRegistryString = privateRegistryString
     self.editBox:Init(min, max)
+    self.editBox:Show()
     -----------------------------------
 end
