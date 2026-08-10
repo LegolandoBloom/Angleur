@@ -5,7 +5,7 @@
     <Script file="Legolando_EditBoxTemplates.lua"/>
 
 
-    <EditBox name="Legolando_EditBoxNoTextureTemplate_Angleur" mixin="Legolando_EditBoxNoTextureMixin_Angleur" virtual="true">
+    <EditBox name="Legolando_EditBoxNoTextureTemplate_Angleur" mixin="Legolando_EditBoxNoTextureMixin_Angleur" autoFocus="false" virtual="true">
         <KeyValues>
             <KeyValue key="showDebugBorder" value="false" type="boolean"/>
         </KeyValues>
