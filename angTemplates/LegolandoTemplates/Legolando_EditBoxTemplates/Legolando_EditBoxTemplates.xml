@@ -185,7 +185,16 @@
     <Frame name="Legolando_MinSecEditBoxesTemplate_Angleur" mixin="Legolando_MinSecEditBoxesMixin_Angleur" toplevel="true" virtual="true">
         <Size x="38" y="25"/>
         <KeyValues>
-            <KeyValue key="active" type="boolean" value="false"/>
+            <!--                                                IMPORTANT!
+            __________________________________________________ Tab-Swapping __________________________________________________
+            When .minutes SetsFocus to .seconds during OnTabPressed, .seconds receives focus only AFTER the next frame update
+               (even though .minutes can force-clear focus from itself without waiting for frame update with ClearFocus())
+            the "tabbing" flag will allow us to query from external code whether the minute-box's OnEditFocusLost->SaveToTable 
+            happened during the tab swap. 
+                    Example: Angleur uses this to Hide the MinSec on SaveToTable ONLY when we aren't tab-swapping
+            __________________________________________________________________________________________________________________ 
+             -->
+            <KeyValue key="tabbing" type="boolean" value="false"/>
         </KeyValues>
         <Layers>
             <Layer level="BACKGROUND">
@@ -220,8 +229,11 @@
                     <KeyValue key="showDebugBorder" value="false" type="boolean"/>
                 </KeyValues>
 				<Scripts>
-                    <OnTabPressed>
-                        self:GetParent().seconds:SetFocus()
+                    <!-- Part of the ____________ "Tab-Swapping" ____________ flag mentioned above -->
+                    <OnTabPressed inherit="append">
+                        local parent = self:GetParent()
+                        parent.tabbing = true
+                        parent.seconds:SetFocus()
                     </OnTabPressed>
 				</Scripts>
 			</EditBox>
@@ -233,6 +245,15 @@
                 <KeyValues>
                     <KeyValue key="showDebugBorder" value="false" type="boolean"/>
                 </KeyValues>
+                <Scripts>
+                    <!-- Part of the ____________ "Tab-Swapping" ____________ flag mentioned above -->
+                    <OnEditFocusGained inherit="append">
+                        local parent = self:GetParent()
+                        if parent.tabbing then
+                            parent.tabbing = false
+                        end
+                    </OnEditFocusGained>
+				</Scripts>
             </EditBox>
 		</Frames>
         <Scripts>

@@ -77,7 +77,9 @@ local function onSaveCallback(editBoxes, value, slot)
     slot.remainingTime = 0
     print(T["Timer set to: "], math.floor(value/60), T[" minutes, "], value%60, T[" seconds"])
     local timeButton = editBoxes:GetParent()
-    if not timeButton:IsMouseOver() then editBoxes:Hide() end
+    if not timeButton:IsMouseOver() and not editBoxes.tabbing then
+        editBoxes:Hide()
+    end
 end
 function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
     local parentName = extraItemsFrame:GetDebugName()
