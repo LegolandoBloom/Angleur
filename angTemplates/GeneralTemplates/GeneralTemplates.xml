@@ -319,7 +319,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton name="$parent_Checkbox" parentKey="checkbox" virtual="true">
+            <CheckButton name="$parent_Checkbox" parentKey="checkbox">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parent_Text" relativePoint="RIGHT"/>
