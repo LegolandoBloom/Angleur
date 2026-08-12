@@ -227,7 +227,7 @@
             </Layer>
         </Layers>
         <Frames>
-            <CheckButton name="$parent_Checkbox" parentKey="checkbox" virtual="true">
+            <CheckButton name="$parent_Checkbox" parentKey="checkbox">
                 <Size x="24" y="24"/>
                 <Anchors>
                     <Anchor point="LEFT" relativeTo="$parent_Text" relativePoint="RIGHT"/>
@@ -262,7 +262,7 @@
             <Layer level="ARTWORK">
                 <FontString name="$parent_DisabledText" parentKey="disabledText" justifyH="LEFT" hidden="true" inherits="SystemFont_Shadow_Small">
                     <Anchors>
-                        <Anchor point="LEFT" relativeKey="$parent.checkbox" relativePoint="RIGHT"/>
+                        <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
                     </Anchors>
                 </FontString>
             </Layer>
