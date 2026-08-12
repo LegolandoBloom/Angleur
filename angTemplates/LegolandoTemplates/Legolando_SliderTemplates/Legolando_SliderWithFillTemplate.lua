@@ -132,6 +132,19 @@ function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
 	end
 end
 
+-- Only call after Init() has been called once
+function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
+    if not unit then unit = "" end
+    self.unit = unit
+    self:SetMinMaxValues(min, max)
+    self:SetValueStep(step)
+    self:SetObeyStepOnDrag(true)
+    self:Update()
+    if self.showEditBox == false then 
+        self.editBox:ReAdjust(min, max)    
+    end
+end
+
 function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
@@ -178,8 +191,7 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
-    self:SetValue(teeburu[reference])
-    self.unitText:SetText(teeburu[reference] .. " " .. unit)
+    self:Update()
     self:SetScript("OnValueChanged", function(self, newValue, userInput)
         if not userInput then return end
         self:SaveToTable(newValue)

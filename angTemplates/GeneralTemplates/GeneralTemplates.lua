@@ -84,24 +84,16 @@ end
 
 ExtraItemButtonMixin = {}
 
-local TestyTable = {}
-TestyTable.testSlider = -5
-
-local testCR = CreateFromMixins(CallbackRegistryMixin)
-testCR:OnLoad()
-testCR:SetUndefinedEventsAllowed(true)
-
 function ExtraItemButtonMixin:OnLoad()
     local popup = self.collapseButton.popup
-    local testSlider = CreateFrame("Slider", popup:GetDebugName() .. "_TestSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
-    testSlider:SetSize(62, 10)
-    testSlider:SetScale(0.9)
-    testSlider:SetOrientation("HORIZONTAL")
-    testSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 10, -15)
-    testSlider.showEditBox = true
-    testSlider.savedVarTable = TestyTable
-    testSlider.reference = "testSlider"
-    testSlider.privateRegistry = testCR
-    testSlider.privateRegistryString = popup:GetDebugName() .. "DelayModifierChanged"
-    testSlider:Init(-100, 0, 5, "sec")
+    popup.delayOffsetSlider = CreateFrame("Slider", popup:GetDebugName() .. "_DelayOffsetSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
+    local delayOffsetSlider = popup.delayOffsetSlider
+    delayOffsetSlider:SetSize(62, 10)
+    delayOffsetSlider:SetScale(0.9)
+    delayOffsetSlider:SetOrientation("HORIZONTAL")
+    delayOffsetSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 15, -25)
+    local titleText = delayOffsetSlider:CreateFontString(nil, "ARTWORK", "GameFontHighlightExtraSmall")
+    titleText:SetPoint("BOTTOM", delayOffsetSlider, "TOP", 0, 2)
+    titleText:SetText("Delay Offset")
+    titleText:SetScale(0.8)
 end

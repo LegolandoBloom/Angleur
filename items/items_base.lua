@@ -15,20 +15,24 @@ ang.extraItems = {}
 local mistsItems = ang.mists.items
 local gameVersion = ang.gameVersion
 
+local items_registry = CreateFromMixins(CallbackRegistryMixin)
+items_registry:OnLoad()
+items_registry:SetUndefinedEventsAllowed(true)
+
 Angleur_SlottedExtraItems = {
     [1] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0, 
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0, delayOffset = 0,
         equipLoc = 0, forceEquip = false
     },
     [2] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0, delayOffset = 0,
         equipLoc = 0, forceEquip = false
     },
     [3] = {
         name = 0, itemID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false, macroName = 0,
-        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0,
+        macroIcon = 0, macroBody = 0, macroSpellID = 0, macroItemID = 0, delay = 0, lastUpdateTime = 0, remainingTime = 0, delayOffset = 0,
         equipLoc = 0, forceEquip = false
     }
 }
@@ -59,6 +63,7 @@ local function initializeSavedItems()
         if not slot.delay then slot.delay = 0 end
         if not slot.lastUpdateTime then slot.lastUpdateTime = 0 end
         if not slot.remainingTime then slot.remainingTime = 0 end
+        if not slot.delayOffset then slot.delayOffset = 0 end
         if not slot.equipLoc then slot.equipLoc = 0 end
         if not slot.forceEquip then slot.forceEquip = false end
     end
@@ -69,6 +74,21 @@ local function initializeSavedItems()
     end
 end
 
+local function handleMoreAdjustmentsForSlot(slotFrame, slot, clear)
+    local collapseFrame = slotFrame.collapseFrame
+    local popup = collapseFrame.popup
+    local delayOffSetSlider = popup.delayOffsetSlider
+    if clear == true then
+        slot.delayOffset = 0
+        popup:Hide()
+        collapseFrame:Hide()
+        delayOffsetSlider:ReAdjust(0, 0, 0, "sec")
+    else
+        if slot.delay then
+            
+        end
+    end
+end
 
 
 local function onSaveCallback(editBoxes, value, slot)
@@ -96,6 +116,12 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
             extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     else
         for i=1, slotCount, 1 do
@@ -106,6 +132,12 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
             extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     end
 end
@@ -172,6 +204,7 @@ function Angleur_RemoveExtraItem(self)
     slot.delay = 0
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
+    slot.delayOffset = 0
     if slot.equipLoc ~= 0 then
         slot.equipLoc = 0
         print(T["Unslotted " .. colorBlu:WrapTextInColorCode("Angleur ") 

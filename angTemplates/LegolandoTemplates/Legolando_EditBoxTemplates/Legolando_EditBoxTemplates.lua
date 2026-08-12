@@ -115,6 +115,19 @@ function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:SetForceNegativ
 	self:SetMaxLetters(newMax)
 end
 
+-- Only call after Init() has been called once
+function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:ReAdjust(min, max)
+	if min and max then
+		self.min = min
+		self.max = max
+		if min < 0 and max <= 0 then
+			self:SetForceNegative()
+		elseif min >= 0 and max > 0 then
+			self:SetForcePositive()
+		end
+	end
+	self:Update()
+end
 
 function Legolando_NumericInputBoxWithForceNegativeMixin_Angleur:Init(min, max)
 	local teeburu = self.savedVarTable
