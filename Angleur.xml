@@ -215,7 +215,7 @@
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+                                                    <Anchor point="LEFT" relativeKey="$parent.checkbox" relativePoint="RIGHT"/>
                                                 </Anchors>
                                             </Frame>
                                         </Frames>
@@ -232,7 +232,7 @@
                                         <Frames>
                                             <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+                                                    <Anchor point="LEFT" relativeKey="$parent.checkbox" relativePoint="RIGHT"/>
                                                 </Anchors>
                                             </Frame>
                                         </Frames>
@@ -405,7 +405,7 @@
                                             <Button name="Angleur_RecastKey" parentkey="recastKey" inherits="Legolando_KeybindButtonTemplate_Angleur" hidden="true">
                                                 <Size x="80" y="20"/>
                                                 <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+                                                    <Anchor point="LEFT" relativeKey="$parent.checkbox" relativePoint="RIGHT"/>
                                                 </Anchors>
                                             </Button>
                                         </Frames>

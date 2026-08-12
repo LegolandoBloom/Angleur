@@ -354,7 +354,7 @@
             <Layer level="ARTWORK">
                 <FontString name="$parent_DisabledText" parentKey="disabledText" justifyH="LEFT" hidden="true" inherits="SystemFont_Shadow_Small">
                     <Anchors>
-                        <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
+                        <Anchor point="LEFT" relativeKey="$parent.checkbox" relativePoint="RIGHT"/>
                     </Anchors>
                 </FontString>
             </Layer>
