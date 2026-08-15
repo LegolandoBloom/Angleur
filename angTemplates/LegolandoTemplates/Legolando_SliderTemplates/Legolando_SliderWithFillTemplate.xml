@@ -82,12 +82,12 @@
 		<Frames>
 			<Frame name="$parent_Bar" parentKey="bar" inherits="Legolando_ResizableSliderBarTemplate_Angleur" useParentLevel="true">
 				<Anchors>
-            <Anchor point="CENTER"/>
+            		<Anchor point="CENTER"/>
 				</Anchors>
 				<Layers>
 					<Layer level="BACKGROUND">
 						<Texture parentKey="fill">
-                <Color r="1.0" g="0.82" b="0.0"/>
+                			<Color r="1.0" g="0.82" b="0.0"/>
 						</Texture>
 					</Layer>
 				</Layers>
@@ -114,6 +114,13 @@
 						<Anchor point="TOP" relativePoint="BOTTOM" x="0" y="0"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
+				</FontString>
+				<FontString parentKey="desaturatedText" text="Disabled" scale="0.9" hidden="true" inherits="GameFontHighlightExtraSmall">
+					<Anchors>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="-5" y="-3"/>
+						<Anchor point="TOPRIGHT" relativeTo="$parent_EditBox" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
+					</Anchors>
+					<Color r="0.8" g="0.8" b="0.8"/>
 				</FontString>
 			</Layer>
 		</Layers>

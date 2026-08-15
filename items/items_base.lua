@@ -53,6 +53,8 @@ local function initializeSavedItems()
         if not slot.itemID then slot.itemID = 0 end
         if not slot.spellID then slot.spellID = 0 end
         if not slot.icon then slot.icon = 0 end
+        if not slot.hasAuraEffect then slot.hasAuraEffect = false end
+        if not slot.auraEffectDuration then slot.auraEffectDuration = 0 end
         if not slot.auraActive then slot.auraActive = false end
         if not slot.loaded then slot.loaded = false end
         if not slot.macroName then slot.macroName = 0 end
@@ -74,19 +76,29 @@ local function initializeSavedItems()
     end
 end
 
-local function handleMoreAdjustmentsForSlot(slotFrame, slot, clear)
+local function handleMoreAdjustmentsForSlot(slotFrame, slot)
     local collapseFrame = slotFrame.collapseFrame
     local popup = collapseFrame.popup
-    local delayOffSetSlider = popup.delayOffsetSlider
-    if clear == true then
+    local delayOffsetSlider = popup.delayOffsetSlider
+    if slot.delay ~= 0 then
+        collapseFrame:Show()
+        delayOffsetSlider:ReAdjust(-slot.delay, 0, 5, "sec")
+        delayOffsetSlider:SetDesaturated(false)
+    elseif slot.hasAuraEffect then
+        collapseFrame:Show()
+        if slot.auraEffectDuration ~= 0 then
+            delayOffsetSlider:ReAdjust(-slot.auraEffectDuration, 0, 5, "sec")
+            delayOffsetSlider:SetDesaturated(false)
+        else
+            delayOffsetSlider:ReAdjust(0, 0, 5, "sec")
+            delayOffsetSlider:SetDesaturated(true)
+        end
+    else
         slot.delayOffset = 0
         popup:Hide()
         collapseFrame:Hide()
         delayOffsetSlider:ReAdjust(0, 0, 0, "sec")
-    else
-        if slot.delay then
-            
-        end
+        delayOffsetSlider:SetDesaturated(false)
     end
 end
 
@@ -100,6 +112,8 @@ local function onSaveCallback(editBoxes, value, slot)
     if not timeButton:IsMouseOver() and not editBoxes.tabbing then
         editBoxes:Hide()
     end
+    local extraItemsFrame = editBoxes:GetParent():GetParent():GetParent()
+    Angleur_UpdateExtraItems(extraItemsFrame)
 end
 function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
     local parentName = extraItemsFrame:GetDebugName()
@@ -121,6 +135,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once OR add a Delay Timer to enable."
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     else
@@ -137,6 +152,7 @@ function Angleur_ExtraItems_CreateSlots(extraItemsFrame)
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate Aura once OR add a Delay to enable."
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     end
@@ -172,6 +188,7 @@ function Angleur_UpdateExtraItems(extraItemsFrame)
             slotFrame.Name:SetText(nil)
             slotFrame.timeButton:Hide()
         end
+        handleMoreAdjustmentsForSlot(slotFrame, slot)
     end
 end
 
@@ -194,6 +211,7 @@ function Angleur_RemoveExtraItem(self)
     slot.itemID = 0
     slot.spellID = 0
     slot.icon = 0
+    slot.hasAuraEffect = false
     slot.auraActive = false
     slot.loaded = false
     slot.macroName = 0
@@ -244,6 +262,10 @@ local typeToSlotID = {
     INVTYPE_RANGEDRIGHT = 16
 }
 
+local function hasAuraEffect(spellID)
+    if C_Spell.IsSpellHelpful(spellID) or C_Spell.IsSelfBuff(spellID) then return true end
+    return false
+end
 local warningHats = {
     [88710] = T["Nat's Hat"],
     [117405] = T["Nat's Drinking Hat"],
@@ -326,6 +348,7 @@ function Angleur_GrabCursorItem(self)
     slot.name = name
     slot.icon = icon
     slot.spellID = spellID    
+    slot.hasAuraEffect = hasAuraEffect(spellID)
     if C_Item.IsEquippableItem(itemID) then
         slot.equipLoc = typeToSlotID[itemInfo[9]]
         slot.forceEquip = true
@@ -383,6 +406,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         print(T["Failed to get macro index"])
         return
     end
+    slot.hasAuraEffect = hasAuraEffect(slot.macroSpellID)
     slot.macroName, slot.macroIcon, slot.macroBody = GetMacroInfo(macroIndex)
     local body = GetMacroBody(macroIndex)
 
@@ -431,6 +455,20 @@ function Angleur_UpdateItemsCountdown(resetUpdateTime)
     end
 end
 
+local function queryAuraEffectDuration(slot)
+    if InCombatLockdown() then return end
+    if slot.auraEffectDuration ~= 0 then return end
+    local spellID = 0
+    if slot.macroSpellID ~= 0 then spellID = slot.macroSpellID end
+    if slot.spellID ~= 0 then spellID = slot.spellID end
+    if slot.hasAuraEffect then
+        local auraData = C_UnitAuras.GetPlayerAuraBySpellID(spellID)
+        print(auraData)
+        if not auraData or Angleur_IsSecret(auraData) then return end
+        local duration = Angleur_ScrubSecret(auraData.duration)
+        print(duration)
+    end
+end
 local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
     if ang.gameVersion == 1 then
@@ -447,6 +485,7 @@ local function items_Events(self, event, unit, ...)
                     return
                 end
             end
+            queryAuraEffectDuration(slot)
         end
     elseif event == "PLAYER_ENTERING_WORLD" then
         if unit == false and arg4 == false then return end

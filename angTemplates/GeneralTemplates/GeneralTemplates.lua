@@ -85,7 +85,7 @@ end
 ExtraItemButtonMixin = {}
 
 function ExtraItemButtonMixin:OnLoad()
-    local popup = self.collapseButton.popup
+    local popup = self.collapseFrame.popup
     popup.delayOffsetSlider = CreateFrame("Slider", popup:GetDebugName() .. "_DelayOffsetSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
     local delayOffsetSlider = popup.delayOffsetSlider
     delayOffsetSlider:SetSize(62, 10)
@@ -95,5 +95,5 @@ function ExtraItemButtonMixin:OnLoad()
     local titleText = delayOffsetSlider:CreateFontString(nil, "ARTWORK", "GameFontHighlightExtraSmall")
     titleText:SetPoint("BOTTOM", delayOffsetSlider, "TOP", 0, 2)
     titleText:SetText("Delay Offset")
-    titleText:SetScale(0.8)
+    titleText:SetScale(0.8) 
 end

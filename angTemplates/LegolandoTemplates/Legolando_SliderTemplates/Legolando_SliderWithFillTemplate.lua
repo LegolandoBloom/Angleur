@@ -132,15 +132,38 @@ function Legolando_SliderColorFillMixin_Angleur:SaveToTable(newValue)
 	end
 end
 
+function Legolando_SliderColorFillMixin_Angleur:SetDesaturated(desaturate)
+    local changeState = desaturate ~= self.desaturated
+    if not changeState then return end
+    if desaturate then
+        self.desaturated = true
+        self:Disable()
+        self.editBox:Disable()
+        self:DesaturateHierarchy(5)
+        self.bar.fill:SetColorTexture(0.8, 0.8, 0.8)
+        self.unitText:Hide()
+        self.desaturatedText:Show()
+    else
+        self.desaturated = false
+        self:Enable()
+        self.editBox:Enable()
+        self:DesaturateHierarchy(0)
+        self.bar.fill:SetColorTexture(1, 0.82, 0)
+        self.unitText:Show()
+        self.desaturatedText:Hide()
+    end
+end
+
 -- Only call after Init() has been called once
 function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     if not unit then unit = "" end
     self.unit = unit
+    print("Min: ", min, "Max: ", max)
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
     self:Update()
-    if self.showEditBox == false then 
+    if self.showEditBox == true then 
         self.editBox:ReAdjust(min, max)    
     end
 end
@@ -191,6 +214,8 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
+    if self.disabledMessage then self.desaturatedText:SetText(self.disabledMessage) end
+    self.desaturated = false
     self:Update()
     self:SetScript("OnValueChanged", function(self, newValue, userInput)
         if not userInput then return end
