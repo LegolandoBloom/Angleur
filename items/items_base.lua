@@ -37,6 +37,85 @@ Angleur_SlottedExtraItems = {
     }
 }
 
+local function SetOverrideBinding_Custom(owner, isPriority, key, command)
+    if not key then return end
+    SetOverrideBinding(owner, isPriority, key, command)
+end
+
+local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
+    if not key then return end
+    SetOverrideBindingClick(owner, isPriority, key, buttonName)
+end
+
+local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
+    if not key then return end
+    SetOverrideBindingSpell(owner, isPriority, key, spell)
+end
+local function checkUsabilityItem(itemID)
+    if not C_Item.IsUsableItem(itemID) then return false end
+    local _, cooldown = C_Container.GetItemCooldown(itemID)
+    if cooldown ~= 0 then return false end
+    local itemCount = C_Item.GetItemCount(itemID)
+    if not (itemCount > 0) then return false end
+    if C_Item.IsEquippableItem(itemID) then
+        if not C_Item.IsEquippedItem(itemID) then return false end
+    end
+    return true
+end
+local function parseMacroConditions(macroBody)
+    local returnValue = 0
+    for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
+        if SecureCmdOptionParse(conditionBracket) == nil then
+            if returnValue == 0 then
+                returnValue = false
+            end
+        else
+            returnValue = true
+        end
+    end
+    if returnValue == 0 then
+        returnValue = true
+    end
+    return returnValue
+end
+local function checkConditions(self, slot, assignKey)
+    if slot.delay ~= 0 and slot.delay ~= nil then
+        if slot.remainingTime ~= 0 then
+            return false
+        end
+    end
+    if slot.name ~= 0 and slot.auraActive == false then
+        if checkUsabilityItem(slot.itemID) == false then return false end
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
+        self.visual.texture:SetTexture(slot.icon)
+        return true
+    elseif slot.macroName ~= 0 then
+        if slot.macroBody == "" then return false end
+        if slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
+            if checkUsabilityItem(slot.macroItemID) == false then return false end
+        end
+        if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
+            local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
+            if spellCooldown ~= 0 or slot.auraActive == true then return false end
+            if parseMacroConditions(slot.macroBody) == true then
+                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+                self.toyButton:SetAttribute("macrotext", slot.macroBody)
+                self.visual.texture:SetTexture(slot.macroIcon)
+                return true
+            end
+        end
+    end
+end
+function Angleur_ActionHandler_ExtraItems(self, assignKey)
+    local returnValue = false
+    for i=1, ang.extraItems.slotCount, 1 do
+        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
+    end
+    return returnValue
+end
+
+
 --***********[~]**********
 function Angleur_ExtraItemAuras()
     --Checks for Extra Toy Auras
