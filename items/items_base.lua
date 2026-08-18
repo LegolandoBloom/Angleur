@@ -106,9 +106,11 @@ local function parseMacroConditions(macroBody)
     for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
         -- If successful even once, return true early
         if SecureCmdOptionParse(conditionBracket) ~= nil then
+            -- print("Condition Won: ", conditionBracket)
             return true
         -- If it fails ALL attempts, only then will we return false at the end of the function
         else
+            -- print("Condition Failed: ", conditionBracket)
             returnValue = false
         end
     end
