@@ -10,6 +10,8 @@ local addonName, ang = ...
 ang.retail = {}
 ang.mists = {}
 ang.vanilla = {}
+ang.addonLoaded = false
+
 ang.loadedPlugins = {}
 ang.loadedPlugins.undang = false
 ang.loadedPlugins.niche = false
@@ -709,6 +711,7 @@ function Angleur_EventLoader(self, event, unit, ...)
         if ang.gameVersion == 1 then
             Angleur_LoadMidnight()
         end
+        ang.addonLoaded = true
     elseif event == "PLAYER_ENTERING_WORLD" then
         -- return if zone change
         if unit == false and arg4 == false then return end

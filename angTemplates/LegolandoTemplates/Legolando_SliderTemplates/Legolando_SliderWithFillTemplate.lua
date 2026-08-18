@@ -158,7 +158,6 @@ end
 function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     if not unit then unit = "" end
     self.unit = unit
-    print("Min: ", min, "Max: ", max)
     self:SetMinMaxValues(min, max)
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)

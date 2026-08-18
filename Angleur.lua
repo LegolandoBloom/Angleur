@@ -115,6 +115,7 @@ end
 local firstCast = true
 local fishingSpellTable = AngleurRetail_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
+    if ang.addonLoaded == false then return end
     local arg4, arg5 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register
     if event == "PLAYER_ENTERING_WORLD" then
@@ -299,31 +300,7 @@ function Angleur_ExtraToyAuras()
         end
     end
 end
---***********[~]**********
-function Angleur_ExtraItemAuras()
-    --Checks for Extra Toy Auras
-    for i=1, ang.extraItems.slotCount, 1 do
-        local slot = Angleur_SlottedExtraItems[i]
-        slot.auraActive = false
-        local spellAuraID
-        if slot.spellID ~= 0 then
-            spellAuraID = slot.spellID
-        elseif slot.macroSpellID ~= 0 then
-            spellAuraID = slot.macroSpellID
-        end
-        if spellAuraID then
-            local name = C_Spell.GetSpellInfo(spellAuraID).name
-            --doesn't work
-            --print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-            if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-                slot.auraActive = true
-                local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
-            end
-        end
-    end
-end
---***********[~]**********
+
 
 --***********[~]**********
 --**Decides which action to perform**
