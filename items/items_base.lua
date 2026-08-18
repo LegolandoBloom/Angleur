@@ -37,112 +37,6 @@ Angleur_SlottedExtraItems = {
     }
 }
 
-local function SetOverrideBinding_Custom(owner, isPriority, key, command)
-    if not key then return end
-    SetOverrideBinding(owner, isPriority, key, command)
-end
-
-local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
-    if not key then return end
-    SetOverrideBindingClick(owner, isPriority, key, buttonName)
-end
-
-local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
-    if not key then return end
-    SetOverrideBindingSpell(owner, isPriority, key, spell)
-end
-local function checkUsabilityItem(itemID)
-    if not C_Item.IsUsableItem(itemID) then return false end
-    local _, cooldown = C_Container.GetItemCooldown(itemID)
-    if cooldown ~= 0 then return false end
-    local itemCount = C_Item.GetItemCount(itemID)
-    if not (itemCount > 0) then return false end
-    if C_Item.IsEquippableItem(itemID) then
-        if not C_Item.IsEquippedItem(itemID) then return false end
-    end
-    return true
-end
-local function parseMacroConditions(macroBody)
-    local returnValue = 0
-    for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
-        if SecureCmdOptionParse(conditionBracket) == nil then
-            if returnValue == 0 then
-                returnValue = false
-            end
-        else
-            returnValue = true
-        end
-    end
-    if returnValue == 0 then
-        returnValue = true
-    end
-    return returnValue
-end
-local function checkConditions(self, slot, assignKey)
-    if slot.delay ~= 0 and slot.delay ~= nil then
-        if slot.remainingTime ~= 0 then
-            return false
-        end
-    end
-    if slot.name ~= 0 and slot.auraActive == false then
-        if checkUsabilityItem(slot.itemID) == false then return false end
-        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-        self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
-        self.visual.texture:SetTexture(slot.icon)
-        return true
-    elseif slot.macroName ~= 0 then
-        if slot.macroBody == "" then return false end
-        if slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
-            if checkUsabilityItem(slot.macroItemID) == false then return false end
-        end
-        if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
-            local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
-            if spellCooldown ~= 0 or slot.auraActive == true then return false end
-            if parseMacroConditions(slot.macroBody) == true then
-                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-                self.toyButton:SetAttribute("macrotext", slot.macroBody)
-                self.visual.texture:SetTexture(slot.macroIcon)
-                return true
-            end
-        end
-    end
-end
-function Angleur_ActionHandler_ExtraItems(self, assignKey)
-    local returnValue = false
-    for i=1, ang.extraItems.slotCount, 1 do
-        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
-    end
-    return returnValue
-end
-
-
---***********[~]**********
-function Angleur_ExtraItemAuras()
-    --Checks for Extra Toy Auras
-    for i=1, ang.extraItems.slotCount, 1 do
-        local slot = Angleur_SlottedExtraItems[i]
-        slot.auraActive = false
-        local spellAuraID
-        if slot.spellID ~= 0 then
-            spellAuraID = slot.spellID
-        elseif slot.macroSpellID ~= 0 then
-            spellAuraID = slot.macroSpellID
-        end
-        if spellAuraID then
-            local name = C_Spell.GetSpellInfo(spellAuraID).name
-            --doesn't work
-            --print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-            if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-                slot.auraActive = true
-                local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
-            end
-        end
-    end
-end
---***********[~]**********
-
-
 
 -- Used throughout the entire file, initialized during Angleur_LoadExtraItems() - can't initialize here because Angleur.xml hasn't happened yet :)
 local extraItemsFrame
@@ -185,6 +79,103 @@ local function initializeSavedItems()
         end
     end
 end
+
+-- *************************************** Action Handler Part ***************************************
+-- ** Functions called directly from Angleur.lua(or AngleurVanilla etc) for determining what action **
+-- ***************************************************************************************************
+
+-- Originally located in Angleur.lua, needed for Angleur_ActionHandler_ExtraItems here as well
+local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
+    if not key then return end
+    SetOverrideBindingClick(owner, isPriority, key, buttonName)
+end
+
+local function checkUsabilityItem(itemID)
+    if not C_Item.IsUsableItem(itemID) then return false end
+    local _, cooldown = C_Container.GetItemCooldown(itemID)
+    if cooldown ~= 0 then return false end
+    local itemCount = C_Item.GetItemCount(itemID)
+    if not (itemCount > 0) then return false end
+    if C_Item.IsEquippableItem(itemID) then
+        if not C_Item.IsEquippedItem(itemID) then return false end
+    end
+    return true
+end
+local function parseMacroConditions(macroBody)
+    local returnValue = true
+    for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
+        -- If successful even once, return true early
+        if SecureCmdOptionParse(conditionBracket) ~= nil then
+            return true
+        -- If it fails ALL attempts, only then will we return false at the end of the function
+        else
+            returnValue = false
+        end
+    end
+    -- If loop doesn't happen due to no matches, it will automatically default to true
+    return returnValue
+end
+local function checkConditions(self, slot, assignKey)
+    if slot.delay ~= 0 and slot.delay ~= nil then
+        if slot.remainingTime ~= 0 then
+            return false
+        end
+    end
+    if slot.name ~= 0 and slot.auraActive == false then
+        if checkUsabilityItem(slot.itemID) == false then return false end
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
+        self.visual.texture:SetTexture(slot.icon)
+        return true
+    elseif slot.macroName ~= 0 then
+        if slot.macroBody == "" then return false end
+        if slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
+            if checkUsabilityItem(slot.macroItemID) == false then return false end
+        end
+        if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
+            local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
+            if spellCooldown ~= 0 or slot.auraActive == true then return false end
+            if parseMacroConditions(slot.macroBody) == true then
+                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+                self.toyButton:SetAttribute("macrotext", slot.macroBody)
+                self.visual.texture:SetTexture(slot.macroIcon)
+                return true
+            end
+        end
+    end
+end
+function Angleur_ActionHandler_ExtraItems(self, assignKey)
+    local returnValue = false
+    for i=1, ang.extraItems.slotCount, 1 do
+        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
+    end
+    return returnValue
+end
+
+function Angleur_ExtraItemAuras()
+    for i=1, ang.extraItems.slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
+        slot.auraActive = false
+        local spellAuraID
+        if slot.spellID ~= 0 then
+            spellAuraID = slot.spellID
+        elseif slot.macroSpellID ~= 0 then
+            spellAuraID = slot.macroSpellID
+        end
+        if spellAuraID then
+            local name = C_Spell.GetSpellInfo(spellAuraID).name
+            --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
+            if C_UnitAuras.GetAuraDataBySpellName("player", name) then
+                slot.auraActive = true
+                local link = C_Spell.GetSpellLink(spellAuraID)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
+            end
+        end
+    end
+end
+-- ***************************************************************************************************
+
+
 
 local function calculateSteps(seconds)
     if seconds > 10 then return 5 end
