@@ -299,7 +299,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
-        Angleur_ExtraItemAuras()
+        Angleur_ExtraItems_Auras()
     elseif event == "UNIT_INVENTORY_CHANGED" and unit == "player" then
         Angleur_BaitEnchant()
     end
@@ -424,7 +424,7 @@ end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
-    Angleur_UpdateItemsCountdown(false)
+    Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
     local chosenMethod = AngleurConfig.chosenMethod
     if chosenMethod == "oneKey" then

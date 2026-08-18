@@ -230,7 +230,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
     elseif event == "UNIT_AURA" and not issecretvalue(unit) and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
-        Angleur_ExtraItemAuras()
+        Angleur_ExtraItems_Auras()
     end
 end
 local logicVarFrame = CreateFrame("Frame")
@@ -345,7 +345,7 @@ end
 function Angleur_ActionHandler(self)
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     if InCombatLockdown() then return end
-    Angleur_UpdateItemsCountdown(false)
+    Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
     if AngleurConfig.chosenMethod == "oneKey" then
         if not AngleurConfig.angleurKey then

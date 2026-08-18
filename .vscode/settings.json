@@ -72,7 +72,7 @@
         "Angleur_CombatDelayer",
         "AngleurMinimapButton",
         "Angleur_PoolDelayer",
-        "Angleur_UpdateItemsCountdown",
+        "Angleur_ExtraItems_UpdateItemsCountDown",
         "Angleur_CVars",
         "AngleurMoP_FishingSpellTable",
         "AngleurClassic_CVars",

@@ -37,7 +37,6 @@ Angleur_SlottedExtraItems = {
     }
 }
 
-
 -- Used throughout the entire file, initialized during Angleur_LoadExtraItems() - can't initialize here because Angleur.xml hasn't happened yet :)
 local extraItemsFrame
 
@@ -80,9 +79,13 @@ local function initializeSavedItems()
     end
 end
 
--- *************************************** Action Handler Part ***************************************
--- ** Functions called directly from Angleur.lua(or AngleurVanilla etc) for determining what action **
--- ***************************************************************************************************
+
+
+
+-- ************************************************************* [1] *************************************************************
+-- *********************************************** Functions Called By Angleur.lua ***********************************************
+-- ***  Called directly from Angleur.lua(or AngleurVanilla etc), used in determining what actions to take regarding ExtraItems ***
+-- ************************************************************* [1] *************************************************************
 
 -- Originally located in Angleur.lua, needed for Angleur_ActionHandler_ExtraItems here as well
 local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
@@ -154,7 +157,7 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     return returnValue
 end
 
-function Angleur_ExtraItemAuras()
+function Angleur_ExtraItems_Auras()
     for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         slot.auraActive = false
@@ -170,15 +173,52 @@ function Angleur_ExtraItemAuras()
             if C_UnitAuras.GetAuraDataBySpellName("player", name) then
                 slot.auraActive = true
                 local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
             end
         end
     end
 end
--- ***************************************************************************************************
+
+local function clearCountdown(slot)
+    slot.lastUpdateTime = 0
+    slot.remainingTime = 0
+end
+function Angleur_ExtraItems_UpdateItemsCountDown(resetUpdateTime)
+    for i=1, slotCount, 1 do
+        local slot = Angleur_SlottedExtraItems[i]
+        if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then      
+            -- better to call GetTime() inside the if clause since most users will only have 1 timered item if any at all - instead of outside the for loop
+            --                  
+            -- _________________________!!! FIX TO THE PREVIOUS BUG !!!__________________________
+            -- I used to floor(timeNow - slot.lastUpdateTime) instead of flooring timeNow itself
+            -- which caused the timer to be slower approx 0.8x slower than real time
+            -- __________________________________________________________________________________
+            local timeNow = math.floor(GetTime())
+            local timePassedSince = timeNow - slot.lastUpdateTime
+            if timePassedSince < 0 or not timePassedSince then
+                print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
+                clearCountdown(slot)
+            elseif timePassedSince == 0 then
+                -- do nothing
+            elseif timePassedSince > 0 then
+                slot.remainingTime = slot.remainingTime - timePassedSince
+                slot.lastUpdateTime = timeNow
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_UpdateItemsCountDown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
+            end
+            if slot.remainingTime <= 0 then
+                clearCountdown(slot)
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_UpdateItemsCountDown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
+            end
+        end
+    end
+end
+-- ************************************************************* [1] *************************************************************
 
 
-
+-- ********************************************************* [2] *********************************************************
+-- ************************************************* UI Setup & Updating *************************************************
+-- ********** Mostly contained within items_base, functions relating to loading and updating of the UI Elements **********
+-- ********************************************************* [2] *********************************************************
 local function calculateSteps(seconds)
     if seconds > 10 then return 5 end
     return 1
@@ -530,39 +570,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
     Angleur_UpdateExtraItems()
 end
 
-local function clearCountdown(slot)
-    slot.lastUpdateTime = 0
-    slot.remainingTime = 0
-end
-function Angleur_UpdateItemsCountdown(resetUpdateTime)
-    for i=1, slotCount, 1 do
-        local slot = Angleur_SlottedExtraItems[i]
-        if slot.delay ~= 0 and slot.delay ~= nil and slot.lastUpdateTime ~= 0 and slot.lastUpdateTime ~= nil then      
-            -- better to call GetTime() inside the if clause since most users will only have 1 timered item if any at all - instead of outside the for loop
-            --                  
-            -- _________________________!!! FIX TO THE PREVIOUS BUG !!!__________________________
-            -- I used to floor(timeNow - slot.lastUpdateTime) instead of flooring timeNow itself
-            -- which caused the timer to be slower approx 0.8x slower than real time
-            -- __________________________________________________________________________________
-            local timeNow = math.floor(GetTime())
-            local timePassedSince = timeNow - slot.lastUpdateTime
-            if timePassedSince < 0 or not timePassedSince then
-                print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
-                clearCountdown(slot)
-            elseif timePassedSince == 0 then
-                -- do nothing
-            elseif timePassedSince > 0 then
-                slot.remainingTime = slot.remainingTime - timePassedSince
-                slot.lastUpdateTime = timeNow
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
-            end
-            if slot.remainingTime <= 0 then
-                clearCountdown(slot)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_UpdateItemsCountdown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
-            end
-        end
-    end
-end
+
 
 local function startDelayTimerIfHasDelay(slot, indexForPrint)
     if slot.delay == 0 or slot.delay == nil then return end
@@ -625,3 +633,4 @@ local timerFrame = CreateFrame("Frame")
 timerFrame:SetScript("OnEvent", items_Events)
 timerFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 timerFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
+-- ********************************************************* [2] *********************************************************
