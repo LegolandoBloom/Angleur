@@ -93,7 +93,7 @@ local function _SetOverrideBindingClick_Custom(owner, isPriority, key, buttonNam
     SetOverrideBindingClick(owner, isPriority, key, buttonName)
 end
 
-local function getActiveAuraDataFromSlot(slot)
+local function getNonSecretActiveAuraDataFromSlot(slot)
     local spellAuraID
     if slot.spellID ~= 0 then
         spellAuraID = slot.spellID
@@ -110,26 +110,61 @@ local function getActiveAuraDataFromSlot(slot)
     return auraData, spellAuraID
 end
 
-local function _checkAuraAndAuraOffsetDelay(slot)
+local debug_pauseTable = {
+    [1] = false,
+    [2] = false,
+    [3] = false,
+    [4] = false,
+    [5] = false,
+    [6] = false,
+}
+local function _debug_pauseSlot(indexForPrint)
+    debug_pauseTable[indexForPrint] = true
+end
+local function _debug_unPauseSlot(indexForPrint)
+    debug_pauseTable[indexForPrint] = false
+end
+local function _debug_printSlotWithoutSpam(indexForPrint, ...)
+    if debug_pauseTable[indexForPrint] == true then return end
+    Angleur_BetaPrint(debugChannel, ...)
+end
+local function _checkAuraAndAuraOffsetDelay(slot, indexForPrint)
     -- if slot.auraActive == true then return false end
     --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-    local auraData = getActiveAuraDataFromSlot(slot)
-    if not auraData then return false end
+    local auraData = getNonSecretActiveAuraDataFromSlot(slot)
+    if not auraData then
+--        ┌────────────────┐                
+--        │   DEBUG ONLY   │ When no aura of the slot -> Reset debug pause, we can print the next application
+--   ┌────└────────────────┘───────────────┐
+        _debug_unPauseSlot(indexForPrint)
+--   └─────────────────────────────────────┘ 
+        return false
+    end
     local delayOffset = slot.delayOffset
     if delayOffset == 0 then return true end
     local expirationTime = auraData.expirationTime
     -- Aura is clearly active because aura data exists, but we can't get expiration time.
     -- We return true, meaning aura is active. When only expiry is secret, behave like there is no offsetDelay
     if not expirationTime or Angleur_IsSecret(expirationTime) then return true end
-    print("expiration time: ", auraData.expirationTime)
     local timeNow = GetTime()
-    print("time now: ", timeNow)
     local untilExpiry = expirationTime - timeNow
-    print("untilExpiry:", untilExpiry)
-    print("delay offset:", delayOffset)
     -- delayOffset is always negative, hence the +
     local offsettedExpiry = untilExpiry + delayOffset
-    print("ofsettedExpiry:", offsettedExpiry)
+--                                                            ┌────────────────┐                                                                
+--                                                            │   DEBUG ONLY   │                                                                
+--┌───────────────────────────────────────────────────────────└────────────────┘───────────────────────────────────────────────────────────────┐
+    _debug_printSlotWithoutSpam(indexForPrint, "\n")
+    _debug_printSlotWithoutSpam(indexForPrint, colorDebug:WrapTextInColorCode("---------------------------------------------------------"))
+    _debug_printSlotWithoutSpam(indexForPrint, colorDebug:WrapTextInColorCode("     Slot [" .. indexForPrint .. "]") .. " - " ..slot.name)
+    _debug_printSlotWithoutSpam(indexForPrint, "   expiration time: ", auraData.expirationTime)
+    _debug_printSlotWithoutSpam(indexForPrint, "   time now: ", timeNow)
+    _debug_printSlotWithoutSpam(indexForPrint, "   untilExpiry:", untilExpiry)
+    _debug_printSlotWithoutSpam(indexForPrint, "   delay offset:", delayOffset)
+    _debug_printSlotWithoutSpam(indexForPrint, "   ofsettedExpiry:", offsettedExpiry, "seconds.")
+    _debug_printSlotWithoutSpam(indexForPrint, colorDebug:WrapTextInColorCode("---------------------------------------------------------"))
+    _debug_printSlotWithoutSpam(indexForPrint, "\n")
+    _debug_pauseSlot(indexForPrint)
+--└────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘ 
     if offsettedExpiry <= 0 then return false end
     return true
 end
@@ -160,14 +195,15 @@ local function _parseAndCheckMacroConditionals(macroBody)
     -- If loop doesn't happen due to no matches, it will automatically default to true
     return returnValue
 end
-local function _checkAvailabilityOfSlotItem(self, slot, assignKey)
+local function _checkAvailabilityOfSlotItem(self, slot, assignKey, indexForPrint)
     if slot.delay ~= 0 and slot.delay ~= nil then
         if slot.remainingTime ~= 0 then
             return false
         end
     end
-    if slot.name ~= 0 and slot.auraActive == false then
+    if slot.name ~= 0 then
         if _checkUsabilityItem(slot.itemID) == false then return false end
+        if _checkAuraAndAuraOffsetDelay(slot, indexForPrint) == true then return false end
         _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
         self.visual.texture:SetTexture(slot.icon)
@@ -180,7 +216,7 @@ local function _checkAvailabilityOfSlotItem(self, slot, assignKey)
         if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
             local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
             if spellCooldown ~= 0 then return false end
-            if _checkAuraAndAuraOffsetDelay(slot) == true then return false end
+            if _checkAuraAndAuraOffsetDelay(slot, indexForPrint) == true then return false end
             if _parseAndCheckMacroConditionals(slot.macroBody) == true then
                 _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", slot.macroBody)
@@ -193,20 +229,38 @@ end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
     local returnValue = false
     for i=1, ang.extraItems.slotCount, 1 do
-        if _checkAvailabilityOfSlotItem(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
+        local bleh = _checkAvailabilityOfSlotItem(self, Angleur_SlottedExtraItems[i], assignKey, i)
+        -- print(bleh)
+        if bleh == true then return true end
     end
     return returnValue
 end
 
+local function _grabAuraDurationOnFirstApplication(slot, auraData, indexForPrint)
+    if not slot.mightHaveAura then return end
+    if slot.auraEffectDuration ~= 0 then return end
+    if InCombatLockdown() then return end
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("_grabAuraDurationOnFirstApplication ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Data:", auraData)
+    local duration = auraData.duration
+    if Angleur_IsSecret(duration) then return end
+    if duration and duration > 0 then
+        slot.auraEffectDuration = duration
+    else
+        slot.mightHaveAura = false
+    end
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("_grabAuraDurationOnFirstApplication ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Duration:", duration)
+    Angleur_UpdateExtraItems()
+end
 function Angleur_ExtraItems_Auras()
     for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         slot.auraActive = false
-        local auraData, spellAuraID = getActiveAuraDataFromSlot(slot)
+        local auraData, spellAuraID = getNonSecretActiveAuraDataFromSlot(slot)
         if auraData then
             slot.auraActive = true
             local link = C_Spell.GetSpellLink(spellAuraID)
             Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
+            _grabAuraDurationOnFirstApplication(slot, auraData, i)
         end
     end
 end
@@ -612,26 +666,6 @@ local function _startDelayTimerIfHasDelay(slot, indexForPrint)
     slot.remainingTime = slot.delay
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", "Slot [" .. indexForPrint .. "]", "delay timer starting, remaining time set to: ", slot.delay)
 end
-local function _checkIfSpellSlotHasAuraOnFirstCast(slot, indexForPrint)
-    if not slot.mightHaveAura then return end
-    if slot.auraEffectDuration ~= 0 then return end
-    if InCombatLockdown() then return end
-    local spellID = 0
-    if slot.macroSpellID ~= 0 then spellID = slot.macroSpellID end
-    if slot.spellID ~= 0 then spellID = slot.spellID end
-    local auraData = C_UnitAuras.GetPlayerAuraBySpellID(spellID)
-    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("checkIfSpellSlotHasAuraOnFirstCast ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Data:", auraData)
-    if not auraData or Angleur_IsSecret(auraData) then return end
-    local duration = auraData.duration
-    if Angleur_IsSecret(duration) then return end 
-    if duration and duration > 0 then
-        slot.auraEffectDuration = duration
-    else
-        slot.mightHaveAura = false
-    end
-    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("checkIfSpellSlotHasAuraOnFirstCast ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Duration:", duration)
-    Angleur_UpdateExtraItems()
-end
 local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
     if ang.gameVersion == 1 then
@@ -642,7 +676,6 @@ local function items_Events(self, event, unit, ...)
             local slot = Angleur_SlottedExtraItems[i]
             if slot.spellID == arg5 or slot.macroSpellID == arg5 then
                 _startDelayTimerIfHasDelay(slot, i)
-                _checkIfSpellSlotHasAuraOnFirstCast(slot, i)
                 -- Returning here will cause the slots that have the same spellID to be ignored
                 -- Commenting for now despite it improving performance(though infinitesimal), 
                 -- even if it is unlikely that the same spell will be slotted two times

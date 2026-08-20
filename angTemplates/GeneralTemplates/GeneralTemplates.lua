@@ -94,6 +94,6 @@ function ExtraItemButtonMixin:OnLoad()
     delayOffsetSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 15, -25)
     local titleText = delayOffsetSlider:CreateFontString(nil, "ARTWORK", "GameFontHighlightExtraSmall")
     titleText:SetPoint("BOTTOM", delayOffsetSlider, "TOP", 0, 2)
-    titleText:SetText("Delay Offset")
+    titleText:SetText("Aura Offset")
     titleText:SetScale(0.8) 
 end
