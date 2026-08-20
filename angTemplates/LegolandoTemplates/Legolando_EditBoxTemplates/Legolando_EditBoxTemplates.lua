@@ -230,7 +230,7 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SeparateValues()
 	self.separateValues.seconds = value % 60
 end
 
-local function combineValues(minutes, seconds)
+local function _combineValues(minutes, seconds)
 	local combined = minutes * 60 + seconds
 	return combined
 end
@@ -244,7 +244,7 @@ function Legolando_MinSecEditBoxesMixin_Angleur:SaveToTable()
 		print("Table or Reference missing for EditBoxes")
 		return
 	end
-	teeburu[reference] = combineValues(self.separateValues.minutes, self.separateValues.seconds)
+	teeburu[reference] = _combineValues(self.separateValues.minutes, self.separateValues.seconds)
 	self:debugPrint("Time set to: ", self.separateValues.minutes, " minutes, ", self.separateValues.seconds, " seconds")
 	self:debugPrint("Total time in seconds: ", teeburu[reference])
 	if privateRegistry and privateRegistryString then

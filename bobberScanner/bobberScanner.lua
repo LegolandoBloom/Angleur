@@ -32,7 +32,7 @@ local TEMP_MAXZOOM = nil
 local active = false
 
 
-local function bScanner_SavedVariables()
+local function _bScanner_SavedVariables()
     if AngleurBobberScannerUI == nil then
         AngleurBobberScannerUI = {}
     end
@@ -215,10 +215,10 @@ collapseConfig.popup.defaults:SetScript("OnClick", function()
     collapseConfig.popup.startDelay:SetValue(1)
 end)
 
-local function config_updateMethod(id)
+local function _config_updateMethod(id)
     AngleurBobberScannerUI.method = id
 end
-local function uncheckSiblings(id)
+local function _uncheckSiblings(id)
     for i=1,4,1 do
         local button = collapseConfig.popup[i]
         if id ~= i then
@@ -231,8 +231,8 @@ function AngleurBobberScanner_CheckMethod(id)
     if collapseConfig.popup[id]:GetChecked() == false then
         collapseConfig.popup[id]:SetChecked(true)
     end
-    uncheckSiblings(id)
-    config_updateMethod(id)
+    _uncheckSiblings(id)
+    _config_updateMethod(id)
     loadUserSettings()
 end
 local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "GameFontHighlightHugeOutline2")
@@ -330,7 +330,7 @@ end)
 --_______________________________________________________________________
 EventRegistry:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(ownerID, ...)
     --________________________
-    bScanner_SavedVariables()
+    _bScanner_SavedVariables()
     scannerArea:Adjust()
     collapseConfig.popup[AngleurBobberScannerUI.method]:SetChecked(true)
     AngleurBobberScanner_CheckMethod(AngleurBobberScannerUI.method)
@@ -440,7 +440,7 @@ function cameraFrame:nextLine(lines, lineChangeTime, columnSweepTime, moveLeft)
         self:sweep(lines - 1, lineChangeTime, columnSweepTime, moveLeft)
     end)
 end
-local function printSweep(moveLeft)
+local function _printSweep(moveLeft)
     if moveLeft then
         Angleur_BetaPrint(debugChannel, "moving left")
     else
@@ -451,14 +451,14 @@ function cameraFrame:sweep(lines, lineChangeTime, columnSweepTime, moveLeft)
     if moveLeft then
         Angleur_BetaPrint(debugChannel, "starting sweep of line: ", lines, "to the left")
         MoveViewLeftStart(H_SPEED)
-        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
+        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()_printSweep(moveLeft) end, function()
             MoveViewLeftStart(0)
             self:nextLine(lines, lineChangeTime, columnSweepTime, not moveLeft)
         end)
     else
         Angleur_BetaPrint(debugChannel, "starting sweep of line: ", lines, "to the right")
         MoveViewRightStart(H_SPEED)
-        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()printSweep(moveLeft) end, function()
+        Angleur_SingleDelayer(columnSweepTime, 0, columnSweepTime, self, function()_printSweep(moveLeft) end, function()
             MoveViewRightStart(0)
             self:nextLine(lines, lineChangeTime, columnSweepTime, not moveLeft)
         end)
@@ -619,7 +619,7 @@ end
 -- turnLeft:SetScript("OnClick", function()
 --     stopAll()
 --     MoveViewRightStart(H_SPEED)
---     Angleur_SingleDelayer(2, 0, 0.5, camControl, function()printSweep(true) end, function()
+--     Angleur_SingleDelayer(2, 0, 0.5, camControl, function()_printSweep(true) end, function()
 --         MoveViewRightStop()
 --     end)
 -- end)
@@ -630,7 +630,7 @@ end
 -- turnRight:SetScript("OnClick", function()
 --     stopAll()
 --     MoveViewLeftStart(H_SPEED)
---     Angleur_SingleDelayer(2, 0, 0.5, camControl, function()printSweep(false) end, function()
+--     Angleur_SingleDelayer(2, 0, 0.5, camControl, function()_printSweep(false) end, function()
 --         MoveViewLeftStop()
 --     end)
 -- end)

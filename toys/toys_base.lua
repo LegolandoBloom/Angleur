@@ -78,7 +78,7 @@ Angleur_SlottedExtraToys = {
     second = {name = 0, toyID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false},
     third = {name = 0, toyID = 0, spellID = 0, icon = 0, auraActive = false, loaded = false}
 }
-local function initializeSavedToys()
+local function _initializeSavedToys()
     for i, slot in pairs(Angleur_SlottedExtraToys) do
         if not slot.name then slot.name = 0 end
         if not slot.toyID then slot.toyID = 0 end
@@ -91,7 +91,7 @@ end
 
 --If player has at least one toy in the category, initiate load. Otherwise, disable the checkbox and dropdown menus
 function Angleur_LoadToys(self)
-    initializeSavedToys()
+    _initializeSavedToys()
     GetTimePreciseSec()
 
     --________________

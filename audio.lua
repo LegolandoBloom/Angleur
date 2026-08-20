@@ -39,7 +39,7 @@ end
 local reminderDelayer = CreateFrame("Frame")
 -- 0 -> inactive | 1 -> first part active(waiting until channel ends) | 2 ->  second part active(waiting an arbitrary amount until audio warning)
 local scriptPhase = 0
-local function phase2()
+local function _phase2()
     scriptPhase = 2
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 complete, starting phase 2")
     Angleur_SingleDelayer(PHASE2_DURATION, 0, DELAYER_THRESHOLD, reminderDelayer, nil, function()
@@ -48,12 +48,12 @@ local function phase2()
         PlaySoundFile("Interface/AddOns/Angleur/sounds/angleurFailRecast.ogg")
     end)
 end
-local function phase1(channelDuration)
+local function _phase1(channelDuration)
     scriptPhase = 1
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Phase 1 Delayer duration: ", channelDuration)
     -- TODO: set a delayer that will play the sound effect upon expiry
     Angleur_SingleDelayer(channelDuration, 0, DELAYER_THRESHOLD, reminderDelayer, nil, function()
-        phase2()
+        _phase2()
     end)
 end
 
@@ -79,7 +79,7 @@ function Angleur_RecastReminder_Start(spellID)
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Recast Reminder: ") .. "Channel too short, not starting phase 1 of delayer. (" .. channelDuration .. ")")
         return
     end
-    phase1(channelDuration)
+    _phase1(channelDuration)
 end
 
 function Angleur_RecastReminder_Stop()

@@ -542,7 +542,7 @@ function Angleur_OnLoad(self)
 end
 
 
-local function onLogin()
+local function _onLogin()
     if AngleurCharacter.sleeping == false then
         Angleur_EquipAngleurSet(false)
     end
@@ -558,7 +558,7 @@ local function onLogin()
         end
     end
 end
-local function onReload()
+local function _onReload()
     if AngleurCharacter.sleeping == true then
         if not Angleur_TinyOptions.loginDisabled then
             print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping. To continue using, type " .. colorYello:WrapTextInColorCode("/angsleep ") .. "again,"])
@@ -570,7 +570,7 @@ end
 
 
 
-local function load_not_retail()
+local function _load_not_retail()
     if ang.gameVersion == 1 then return end
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
     Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
@@ -579,7 +579,7 @@ local function load_not_retail()
     Angleur_BaitEnchant()
 end
 
-local function load_retail()
+local function _load_retail()
     if ang.gameVersion ~= 1 then return end
     -- Order: CombatDelayer(LoadToys) & ExtraToyAuras back-to-back
     Angleur_CombatDelayer(function()Angleur_LoadToys()end)
@@ -588,7 +588,7 @@ local function load_retail()
     -- Order: After LoadToys()
     Angleur_Auras()
 end
-local function load_mists()
+local function _load_mists()
     if ang.gameVersion ~= 2 then return end  
     -- Order: CombatDelayer(LoadToys) & ExtraToyAuras back-to-back
     Angleur_CombatDelayer(function()Angleur_LoadToys()end)
@@ -657,7 +657,7 @@ Angleur_TempCVars = {
 Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
 Angleur_TempCVarHandler.tempCVarsTable = Angleur_TempCVars
 Angleur_TempCVarHandler:Init()
-local function cvars_load()
+local function _cvars_load()
     -- Need to re-assign here because when table is first created Saved Vars haven't loaded yet
     Angleur_TempCVars["Sound_MasterVolume"].setTo =  AngleurAudio.ultraFocusMaster
     Angleur_TempCVars["Sound_MusicVolume"].setTo =  AngleurAudio.ultraFocusMusic
@@ -716,9 +716,9 @@ function Angleur_EventLoader(self, event, unit, ...)
         -- return if zone change
         if unit == false and arg4 == false then return end
         if unit == true then
-            onLogin()
+            _onLogin()
         elseif arg4 == true then
-            onReload()
+            _onReload()
         end
 
         --Check if the Plugins of Angleur have loaded
@@ -744,11 +744,11 @@ function Angleur_EventLoader(self, event, unit, ...)
         -- We also need CreateSlots Before ExtraItems_Load
         
         -- Version based load functions
-        load_retail()
-        load_not_retail()
-        load_mists()
+        _load_retail()
+        _load_not_retail()
+        _load_mists()
 
-        cvars_load()
+        _cvars_load()
 
         Init_AngleurVisual()
         HelpTip:Hide(UIParent, helpTipCloseText)

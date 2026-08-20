@@ -57,7 +57,7 @@ end
 
 Angleur_CombatWeaponSwapButtonMixin = {};
 
-local function isEquipItemValid(itemInfo)
+local function _isEquipItemValid(itemInfo)
     if C_Item.IsEquippableItem(itemInfo) == false then return false end
     if C_Item.GetItemCount(itemInfo) < 1 then return false end
     return true
@@ -68,7 +68,7 @@ function Angleur_CombatWeaponSwapButtonMixin:setMacro(swapTable)
     local _, firstLink = next(swapTable)
     local macroBody = ""
     for location, link in pairs(swapTable) do
-        if isEquipItemValid(link) then
+        if _isEquipItemValid(link) then
             local name = C_Item.GetItemNameByID(link)
             Angleur_BetaPrint(4, "Angleur_CombatWeaponSwapButtonMixin: ", name)
             macroBody = macroBody .. "/equipslot " .. location .. " " .. name .. "\n"

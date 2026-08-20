@@ -43,7 +43,7 @@ local THUMB_EXTENDER = 7
 local FILL_BORDEROFFSET = 3
 
 -- I can ride my bike with no:
-local function handleBar(slider, isHorizontal)
+local function _handleBar(slider, isHorizontal)
     local sliderX, sliderY = slider:GetSize()
     if isHorizontal then
         slider.bar:SetSize(sliderX - THUMB_EXTENDER, sliderY)
@@ -51,7 +51,7 @@ local function handleBar(slider, isHorizontal)
         slider.bar:SetSize(sliderX, sliderY - THUMB_EXTENDER)
     end
 end
-local function handleFill(slider, isHorizontal)
+local function _handleFill(slider, isHorizontal)
     -- Need to clear all points because textures are automatically given a point anyway, even if not specified
     slider.bar.fill:ClearAllPoints()
     if isHorizontal then
@@ -84,7 +84,7 @@ local function handleFill(slider, isHorizontal)
         end
     end
 end
-local function handleThumb(slider, isHorizontal)
+local function _handleThumb(slider, isHorizontal)
     if isHorizontal then
         slider.thumb:SetTexture(thumbHorizontalPath)
         local x, y = slider.thumb:GetSize()
@@ -171,9 +171,9 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
     local isHorizontal = self:GetOrientation() == "HORIZONTAL"
-    handleBar(self, isHorizontal)
-    handleThumb(self, isHorizontal)
-    handleFill(self, isHorizontal)
+    _handleBar(self, isHorizontal)
+    _handleThumb(self, isHorizontal)
+    _handleFill(self, isHorizontal)
     local teeburu = self.savedVarTable
     if not teeburu then
         print("Slider doesn't have a saved variable table attached")

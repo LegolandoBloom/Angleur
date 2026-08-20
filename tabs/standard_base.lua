@@ -29,7 +29,7 @@ local retailToys = ang.retail.toys
 --     </Anchors>
 -- </Button>
 
-local function setupAudio(self)
+local function _setupAudio(self)
     local audioConfig = CreateFrame("Button", "Angleur_UltraFocusAudio_CollapseConfig", self.ultraFocus.audio.checkbox, "Legolando_CollapseConfigTemplate_Angleur")
     audioConfig:SetPoint("LEFT", self.ultraFocus.audio.text, "RIGHT")
     audioConfig.icon:SetTexture("Interface/AddOns/Angleur/images/audiooptions.png")
@@ -275,7 +275,7 @@ function Angleur_SetTab1(self)
         mistsStandardTab:ExtraButtons(self)
     end
 
-    setupAudio(self)
+    _setupAudio(self)
 
 
     self.ultraFocus.autoLoot.text:SetText(T["Temp. Auto Loot "])

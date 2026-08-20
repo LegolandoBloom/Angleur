@@ -289,16 +289,16 @@ function Legolando_HelpTipTemplateMixin_Angleur.GetButtonInfo(buttonStyle)
 	return HelpTip.Buttons[buttonStyle];
 end
 
-	local function transformOffsetsForRotation(offsets, rotationInfo)
-		local offsetX = offsets[1];
-		local offsetY = offsets[2];
-		if rotationInfo.swapOffsets then
-			offsetX, offsetY = offsetY, offsetX;
-		end
-		offsetX = offsetX * rotationInfo.modOffsetX;
-		offsetY = offsetY * rotationInfo.modOffsetY;
-		return offsetX, offsetY;
+local function transformOffsetsForRotation(offsets, rotationInfo)
+	local offsetX = offsets[1];
+	local offsetY = offsets[2];
+	if rotationInfo.swapOffsets then
+		offsetX, offsetY = offsetY, offsetX;
 	end
+	offsetX = offsetX * rotationInfo.modOffsetX;
+	offsetY = offsetY * rotationInfo.modOffsetY;
+	return offsetX, offsetY;
+end
 function Legolando_HelpTipTemplateMixin_Angleur:AnchorAndRotate(partTable, overrideTargetPoint, overrideAlignment)
 	local baseTargetPoint = self.GetTargetPoint(partTable.targetPoint);
 	local targetPoint = overrideTargetPoint or baseTargetPoint;

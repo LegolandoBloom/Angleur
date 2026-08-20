@@ -201,7 +201,7 @@ reno:SetAlpha(1)
 local activeAuras = {}
 local timerFrame = CreateFrame("Frame")
 local recentlyCalled = false
-local function checkPatient()
+local function _checkPatient()
     if not recentlyCalled then
         recentlyCalled = true
         patientFrame:Show()
@@ -211,7 +211,7 @@ local function checkPatient()
     end
 end
 
-local function handleAuras(updateInfo)
+local function _handleAuras(updateInfo)
     local inCombat = InCombatLockdown()
     if AngleurConfig.patientEnabled == false then return end
     if not updateInfo then return end
@@ -226,7 +226,7 @@ local function handleAuras(updateInfo)
             if spellID == PATIENT_SPELLID1 or spellID == PATIENT_SPELLID2 then
                 activeAuras[v.auraInstanceID] = spellID
                 Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Patient Chest:"), "Added", activeAuras[v.auraInstanceID], "Instance ID: ", v.auraInstanceID)
-                checkPatient()
+                _checkPatient()
             end
         end
     end
@@ -255,7 +255,7 @@ patientFrame:SetScript("OnEvent", function (self, event, unit, ...)
     unit, arg4, arg5 = scrubsecretvalues(unit, arg4, arg5)
     if event == "UNIT_AURA" and unit == "player" then
         -- print("oh my gah")
-        handleAuras(arg4)
+        _handleAuras(arg4)
     elseif event == "PLAYER_LOGIN" then
         C_Item.RequestLoadItemDataByID(NETHER_EGG_ITEMID)
     elseif event == "ITEM_DATA_LOAD_RESULT" and unit == NETHER_EGG_ITEMID and arg4 == true then

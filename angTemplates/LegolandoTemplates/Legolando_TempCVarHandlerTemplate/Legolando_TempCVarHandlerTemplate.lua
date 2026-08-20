@@ -42,7 +42,7 @@ local onUpdate_FramePool = CreateFramePool("Frame", nil, nil, function(framePool
 end)
 
 
-local function setCVar(key, cVar)
+local function _setCVar(key, cVar)
     if cVar.active == true then return end
     cVar.cached = C_CVar.GetCVar(key)
     cVar.updating = true
@@ -71,13 +71,13 @@ function Legolando_TempCVarHandlerMixin_Angleur:Set(...)
             print("temp CVar key's referenced element is missing")
         else
             local cVar = teeburu[key]
-            setCVar(key, cVar)
+            _setCVar(key, cVar)
         end
     end
     -- print(GetTime())
 end
 
-local function releaseCVar(key, cVar)
+local function _releaseCVar(key, cVar)
     if cVar.active == false then return end
     cVar.updating = true
     C_CVar.SetCVar(key, cVar.cached)
@@ -106,7 +106,7 @@ function Legolando_TempCVarHandlerMixin_Angleur:Release(...)
             print("temp CVar key's referenced element is missing")
         else
             local cVar = teeburu[key]
-            releaseCVar(key, cVar)
+            _releaseCVar(key, cVar)
         end
     end
     -- print(GetTime())

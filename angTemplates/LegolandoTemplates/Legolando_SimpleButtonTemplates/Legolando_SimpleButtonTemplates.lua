@@ -9,7 +9,7 @@ local enum_Rotation = {
 -- For Right and Left:
 -- - Need to UnAnchor TopLeft&BottomRight(setAllPoints) + Anchor to CENTER to rotate
 -- - Also need to resize since it will lose its setAllPoints 
-local function reAnchorAndResize(texture, newAnchor, sizeX, sizeY)
+local function _reAnchorAndResize(texture, newAnchor, sizeX, sizeY)
 	texture:ClearAllPoints()
 	texture:SetPoint("CENTER", newAnchor, "CENTER")
 	texture:SetSize(sizeX, sizeY)
@@ -21,8 +21,8 @@ function Legolando_SimpleArrowPopoutButtonTemplateMixin_Angleur:SetRotate(facing
 		-- Swap x and y when facing left or right
 		self:SetSize(y, x)
 		-- Plug the unswapped x and y to the texture(it's already rotated)
-		reAnchorAndResize(self.highlight, self, x, y)
-		reAnchorAndResize(self.normal, self, x, y)
+		_reAnchorAndResize(self.highlight, self, x, y)
+		_reAnchorAndResize(self.normal, self, x, y)
 	end
 	self.highlight:SetRotation(enum_Rotation[facing])
 	self.normal:SetRotation(enum_Rotation[facing])

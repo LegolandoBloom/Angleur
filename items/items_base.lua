@@ -42,7 +42,7 @@ local extraItemsFrame
 
 ang.extraItems.slotCount = 3
 local slotCount = ang.extraItems.slotCount
-local function initializeSavedItems()
+local function _initializeSavedItems()
     if ang.loadedPlugins.niche and AngleurNicheOptions_UI.checkboxes[1].moreItems == true then
         ang.extraItems.slotCount = 6
         slotCount = 6
@@ -88,12 +88,54 @@ end
 -- ************************************************************* [1] *************************************************************
 
 -- Originally located in Angleur.lua, needed for Angleur_ActionHandler_ExtraItems here as well
-local function SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
+local function _SetOverrideBindingClick_Custom(owner, isPriority, key, buttonName)
     if not key then return end
     SetOverrideBindingClick(owner, isPriority, key, buttonName)
 end
 
-local function checkUsabilityItem(itemID)
+local function getAuraDataFromSlot(slot)
+    local spellAuraID
+    if slot.spellID ~= 0 then
+        spellAuraID = slot.spellID
+    elseif slot.macroSpellID ~= 0 then
+        spellAuraID = slot.macroSpellID
+    end
+    if spellAuraID then
+        local name = C_Spell.GetSpellInfo(spellAuraID).name
+        --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
+        if C_UnitAuras.GetAuraDataBySpellName("player", name) then
+            slot.auraActive = true
+            local link = C_Spell.GetSpellLink(spellAuraID)
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
+        end
+    end
+end
+
+    -- 
+    -- if delayOffset == 0 then return true end
+    -- local expirationTime = auraData.expirationTime
+    -- if not expirationTime or Angleur_IsSecret(expirationTime) then 
+    --     print("Aura is clearly active because aura data exists, but we can't get expiration time.")
+    --     print("Should we return true or false? True means aura is counted as active")
+    --     return true
+    -- end
+    -- local timeNow = GetTime()
+    -- print("expiration time: ", auraData.expirationTime)
+    -- local untilExpiry = expirationTime - timeNow
+    -- print("until expiry(before delay has been subtracted):", untilExpiry)
+    -- local offsettedExpiry = untilExpiry - delayOffset
+    -- if offsettedExpiry <= 0 then return false end
+    -- return true
+local function _checkAuraAndAuraOffsetDelay(slot)
+    -- if slot.auraActive == true then return false end
+    if slot.auraActive == false then return false end
+    local name = C_Spell.GetSpellInfo(spellAuraID).name
+    --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
+    local auraData = C_UnitAuras.GetAuraDataBySpellName("player", name)
+    if not auraData or Angleur_IsSecret(auraData) then return false end
+    local delayOffset = slot.delayOffset
+end
+local function _checkUsabilityItem(itemID)
     if not C_Item.IsUsableItem(itemID) then return false end
     local _, cooldown = C_Container.GetItemCooldown(itemID)
     if cooldown ~= 0 then return false end
@@ -104,7 +146,7 @@ local function checkUsabilityItem(itemID)
     end
     return true
 end
-local function parseMacroConditions(macroBody)
+local function _parseAndCheckMacroConditionals(macroBody)
     local returnValue = true
     for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
         -- If successful even once, return true early
@@ -120,28 +162,29 @@ local function parseMacroConditions(macroBody)
     -- If loop doesn't happen due to no matches, it will automatically default to true
     return returnValue
 end
-local function checkConditions(self, slot, assignKey)
+local function _checkAvailabilityOfSlotItem(self, slot, assignKey)
     if slot.delay ~= 0 and slot.delay ~= nil then
         if slot.remainingTime ~= 0 then
             return false
         end
     end
     if slot.name ~= 0 and slot.auraActive == false then
-        if checkUsabilityItem(slot.itemID) == false then return false end
-        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        if _checkUsabilityItem(slot.itemID) == false then return false end
+        _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
         self.visual.texture:SetTexture(slot.icon)
         return true
     elseif slot.macroName ~= 0 then
         if slot.macroBody == "" then return false end
         if slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
-            if checkUsabilityItem(slot.macroItemID) == false then return false end
+            if _checkUsabilityItem(slot.macroItemID) == false then return false end
         end
         if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
             local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
-            if spellCooldown ~= 0 or slot.auraActive == true then return false end
-            if parseMacroConditions(slot.macroBody) == true then
-                SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+            if spellCooldown ~= 0 then return false end
+            if _checkAuraAndAuraOffsetDelay(slot) == true then return false end
+            if _parseAndCheckMacroConditionals(slot.macroBody) == true then
+                _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", slot.macroBody)
                 self.visual.texture:SetTexture(slot.macroIcon)
                 return true
@@ -152,10 +195,11 @@ end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
     local returnValue = false
     for i=1, ang.extraItems.slotCount, 1 do
-        if checkConditions(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
+        if _checkAvailabilityOfSlotItem(self, Angleur_SlottedExtraItems[i], assignKey) == true then return true end
     end
     return returnValue
 end
+
 
 function Angleur_ExtraItems_Auras()
     for i=1, ang.extraItems.slotCount, 1 do
@@ -179,7 +223,7 @@ function Angleur_ExtraItems_Auras()
     end
 end
 
-local function clearCountdown(slot)
+local function _clearCountdown(slot)
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
 end
@@ -197,7 +241,7 @@ function Angleur_ExtraItems_UpdateItemsCountDown(resetUpdateTime)
             local timePassedSince = timeNow - slot.lastUpdateTime
             if timePassedSince < 0 or not timePassedSince then
                 print("Timer update has went to negative or nil, please inform the addon author: ", timePassedSince)
-                clearCountdown(slot)
+                _clearCountdown(slot)
             elseif timePassedSince == 0 then
                 -- do nothing
             elseif timePassedSince > 0 then
@@ -206,7 +250,7 @@ function Angleur_ExtraItems_UpdateItemsCountDown(resetUpdateTime)
                 Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_UpdateItemsCountDown ") .. ": Remaining time for: [" .. slot.name .. "]", slot.remainingTime)
             end
             if slot.remainingTime <= 0 then
-                clearCountdown(slot)
+                _clearCountdown(slot)
                 Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_UpdateItemsCountDown ") .. ": Timer ran out, usable again: ", C_Spell.GetSpellLink(slot.spellID))
             end
         end
@@ -219,7 +263,7 @@ end
 -- ************************************************* UI Setup & Updating *************************************************
 -- ********** Mostly contained within items_base, functions relating to loading and updating of the UI Elements **********
 -- ********************************************************* [2] *********************************************************
-local function calculateSteps(seconds)
+local function _calculateSteps(seconds)
     if seconds > 10 then return 5 end
     return 1
 end
@@ -229,13 +273,15 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
     local delayOffsetSlider = popup.delayOffsetSlider
 
     if slot.delay ~= 0 then
-        collapseFrame:Show()
-        delayOffsetSlider:ReAdjust(math.floor(-slot.delay), 0, calculateSteps(slot.delay), "sec")
+        slot.delayOffset = 0
+        popup:Hide()
+        collapseFrame:Hide()
+        delayOffsetSlider:ReAdjust(0, 0, 0, "sec")
         delayOffsetSlider:SetDesaturated(false)
     elseif slot.mightHaveAura then
         collapseFrame:Show()
         if slot.auraEffectDuration ~= 0 then
-            delayOffsetSlider:ReAdjust(math.floor(-slot.auraEffectDuration), 0, calculateSteps(slot.auraEffectDuration), "sec")
+            delayOffsetSlider:ReAdjust(math.floor(-slot.auraEffectDuration), 0, _calculateSteps(slot.auraEffectDuration), "sec")
             delayOffsetSlider:SetDesaturated(false)
         else
             delayOffsetSlider:ReAdjust(-1, 0, 1, "sec")
@@ -282,7 +328,7 @@ function Angleur_ExtraItems_CreateSlots()
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once OR add a Delay Timer to enable."
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     else
@@ -299,7 +345,7 @@ function Angleur_ExtraItems_CreateSlots()
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate Aura once OR add a Delay to enable."
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
         end
     end
@@ -341,7 +387,7 @@ end
 
 function Angleur_LoadExtraItems()
     extraItemsFrame = Angleur.configPanel.tab2.contents.extraItems
-    initializeSavedItems()
+    _initializeSavedItems()
     local gameVersion = Angleur_CheckVersion()
     Angleur_ExtraItems_CreateSlots()
     if gameVersion == 2 or gameVersion == 3 then
@@ -572,13 +618,13 @@ end
 
 
 
-local function startDelayTimerIfHasDelay(slot, indexForPrint)
+local function _startDelayTimerIfHasDelay(slot, indexForPrint)
     if slot.delay == 0 or slot.delay == nil then return end
     slot.lastUpdateTime = math.floor(GetTime())
     slot.remainingTime = slot.delay
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_GrabCursorMacro ") .. ": ", "Slot [" .. indexForPrint .. "]", "delay timer starting, remaining time set to: ", slot.delay)
 end
-local function checkIfSpellSlotHasAuraOnFirstCast(slot, indexForPrint)
+local function _checkIfSpellSlotHasAuraOnFirstCast(slot, indexForPrint)
     if not slot.mightHaveAura then return end
     if slot.auraEffectDuration ~= 0 then return end
     if InCombatLockdown() then return end
@@ -598,7 +644,6 @@ local function checkIfSpellSlotHasAuraOnFirstCast(slot, indexForPrint)
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("checkIfSpellSlotHasAuraOnFirstCast ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Duration:", duration)
     Angleur_UpdateExtraItems()
 end
-
 local function items_Events(self, event, unit, ...)
     local arg4, arg5 = ...
     if ang.gameVersion == 1 then
@@ -608,8 +653,8 @@ local function items_Events(self, event, unit, ...)
         for i=1, slotCount, 1 do
             local slot = Angleur_SlottedExtraItems[i]
             if slot.spellID == arg5 or slot.macroSpellID == arg5 then
-                startDelayTimerIfHasDelay(slot, i)
-                checkIfSpellSlotHasAuraOnFirstCast(slot, i)
+                _startDelayTimerIfHasDelay(slot, i)
+                _checkIfSpellSlotHasAuraOnFirstCast(slot, i)
                 -- Returning here will cause the slots that have the same spellID to be ignored
                 -- Commenting for now despite it improving performance(though infinitesimal), 
                 -- even if it is unlikely that the same spell will be slotted two times

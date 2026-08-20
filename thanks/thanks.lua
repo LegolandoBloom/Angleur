@@ -35,7 +35,7 @@ local names = {
     [12] = {text = "meowfy ", r = 0.06, g = 0.43, b = 0.86, logo = "kofi"},
 }
 
-local function createScrollBox(thanksFrame)
+local function _createScrollBox(thanksFrame)
     local ScrollBox = CreateFrame("Frame", "Angleur_Thanks_ScrollBox", thanksFrame, "WowScrollBoxList")
     ScrollBox:SetPoint("TOPLEFT", thanksFrame, "TOPLEFT", 27, -70)
     ScrollBox:SetSize(210, 280)
@@ -46,15 +46,14 @@ local function createScrollBox(thanksFrame)
     ScrollUtil.InitScrollBoxListWithScrollBar(ScrollBox, ScrollBar, ScrollView)
 
     ScrollView:SetElementExtentCalculator(function(dataIndex, data)
-    local smallText = data.data.smallText
-    if smallText then
-        data.heightExtent = FRAMEHEIGHT_WITH_SMALLTEXT
-    else
-        data.heightExtent = FRAMEHEIGHT_WITHOUT_SMALLTEXT
-    end
-    return data.heightExtent
-end)
-
+        local smallText = data.data.smallText
+        if smallText then
+            data.heightExtent = FRAMEHEIGHT_WITH_SMALLTEXT
+        else
+            data.heightExtent = FRAMEHEIGHT_WITHOUT_SMALLTEXT
+        end
+        return data.heightExtent
+    end)
     local function Initializer(frame, node)
         local data = node:GetData()
         local color, text, smallText, logo = CreateColor(data.r, data.g, data.b), data.text, data.smallText, data.logo
@@ -82,12 +81,11 @@ end)
         end
     end
     ScrollView:SetElementInitializer("Angleur_ThanksFrame_SupporterNameTemplate", Initializer)
-
     local dataProvider = CreateTreeDataProvider()
     ScrollView:SetDataProvider(dataProvider)
     return dataProvider
 end
-local function addToScrollBox(thanksFrame, dataProvider)
+local function _addToScrollBox(thanksFrame, dataProvider)
     lego.table_randomSort(names)
     for i, v in pairs(names) do
         dataProvider:Insert(v)
@@ -105,8 +103,8 @@ function Angleur_Thanks_OnLoad(self)
     self.thanksFrame.title:SetText(T["THANK YOU!"])
     self.thanksFrame.supportMe:SetText(T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")])
     self.thanksFrame.supportMe:SetJustifyH("LEFT")
-    local dataProvider = createScrollBox(self.thanksFrame)
-    addToScrollBox(self.thanksFrame, dataProvider)
+    local dataProvider = _createScrollBox(self.thanksFrame)
+    _addToScrollBox(self.thanksFrame, dataProvider)
 end
 
 
