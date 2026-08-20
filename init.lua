@@ -453,6 +453,7 @@ function Angleur_PoolDelayer(delay, timeElapsed, elapsedThreshhold, delayFramePo
 end
 
 function Angleur_BetaPrint(debugChannel, text, ...)
+    if Angleur_TinyOptions.errorsDisabled == true then return end
     if type(ang.debugLevel) == "table" then
         local matched = false
         for i, v in pairs(ang.debugLevel) do
@@ -464,12 +465,11 @@ function Angleur_BetaPrint(debugChannel, text, ...)
     elseif ang.debugLevel ~= 0 and ang.debugLevel ~= debugChannel then
         return
     end
-    if Angleur_TinyOptions.errorsDisabled == false then
-        print(text, ...)
-    end
+    print(text, ...)
 end
 
 function Angleur_BetaDump(debugChannel, dump)
+    if Angleur_TinyOptions.errorsDisabled == true then return end
     if type(ang.debugLevel) == "table" then
         local matched = false
         for i, v in pairs(ang.debugLevel) do
@@ -481,9 +481,7 @@ function Angleur_BetaDump(debugChannel, dump)
     elseif ang.debugLevel ~= 0 and ang.debugLevel ~= debugChannel then
         return
     end
-    if Angleur_TinyOptions.errorsDisabled == false then
-        DevTools_Dump(dump)
-    end
+    DevTools_Dump(dump)
 end
 
 function Angleur_BetaTableToString(debugChannel, tbl)

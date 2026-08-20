@@ -93,47 +93,45 @@ local function _SetOverrideBindingClick_Custom(owner, isPriority, key, buttonNam
     SetOverrideBindingClick(owner, isPriority, key, buttonName)
 end
 
-local function getAuraDataFromSlot(slot)
+local function getActiveAuraDataFromSlot(slot)
     local spellAuraID
     if slot.spellID ~= 0 then
         spellAuraID = slot.spellID
     elseif slot.macroSpellID ~= 0 then
         spellAuraID = slot.macroSpellID
     end
-    if spellAuraID then
-        local name = C_Spell.GetSpellInfo(spellAuraID).name
-        --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-        if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-            slot.auraActive = true
-            local link = C_Spell.GetSpellLink(spellAuraID)
-            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
-        end
-    end
+    if not spellAuraID then return end
+    local name = Angleur_ScrubSecret(C_Spell.GetSpellInfo(spellAuraID).name)
+    if not name then return end
+    -- Can't get auraData from SpellID, have to have name
+    local auraData = C_UnitAuras.GetAuraDataBySpellName("player", name)
+    if not auraData or Angleur_IsSecret(auraData) then return end
+    -- return spellAuraID as well, as it's needed for print in ExtraItems_Auras
+    return auraData, spellAuraID
 end
 
-    -- 
-    -- if delayOffset == 0 then return true end
-    -- local expirationTime = auraData.expirationTime
-    -- if not expirationTime or Angleur_IsSecret(expirationTime) then 
-    --     print("Aura is clearly active because aura data exists, but we can't get expiration time.")
-    --     print("Should we return true or false? True means aura is counted as active")
-    --     return true
-    -- end
-    -- local timeNow = GetTime()
-    -- print("expiration time: ", auraData.expirationTime)
-    -- local untilExpiry = expirationTime - timeNow
-    -- print("until expiry(before delay has been subtracted):", untilExpiry)
-    -- local offsettedExpiry = untilExpiry - delayOffset
-    -- if offsettedExpiry <= 0 then return false end
-    -- return true
 local function _checkAuraAndAuraOffsetDelay(slot)
     -- if slot.auraActive == true then return false end
-    if slot.auraActive == false then return false end
-    local name = C_Spell.GetSpellInfo(spellAuraID).name
     --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-    local auraData = C_UnitAuras.GetAuraDataBySpellName("player", name)
-    if not auraData or Angleur_IsSecret(auraData) then return false end
+    local auraData = getActiveAuraDataFromSlot(slot)
+    if not auraData then return false end
     local delayOffset = slot.delayOffset
+    if delayOffset == 0 then return true end
+    local expirationTime = auraData.expirationTime
+    -- Aura is clearly active because aura data exists, but we can't get expiration time.
+    -- We return true, meaning aura is active. When only expiry is secret, behave like there is no offsetDelay
+    if not expirationTime or Angleur_IsSecret(expirationTime) then return true end
+    print("expiration time: ", auraData.expirationTime)
+    local timeNow = GetTime()
+    print("time now: ", timeNow)
+    local untilExpiry = expirationTime - timeNow
+    print("untilExpiry:", untilExpiry)
+    print("delay offset:", delayOffset)
+    -- delayOffset is always negative, hence the +
+    local offsettedExpiry = untilExpiry + delayOffset
+    print("ofsettedExpiry:", offsettedExpiry)
+    if offsettedExpiry <= 0 then return false end
+    return true
 end
 local function _checkUsabilityItem(itemID)
     if not C_Item.IsUsableItem(itemID) then return false end
@@ -200,25 +198,15 @@ function Angleur_ActionHandler_ExtraItems(self, assignKey)
     return returnValue
 end
 
-
 function Angleur_ExtraItems_Auras()
     for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         slot.auraActive = false
-        local spellAuraID
-        if slot.spellID ~= 0 then
-            spellAuraID = slot.spellID
-        elseif slot.macroSpellID ~= 0 then
-            spellAuraID = slot.macroSpellID
-        end
-        if spellAuraID then
-            local name = C_Spell.GetSpellInfo(spellAuraID).name
-            --doesn't work -> print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-            if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-                slot.auraActive = true
-                local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
-            end
+        local auraData, spellAuraID = getActiveAuraDataFromSlot(slot)
+        if auraData then
+            slot.auraActive = true
+            local link = C_Spell.GetSpellLink(spellAuraID)
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
         end
     end
 end
