@@ -229,9 +229,7 @@ end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
     local returnValue = false
     for i=1, ang.extraItems.slotCount, 1 do
-        local bleh = _checkAvailabilityOfSlotItem(self, Angleur_SlottedExtraItems[i], assignKey, i)
-        -- print(bleh)
-        if bleh == true then return true end
+        if _checkAvailabilityOfSlotItem(self, Angleur_SlottedExtraItems[i], assignKey, i) == true then return true end
     end
     return returnValue
 end
