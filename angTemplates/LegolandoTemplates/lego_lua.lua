@@ -4,6 +4,13 @@ ang.lego = {}
 local lego = ang.lego
 
 
+-- Grid Tex Coords:
+-- GetTexCoordsByGrid(nthRow, , nthColumn, textureHeight, cellWidth, cellHeight)
+
+-- Pixel by Pixel Tex Coords:
+-- TextureBase:SetTextureSliceMargins(left, top, right, bottom)
+-- also: <TextureSliceMargins left="" right="" top="" bottom=""/>
+
 
 -- Shuffle Algoritm by: MHebes on stackoverflow
 function lego.table_randomSort(teeburu)

@@ -8,6 +8,7 @@
         <Layers>
             <Layer level="ARTWORK" textureSubLevel="1">
                 <Texture name="$parentIcon" file="Interface/BUTTONS/UI-OptionsButton" parentKey="icon">
+                    <!-- It's recommended to keep the 26/16 Ratio for the icon size, it looks good -->
                     <Size x="16" y="16"/>
                     <Anchors>
                         <Anchor point="CENTER" x="0" y="0"/>
@@ -89,4 +90,38 @@
         <NormalTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton" parentKey="normal" setAllPoints="true"/>
         <HighlightTexture file="Interface\PaperDollInfoFrame\UI-GearManager-FlyoutButton" parentKey="highlight" setAllPoints="true"/>
     </Button>
+
+    <Frame name="Legolando_IncreaseDecreaseButtonsTemplate_Angleur" mixin="Legolando_IncreaseDecreaseButtonsMixin_Angleur" hidden="false" virtual="true">
+        <!-- Horizontal => buttons will be scaled up to the (y,y) size. x determines how far apart they are -->
+        <!-- Vertical => buttons will be scaled up to the (x,x) size. y determines how far apart they are -->
+        <Size x="200" y="64"/>
+        <KeyValues>
+            <KeyValue key="isHorizontal" value="true" type="boolean"/>
+        </KeyValues>
+        <Scripts>
+            <OnLoad method="OnLoad"/>
+        </Scripts>
+        <Frames>
+            <Button name="$parent_Increase" parentKey="increase" inherits="Legolando_SimpleSquareButtonTemplate_Angleur">
+                <Anchors>
+                    <Anchor point="LEFT"/>
+                </Anchors>
+            </Button>
+            <Button name="$parent_Decrease" parentKey="decrease" inherits="Legolando_SimpleSquareButtonTemplate_Angleur">
+                <Anchors>
+                    <Anchor point="RIGHT"/>
+                </Anchors>
+            </Button>
+        </Frames>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="unitText" text="units" inherits="GameFontHighlightExtraSmall">
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="0"/>
+                    </Anchors>
+                    <Color r="1" g="1" b="1"/>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
 </Ui>

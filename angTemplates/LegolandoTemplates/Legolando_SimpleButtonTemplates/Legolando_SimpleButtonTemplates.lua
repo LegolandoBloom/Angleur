@@ -1,3 +1,23 @@
+local function getFolderPath()
+    local stack = debugstack()
+    local _, _, luafilepath = string.find(stack, "[%[](.-)[%]]")
+    -- print("lue file's path: ", luafilepath)
+    local i = 1
+    local lastPart
+    while string.find(luafilepath, "([/].+)", i) do
+        local startPoint, endPoint
+        startPoint, endPoint, lastPart = string.find(luafilepath, "([/].+)", i)
+        i = startPoint + 1
+        -- print(s, startPoint, endPoint, "\n")
+    end
+    -- print("part to remove: ", lastPart)
+    local afterRemoval = string.gsub(luafilepath, lastPart, "")
+    -- print("After removal: ", afterRemoval)
+    return afterRemoval
+end
+local folderPath = getFolderPath()
+
+
 Legolando_SimpleArrowPopoutButtonTemplateMixin_Angleur = {}
 
 local enum_Rotation = {
@@ -59,3 +79,100 @@ function Legolando_SimpleArrowPopoutButtonTemplateMixin_Angleur:SetState(forceSe
     end)
 end
 
+
+Legolando_IncreaseDecreaseButtonsMixin_Angleur = {}
+
+local plusIcon = folderPath .. "/plusicon.png"
+local minusIcon = folderPath .. "/minusicon.png"
+
+
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:OnLoad()
+	self.decrease.icon:SetTexture(minusIcon, nil, nil, "NEAREST")
+	self.increase.icon:SetTexture(plusIcon, nil, nil, "NEAREST")
+end
+
+
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Update()
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	self.unitText:SetText(teeburu[reference])
+end
+
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:SaveToTable(value)
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+	if not teeburu or not reference or not teeburu[reference] then
+		print("Table or Reference missing for IncreaseDecrease Buttons")
+		return
+	end
+	teeburu[reference] = value
+	self:debugPrint("Value set to", teeburu[reference], "from IncreaseDecrease Buttons")
+	if privateRegistry and privateRegistryString then
+		privateRegistry:TriggerEvent(privateRegistryString, self)
+	end
+	if self.onSaveCallback then
+		self.onSaveCallback(self, teeburu[reference], teeburu)
+	end
+end
+
+local function _adjustLayoutAndScale(self)
+	local increase = self.increase
+	local decrease = self.decrease
+	local unitText = self.unitText
+	local width, height = self:GetSize()
+	local buttonTemplateWidth, buttonTemplateHeight =  increase:GetSize()
+	if self.isHorizontal then
+		local scale = height / buttonTemplateHeight
+		print("before truncate: ", scale)
+		scale = tonumber(string.format("%.3f", scale))
+		print("after truncate: ", scale)
+		increase:SetScale(scale)
+		decrease:SetScale(scale)
+		unitText:SetScale(scale)
+	else
+		increase:ClearAllPoints()
+		increase:SetPoint("TOP")
+		decrease:ClearAllPoints()
+		decrease:SetPoint("BOTTOM")
+		local scale = width / buttonTemplateWidth
+		print("before truncate: ", scale)
+		scale = tonumber(string.format("%.3f", scale))
+		print("after truncate: ", scale)
+		increase:SetScale(scale)
+		decrease:SetScale(scale)
+		unitText:ClearAllPoints()
+		unitText:SetPoint("LEFT", self, "RIGHT")
+		unitText:SetScale(scale)
+	end
+end
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Init(min, max)
+	_adjustLayoutAndScale(self)
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	if not teeburu or not reference or not teeburu[reference] then
+		print("Table or Reference missing for IncreaseDecrease Buttons")
+		return
+	end
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+	if privateRegistry and privateRegistryString then
+		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
+			if caller and caller == self then return end
+			self:Update()
+		end)
+	end
+	self.increase:SetScript("OnClick", function(increaseButton)
+		local value = teeburu[reference]
+		value = value + 1
+		if value > max then return end
+		self:SaveToTable(value)
+	end)
+	self.decrease:SetScript("OnClick", function(decreaseButton)
+		local value = teeburu[reference]
+		value = value - 1
+		if value < min then return end
+		self:SaveToTable(value)
+	end)
+end
