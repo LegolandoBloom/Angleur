@@ -96,4 +96,14 @@ function ExtraItemButtonMixin:OnLoad()
     titleText:SetPoint("BOTTOM", delayOffsetSlider, "TOP", 0, 2)
     titleText:SetText("Aura Offset")
     titleText:SetScale(0.8)
+
+    local betaTexture1 = self.collapseFrame:CreateTexture("Angleur_BetaTexture1", "ARTWORK")
+    betaTexture1:SetTexture("Interface/AddOns/Angleur/images/betafeature.png")
+    betaTexture1:SetSize(24, 24)
+    betaTexture1:SetPoint("LEFT", self.collapseFrame, "RIGHT", 15, -3)
+
+    local betaTexture2 = self.collapseFrame.popup:CreateTexture("Angleur_BetaTexture2", "ARTWORK")
+    betaTexture2:SetTexture("Interface/AddOns/Angleur/images/betafeature.png")
+    betaTexture2:SetSize(24, 24)
+    betaTexture2:SetPoint("LEFT", titleText, "RIGHT", 25, -3)
 end
