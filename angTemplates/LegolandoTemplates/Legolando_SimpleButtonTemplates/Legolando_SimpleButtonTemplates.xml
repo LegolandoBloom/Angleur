@@ -108,13 +108,13 @@
             <Button name="$parent_Increase" parentKey="increase" inherits="Legolando_SimpleSquareButtonTemplate_Angleur">
                 <Size x="24" y="24"/>
                 <Anchors>
-                    <Anchor point="LEFT"/>
+                    <Anchor point="RIGHT"/>
                 </Anchors>
             </Button>
             <Button name="$parent_Decrease" parentKey="decrease" inherits="Legolando_SimpleSquareButtonTemplate_Angleur">
                 <Size x="24" y="24"/>
                 <Anchors>
-                    <Anchor point="RIGHT"/>
+                    <Anchor point="LEFT"/>
                 </Anchors>
             </Button>
         </Frames>
