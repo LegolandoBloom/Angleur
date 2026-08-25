@@ -159,6 +159,8 @@ function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     if not unit then unit = "" end
     self.unit = unit
     self:SetMinMaxValues(min, max)
+    self.min = min
+    self.max = max
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
     self:Update()
@@ -207,10 +209,12 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
         if caller and caller == self then return end
         self:Update()
     end)
-
+    
     if not unit then unit = "" end
     self.unit = unit
     self:SetMinMaxValues(min, max)
+    self.min = min
+    self.max = max
     self:SetValueStep(step)
     self:SetObeyStepOnDrag(true)
     if self.disabledMessage then self.desaturatedText:SetText(self.disabledMessage) end
@@ -218,6 +222,7 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
     self:Update()
     self:SetScript("OnValueChanged", function(self, newValue, userInput)
         if not userInput then return end
+        if newValue == teeburu[reference] then return end
         self:SaveToTable(newValue)
     end)
 

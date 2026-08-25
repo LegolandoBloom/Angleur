@@ -119,7 +119,7 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
 end
 
 
-local function onSaveCallback(editBoxes, value, slot)
+local function minSecEditBoxes_onSaveCallback(editBoxes, value, slot)
     -- DevTools_Dump(slot)
     slot.lastUpdateTime = 0
     slot.remainingTime = 0
@@ -129,6 +129,9 @@ local function onSaveCallback(editBoxes, value, slot)
         editBoxes:Hide()
     end
     Angleur_UpdateExtraItems()
+end
+local function delayOffset_onSaveCallback(slider, value, table)
+    print(table.name, "will be recast when its aura has", colorYello:WrapTextInColorCode(math.abs(value)), "seconds left.")
 end
 function Angleur_ExtraItems_CreateSlots()
     local parentName = extraItemsFrame:GetDebugName()
@@ -143,11 +146,12 @@ function Angleur_ExtraItems_CreateSlots()
             extraItemsFrame[i].closeButton:SetScale(0.85)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
-            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
+            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = minSecEditBoxes_onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.onSaveCallback = delayOffset_onSaveCallback
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
@@ -160,11 +164,12 @@ function Angleur_ExtraItems_CreateSlots()
             extraItemsFrame[i]:SetID(i)
             extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
-            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = onSaveCallback
+            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = minSecEditBoxes_onSaveCallback
             extraItemsFrame[i].timeButton.inputBoxes:Init()
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
+            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.onSaveCallback = delayOffset_onSaveCallback
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
             extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
@@ -510,12 +515,6 @@ local function getNonSecretActiveAuraDataFromSlot(slot)
     local auraData = C_UnitAuras.GetAuraDataBySpellName("player", name)
     if not auraData or Angleur_IsSecret(auraData) then return end
     -- return spellAuraID as well, as it's needed for print in ExtraItems_Auras
-    local auraInstanceID = auraData.auraInstanceID
-    print("Aura Instance ID", auraInstanceID)
-    local count = C_UnitAuras.GetAuraApplicationDisplayCount("player", auraInstanceID, 0)
-    print("Count", count)
-    local newDuration = C_UnitAuras.GetRefreshExtendedDuration("player", auraInstanceID, spellAuraID)
-    print("New Duration:", newDuration)
     return auraData, spellAuraID
 end
 
