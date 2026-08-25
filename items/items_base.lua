@@ -85,6 +85,7 @@ end
 -- ************************************************* UI Setup & Updating *************************************************
 -- ********** Mostly contained within items_base, functions relating to loading and updating of the UI Elements **********
 -- ********************************************************* [1] *********************************************************
+local EDITBOX_DIGITWIDTH = 8
 local function _calculateSteps(seconds)
     if seconds > 10 then return 5 end
     return 1
@@ -103,6 +104,11 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
     elseif slot.mightHaveAura then
         collapseFrame:Show()
         if slot.auraEffectDuration ~= 0 then
+            local boxDigitCount = tonumber(string.len(tostring(slot.auraEffectDuration)))
+            if boxDigitCount < 3 then boxDigitCount = 3 end
+            -- Why linearSizeScaler? Needs bigger size increase as count increases, so we can't just change EDITBOX_DIGITWIDTH
+            local linearSizeScaler = boxDigitCount - 2
+            delayOffsetSlider.editBox:SetWidth(boxDigitCount * EDITBOX_DIGITWIDTH + linearSizeScaler)
             delayOffsetSlider:ReAdjust(math.floor(-slot.auraEffectDuration), 0, _calculateSteps(slot.auraEffectDuration), "sec")
             delayOffsetSlider:SetDesaturated(false)
         else
