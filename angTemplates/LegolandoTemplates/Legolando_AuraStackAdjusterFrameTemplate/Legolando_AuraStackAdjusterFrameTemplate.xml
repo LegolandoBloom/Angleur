@@ -1,0 +1,65 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+
+    <!-- Requires Legolando_IncreaseDecreaseButtonsTemplate_Angleur to work -->
+
+    <Script file="Legolando_AuraStackAdjusterFrameTemplate.lua"/>
+
+    <!-- Removed FontString "Symbol", can be re-added later if needed -->
+    <Frame name="Legolando_SimplifiedAuraButtonArtTemplate_Angleur" virtual="true">
+        <Size x="30" y="40"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture parentKey="Icon" file="Interface\ICONS\INV_Misc_QuestionMark.blp">
+                    <Size x="30" y="30"/>
+                    <Anchors>
+                        <Anchor point="TOP"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Duration" inherits="GameFontNormalSmall" hidden="true" >
+                    <Anchors>
+                        <Anchor point="TOP" relativeKey="$parent.Icon" relativePoint="BOTTOM" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="DebuffBorder">
+                    <Size x="40" y="40"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.Icon"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="TempEnchantBorder" file="Interface\Buttons\UI-TempEnchant-Border">
+                    <Size x="32" y="32"/>
+                    <Anchors>
+                        <Anchor point="CENTER" relativeKey="$parent.Icon"/>
+                    </Anchors>
+                </Texture>
+                <FontString parentKey="Count" inherits="NumberFontNormal">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.Icon" x="-2" y="2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="Legolando_AuraStackAdjusterFrameTemplate_Angleur" mixin="Legolando_AuraStackAdjusterFrameMixin_Angleur" inherits="Legolando_SimplifiedAuraButtonArtTemplate_Angleur" virtual="true">
+        <Scripts>
+            <OnEnter method="OnEnter"/>
+        </Scripts>
+        <Frames>
+            <Frame name="$parent_IncreaseDecrease" parentKey="increaseDecrease" inherits="Legolando_IncreaseDecreaseButtonsTemplate_Angleur">
+                <KeyValues>
+                    <KeyValue key="isHorizontal" value="false" type="boolean"/>
+                    <KeyValue key="showValue" value="false" type="boolean"/>
+                </KeyValues>
+                <Size x="15" y="29"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent" relativePoint="TOPRIGHT" x="1" y="-1"/>
+                </Anchors>
+            </Frame> 
+        </Frames>
+    </Frame>
+
+</Ui>

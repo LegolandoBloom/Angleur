@@ -149,7 +149,8 @@
         "SHIFT_KEY",
         "NONE_KEY",
         "VIDEO_OPTIONS_NEED_CLIENTRESTART",
-        "VIDEO_OPTIONS_RECOMMENDED"
+        "VIDEO_OPTIONS_RECOMMENDED",
+        "HUD_EDIT_MODE_PLAYER_FRAME_LABEL"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

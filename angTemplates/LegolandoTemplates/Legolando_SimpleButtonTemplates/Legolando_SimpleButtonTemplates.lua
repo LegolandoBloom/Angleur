@@ -91,11 +91,15 @@ function Legolando_IncreaseDecreaseButtonsMixin_Angleur:OnLoad()
 	self.increase.icon:SetTexture(plusIcon, nil, nil, "NEAREST")
 end
 
-
-function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Update()
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:UpdateUnitText()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
 	self.unitText:SetText(teeburu[reference])
+end
+
+-- Call when changing value from external sources
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Update()
+	self:UpdateUnitText()
 end
 
 function Legolando_IncreaseDecreaseButtonsMixin_Angleur:SaveToTable(value)
@@ -108,7 +112,7 @@ function Legolando_IncreaseDecreaseButtonsMixin_Angleur:SaveToTable(value)
 		return
 	end
 	teeburu[reference] = value
-	self:debugPrint("Value set to", teeburu[reference], "from IncreaseDecrease Buttons")
+	self:UpdateUnitText()
 	if privateRegistry and privateRegistryString then
 		privateRegistry:TriggerEvent(privateRegistryString, self)
 	end
@@ -117,34 +121,50 @@ function Legolando_IncreaseDecreaseButtonsMixin_Angleur:SaveToTable(value)
 	end
 end
 
+function Legolando_IncreaseDecreaseButtonsMixin_Angleur:ReAdjust(min, max)
+	if not min or not max then return end
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	self.min = min
+	self.max = max
+	if teeburu[reference] > max then
+		self:SaveToTable(max)
+	end
+	if teeburu[reference] < min then
+		self:SaveToTable(min)
+	end
+	self:Update()
+end
+
 local function _adjustLayoutAndScale(self)
 	local increase = self.increase
+	-- increase.icon:SetSize(17, 17)
 	local decrease = self.decrease
+	-- decrease.icon:SetSize(17, 17)
 	local unitText = self.unitText
+	if self.showValue then
+		unitText:Show()
+	end
 	local width, height = self:GetSize()
 	local buttonTemplateWidth, buttonTemplateHeight =  increase:GetSize()
 	if self.isHorizontal then
 		local scale = height / buttonTemplateHeight
-		print("before truncate: ", scale)
 		scale = tonumber(string.format("%.3f", scale))
-		print("after truncate: ", scale)
 		increase:SetScale(scale)
 		decrease:SetScale(scale)
-		unitText:SetScale(scale)
+		unitText:SetScale(scale * 2)
 	else
 		increase:ClearAllPoints()
 		increase:SetPoint("TOP")
 		decrease:ClearAllPoints()
 		decrease:SetPoint("BOTTOM")
 		local scale = width / buttonTemplateWidth
-		print("before truncate: ", scale)
 		scale = tonumber(string.format("%.3f", scale))
-		print("after truncate: ", scale)
 		increase:SetScale(scale)
 		decrease:SetScale(scale)
 		unitText:ClearAllPoints()
-		unitText:SetPoint("LEFT", self, "RIGHT")
-		unitText:SetScale(scale)
+		unitText:SetPoint("LEFT", self, "RIGHT", 3, 0)
+		unitText:SetScale(scale * 2)
 	end
 end
 function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Init(min, max)
@@ -155,6 +175,7 @@ function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Init(min, max)
 		print("Table or Reference missing for IncreaseDecrease Buttons")
 		return
 	end
+	self:Update()
 	local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
 	if privateRegistry and privateRegistryString then
