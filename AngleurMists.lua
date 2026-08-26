@@ -31,10 +31,10 @@ function Angleur_OnUpdate(self, elapsed)
     if erapusuCounter < erapusuThreshold then
         return
     end
-    Angleur_StuckFix()
-    if InCombatLockdown() then return end
-    if AngleurCharacter.sleeping then return end
     erapusuCounter = 0
+    Angleur_StuckFix()
+    if AngleurCharacter.sleeping then return end
+    if InCombatLockdown() then return end
     Angleur_ActionHandler(self)
 end
 
@@ -206,15 +206,20 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         else
             bobberWithinRange = false
         end
+        -- Call |ActionHandler| right after soft-interact updates to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_SENT" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg6) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
+        -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
+        -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
         if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
             Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
                 if not bobberWithinRange then
@@ -229,7 +234,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 end
             end)
         end
-        Angleur_ActionHandler(Angleur)
+        
         if AngleurConfig.ultraFocusAudioEnabled then 
             Angleur_TempCVars_ToggleUltraFocusAudio(true, "Cast/Reel")
         end
@@ -245,6 +250,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = false
         EventRegistry:TriggerEvent("Angleur_StopFishing")
+        -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
@@ -256,16 +262,22 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if isChosenKeyDown() == false then
             midFishing = false
             EventRegistry:TriggerEvent("Angleur_StopFishing")
+            -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+            Angleur_ActionHandler(Angleur)
         else
             Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
                 if isChosenKeyDown() == false then
                     midFishing = false
                     EventRegistry:TriggerEvent("Angleur_StopFishing")
+                    -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+                    Angleur_ActionHandler(Angleur)
                     return true
                 end
             end, function()
                 midFishing = false
                 EventRegistry:TriggerEvent("Angleur_StopFishing")
+                -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+                Angleur_ActionHandler(Angleur)
             end)
         end
         bobberWithinRange = false
@@ -282,6 +294,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 swimming = false
             end
         end
+        -- Call |ActionHandler| right after mounted updates to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then  
         --The delay, and checking swimming here is necessary. If we constantly check on update for swimming a constant jumping bug occurs. Only happens when the AngleurKey is set to: SPACE
         Angleur_PoolDelayer(0.25, 0, 0.05, angleurDelayers, function()
@@ -300,6 +314,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItems_Auras()
+        -- Call |ActionHandler| right after auras update to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_INVENTORY_CHANGED" and unit == "player" then
         Angleur_BaitEnchant()
     end
@@ -422,8 +438,9 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     end
 end
 function Angleur_ActionHandler(self)
-    --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
+    if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
     local chosenMethod = AngleurConfig.chosenMethod

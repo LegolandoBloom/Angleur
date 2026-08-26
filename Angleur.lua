@@ -31,10 +31,10 @@ function Angleur_OnUpdate(self, elapsed)
     if erapusuCounter < erapusuThreshold then
         return
     end
-    Angleur_StuckFix()
-    if InCombatLockdown() then return end
-    if AngleurCharacter.sleeping then return end
     erapusuCounter = 0
+    Angleur_StuckFix()
+    if AngleurCharacter.sleeping then return end
+    if InCombatLockdown() then return end
     Angleur_ActionHandler(self)
 end
 
@@ -160,11 +160,14 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 end
             end
         end
+        -- Call |ActionHandler| right after soft-interact updates to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and not issecretvalue(unit) and unit == "player" then
         if issecretvalue(arg5) then return end
         if not CheckTable(fishingSpellTable, arg5) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
+        -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
         --__________________________________________________________________________________________________________________________________
         --                                                  ! PLATER MEASURE !
@@ -194,16 +197,22 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if isChosenKeyDown() == false then
             midFishing = false
             EventRegistry:TriggerEvent("Angleur_StopFishing")
+            -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+            Angleur_ActionHandler(Angleur)
         else
             Angleur_PoolDelayer(1, 0, 0.2, angleurDelayers, function()
                 if isChosenKeyDown() == false then
                     midFishing = false
                     EventRegistry:TriggerEvent("Angleur_StopFishing")
+                    -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+                    Angleur_ActionHandler(Angleur)
                     return true
                 end
             end, function()
                 midFishing = false
                 EventRegistry:TriggerEvent("Angleur_StopFishing")
+                -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
+                Angleur_ActionHandler(Angleur)
             end)
         end
         Angleur_RecastReminder_Stop()
@@ -218,6 +227,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 swimming = false
             end
         end
+        -- Call |ActionHandler| right after mounted updates to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     elseif event == "MOUNT_JOURNAL_USABILITY_CHANGED" then
         -- We NEED the delay. When the event triggers, IsSwimming() sometimes isn't updated yet
         Angleur_PoolDelayer(0.25, 0, 0.05, angleurDelayers, function()
@@ -231,6 +242,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItems_Auras()
+        -- Call |ActionHandler| right after auras update to override the regular onUpdate threshold for SNAPPY CASTING right after
+        Angleur_ActionHandler(Angleur)
     end
 end
 local logicVarFrame = CreateFrame("Frame")
@@ -343,8 +356,9 @@ local function performAction(self, assignKey, action)
 end
 -- SetOverrideBindingClick_Custom(self, true, "SPACE", "Angleur_ToyButton")
 function Angleur_ActionHandler(self)
-    --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
+    if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
     if AngleurConfig.chosenMethod == "oneKey" then
