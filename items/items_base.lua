@@ -137,49 +137,56 @@ local function minSecEditBoxes_onSaveCallback(editBoxes, value, slot)
     Angleur_UpdateExtraItems()
 end
 local function delayOffset_onSaveCallback(slider, value, table)
-    print(table.name, "will be recast when its aura has", colorYello:WrapTextInColorCode(math.abs(value)), "seconds left.")
+    -- do nothing
+end
+-- Hook this to print out the chosen value when popup menu is hidden
+local function popup_onHideHook(popupFrame)
+    local slider = popupFrame.delayOffsetSlider
+    local teeburu = slider.savedVarTable
+    local value = teeburu[slider.reference]
+    local name = teeburu.name
+    if name == 0 then 
+        name = teeburu.macroName
+    end
+    print(name, "will be recast when its aura has", colorYello:WrapTextInColorCode(math.abs(value)), "seconds left.")
 end
 function Angleur_ExtraItems_CreateSlots()
     local parentName = extraItemsFrame:GetDebugName()
-    if slotCount == 6 then
-        for i=1, slotCount, 1 do
-            extraItemsFrame[i] = CreateFrame("Button", parentName .. i, extraItemsFrame, "ExtraItemButtonTemplate")
-            extraItemsFrame[i]:SetPoint("LEFT", extraItemsFrame, "LEFT", 18 + 54*(i - 1), 15)
-            extraItemsFrame[i]:SetID(i)
-            extraItemsFrame[i]:SetScale(0.85)
-            extraItemsFrame[i].timeButton:SetScale(0.95)
-            extraItemsFrame[i].timeButton.inputBoxes:SetScale(0.95)
-            extraItemsFrame[i].closeButton:SetScale(0.85)
-            extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
-            extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
-            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = minSecEditBoxes_onSaveCallback
-            extraItemsFrame[i].timeButton.inputBoxes:Init()
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.onSaveCallback = delayOffset_onSaveCallback
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
-        end
-    else
-        for i=1, slotCount, 1 do
-            extraItemsFrame[i] = CreateFrame("Button", parentName .. i, extraItemsFrame, "ExtraItemButtonTemplate")
-            extraItemsFrame[i]:SetPoint("LEFT", extraItemsFrame, "LEFT", 35 + 90*(i - 1), 15)
-            extraItemsFrame[i]:SetID(i)
-            extraItemsFrame[i].timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
-            extraItemsFrame[i].timeButton.inputBoxes.reference = "delay"
-            extraItemsFrame[i].timeButton.inputBoxes.onSaveCallback = minSecEditBoxes_onSaveCallback
-            extraItemsFrame[i].timeButton.inputBoxes:Init()
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.showEditBox = true
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.reference = "delayOffset"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.onSaveCallback = delayOffset_onSaveCallback
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistry = items_registry
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
-            extraItemsFrame[i].collapseFrame.popup.delayOffsetSlider:Init(-100, 0, 5, "sec")
+    for i=1, slotCount, 1 do
+        extraItemsFrame[i] = CreateFrame("Button", parentName .. i, extraItemsFrame, "ExtraItemButtonTemplate")
+        local frame = extraItemsFrame[i]
+        frame:SetID(i)
+        local timeButton = frame.timeButton
+        timeButton.inputBoxes:SetScale(0.95)
+        timeButton.inputBoxes.savedVarTable = Angleur_SlottedExtraItems[i]
+        timeButton.inputBoxes.reference = "delay"
+        timeButton.inputBoxes.onSaveCallback = minSecEditBoxes_onSaveCallback
+        timeButton.inputBoxes:Init()
+        local delayOffsetSlider = frame.collapseFrame.popup.delayOffsetSlider
+        delayOffsetSlider.showEditBox = true
+        delayOffsetSlider.savedVarTable = Angleur_SlottedExtraItems[i]
+        delayOffsetSlider.reference = "delayOffset"
+        delayOffsetSlider.onSaveCallback = delayOffset_onSaveCallback
+        delayOffsetSlider.privateRegistry = items_registry
+        delayOffsetSlider.privateRegistryString = extraItemsFrame[i].collapseFrame.popup:GetDebugName() .. "DelayOffsetChanged"
+        delayOffsetSlider.disabledMessage = "Activate the Aura once to enable."
+        delayOffsetSlider.unitTextInvertSign = true
+        delayOffsetSlider.unitTextRight = "seconds left"
+        -- delayOffsetSlider.unitText:SetScale(0.95)
+        delayOffsetSlider:Init(-100, 0, 5)
+        local titleText =  delayOffsetSlider:CreateFontString(nil, "ARTWORK", "GameFontHighlightExtraSmall")
+        titleText:SetPoint("BOTTOMLEFT", delayOffsetSlider, "TOPLEFT", 0, 6)
+        titleText:SetText("Reapply Aura when")
+        titleText:SetScale(0.95)
+        local popup = frame.collapseFrame.popup
+        popup:HookScript("OnHide", popup_onHideHook)
+        if slotCount == 6 then
+            frame:SetPoint("LEFT", extraItemsFrame, "LEFT", 18 + 54*(i - 1), 15)
+            frame:SetScale(0.85)
+            frame.closeButton:SetScale(0.85)
+            timeButton:SetScale(0.95)
+        else
+            frame:SetPoint("LEFT", extraItemsFrame, "LEFT", 35 + 90*(i - 1), 15)
         end
     end
 end

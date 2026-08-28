@@ -97,7 +97,13 @@ local function _handleThumb(slider, isHorizontal)
 end
 
 function Legolando_SliderColorFillMixin_Angleur:UpdateUnitText(value)
-    self.unitText:SetText(value .. " " .. self.unit)
+    local sign = 1
+    if self.unitTextInvertSign and value ~= 0 then
+        sign = -1
+    end
+    local leftText = self.unitTextLeft or ""
+    local rightText = self.unitTextRight or ""
+    self.unitText:SetText(leftText .. " " .. value * sign .. " " .. rightText)
 end
 
 function Legolando_SliderColorFillMixin_Angleur:Update()
@@ -169,7 +175,7 @@ function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     end
 end
 
-function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
+function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step)
     local privateRegistry = self.privateRegistry
 	local privateRegistryString = self.privateRegistryString
     local isHorizontal = self:GetOrientation() == "HORIZONTAL"
@@ -209,9 +215,6 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step, unit)
         if caller and caller == self then return end
         self:Update()
     end)
-    
-    if not unit then unit = "" end
-    self.unit = unit
     self:SetMinMaxValues(min, max)
     self.min = min
     self.max = max

@@ -111,14 +111,15 @@
 			<Layer level="ARTWORK">
 				<FontString parentKey="unitText" text="units" inherits="GameFontHighlightExtraSmall">
 					<Anchors>
-						<Anchor point="TOP" relativePoint="BOTTOM" x="0" y="0"/>
+						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-3"/>
+						<Anchor point="TOPRIGHT" relativeKey="$parent.editBox" relativePoint="BOTTOMRIGHT" x="0" y="-5"/>
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
 				<FontString parentKey="desaturatedText" text="Disabled" scale="0.9" hidden="true" inherits="GameFontHighlightExtraSmall">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="-5" y="-3"/>
-						<Anchor point="TOPRIGHT" relativeTo="$parent_EditBox" relativePoint="BOTTOMRIGHT" x="5" y="-3"/>
+						<Anchor point="TOPRIGHT" relativeKey="$parent.editBox" relativePoint="BOTTOMRIGHT" x="5" y="-5"/>
 					</Anchors>
 					<Color r="0.8" g="0.8" b="0.8"/>
 				</FontString>

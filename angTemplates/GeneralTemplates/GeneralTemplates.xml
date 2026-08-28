@@ -184,7 +184,7 @@
                     <OnLoad inherit="append">
                         self.expandButton:SetSize(18, 12)
                         self.popup:AdjustPointsOffset(-6, 0)
-                        self.popup:SetSize(120, 70)
+                        self.popup:SetSize(130, 80)
                         self:Init(nil, "Down")
                     </OnLoad>
                 </Scripts>
