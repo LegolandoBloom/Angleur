@@ -180,6 +180,12 @@ function Angleur_ExtraItems_CreateSlots()
         titleText:SetScale(0.95)
         local popup = frame.collapseFrame.popup
         popup:HookScript("OnHide", popup_onHideHook)
+        local expandButton = frame.collapseFrame.expandButton
+        expandButton.tooltipTitleText = "Aura Adjustments"
+        expandButton.tooltipBodyText = colorGrae:WrapTextInColorCode("\nOnly works with Capturable Auras.\nDoes NOT work with Delay Timers")
+        expandButton.tooltipAnchorTable = {[1] = "ANCHOR_BOTTOMLEFT", [2]= 0, [3] = 12}
+        expandButton:GetNormalTexture():SetTexture("Interface/AddOns/Angleur/images/apluscollapse.png")
+	    expandButton:GetHighlightTexture():SetTexture("Interface/AddOns/Angleur/images/apluscollapse.png")
         if slotCount == 6 then
             frame:SetPoint("LEFT", extraItemsFrame, "LEFT", 18 + 54*(i - 1), 15)
             frame:SetScale(0.85)

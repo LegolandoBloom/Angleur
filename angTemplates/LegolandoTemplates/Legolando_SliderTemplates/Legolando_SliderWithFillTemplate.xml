@@ -116,7 +116,7 @@
 					</Anchors>
 					<Color r="1" g="1" b="1"/>
 				</FontString>
-				<FontString parentKey="desaturatedText" text="Disabled" scale="0.9" hidden="true" inherits="GameFontHighlightExtraSmall">
+				<FontString parentKey="desaturatedText" text="Disabled" scale="1" hidden="true" inherits="GameFontHighlightExtraSmall">
 					<Anchors>
 						<Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="-5" y="-3"/>
 						<Anchor point="TOPRIGHT" relativeKey="$parent.editBox" relativePoint="BOTTOMRIGHT" x="5" y="-5"/>

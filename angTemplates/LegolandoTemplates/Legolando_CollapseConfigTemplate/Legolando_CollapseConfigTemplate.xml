@@ -347,6 +347,22 @@
                     <OnHide>
                         self:GetParent().popup:Hide()
                     </OnHide>
+                    <OnEnter>
+                        if not self.tooltipTitleText then return end
+                        local anchorTable = self.tooltipAnchorTable
+                        if not anchorTable then 
+                            anchorTable = {[1]= "ANCHOR_BOTTOMLEFT", [2] = 45, [3] = 0} 
+                        end
+                        local tooltipBody = self.tooltipBodyText
+                        if not tooltipBody then tooltipBody = "" end
+                        GameTooltip:SetOwner(self, anchorTable[1], anchorTable[2], anchorTable[3])
+                        GameTooltip:AddLine(self.tooltipTitleText)
+                        GameTooltip:AddLine(tooltipBody)
+                        GameTooltip:Show()
+                    </OnEnter>
+                    <OnLeave>
+                        GameTooltip:Hide()
+                    </OnLeave>
                 </Scripts>
             </Button>
         </Frames>

@@ -85,14 +85,19 @@ end
 ExtraItemButtonMixin = {}
 
 function ExtraItemButtonMixin:OnLoad()
+    local collapseFrame = self.collapseFrame
+    collapseFrame.expandButton:SetSize(18, 12)
+    collapseFrame:Init(nil, "Down")
     local popup = self.collapseFrame.popup
+    popup:AdjustPointsOffset(-6, 0)
+    popup:SetSize(130, 80)
     popup.delayOffsetSlider = CreateFrame("Slider", popup:GetDebugName() .. "_DelayOffsetSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
     local delayOffsetSlider = popup.delayOffsetSlider
     delayOffsetSlider:SetSize(62, 10)
     delayOffsetSlider:SetScale(0.9)
     delayOffsetSlider:SetOrientation("HORIZONTAL")
     delayOffsetSlider:SetPoint("TOPLEFT", popup, "TOPLEFT", 17, -32)
-    delayOffsetSlider.editBox:SetScale(0.8)
+    delayOffsetSlider.editBox:SetScale(0.9)
     delayOffsetSlider.editBox:AdjustPointsOffset(0, 1)
     
     local betaTexture1 = self.collapseFrame:CreateTexture("Angleur_BetaTexture1", "ARTWORK")
