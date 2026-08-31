@@ -540,7 +540,9 @@ local function getNonSecretActiveAuraDataFromSlot(slot)
         spellAuraID = slot.macroSpellID
     end
     if not spellAuraID then return end
-    local name = Angleur_ScrubSecret(C_Spell.GetSpellInfo(spellAuraID).name)
+    local spellInfo = Angleur_ScrubSecret(C_Spell.GetSpellInfo(spellAuraID))
+    if not spellInfo then return end
+    local name = Angleur_ScrubSecret(spellInfo.name)
     if not name then return end
     -- Can't get auraData from SpellID, have to have name
     local auraData = C_UnitAuras.GetAuraDataBySpellName("player", name)
