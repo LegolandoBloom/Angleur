@@ -354,7 +354,8 @@ function Angleur_Auras()
     rafted = false
     auraIDHolders.raft = nil
     for i, raft in pairs(angleurToys.raftPossibilities) do
-        if C_UnitAuras.GetPlayerAuraBySpellID(raft.spellID) then 
+        local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(raft.spellID)) -- Scrub added for Classic Parity
+        if auraBySpellID then 
             rafted = true
             auraIDHolders.raft = raft.spellID
             --print("Raft is applied")
@@ -365,7 +366,8 @@ end
 function Angleur_ExtraToyAuras()
     for i, slottedToy in pairs(Angleur_SlottedExtraToys) do
         slottedToy.auraActive = false
-        if C_UnitAuras.GetPlayerAuraBySpellID(slottedToy.spellID) then
+        local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(slottedToy.spellID)) -- Scrub added for Classic Parity
+        if auraBySpellID then
             slottedToy.auraActive = true
             --print("Slotted toy aura is active")
         end
@@ -515,12 +517,16 @@ function Angleur_ActionHandler(self)
     --______________________________________________________________________________________________________________________________________
     local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining 
-    if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
-        local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-        if remainingAuraDuration < 60 then
-            action =  "raft"
-            performAction(self, assignKey, action, recast, oobIcon, gPad)
-            return
+    local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft)) -- Scrub added for Classic Parity
+    if raftValid and rafted and auraBySpellID then
+        local expirationTime = Angleur_ScrubSecret(auraBySpellID.expirationTime) -- Scrub added for Classic Parity
+        if expirationTime then
+            local remainingAuraDuration = auraBySpellID.expirationTime - GetTime()
+            if remainingAuraDuration < 60 then
+                action =  "raft"
+                performAction(self, assignKey, action, recast, oobIcon, gPad)
+                return
+            end
         end
     end
     -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
@@ -555,8 +561,8 @@ function Angleur_ActionHandler(self)
         end
     end
 
-    local baitCount = C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)
-    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount > 0
+    local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)) -- Scrub added for Classic Parity
+    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount and baitCount > 0
     if baitReady then
         action = "bait"
         performAction(self, assignKey, action, recast, oobIcon, gPad)
@@ -599,10 +605,10 @@ end
 function Angleur_ActionHandler_ExtraToys(self, assignKey)
     local returnValue = false
     for i, slot in pairs(Angleur_SlottedExtraToys) do
-        local _, cooldown = C_Container.GetItemCooldown(slot.toyID)
-        if slot.name ~= 0 and cooldown == 0 and slot.auraActive == false then
-            local isUsableSpell = C_Spell.IsSpellUsable(slot.spellID)
-            local isUsableToy = C_ToyBox.IsToyUsable(slot.toyID)
+        local _, cooldown = Angleur_ScrubSecret(C_Container.GetItemCooldown(slot.toyID)) -- Scrub added for Classic Parity
+        if slot.name ~= 0 and cooldown and cooldown == 0 and slot.auraActive == false then
+            local isUsableSpell = Angleur_ScrubSecret(C_Spell.IsSpellUsable(slot.spellID)) -- Scrub added for Classic Parity
+            local isUsableToy = Angleur_ScrubSecret(C_ToyBox.IsToyUsable(slot.toyID)) -- Scrub added for Classic Parity
             if isUsableSpell and isUsableToy then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)

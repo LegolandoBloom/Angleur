@@ -263,6 +263,8 @@ logicVarFrame:SetScript("OnEvent", Angleur_LogicVariableHandler)
 --**Functions that check Auras**
 --***********[~]**********
 
+local SPELLID_OVERSIZEDBOBBER = 397827
+
 local auraIDHolders = {
     raft = nil,
     oversizedBobber = nil,
@@ -277,7 +279,8 @@ function Angleur_Auras()
     rafted = false
     auraIDHolders.raft = nil
     for i, raft in pairs(angleurToys.raftPossibilities) do
-        if C_UnitAuras.GetPlayerAuraBySpellID(raft.spellID) then 
+        local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(raft.spellID))
+        if auraBySpellID then 
             rafted = true
             auraIDHolders.raft = raft.spellID
             --print("Raft is applied")
@@ -287,16 +290,18 @@ function Angleur_Auras()
     --Checks for oversized bobber aura
     oversizedBobbered = false
     auraIDHolders.oversizedBobber = nil
-    if C_UnitAuras.GetPlayerAuraBySpellID(397827) then
+    local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(SPELLID_OVERSIZEDBOBBER))
+    if auraBySpellID then
         oversizedBobbered = true
-        auraIDHolders.oversizedBobber = 397827
+        auraIDHolders.oversizedBobber = SPELLID_OVERSIZEDBOBBER
         --print("OVERSIZED is applied")
     end
     --Checks for Crate Bobber aura
     crateBobbered = false
     auraIDHolders.crateBobber = nil
     for i, crateBobber in pairs(angleurToys.crateBobberPossibilities) do
-        if C_UnitAuras.GetPlayerAuraBySpellID(crateBobber.spellID) then 
+        local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(crateBobber.spellID))
+        if auraBySpellID then 
             crateBobbered = true
             auraIDHolders.crateBobber = crateBobber.spellID
             --print("Crate bobber is applied")
@@ -308,7 +313,8 @@ function Angleur_ExtraToyAuras()
     --Checks for Extra Toy Auras
     for i, slottedToy in pairs(Angleur_SlottedExtraToys) do
         slottedToy.auraActive = false
-        if C_UnitAuras.GetPlayerAuraBySpellID(slottedToy.spellID) then
+        local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(slottedToy.spellID))
+        if auraBySpellID then
             slottedToy.auraActive = true
             --print("Slotted toy aura is active")
         end
@@ -418,12 +424,16 @@ function Angleur_ActionHandler(self)
     -- TLDR: Don't do the usability check, the old approach works well enough :P
     local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining
-    if raftValid and rafted and C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft) then
-        local remainingAuraDuration = C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft).expirationTime - GetTime()
-        if remainingAuraDuration < 60 then
-            action =  "raft"
-            performAction(self, assignKey, action)
-            return
+    local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft))
+    if raftValid and rafted and auraBySpellID then
+        local expirationTime = Angleur_ScrubSecret(auraBySpellID.expirationTime)
+        if expirationTime then
+            local remainingAuraDuration = auraBySpellID.expirationTime - GetTime()
+            if remainingAuraDuration < 60 then
+                action =  "raft"
+                performAction(self, assignKey, action)
+                return
+            end
         end
     end
     -- Execute & Return Cases(2) for: Release key when Swim + Player Swimming
@@ -449,8 +459,8 @@ function Angleur_ActionHandler(self)
     --______________________________________________________________________________________________________________________________________
 
     -- Why does C_ToyBox.IsToyUsable() cause bug??
-    local _, cooldownOversized = C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID)
-    local oversizedReady = angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized == 0
+    local _, cooldownOversized = Angleur_ScrubSecret(C_Container.GetItemCooldown(angleurToys.selectedOversizedBobberTable.toyID))
+    local oversizedReady = angleurToys.selectedOversizedBobberTable.hasToy == true and AngleurConfig.oversizedEnabled and angleurToys.selectedOversizedBobberTable.loaded and not oversizedBobbered and cooldownOversized and cooldownOversized == 0
     if oversizedReady then
         action =  "oversized"
         performAction(self, assignKey, action)
@@ -465,8 +475,8 @@ function Angleur_ActionHandler(self)
         retail.toys:PickRandomToy("bobber", angleurToys.ownedCrateBobbers, angleurToys.selectedCrateBobberTable, false)
     end
     -- Why does C_ToyBox.IsToyUsable() cause bug??
-    local _, cooldownCrate = C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID)
-    local crateReady = (AngleurConfig.crateEnabled and not crateBobbered) and (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate == 0) and angleurToys.selectedCrateBobberTable.loaded
+    local _, cooldownCrate = Angleur_ScrubSecret(C_Container.GetItemCooldown(angleurToys.selectedCrateBobberTable.toyID))
+    local crateReady = (AngleurConfig.crateEnabled and not crateBobbered) and (angleurToys.selectedCrateBobberTable.hasToy == true and cooldownCrate and cooldownCrate == 0) and angleurToys.selectedCrateBobberTable.loaded
     if crateReady then
         action =  "crate"
         performAction(self, assignKey, action)
@@ -502,10 +512,10 @@ end
 function Angleur_ActionHandler_ExtraToys(self, assignKey)
     local returnValue = false
     for i, slot in pairs(Angleur_SlottedExtraToys) do
-        local _, cooldown = C_Container.GetItemCooldown(slot.toyID)
-        if slot.name ~= 0 and cooldown == 0 and slot.auraActive == false then
-            local isUsableSpell = C_Spell.IsSpellUsable(slot.spellID)
-            local isUsableToy = C_ToyBox.IsToyUsable(slot.toyID)
+        local _, cooldown = Angleur_ScrubSecret(C_Container.GetItemCooldown(slot.toyID))
+        if slot.name ~= 0 and cooldown and cooldown == 0 and slot.auraActive == false then
+            local isUsableSpell = Angleur_ScrubSecret(C_Spell.IsSpellUsable(slot.spellID))
+            local isUsableToy = Angleur_ScrubSecret(C_ToyBox.IsToyUsable(slot.toyID))
             if isUsableSpell and isUsableToy then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
@@ -520,17 +530,18 @@ end
 
 
 --***********[~]**********
+local AURASPELLID_FISHINGFORATTENTION = 394009
 
 function Angleur_FishingForAttentionAura()
     if InCombatLockdown() then return end
     if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
-    local fishingAura = C_UnitAuras.GetPlayerAuraBySpellID(394009)
+    local fishingAura = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(AURASPELLID_FISHINGFORATTENTION))
     if not fishingAura then return end
     local slots = {C_UnitAuras.GetAuraSlots("player", "HELPFUL|CANCELABLE", 20)}
-    if not slots then return end
+    if not slots or Angleur_IsSecret(slots) then return end
     for i, v in pairs(slots) do
-        local aura = C_UnitAuras.GetBuffDataByIndex("player", i)
-        if aura and aura.spellId == 394009 then 
+        local aura = Angleur_ScrubSecret(C_UnitAuras.GetBuffDataByIndex("player", i))
+        if aura and not Angleur_IsSecret(aura.spellId) and aura.spellId == AURASPELLID_FISHINGFORATTENTION then 
             CancelUnitBuff("player", i)
         end
     end

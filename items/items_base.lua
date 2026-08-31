@@ -342,7 +342,7 @@ function Angleur_GrabCursorItem(self)
         print(T["Can't drag item in combat."])
         return
     end
-    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch")
+    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch", "Map")
     if isRestricted then 
         print(T["Can't drag item due to restrictions:"])
         DevTools_Dump(restrictedTypes)
@@ -413,7 +413,7 @@ function Angleur_GrabCursorMacro(self, macroIndex)
         print(T["Can't drag macro in combat."])
         return
     end
-    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch")
+    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch", "Map")
     if isRestricted then 
         print(T["Can't drag macro due to restrictions:"])
         DevTools_Dump(restrictedTypes)
@@ -608,21 +608,29 @@ local function _checkAuraAndAuraOffsetDelay(slot, indexForPrint)
     return true
 end
 local function _checkUsabilityItem(itemID)
-    if not C_Item.IsUsableItem(itemID) then return false end
-    local _, cooldown = C_Container.GetItemCooldown(itemID)
+    if not Angleur_ScrubSecret(C_Item.IsUsableItem(itemID)) then return false end
+    local _, cooldown = Angleur_ScrubSecret(C_Container.GetItemCooldown(itemID))
     if cooldown ~= 0 then return false end
-    local itemCount = C_Item.GetItemCount(itemID)
-    if not (itemCount > 0) then return false end
-    if C_Item.IsEquippableItem(itemID) then
-        if not C_Item.IsEquippedItem(itemID) then return false end
+    local itemCount = Angleur_ScrubSecret(C_Item.GetItemCount(itemID))
+    -- not (itemCount > 0) --> if item count is bigger than 0: false(aka do not return, keep going. We're good.)
+    if not itemCount or not (itemCount > 0) then return false end
+    local equippable = Angleur_ScrubSecret(C_Item.IsEquippableItem(itemID))
+    -- If we can't query equipability due to secrecy or the query function returning nil --> item not usable(return false)
+    if equippable == nil then return false end
+    -- If equippable == true(without secrecy) --> if item ISN'T equipped/can't query equipped due to secrecy --> item not usable right now(return false)
+    if equippable == true then
+        if not Angleur_ScrubSecret(C_Item.IsEquippedItem(itemID)) then return false end
     end
     return true
 end
+-- 1) No Conditionals --> return true
+-- 2) 1 or More Conditionals, at least 1 is non-secret and true --> return true
+-- 3) 1 or More Conditionals, ALL are false or secret --> return false
 local function _parseAndCheckMacroConditionals(macroBody)
     local returnValue = true
     for conditionBracket in string.gmatch (macroBody, "(%[.-%])") do
         -- If successful even once, return true early
-        if SecureCmdOptionParse(conditionBracket) ~= nil then
+        if Angleur_ScrubSecret(SecureCmdOptionParse(conditionBracket)) ~= nil then
             -- print("Condition Won: ", conditionBracket)
             return true
         -- If it fails ALL attempts, only then will we return false at the end of the function
@@ -636,9 +644,7 @@ local function _parseAndCheckMacroConditionals(macroBody)
 end
 local function _checkAvailabilityOfSlotItem(self, slot, assignKey, indexForPrint)
     if slot.delay ~= 0 and slot.delay ~= nil then
-        if slot.remainingTime ~= 0 then
-            return false
-        end
+        if slot.remainingTime ~= 0 then return false end
     end
     if slot.name ~= 0 then
         if _checkUsabilityItem(slot.itemID) == false then return false end
@@ -649,20 +655,26 @@ local function _checkAvailabilityOfSlotItem(self, slot, assignKey, indexForPrint
         return true
     elseif slot.macroName ~= 0 then
         if slot.macroBody == "" then return false end
+        if slot.macroSpellID == 0 then return false end
+        -- Don't necessarily have top return false if there is no macroItemID. The macro can just have a spell instead
         if slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
             if _checkUsabilityItem(slot.macroItemID) == false then return false end
         end
-        if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and C_Spell.IsSpellUsable(slot.macroSpellID) then
-            local spellCooldown = C_Spell.GetSpellCooldown(slot.macroSpellID).duration
-            if spellCooldown ~= 0 then return false end
-            if _checkAuraAndAuraOffsetDelay(slot, indexForPrint) == true then return false end
-            if _parseAndCheckMacroConditionals(slot.macroBody) == true then
-                _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-                self.toyButton:SetAttribute("macrotext", slot.macroBody)
-                self.visual.texture:SetTexture(slot.macroIcon)
-                return true
-            end
-        end
+        local spellExists = Angleur_ScrubSecret(C_Spell.DoesSpellExist(slot.macroSpellID))
+        if not spellExists then return false end
+        local spellUsable = Angleur_ScrubSecret(C_Spell.IsSpellUsable(slot.macroSpellID))
+        if not spellUsable then return false end
+        local spellCooldownInfo = Angleur_ScrubSecret(C_Spell.GetSpellCooldown(slot.macroSpellID))
+        if not spellCooldownInfo then return false end
+        local spellCooldownDuration = Angleur_ScrubSecret(spellCooldownInfo.duration)
+        if not spellCooldownDuration then return false end
+        if spellCooldownDuration ~= 0 then return false end
+        if _checkAuraAndAuraOffsetDelay(slot, indexForPrint) == true then return false end
+        if _parseAndCheckMacroConditionals(slot.macroBody) == false then return false end
+        _SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", slot.macroBody)
+        self.visual.texture:SetTexture(slot.macroIcon)
+        return true
     end
 end
 function Angleur_ActionHandler_ExtraItems(self, assignKey)
@@ -678,7 +690,7 @@ local function _grabAuraDurationOnFirstApplication(slot, auraData, indexForPrint
     if slot.auraEffectDuration ~= 0 then return end
     if InCombatLockdown() then return end
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("_grabAuraDurationOnFirstApplication ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Data:", auraData)
-    -- auraData has "neverSecret" compontents, so we can index it without checking for IsSecret on it first
+    -- auraData has "neverSecret" compontents, so we can index it without checking for IsSecret on it
     local duration = auraData.duration
     if Angleur_IsSecret(duration) then return end
     if duration and duration > 0 then
@@ -696,6 +708,7 @@ function Angleur_ExtraItems_Auras()
         local auraData, spellAuraID = getNonSecretActiveAuraDataFromSlot(slot)
         if auraData then
             slot.auraActive = true
+            -- should not need to do secret check because it's only used for print and no logic
             local link = C_Spell.GetSpellLink(spellAuraID)
             Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItems_Auras ") .. ": Slotted item/macro aura is active:", link)
             _grabAuraDurationOnFirstApplication(slot, auraData, i)
