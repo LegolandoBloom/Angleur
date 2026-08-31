@@ -35,7 +35,7 @@ angTemplates\embeds.xml
 
 debug.lua
 init.lua
-secrets.lua
+secrets\secrets.lua
 Angleur.lua
 
 toys\toys_retail.lua
