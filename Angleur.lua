@@ -312,13 +312,16 @@ function Angleur_ExtraItemAuras()
             spellAuraID = slot.macroSpellID
         end
         if spellAuraID then
-            local name = C_Spell.GetSpellInfo(spellAuraID).name
-            --doesn't work
-            --print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
-            if C_UnitAuras.GetAuraDataBySpellName("player", name) then
-                slot.auraActive = true
-                local link = C_Spell.GetSpellLink(spellAuraID)
-                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
+            local spellInfo = C_Spell.GetSpellInfo(spellAuraID)
+            if spellInfo then
+                local name = spellInfo.name
+                --doesn't work
+                --print("Non passive: ", C_UnitAuras.GetPlayerAuraBySpellID(spellAuraID))
+                if C_UnitAuras.GetAuraDataBySpellName("player", name) then
+                    slot.auraActive = true
+                    local link = C_Spell.GetSpellLink(spellAuraID)
+                    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_ExtraItemAuras ") .. ": Slotted item/macro aura is active:", link)
+                end 
             end
         end
     end
