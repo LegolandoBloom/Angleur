@@ -78,7 +78,7 @@ local function secrets_Events(self, event, unit, ...)
         local isRestricted, restrictedTypeTable = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch", "Map")
         if isRestricted == true then
             Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Secrets:") .. " I am restricted by:")
-            DevTools_Dump(restrictedTypeTable)
+            Angleur_BetaDump(debugChannel, restrictedTypeTable)
         else
             Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Secrets:") .. " I am not restricted")
         end
