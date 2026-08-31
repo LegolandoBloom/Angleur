@@ -517,7 +517,8 @@ function Angleur_ActionHandler(self)
     --______________________________________________________________________________________________________________________________________
     local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining 
-    local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft)) -- Scrub added for Classic Parity
+    local auraBySpellID
+    if rafted then auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft)) end -- Scrub added for Classic Parity
     if raftValid and rafted and auraBySpellID then
         local expirationTime = Angleur_ScrubSecret(auraBySpellID.expirationTime) -- Scrub added for Classic Parity
         if expirationTime then

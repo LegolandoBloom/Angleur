@@ -424,7 +424,8 @@ function Angleur_ActionHandler(self)
     -- TLDR: Don't do the usability check, the old approach works well enough :P
     local raftValid = angleurToys.selectedRaftTable.hasToy == true and AngleurConfig.raftEnabled and angleurToys.selectedRaftTable.loaded
     -- Execute & Return Case: Player has rafts enabled + is rafted + the active raft has less than 60 seconds remaining
-    local auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft))
+    local auraBySpellID
+    if rafted then auraBySpellID = Angleur_ScrubSecret(C_UnitAuras.GetPlayerAuraBySpellID(auraIDHolders.raft)) end
     if raftValid and rafted and auraBySpellID then
         local expirationTime = Angleur_ScrubSecret(auraBySpellID.expirationTime)
         if expirationTime then
