@@ -95,7 +95,7 @@ function retailToys:PickRandomToy(identifier, ownedTable, selectedTable, forceCl
     while next(indexedOwnedToys) ~= nil do
         local i = math.random(#indexedOwnedToys)
         local randomToyCandidate = indexedOwnedToys[i]
-        local startTime, cooldownOfToy = C_Container.GetItemCooldown(randomToyCandidate.toyID)
+        local startTime, cooldownOfToy = Angleur_ScrubSecret(C_Container.GetItemCooldown(randomToyCandidate.toyID))
         if not cooldownOfToy or not startTime then
             indexedOwnedToys[i] = nil
             indexedOwnedToys = reorderTable(indexedOwnedToys)
