@@ -6,6 +6,9 @@ local secrets = ang.secrets
 local VERSION_RETAIL = 1
 local gameVersion = ang.gameVersion
 
+local debugChannel = 10
+local colorDebug = CreateColor(1, 0, 0) -- red
+
 secrets.restrictionsActive = {
     Combat = false,
     Encounter = false,
@@ -46,7 +49,7 @@ local enum_RestrictionState = {
 
 -- Returns true if any of the types given as arguments is restricted
 function Angleur_IsAddonSecretRestrictedForTypes(...)
-    if gameVersion ~= "VERSION_RETAIL" then return false end
+    if gameVersion ~= VERSION_RETAIL then return false end
     local argTable = {...}
     local isRestricted = false
     local restrictedTypesFromArguments = {}
@@ -72,11 +75,12 @@ local function secrets_Events(self, event, unit, ...)
         elseif restrictionState == "Inactive" then
             secrets.restrictionsActive[restrictionType] = false
         end
-        DevTools_Dump(secrets.restrictionsActive)
-        if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "Map") == true then
-            print("I am restricted")
+        local isRestricted, restrictedTypeTable = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch", "Map")
+        if isRestricted == true then
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Secrets:") .. " I am restricted by:")
+            DevTools_Dump(restrictedTypeTable)
         else
-            print("I am not restricted")
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Secrets:") .. " I am not restricted")
         end
     end
 end

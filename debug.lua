@@ -11,6 +11,7 @@ local addonName, ang = ...
 -- 7: bobberScanner - no color
 -- 8: midnight - void blue
 -- 9: audio - bright green
+-- 10: secrets - red
 
 
 -- 20: Angleur_Underlight
@@ -30,7 +31,8 @@ local debugLevels = {
     [6] = "Double Click",
     [7] = "Bobber Scanner",
     [8] = "Midnight Exclusives",
-    [9] = "Audio"
+    [9] = "Audio",
+    [10] = "Secrets",
 }
 function Angleur_SetupDebugUI(debugCheckboxFrame)
     local function isSelected(index) 
