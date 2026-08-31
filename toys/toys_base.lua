@@ -155,6 +155,12 @@ end
 
 function Angleur_ToyBoxOverlay_Activate(self, overlay)
     if InCombatLockdown() then return end
+    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch")
+    if isRestricted then
+        print(T["Can't add toys during restrictions:"])
+        DevTools_Dump(restrictedTypes)
+        return
+    end
     if UnitIsDeadOrGhost("player") then
         print(T["Can't add toys while dead"])
         return

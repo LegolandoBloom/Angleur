@@ -886,3 +886,9 @@ T["Recast Reminder"] = "Recast Reminder"
 T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!" 
 .. "\n\nRecommended when fishing on the side while doing something else."] = "If enabled, Angleur will play a ".. colorYello:WrapTextInColorCode("sound effect ")
 .. "when your fishing cast runs out to remind you to cast again!" .. colorGrae:WrapTextInColorCode("\n\nRecommended when fishing on the side while doing something else.")
+
+
+-- Updated Secrets Checks
+T["Can't drag item due to restrictions:"] = "Can't drag item due to restrictions:"
+T["Can't drag macro due to restrictions:"] = "Can't drag macro due to restrictions:"
+T["Can't add toys during restrictions:"] = "Can't add toys during restrictions:"

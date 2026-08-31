@@ -35,6 +35,7 @@ function Angleur_OnUpdate(self, elapsed)
     Angleur_StuckFix()
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     Angleur_ActionHandler(self)
 end
 
@@ -358,6 +359,7 @@ end
 function Angleur_ActionHandler(self)
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
@@ -521,6 +523,7 @@ end
 
 function Angleur_FishingForAttentionAura()
     if InCombatLockdown() then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     local fishingAura = C_UnitAuras.GetPlayerAuraBySpellID(394009)
     if not fishingAura then return end
     local slots = {C_UnitAuras.GetAuraSlots("player", "HELPFUL|CANCELABLE", 20)}

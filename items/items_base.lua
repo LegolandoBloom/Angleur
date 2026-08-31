@@ -342,6 +342,12 @@ function Angleur_GrabCursorItem(self)
         print(T["Can't drag item in combat."])
         return
     end
+    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch")
+    if isRestricted then 
+        print(T["Can't drag item due to restrictions:"])
+        DevTools_Dump(restrictedTypes)
+        return
+    end
     local itemLoc = C_Cursor.GetCursorItem()
     local itemID = C_Item.GetItemID(itemLoc)
     local link = C_Item.GetItemLink(itemLoc)
@@ -405,6 +411,12 @@ function Angleur_GrabCursorMacro(self, macroIndex)
     if InCombatLockdown() then
         ClearCursor()
         print(T["Can't drag macro in combat."])
+        return
+    end
+    local isRestricted, restrictedTypes = Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch")
+    if isRestricted then 
+        print(T["Can't drag macro due to restrictions:"])
+        DevTools_Dump(restrictedTypes)
         return
     end
     local ID = self:GetID()
@@ -666,6 +678,7 @@ local function _grabAuraDurationOnFirstApplication(slot, auraData, indexForPrint
     if slot.auraEffectDuration ~= 0 then return end
     if InCombatLockdown() then return end
     Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("_grabAuraDurationOnFirstApplication ") .. ": ", "Slot [" .. indexForPrint .. "]", "Aura Data:", auraData)
+    -- auraData has "neverSecret" compontents, so we can index it without checking for IsSecret on it first
     local duration = auraData.duration
     if Angleur_IsSecret(duration) then return end
     if duration and duration > 0 then

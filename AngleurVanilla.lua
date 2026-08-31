@@ -34,6 +34,7 @@ function Angleur_OnUpdate(self, elapsed)
     Angleur_StuckFix()
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end -- For Classic Parity
     Angleur_ActionHandler(self)
 end
 
@@ -379,6 +380,7 @@ end
 function Angleur_ActionHandler(self)
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end -- For Classic Parity
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil

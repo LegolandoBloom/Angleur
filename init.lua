@@ -506,21 +506,6 @@ function Angleur_BetaTableToString(debugChannel, tbl)
     end
 end
 
-function Angleur_IsSecret(value)
-    if ang.gameVersion == 1 then
-        if issecretvalue(value) then return true end
-    end
-    return false
-end
-function Angleur_ScrubSecret(...)
-    if ang.gameVersion == 1 then
-        return scrubsecretvalues(...)
-    end
-    return ...
-end
-
-
-
 --**************************[1]****************************
 --**           Loading & Unloading of Angleur            **
 --**************************[1]****************************
@@ -773,12 +758,12 @@ function Angleur_EventLoader(self, event, unit, ...)
         Angleur_Unload()
     elseif event == "PLAYER_REGEN_DISABLED" then
         ClearOverrideBindings(self)
-        if ang.gameVersion == 1 or ang.gameVerson == 2 then
+        if ang.gameVersion == 1 or ang.gameVersion == 2 then
             Angleur_ToyBoxOverlay_Deactivate()
         end
         Angleur_AdvancedAnglingPanel:Hide()
     elseif event == "PLAYER_DEAD" then
-        if ang.gameVersion == 1 or ang.gameVerson == 2 then
+        if ang.gameVersion == 1 or ang.gameVersion == 2 then
             Angleur_ToyBoxOverlay_Deactivate()
         end
     elseif event == "PLAYER_REGEN_ENABLED" then
