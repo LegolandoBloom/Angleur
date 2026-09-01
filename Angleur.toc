@@ -35,6 +35,7 @@ angTemplates\embeds.xml
 
 debug.lua
 init.lua
+items\extra_item_aura_logic.lua
 Angleur.lua
 
 toys\toys_retail.lua

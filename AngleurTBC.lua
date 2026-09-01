@@ -143,6 +143,11 @@ local function checkMounted()
     return false
 end
 local fishingSpellTable = AngleurVanilla_FishingSpellTable
+
+local function updateFishingChannelDuration()
+    Angleur_UpdateFishingChannelDurationFromUnit("player")
+end
+
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
@@ -188,6 +193,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) then return end
+        updateFishingChannelDuration()
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
         if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
@@ -562,7 +568,8 @@ local function checkConditions(self, slot, assignKey)
             return false
         end
     end
-    if slot.name ~= 0 and slot.auraActive == false then
+    local auraBlocksReuse = Angleur_DoesExtraItemAuraBlockReuse(slot)
+    if slot.name ~= 0 and auraBlocksReuse == false then
         if checkUsabilityItem(slot.itemID) == false then return false end
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. slot.name)
@@ -575,7 +582,7 @@ local function checkConditions(self, slot, assignKey)
         end
         if slot.macroSpellID ~= 0 and C_Spell.DoesSpellExist(slot.macroSpellID) and IsUsableSpell(slot.macroSpellID) then
             local _, spellCooldown = GetSpellCooldown(slot.macroSpellID)
-            if spellCooldown ~= 0 or slot.auraActive == true then return false end
+            if spellCooldown ~= 0 or auraBlocksReuse == true then return false end
             if parseMacroConditions(slot.macroBody) == true then
                 SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
                 self.toyButton:SetAttribute("macrotext", slot.macroBody)

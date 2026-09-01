@@ -32,6 +32,7 @@ angTemplates\embeds.xml
 
 debug.lua
 init.lua
+items\extra_item_aura_logic.lua
 AngleurTBC.lua
 
 items\items_mists.lua
