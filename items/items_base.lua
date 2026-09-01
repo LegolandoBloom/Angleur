@@ -213,7 +213,7 @@ function Angleur_UpdateExtraItems()
             local item = Item:CreateFromItemID(slot.itemID)
             item:ContinueOnItemLoad(function()
                 slot.loaded = true
-                print("Extra item loaded: ", item:GetItemLink())
+                -- print("Extra item loaded: ", item:GetItemLink())
             end)
         elseif slot.macroName ~= 0 then
             slotFrame.icon:SetTexture(slot.macroIcon)
