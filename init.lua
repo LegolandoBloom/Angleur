@@ -312,21 +312,59 @@ AngleurRetail_FishingSpellTable = {
     -- MAIN Main Fishing Spells
     7620, 131476,
     -- Other Basic Fishing Spells
-    51294, 18248, 131474, 33095, 7732, 7731, 158743, 110410, 88868, 131490,
-    -- Compressed Ocean Fishing
-    295727,
+    51294, 18248, 131474, 33095, 7732, 7731, 110410, 88868, 131490,
     -- Skumblade Spear Fishing
     139505,
+
+
+    -- [DNT] Fishing (Brain channel version)
+    1252746,
+
+
+    -- ___ ADDED IN Draenor ___
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    158743,
+
+    -- ___ ADDED IN Legion ___
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    219847, 227511,
+
+    -- ___ ADDED IN BFA ___
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    262860,
+    -- Bear Fishing
+    249045,
+    -- Hot-Spring Gulper Fishing
+    301092,
+    -- Compressed Ocean Fishing
+    295727,
+
+    -- ___ ADDED IN Shadowlands ___
+    -- Fishing Portal
+    361269,
+    
+    -- ___ ADDED IN Dragonflight ___
     -- Ice Fishing
     377895,
     -- Disgusting Vat Fishing
     405274,
-    -- [DNT] Fishing (Brain channel version)
-    1252746,
-    -- Hot-Spring Gulper Fishing
-    301092,
+    -- "Fishing" - curiously named with quotes on Wowhead
+    398703,
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    377831,
+    
+    -- ___ ADDED IN TWW ___
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    437890, 438491, 463743,
+    -- __ ADDED IN MIDNIGHT__
     -- Void Hole Fishing
     1224771,
+    -- "Ice Hole Fishing" - Curse of Ulatek? According to wowhead at least
+    1294463,
+    -- Named just "Fishing" on wowhead, Don't know what it does
+    1303761, 1239040, 1239227, 1241356, 1286703, 1303612, 1282907, 1239033,
+
+    
 }
 
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
