@@ -149,6 +149,7 @@ local function popup_onHideHook(popupFrame)
         name = teeburu.macroName
     end
     print(name, "will be recast when its aura has", colorYello:WrapTextInColorCode(math.abs(value)), "seconds left.")
+    popupFrame:GetParent():SetExpandButtonUnderlayRect()
 end
 function Angleur_ExtraItems_CreateSlots()
     local parentName = extraItemsFrame:GetDebugName()
@@ -194,6 +195,7 @@ function Angleur_ExtraItems_CreateSlots()
         else
             frame:SetPoint("LEFT", extraItemsFrame, "LEFT", 35 + 90*(i - 1), 15)
         end
+        frame.collapseFrame:SetExpandButtonUnderlayRect()
     end
 end
 

@@ -286,7 +286,7 @@
         <Size x="1" y="1"/>
         <KeyValues>
             <KeyValue key="savedVarTable" value="" type="table"/>
-        </KeyValues>
+        </KeyValues>                   
         <Frames>
              <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
             <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
@@ -301,11 +301,26 @@
                                 <Anchor point="TOPLEFT" x="18" y="-19"/>
                             </Anchors>
                         </FontString>
+                        <Texture parentKey="buttonUnderlay" setAllPoints="false">
+                            <Color r="0" g="1" b="0"/>
+                            <Size x="5" y="5"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
+                        <Texture name="$parent_DebugBorder" parentKey="debug_RealPopupTextureBorders" setAllPoints="false">
+                            <Color r="1" g="0" b="0" a="0.3"/>
+                            <Size x="1" y="1"/>
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="0" y="0"/>
+                            </Anchors>
+                        </Texture>
                     </Layer>
                 </Layers>
                 <Scripts>
                     <OnLoad>
                         self:RegisterEvent("GLOBAL_MOUSE_DOWN")
+                        
                     </OnLoad>
                     <OnEvent>
                         if event == "GLOBAL_MOUSE_DOWN" then
@@ -333,7 +348,7 @@
             <Button name="$parent_ExpandButton" parentKey="expandButton" inherits="Legolando_SimpleArrowPopoutButtonTemplate_Angleur">
                 <Size x="16" y="16"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
                 </Anchors>
                 <Scripts>
                     <OnClick inherit="append">

@@ -33,3 +33,8 @@ function lego.debugStack(includeCaller)
     print("\nCall stack: \n");
     DevTools_Dump(split)
 end
+
+function lego.getFrameIntersectionRect(rect1, rect2)
+    DevTools_Dump(rect1)
+    DevTools_Dump(rect2)
+end

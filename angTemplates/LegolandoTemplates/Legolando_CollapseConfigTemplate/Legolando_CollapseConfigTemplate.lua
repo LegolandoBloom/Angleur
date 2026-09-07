@@ -295,6 +295,80 @@ end
 
 Legolando_CollapseConfigMixin2_Angleur = {}
 
+
+local BlizzRect_enum = {
+	LEFT = 1,
+	BOTTOM = 2,
+	width = 3,
+	height = 4,
+}
+local popupTrueTextureAdjuster_X = 5
+local popupTrueTextureAdjuster_Y = 0
+local function _adjustTrueTextureRectForPopup(rect)
+	local b = BlizzRect_enum
+	local trueLeft = rect[b.LEFT] + popupTrueTextureAdjuster_X
+	local trueBottom = rect[b.BOTTOM] + popupTrueTextureAdjuster_Y
+	local trueWidth = rect[b.width] - popupTrueTextureAdjuster_X * 2
+	local trueHeight = rect[b.height] - popupTrueTextureAdjuster_Y * 2
+	return {trueLeft, trueBottom, trueWidth, trueHeight}
+end
+
+local function getIntersectionRectFromRects(rect1, rect2)
+	local b = BlizzRect_enum
+	local left = max(rect1[b.LEFT], rect2[b.LEFT]) 
+	-- Unlike "left", we don't return with "right" in our table instead just use it to calculate width which we'll save instead(reason: Blizzard Rect Structure Parity)
+	local right = min(rect1[b.LEFT] + rect1[b.width], rect2[b.LEFT] + rect2[b.width])
+	local width = right - left
+	local bottom = max(rect1[b.BOTTOM], rect2[b.BOTTOM])
+	-- Unlike "bottom", we don't return with "top" in our table instead just use it to calculate height which we'll save instead(reason: Blizzard Rect Structure Parity)
+	local top = min(rect1[b.BOTTOM] + rect1[b.height], rect2[b.BOTTOM] + rect2[b.height])
+	local height = top - bottom
+	if left >= right or bottom >= top then print("empty intersection") return nil end
+	print("Popup:", "\nleft:" .. rect1[b.LEFT], "\nbottom:" .. rect1[b.BOTTOM], "\nwidth:" .. rect1[b.width], "\nheight:" .. rect1[b.height])
+	print("\n")
+	print("expandButton:", "\nleft:" .. rect2[b.LEFT], "\nbottom:" .. rect2[b.BOTTOM], "\nwidth:" .. rect2[b.width], "\nheight:" .. rect2[b.height])
+	print("\n")
+	print("Intersection:", "\nleft:" .. left, "\nbottom:" .. bottom, "\nwidth:" .. width, "\nheight:" .. height)
+	print("\n")
+	return {left, bottom, width, height}
+end
+
+-- Gives the offset based off of the TOPLEFT point of relativeFrame
+local function getOffsetFromRectRelativeToFrameRect(offsetFrameRect, relativeFrameRect)
+	local b = BlizzRect_enum
+	local topleft_xOffset = offsetFrameRect[b.LEFT] - relativeFrameRect[b.LEFT]
+	--                      ________________ offsetFrameRect | TOP ________________ - _________________ relativeFrameRect | TOP _________________
+	local topleft_yOffset = (offsetFrameRect[b.BOTTOM] + offsetFrameRect[b.height]) - (relativeFrameRect[b.BOTTOM] + relativeFrameRect[b.height])
+	--                          ______________ offsetFrameRect | RIGHT _____________ - relativeFrameRect | LEFT
+	local bottomRight_xOffset = (offsetFrameRect[b.LEFT] + offsetFrameRect[b.width]) - relativeFrameRect[b.LEFT]
+	--                          offsetFrameRect | BOTTOM  - _________________ relativeFrameRect | TOP _________________
+	local bottomRight_yOffset = offsetFrameRect[b.BOTTOM] - (relativeFrameRect[b.BOTTOM] + relativeFrameRect[b.height])
+	print(topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset)
+	return topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset
+end
+
+local ExtraXOFFSET = 0
+local ExtraYOFFSET = 0
+function Legolando_CollapseConfigMixin2_Angleur:SetExpandButtonUnderlayRect()
+	local popup = self.popup
+	local expandButton = self.expandButton
+	-- If we haven't set a point to the frame upon :Init(), :SetExpandButtonUnderlayRect will need to be called manually afterward
+	if not self:IsRectValid() then print("nope") return end
+	-- popup.buttonUnderlay:SetPoint("TOPb.LEFT", expandButton, "TOPb.LEFT", -3, 3)
+	-- popup.buttonUnderlay:SetPoint("b.BOTTOMRIGHT", expandButton, "b.BOTTOMRIGHT", 3, -3)
+	local popupRect = _adjustTrueTextureRectForPopup({popup:GetRect()})
+	popup.debug_RealPopupTextureBorders:ClearAllPoints()
+	popup.debug_RealPopupTextureBorders:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", popupRect[1], popupRect[2])
+	popup.debug_RealPopupTextureBorders:SetSize(popupRect[3], popupRect[4])
+	DevTools_Dump(popupRect)
+	local intersectionRect = getIntersectionRectFromRects(popupRect, {expandButton:GetRect()})
+	local topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset = getOffsetFromRectRelativeToFrameRect(intersectionRect, popupRect)
+	popup.buttonUnderlay:ClearAllPoints()
+	-- The "Relative Points" to TOPLEFT and BOTTOMRIGHT(of our buttonUnderlay) will BOTH be TOPLEFT, we'll just offset them from there.
+	popup.buttonUnderlay:SetPoint("TOPLEFT", popup, "TOPLEFT", topleft_xOffset + popupTrueTextureAdjuster_X, topleft_yOffset - popupTrueTextureAdjuster_Y)
+	popup.buttonUnderlay:SetPoint("BOTTOMRIGHT", popup, "TOPLEFT", bottomRight_xOffset + popupTrueTextureAdjuster_X, bottomRight_yOffset - popupTrueTextureAdjuster_Y)
+end
+
 function Legolando_CollapseConfigMixin2_Angleur:Init(tabNames, expandTo)
     if tabNames and next(tabNames) ~= nil then
         local tabs = self.popup.tabs
@@ -325,6 +399,7 @@ function Legolando_CollapseConfigMixin2_Angleur:Init(tabNames, expandTo)
         tabs:SetTab(1)
     end
 	self.expandButton:SetRotate(expandTo)
+	self:SetExpandButtonUnderlayRect()
 end
 
 function Legolando_CollapseConfigMixin2_Angleur:Update()

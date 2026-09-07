@@ -38,7 +38,7 @@ end
 function Legolando_PictureTooltipMixin:OnHide()
     self.texture:SetTexture(nil)
     self.texture:ClearAllPoints()
-    self:ResetPadding()    
+    self:ResetPadding()
 end
 
 
@@ -89,7 +89,7 @@ function ExtraItemButtonMixin:OnLoad()
     collapseFrame.expandButton:SetSize(18, 12)
     collapseFrame:Init(nil, "Down")
     local popup = self.collapseFrame.popup
-    popup:AdjustPointsOffset(-6, 0)
+    popup:AdjustPointsOffset(-20, -5)
     popup:SetSize(130, 80)
     popup.delayOffsetSlider = CreateFrame("Slider", popup:GetDebugName() .. "_DelayOffsetSlider", popup, "Legolando_SliderColorFillTemplate_Angleur")
     local delayOffsetSlider = popup.delayOffsetSlider
