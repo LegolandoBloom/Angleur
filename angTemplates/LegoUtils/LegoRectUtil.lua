@@ -1,3 +1,4 @@
+if not LegolandoUtil then return end
 if LegolandoUtil.Rect then return end
 
 LegolandoUtil.Rect = {}

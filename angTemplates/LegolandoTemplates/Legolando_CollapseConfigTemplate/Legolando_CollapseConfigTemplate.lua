@@ -16,6 +16,9 @@ local function getFolderPath()
     return afterRemoval
 end
 
+local LU = LegolandoUtil
+local LR = LU.Rect
+
 -- ____________________________________[1]______________________________________________
 --       Templates Ported directly from Blizzard's FrameXML, for classic parity
 -- ____________________________________[1]______________________________________________
@@ -296,77 +299,53 @@ end
 Legolando_CollapseConfigMixin2_Angleur = {}
 
 
-local BlizzRect_enum = {
-	LEFT = 1,
-	BOTTOM = 2,
-	width = 3,
-	height = 4,
-}
-local popupTrueTextureAdjuster_X = 5
-local popupTrueTextureAdjuster_Y = 0
-local function _adjustTrueTextureRectForPopup(rect)
-	local b = BlizzRect_enum
-	local trueLeft = rect[b.LEFT] + popupTrueTextureAdjuster_X
-	local trueBottom = rect[b.BOTTOM] + popupTrueTextureAdjuster_Y
-	local trueWidth = rect[b.width] - popupTrueTextureAdjuster_X * 2
-	local trueHeight = rect[b.height] - popupTrueTextureAdjuster_Y * 2
-	return {trueLeft, trueBottom, trueWidth, trueHeight}
-end
-
-local function getIntersectionRectFromRects(rect1, rect2)
-	local b = BlizzRect_enum
-	local left = max(rect1[b.LEFT], rect2[b.LEFT]) 
-	-- Unlike "left", we don't return with "right" in our table instead just use it to calculate width which we'll save instead(reason: Blizzard Rect Structure Parity)
-	local right = min(rect1[b.LEFT] + rect1[b.width], rect2[b.LEFT] + rect2[b.width])
-	local width = right - left
-	local bottom = max(rect1[b.BOTTOM], rect2[b.BOTTOM])
-	-- Unlike "bottom", we don't return with "top" in our table instead just use it to calculate height which we'll save instead(reason: Blizzard Rect Structure Parity)
-	local top = min(rect1[b.BOTTOM] + rect1[b.height], rect2[b.BOTTOM] + rect2[b.height])
-	local height = top - bottom
-	if left >= right or bottom >= top then print("empty intersection") return nil end
-	print("Popup:", "\nleft:" .. rect1[b.LEFT], "\nbottom:" .. rect1[b.BOTTOM], "\nwidth:" .. rect1[b.width], "\nheight:" .. rect1[b.height])
-	print("\n")
-	print("expandButton:", "\nleft:" .. rect2[b.LEFT], "\nbottom:" .. rect2[b.BOTTOM], "\nwidth:" .. rect2[b.width], "\nheight:" .. rect2[b.height])
-	print("\n")
-	print("Intersection:", "\nleft:" .. left, "\nbottom:" .. bottom, "\nwidth:" .. width, "\nheight:" .. height)
-	print("\n")
-	return {left, bottom, width, height}
-end
-
--- Gives the offset based off of the TOPLEFT point of relativeFrame
-local function getOffsetFromRectRelativeToFrameRect(offsetFrameRect, relativeFrameRect)
-	local b = BlizzRect_enum
-	local topleft_xOffset = offsetFrameRect[b.LEFT] - relativeFrameRect[b.LEFT]
-	--                      ________________ offsetFrameRect | TOP ________________ - _________________ relativeFrameRect | TOP _________________
-	local topleft_yOffset = (offsetFrameRect[b.BOTTOM] + offsetFrameRect[b.height]) - (relativeFrameRect[b.BOTTOM] + relativeFrameRect[b.height])
-	--                          ______________ offsetFrameRect | RIGHT _____________ - relativeFrameRect | LEFT
-	local bottomRight_xOffset = (offsetFrameRect[b.LEFT] + offsetFrameRect[b.width]) - relativeFrameRect[b.LEFT]
-	--                          offsetFrameRect | BOTTOM  - _________________ relativeFrameRect | TOP _________________
-	local bottomRight_yOffset = offsetFrameRect[b.BOTTOM] - (relativeFrameRect[b.BOTTOM] + relativeFrameRect[b.height])
-	print(topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset)
-	return topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset
-end
-
-local ExtraXOFFSET = 0
-local ExtraYOFFSET = 0
-function Legolando_CollapseConfigMixin2_Angleur:SetExpandButtonUnderlayRect()
+local clipXBoth = 4
+local clipYBoth = 4
+function Legolando_CollapseConfigMixin2_Angleur:PlaceExpandButtonUnderlayOnIntersection(expandLeft, expandRight, expandTop, expandBottom)
 	local popup = self.popup
 	local expandButton = self.expandButton
 	-- If we haven't set a point to the frame upon :Init(), :SetExpandButtonUnderlayRect will need to be called manually afterward
-	if not self:IsRectValid() then print("nope") return end
-	-- popup.buttonUnderlay:SetPoint("TOPb.LEFT", expandButton, "TOPb.LEFT", -3, 3)
-	-- popup.buttonUnderlay:SetPoint("b.BOTTOMRIGHT", expandButton, "b.BOTTOMRIGHT", 3, -3)
-	local popupRect = _adjustTrueTextureRectForPopup({popup:GetRect()})
-	popup.debug_RealPopupTextureBorders:ClearAllPoints()
-	popup.debug_RealPopupTextureBorders:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", popupRect[1], popupRect[2])
-	popup.debug_RealPopupTextureBorders:SetSize(popupRect[3], popupRect[4])
-	DevTools_Dump(popupRect)
-	local intersectionRect = getIntersectionRectFromRects(popupRect, {expandButton:GetRect()})
-	local topleft_xOffset, topleft_yOffset, bottomRight_xOffset, bottomRight_yOffset = getOffsetFromRectRelativeToFrameRect(intersectionRect, popupRect)
+	if not self:GetRect() then 
+		-- local _, relativeTo = self:GetPoint()
+		-- print(relativeTo:GetDebugName())
+		return
+	end
+
+	-- have to set here, "ignoreParentScale = true" in its xml template doesn't work for some reason(specific to this case, don't know why) 
+	-- popup.buttonUnderlay:SetIgnoreParentScale(true)
+	-- popup.debug_RealPopupTextureBorders:SetIgnoreParentScale(true)
+	-- popup.debug_intersectionBorders:SetIgnoreParentScale(true)
+
+	
 	popup.buttonUnderlay:ClearAllPoints()
-	-- The "Relative Points" to TOPLEFT and BOTTOMRIGHT(of our buttonUnderlay) will BOTH be TOPLEFT, we'll just offset them from there.
-	popup.buttonUnderlay:SetPoint("TOPLEFT", popup, "TOPLEFT", topleft_xOffset + popupTrueTextureAdjuster_X, topleft_yOffset - popupTrueTextureAdjuster_Y)
-	popup.buttonUnderlay:SetPoint("BOTTOMRIGHT", popup, "TOPLEFT", bottomRight_xOffset + popupTrueTextureAdjuster_X, bottomRight_yOffset - popupTrueTextureAdjuster_Y)
+	popup.debug_RealPopupTextureBorders:ClearAllPoints()
+	popup.debug_intersectionBorders:ClearAllPoints()
+	
+	local popupRect = {popup:GetRect()}
+	local popupClippedRect =  LR.GetClippedFrameRectForActualTextureSize(popupRect, clipXBoth, clipXBoth, clipYBoth, clipYBoth)
+	-- If the frame we underlayed wasn't a child of collapseConfig:
+	-- 1) We'd need to use GetScaledRect() for both popup AND expandButton to get the right intersection.
+	-- 2) We would also need to underlay:SetIgnoreParentScale() in case the underlay was the child of another fram who could be scaled, like UIParent for example.
+	-- But since buttonUnderlay is a child, they "share" the same coordinate system with popup and expandbutton. So we can just use GetRect()
+	local intersectionRect = LR.GetIntersectionRectFromRects(popupClippedRect, {expandButton:GetRect()})
+	
+	-- TODO: WHY IS THIS DIFFERENT? WHY CAN'T I JUST USE GetScale() and NOT SetIgnoreParentScale like how it works for buttonUnderlay without issue?
+	-- Answer: It's not different. GetRect() WORKS. It only breaks if you change UI scale without refreshing, aka without causing this function to be called again
+	-- And the only reason that is the case is that the realpopuptextureborders is anchored to UIParent. If I did relative anchoring to popup itself, it would never break
+	local popupScaled = {popup:GetScaledRect()}
+	local popupClippedScaled = LR.GetClippedFrameRectForActualTextureSize(popupScaled, clipXBoth, clipXBoth, clipYBoth, clipYBoth)
+	popup.debug_RealPopupTextureBorders:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", popupClippedRect[1], popupClippedRect[2])
+	popup.debug_RealPopupTextureBorders:SetSize(popupClippedRect[3], popupClippedRect[4])
+	
+	-- Relate intersectionRect to the Unclipped version of popupRect so we can directly anchor without taking clip into account.
+	local relative_topLeftOffsets = LR.GetOffsetFromRelateRect1ToRect2(intersectionRect, popupRect, "TOPLEFT", "TOPLEFT")
+	local relative_bottomRightOffsets = LR.GetOffsetFromRelateRect1ToRect2(intersectionRect, popupRect, "BOTTOMRIGHT", "BOTTOMRIGHT")
+
+	popup.debug_intersectionBorders:SetPoint("TOPLEFT", popup, "TOPLEFT", relative_topLeftOffsets.x, relative_topLeftOffsets.y)
+	popup.debug_intersectionBorders:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", relative_bottomRightOffsets.x, relative_bottomRightOffsets.y)
+
+	popup.buttonUnderlay:SetPoint("TOPLEFT", popup, "TOPLEFT", relative_topLeftOffsets.x - (expandLeft or 0), relative_topLeftOffsets.y + (expandTop or 0))
+	popup.buttonUnderlay:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", relative_bottomRightOffsets.x + (expandRight or 0), relative_bottomRightOffsets.y - (expandBottom or 0))
 end
 
 function Legolando_CollapseConfigMixin2_Angleur:Init(tabNames, expandTo)
@@ -399,7 +378,7 @@ function Legolando_CollapseConfigMixin2_Angleur:Init(tabNames, expandTo)
         tabs:SetTab(1)
     end
 	self.expandButton:SetRotate(expandTo)
-	self:SetExpandButtonUnderlayRect()
+	self:PlaceExpandButtonUnderlayOnIntersection()
 end
 
 function Legolando_CollapseConfigMixin2_Angleur:Update()

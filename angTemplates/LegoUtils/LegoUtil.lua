@@ -16,6 +16,32 @@ local lookup_Y = {
 	Middle = {CENTER = true, LEFT = true, RIGHT = true},
 }
 
+-- anchorPoint is the point on the unclipped frame you are offsetting the clipped texture's anchorPoint(SAME) by
+-- Shown below is a visual example of 2 calls, (1) & (2) for getting the clipped offsets for TOPLEFT & BOTTOMRIGHT respectively
+-- ________________________________________________________________________________________________________________________________________________________________________          
+--  "TOPLEFT"                                                                                                                                                             |          
+-- anchorPoint                                                                                                                                                            |          
+--     ┌───┐                                                                                                                                                              |          
+--     │[A]│────────────────────────────────────────────────────────────────┐                                                                                             |          
+--     └─|─┘                         ───                                    │                                                                                             |          
+--      │|                   clipTop  |                                     │                                                                                             |          
+--      │|                            |                                     │                                                                                             |          
+--      │|   (1)        [B]          ───                                    │                                                                       "TOPLEFT"             |          
+--      │└--------------►┌─────────────────────────┐                        │                                                                           ▲                 |          
+--      │                │                         │                        │    (1) offsetsForB = LU.GetOffsetsForActualTextureSizeForFrameAnchorPoint(A , clips...)     |          
+--      │    clipLeft    │                         │       clipRight        │                                                                                             |          
+--      │|──────────────|│     Clipped Texture     │|──────────────────────|│                                                                                             |          
+--      │                │                         │                        │                                                                     "BOTTOMRIGHT"           |          
+--      │                │                         │         (2)            │                                                                           ▲                 |          
+--      │                └─────────────────────────┘◄----------------------┐│    (2) offsetsForD = LU.GetOffsetsForActualTextureSizeForFrameAnchorPoint(C , clips...)     |          
+--      │                            ───           [D]                     |│                                                                                             |          
+--      │                 clipBottom  |                                    |│                                                                                             |          
+--      │                            ───                                 ┌─|┴┐                                                                                            |          
+--      └────────────────────────────────────────────────────────────────┤[C]│                                                                                            |          
+--                                                                       └───┘                                                                                            |          
+--                                                                    anchorPoint                                                                                         |          
+--                                                                   "BOTTOMRIGHT"                                                                                        |          
+-- _______________________________________________________________________________________________________________________________________________________________________|          
 
 function LU.GetOffsetsForActualTextureSizeForFrameAnchorPoint(anchorPoint, clipFromLeft, clipFromRight, clipFromTop, clipFromBottom)
     local clipOffsets = {x = 0, y = 0}
