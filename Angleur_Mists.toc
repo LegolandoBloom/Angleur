@@ -25,6 +25,8 @@
 libraries\embeds.xml
 translations\translations.xml
 #@end-no-lib-strip@
+
+angTemplates\LegoUtils\embeds.xml
 angTemplates\GeneralTemplates\ClassicTemplates.lua
 angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
