@@ -124,6 +124,31 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
     end
 end
 
+-- TODO: Redraw for 0.6 instead
+local picture1_sizeScaler = 0.6
+local function _setPictureTooltipForDelayOffsetSlider(slider)
+    local pictureTooltip = Angleur_ReusablePictureTooltip
+    slider:SetScript("OnEnter", function(self)
+        local desaturated = self.desaturated
+        if desaturated then
+            pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+            pictureTooltip:AddLine("Some Desaturated Title:")
+            pictureTooltip:AddLine("Some Desaturated Text", 1, 1, 1, true)
+            pictureTooltip:Show()
+            pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/auraslidergreyedout.png", 480 * 0.6, 77 * 0.6, "BOTTOMLEFT")
+        else
+            pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+            pictureTooltip:AddLine("Some Title:")
+            pictureTooltip:AddLine("Some Text", 1, 1, 1, true)
+            pictureTooltip:Show()
+            pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/aurasliderhowto.png", 500 * picture1_sizeScaler, 140 * picture1_sizeScaler, "BOTTOMLEFT")
+        end
+    
+    end)
+    slider:SetScript("OnLeave", function(self)
+        pictureTooltip:Hide()
+    end)
+end
 
 local function minSecEditBoxes_onSaveCallback(editBoxes, value, slot)
     -- DevTools_Dump(slot)
@@ -178,6 +203,7 @@ function Angleur_ExtraItems_CreateSlots()
         titleText:SetPoint("BOTTOMLEFT", delayOffsetSlider, "TOPLEFT", 0, 6)
         titleText:SetText("Reapply Aura when")
         titleText:SetScale(0.95)
+        _setPictureTooltipForDelayOffsetSlider(delayOffsetSlider)
         local popup = frame.collapseFrame.popup
         popup:HookScript("OnHide", popup_onHideHook)
         local expandButton = frame.collapseFrame.expandButton
