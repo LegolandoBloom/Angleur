@@ -48,18 +48,8 @@ tabs\extra_without.lua
 tabs\tiny_vanilla.lua
 tabs\tiny_base.lua
 
-doubleClick.lua
-firstInstall.lua
-advancedAngling.lua
-slashcommands.lua
-minimap.lua
-addonsTab.lua
-animations.xml
-audio.lua
-
-bobberScanner\Legolando_CheckboxTemplate\Legolando_CheckboxTemplate.xml
-bobberScanner\Legolando_CollapseConfigTemplate\Legolando_CollapseConfigTemplate.xml
-bobberScanner\bobberScanner.lua
+modules\embeds_all.xml
+modules\embeds_classic.xml
 
 AngleurVanilla.xml
 

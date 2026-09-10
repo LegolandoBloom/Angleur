@@ -55,17 +55,8 @@ tabs\extra_with.lua
 tabs\tiny_retail.lua
 tabs\tiny_base.lua
 
-doubleClick.lua
-firstInstall.lua
-advancedAngling.lua
-slashcommands.lua
-minimap.lua
-addonsTab.lua
-addonCompartment.lua
-animations.xml
-platerClash.lua
-audio.lua
-midnight.lua
+modules\embeds_all.xml
+modules\embeds_retail.xml
 
 Angleur.xml
 
