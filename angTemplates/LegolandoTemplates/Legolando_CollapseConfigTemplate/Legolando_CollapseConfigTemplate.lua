@@ -311,39 +311,27 @@ function Legolando_CollapseConfigMixin2_Angleur:PlaceExpandButtonUnderlayOnInter
 		return
 	end
 
-	-- have to set here, "ignoreParentScale = true" in its xml template doesn't work for some reason(specific to this case, don't know why) 
-	-- popup.buttonUnderlay:SetIgnoreParentScale(true)
-	-- popup.debug_RealPopupTextureBorders:SetIgnoreParentScale(true)
-	-- popup.debug_intersectionBorders:SetIgnoreParentScale(true)
-
+	-- Setting: "ignoreParentScale = true" to the textures in this xml template doesn't work for some reason(specific to this case, don't know why), so leaving this one 
+	-- Do popup.buttonUnderlay:SetIgnoreParentScale(true) here if you want to set. Though we won't do that for the current implementation
 	
 	popup.buttonUnderlay:ClearAllPoints()
-	popup.debug_RealPopupTextureBorders:ClearAllPoints()
-	popup.debug_intersectionBorders:ClearAllPoints()
 	
 	local popupRect = {popup:GetRect()}
 	local popupClippedRect =  LR.GetClippedFrameRectForActualTextureSize(popupRect, clipXBoth, clipXBoth, clipYBoth, clipYBoth)
-	-- If the frame we underlayed wasn't a child of collapseConfig:
-	-- 1) We'd need to use GetScaledRect() for both popup AND expandButton to get the right intersection.
-	-- 2) We would also need to underlay:SetIgnoreParentScale() in case the underlay was the child of another fram who could be scaled, like UIParent for example.
-	-- But since buttonUnderlay is a child, they "share" the same coordinate system with popup and expandbutton. So we can just use GetRect()
 	local intersectionRect = LR.GetIntersectionRectFromRects(popupClippedRect, {expandButton:GetRect()})
-	
-	-- TODO: WHY IS THIS DIFFERENT? WHY CAN'T I JUST USE GetScale() and NOT SetIgnoreParentScale like how it works for buttonUnderlay without issue?
-	-- Answer: It's not different. GetRect() WORKS. It only breaks if you change UI scale without refreshing, aka without causing this function to be called again
-	-- And the only reason that is the case is that the realpopuptextureborders is anchored to UIParent. If I did relative anchoring to popup itself, it would never break
-	local popupScaled = {popup:GetScaledRect()}
-	local popupClippedScaled = LR.GetClippedFrameRectForActualTextureSize(popupScaled, clipXBoth, clipXBoth, clipYBoth, clipYBoth)
-	popup.debug_RealPopupTextureBorders:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", popupClippedRect[1], popupClippedRect[2])
-	popup.debug_RealPopupTextureBorders:SetSize(popupClippedRect[3], popupClippedRect[4])
-	
+	if not intersectionRect then return end
 	-- Relate intersectionRect to the Unclipped version of popupRect so we can directly anchor without taking clip into account.
 	local relative_topLeftOffsets = LR.GetOffsetFromRelateRect1ToRect2(intersectionRect, popupRect, "TOPLEFT", "TOPLEFT")
 	local relative_bottomRightOffsets = LR.GetOffsetFromRelateRect1ToRect2(intersectionRect, popupRect, "BOTTOMRIGHT", "BOTTOMRIGHT")
-
+	--________________ DEBUG ONLY ________________ 
+	popup.debug_RealPopupTextureBorders:ClearAllPoints()
+	popup.debug_intersectionBorders:ClearAllPoints()
 	popup.debug_intersectionBorders:SetPoint("TOPLEFT", popup, "TOPLEFT", relative_topLeftOffsets.x, relative_topLeftOffsets.y)
 	popup.debug_intersectionBorders:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", relative_bottomRightOffsets.x, relative_bottomRightOffsets.y)
-
+	local relative_popupTextureBordersOffsets = LR.GetOffsetFromRelateRect1ToRect2(popupClippedRect, popupRect, "TOPLEFT", "TOPLEFT")
+	popup.debug_RealPopupTextureBorders:SetPoint("TOPLEFT", popup, "TOPLEFT", relative_popupTextureBordersOffsets.x, relative_popupTextureBordersOffsets.y)
+	popup.debug_RealPopupTextureBorders:SetSize(popupClippedRect[3], popupClippedRect[4])
+	--____________________________________________
 	popup.buttonUnderlay:SetPoint("TOPLEFT", popup, "TOPLEFT", relative_topLeftOffsets.x - (expandLeft or 0), relative_topLeftOffsets.y + (expandTop or 0))
 	popup.buttonUnderlay:SetPoint("BOTTOMRIGHT", popup, "BOTTOMRIGHT", relative_bottomRightOffsets.x + (expandRight or 0), relative_bottomRightOffsets.y - (expandBottom or 0))
 end

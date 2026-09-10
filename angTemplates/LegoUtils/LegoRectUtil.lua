@@ -1,8 +1,25 @@
+-- 				                 RectFrames | AnchoredFrames - Handling
+-- _____________________________________________________________________________________________________________
+-- RectFrames: The frames that the Rect Calculations in LegolandoUtil.Rect will use
+-- AnchoredFrames: The frames that will use the result of these calculations and be anchored/sized accordingly
+                                                        
+--    ┌────────────────────────────┐   
+--    │ GetRect() vs GetScaledRect │   
+--    └────────────────────────────┘   
+-- 1) AnchoredFrame and ALL RectFrames are CHILDREN of the same parent(or one of them is the parent)
+--   - Use "GetRect()" for ALL RectFrames
+-- 2) AnchoredFrame is a CHILD of ONE of the RectFrames:
+--   - Use "GetScaledRect()" for ALL RectFrames
+--   - :SetIgnoreParentScale(true) on AnchorFrame
+-- 3) AnchoredFrame is NOT a CHILD of either:
+--   - Use "GetScaledRect()" for ALL RectFrames
+--   - :SetIgnoreParentScale(true) on AnchorFrame
+-- _____________________________________________________________________________________________________________
+
 if not LegolandoUtil then return end
 if LegolandoUtil.Rect then return end
 
 LegolandoUtil.Rect = {}
-
 local LR = LegolandoUtil.Rect
 
 local BlizzRect_enum = {
@@ -35,6 +52,7 @@ function LR.GetClippedFrameRectForActualTextureSize(rect, clipFromLeft, clipFrom
 	local trueBottom = rect[b.BOTTOM] + clipFromBottom
 	local trueWidth = rect[b.width] - clipFromLeft - clipFromRight
 	local trueHeight = rect[b.height] - clipFromTop - clipFromBottom
+	if trueHeight <= 0 or trueWidth <= 0 then return nil end
 	return {trueLeft, trueBottom, trueWidth, trueHeight}
 end
 

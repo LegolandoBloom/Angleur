@@ -289,7 +289,7 @@
         </KeyValues>                   
         <Frames>
              <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
-            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" flattenRenderLayers="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
+            <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
                 <Size x="300" y="150"/>
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>
@@ -301,7 +301,7 @@
                                 <Anchor point="TOPLEFT" x="18" y="-19"/>
                             </Anchors>
                         </FontString>
-                        <Texture parentKey="buttonUnderlay" ignoreParentScale="true" setAllPoints="false">
+                        <Texture parentKey="buttonUnderlay" setAllPoints="false">
                             <!-- <Color r="0.87" g="0.65" b="0.13"/> -->
                             <Color r="0" g="0" b="0"/>
                             <Size x="5" y="5"/>
@@ -311,15 +311,15 @@
                         </Texture>
                     </Layer>
                     <Layer level="OVERLAY">
-                        <Texture parentKey="debug_RealPopupTextureBorders" ignoreParentScale="true" setAllPoints="false" hidden="false">
+                        <Texture parentKey="debug_RealPopupTextureBorders" setAllPoints="false" hidden="true">
                             <Color r="1" g="0" b="0" a="0.2"/>
                             <Size x="1" y="1"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
                             </Anchors>
                         </Texture>
-                        <Texture parentKey="debug_intersectionBorders" ignoreParentScale="true" setAllPoints="false" hidden="true">
-                            <Color r="0" g="1" b="0" a="0.5"/>
+                        <Texture parentKey="debug_intersectionBorders" setAllPoints="false" hidden="true">
+                            <Color r="0" g="1" b="0" a="1"/>
                             <Size x="1" y="1"/>
                             <Anchors>
                                 <Anchor point="TOPLEFT" x="0" y="0"/>
