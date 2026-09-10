@@ -286,13 +286,14 @@
         <Size x="1" y="1"/>
         <KeyValues>
             <KeyValue key="savedVarTable" value="" type="table"/>
+            <KeyValue key="hideWhenClickingOut" value="true" type="boolean"/>
         </KeyValues>                   
         <Frames>
              <!-- Options: Legolando_PortedSecureDialogBorderTemplate_Angleur | Legolando_PortedSecureDialogBorderDarkTemplate_Angleur | Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur | Legolando_PortedSecureDialogBorderNoCenterTemplate_Angleur -->
             <Frame name="$parent_Popup" parentKey="popup" hidden="true" enableMouse="true" inherits="Legolando_PortedSecureDialogBorderOpaqueTemplate_Angleur">
                 <Size x="300" y="150"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPRIGHT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="-15" y="-3"/>
                 </Anchors>
                 <Layers>
                     <Layer level="ARTWORK">
@@ -328,14 +329,28 @@
                     </Layer>
                 </Layers>
                 <Scripts>
-                    <OnLoad>
+                    <OnShow>
                         self:RegisterEvent("GLOBAL_MOUSE_DOWN")
-                        
-                    </OnLoad>
+                    </OnShow>
+                    <OnHide>
+                        self:UnregisterEvent("GLOBAL_MOUSE_DOWN")
+                    </OnHide>
                     <OnEvent>
+                        if not self:GetParent().hideWhenClickingOut then return end
                         if event == "GLOBAL_MOUSE_DOWN" then
                             if not self:IsShown() then return end
                             if self:IsMouseOver() then return end
+                            local tabs = self.tabs.tabs
+                            local tabCount = #tabs
+                            <!--   &lt; IS ESCAPE FOR '<'   -->
+                            if tabCount &lt; 1 then
+                                self:Hide()
+                                return
+                            end
+                            for i=1, tabCount, 1 do
+                                local tabButton = tabs[i]
+                                if tabButton and tabButton:IsMouseOver() then return end
+                            end
                             self:Hide()
                         end
                     </OnEvent>
@@ -356,9 +371,9 @@
                 </Frames>
             </Frame>
             <Button name="$parent_ExpandButton" parentKey="expandButton" inherits="Legolando_SimpleArrowPopoutButtonTemplate_Angleur">
-                <Size x="16" y="16"/>
+                <Size x="28" y="24"/>
                 <Anchors>
-                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="0" y="0"/>
+                    <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="0" y="0"/>
                 </Anchors>
                 <Scripts>
                     <OnClick inherit="append">

@@ -300,7 +300,7 @@ Legolando_CollapseConfigMixin2_Angleur = {}
 
 
 local clipXBoth = 4
-local clipYBoth = 4
+local clipYBoth = 6
 function Legolando_CollapseConfigMixin2_Angleur:PlaceExpandButtonUnderlayOnIntersection(expandLeft, expandRight, expandTop, expandBottom)
 	local popup = self.popup
 	local expandButton = self.expandButton
