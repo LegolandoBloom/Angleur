@@ -38,8 +38,8 @@ function retailTinyTab:ExtraButtons(tab3_contents)
 
     tab3_contents.offInteract.text:SetText(T["Disable Soft Interact"])
     --tab3_contents.offInteract.text:SetFontObject(SpellFont_Small)
-    tab3_contents.offInteract.text.tooltip = T["If checked, Angleur will disable " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "after you stop fishing.\n\n" 
-    .. colorGrae:WrapTextInColorCode("Intended for people who want to keep Soft Interact disabled during normal play.")]
+    tab3_contents.offInteract.text.tooltip = T["If checked, Angleur will restore Soft Interact settings after you stop fishing.\n\n" 
+    .. "ON by default. You can turn this toggle off if you play with Soft Interact all the time."]
     tab3_contents.offInteract.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())

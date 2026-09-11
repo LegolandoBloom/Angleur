@@ -892,3 +892,13 @@ T["If enabled, Angleur will play a sound effect when your fishing cast runs out 
 T["Can't drag item due to restrictions:"] = "Can't drag item due to restrictions:"
 T["Can't drag macro due to restrictions:"] = "Can't drag macro due to restrictions:"
 T["Can't add toys during restrictions:"] = "Can't add toys during restrictions:"
+
+
+-- Forgotten minimap tooltip
+T["Whether Angleur's minimap button is shown."] = "Whether Angleur's minimap button is shown."
+
+
+-- Updated softInteractOff tooltip
+T["If checked, Angleur will restore Soft Interact settings after you stop fishing.\n\n" 
+.. "ON by default. You can turn this toggle off if you play with Soft Interact all the time."] = "If checked, Angleur will restore " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "settings after you stop fishing.\n\n" 
+    .. colorGreen:WrapTextInColorCode("ON ") .. colorGrae:WrapTextInColorCode("by default. You can turn this toggle off if you play with Soft Interact all the time.")

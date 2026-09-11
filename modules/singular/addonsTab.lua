@@ -21,7 +21,7 @@ function Angleur_LoadAddonsTab()
         local setting = Settings.RegisterAddOnSetting(category, variable, variableKey, variableTbl, type(defaultValue), name, defaultValue)
         setting:SetValueChangedCallback(OnSettingChanged)
 
-        local tooltip = "This is a tooltip for the checkbox."
+        local tooltip = T["Whether Angleur's minimap button is shown."]
         local cbox1 = Settings.CreateCheckbox(category, setting, tooltip)
     end
 

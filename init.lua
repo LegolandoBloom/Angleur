@@ -138,7 +138,7 @@ function Init_AngleurSavedVariables()
     end
 
     if Angleur_TinyOptions.turnOffSoftInteract == nil then
-        Angleur_TinyOptions.turnOffSoftInteract = false
+        Angleur_TinyOptions.turnOffSoftInteract = true
     end
     if Angleur_TinyOptions.allowDismount == nil then
         Angleur_TinyOptions.allowDismount = false
