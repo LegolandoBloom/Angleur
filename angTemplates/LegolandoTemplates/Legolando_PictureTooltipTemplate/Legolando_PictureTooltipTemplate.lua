@@ -16,7 +16,13 @@ function Legolando_PictureTooltipMixin_Angleur:PlaceTexture(texturePath, picture
     -- + 16 is needed due to the offset of 8 in SetPoint
     if pictureWidth + 16 > width then extraWidth = pictureWidth - width + 16 end
     if pictureHeight + 16 > height then extraHeight = pictureHeight - height + 16 end
+    -- "TOPLEFT" doesn't work in classic, as it tries to expand the "top" field which can't be done
     if anchor == "TOPLEFT" then
+        if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+            geterrorhandler()("PictureTooltipTemplate: Tried to Anchor to \"TOPLEFT\" on NON-RETAIL game client.\n\n" 
+            .. "Tooltip cannot be expanded towards top-side on Classic clients")
+            return
+        end
         self.texture:SetPoint(anchor, self, anchor, 8, -8)
         self:SetPadding(extraWidth, 0, 0, pictureHeight)
     elseif anchor == "TOPRIGHT" then
@@ -33,5 +39,6 @@ end
 
 function Legolando_PictureTooltipMixin_Angleur:OnHide()
     self.texture:SetTexture(nil)
+    self:SetPadding(0, 0, 0, 0)
     self.texture:ClearAllPoints()
 end

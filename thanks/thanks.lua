@@ -109,7 +109,7 @@ end
 
 
 local addonsTable = {
-    [1] = { 
+    [1] = {
             icon = "Interface/AddOns/Angleur/images/other-addons/icon-niche.png",
             link = "https://www.curseforge.com/wow/addons/angleur-nicheoptions",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-niche.png",
@@ -125,37 +125,43 @@ local addonsTable = {
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-ang-und.jpg",
             tooltipPictureWidth = 240,
             tooltipPictureHeight = 120,
-            tooltipPictureAnchor = "BOTTOMLEFT",
+            tooltipPictureAnchor = "TOPLEFT",
             tooltipTitle = "Angleur_Underlight",
             tooltipText = T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."],
     },
     [3] = { 
-        icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
-        link = "https://www.curseforge.com/wow/addons/thievery",
-        tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-thievery.jpg",
-        tooltipPictureWidth = 256,
-        tooltipPictureHeight = 64,
-        tooltipPictureAnchor = "TOPLEFT",
-        tooltipTitle = "Thievery",
-        tooltipText = T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."],
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-thievery.png",
+            link = "https://www.curseforge.com/wow/addons/thievery",
+            tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-thievery.jpg",
+            tooltipPictureWidth = 256,
+            tooltipPictureHeight = 64,
+            tooltipPictureAnchor = "TOPLEFT",
+            tooltipTitle = "Thievery",
+            tooltipText = T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."],
     },
     [4] = { 
-        icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
-        link = "https://www.curseforge.com/wow/addons/true-form",
+            icon = "Interface/AddOns/Angleur/images/other-addons/icon-trueform.png",
+            link = "https://www.curseforge.com/wow/addons/true-form",
             tooltipPicture = "Interface/AddOns/Angleur/images/other-addons/tooltip-picture-trueform.jpg",
             tooltipPictureWidth = 128,
             tooltipPictureHeight = 128,
             tooltipPictureAnchor = "TOPRIGHT",
             tooltipTitle = "TrueForm",
             tooltipText = T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."],
-        },
+    },
 }
 function MyOtherAddons_OnLoad(self)
     local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         --do nothing
     elseif gameVersion == 2 or gameVersion == 3 then
-        addonsTable[2].tooltipPictureAnchor = "BOTTOMLEFT"
+        -- If any of the pictureTooltips are set to "TOPLEFT", change them into "BOTTOMLEFT" for classic clients.
+        -- PictureTooltipTemplate doesn't support "TOPLEFT" picture anchoring for Classic.
+        for i, promotedAddon in ipairs(addonsTable) do
+            if promotedAddon.tooltipPictureAnchor == "TOPLEFT" then
+                promotedAddon.tooltipPictureAnchor = "BOTTOMLEFT"
+            end
+        end
     end
     self.title:SetText(T["My Other Addons!"])
     self.addonsTable = addonsTable
