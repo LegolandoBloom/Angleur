@@ -20,7 +20,7 @@ function Legolando_PictureTooltipMixin_Angleur:PlaceTexture(texturePath, picture
     if anchor == "TOPLEFT" then
         if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
             geterrorhandler()("PictureTooltipTemplate: Tried to Anchor to \"TOPLEFT\" on NON-RETAIL game client.\n\n" 
-            .. "Tooltip cannot be expanded towards top-side on Classic clients")
+            .. "Tooltip cannot be expanded towards top-side on Classic clients\n\n")
             return
         end
         self.texture:SetPoint(anchor, self, anchor, 8, -8)
