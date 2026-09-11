@@ -340,7 +340,7 @@
                                                     </Frame>
                                                 </Frames>
                                             </Button>
-                                            <Button name="$parent_DoubleClick" parentKey="doubleClick" inherits="ActionButtonTemplate">
+                                            <Button name="$parent_DoubleClick" parentKey="doubleClick" flattenRenderLayers="true" inherits="ActionButtonTemplate">
                                                 <Size x="46" y="46"/>
                                                 <Anchors>
                                                     <Anchor point="TOPRIGHT" relativeTo="$parent" relativePoint="TOPRIGHT" x="-35" y="-35"/>
