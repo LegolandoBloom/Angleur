@@ -125,23 +125,25 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
 end
 
 -- TODO: Redraw for 0.6 instead
-local picture1_sizeScaler = 0.6
 local function _setPictureTooltipForDelayOffsetSlider(slider)
     local pictureTooltip = Angleur_ReusablePictureTooltip
     slider:SetScript("OnEnter", function(self)
         local desaturated = self.desaturated
         if desaturated then
             pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-            pictureTooltip:AddLine("Some Desaturated Title:")
-            pictureTooltip:AddLine("Some Desaturated Text", 1, 1, 1, true)
+            pictureTooltip:AddLine("Why Greyed Out?")
+            pictureTooltip:AddLine("Angleur needs the Aura-Info before it can do calculations.\n\nPlease cast the item/macro once either through Angleur or manually.\n ", 1, 1, 1, false)
             pictureTooltip:Show()
             pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/auraslidergreyedout.png", 480 * 0.6, 77 * 0.6, "BOTTOMLEFT")
         else
             pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
-            pictureTooltip:AddLine("Some Title:")
-            pictureTooltip:AddLine("Some Text", 1, 1, 1, true)
+            pictureTooltip:AddLine("Reapply Aura When: ")
+            local value = slider.savedVarTable[slider.reference]
+            pictureTooltip:AddLine("Have Angleur recast an item/macro X seconds before it expires,\nso it doesn't run out mid-cast.\n\n", 1, 1, 1, false)
+            pictureTooltip:AddLine("Recommended most for Time-Extendible Auras like Chum effects, as they guarantee that not a single second of the previous aura will be wasted.", 1, 1, 1, true)
+            pictureTooltip:AddLine("Current Value: ", value)
             pictureTooltip:Show()
-            pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/aurasliderhowto.png", 500 * picture1_sizeScaler, 140 * picture1_sizeScaler, "BOTTOMLEFT")
+            pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/aurasliderhowto.png", 250, 70, "BOTTOMLEFT")
         end
     
     end)
