@@ -126,7 +126,6 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
 end
 
 
--- TODO: Redraw for 0.6 instead
 local function _setPictureTooltipForDelayOffsetSlider(slider)
     local pictureTooltip = Angleur_ReusablePictureTooltip
     local tooltipAreaFrame = slider.tooltipArea

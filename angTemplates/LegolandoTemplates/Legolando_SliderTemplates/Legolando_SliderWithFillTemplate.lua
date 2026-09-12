@@ -202,6 +202,9 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step)
     _handleThumb(self, isHorizontal)
     _handleFill(self, isHorizontal)
     _adjustTooltipArea(self, isHorizontal)
+    self.tooltipArea:SetPropagateMouseClicks(true)
+    -- No need to propagate motion for now, there is no other hover event for the frames under it
+    -- tooltipArea:SetPropagateMouseMotion(true)
     local teeburu = self.savedVarTable
     if not teeburu then
         print("Slider doesn't have a saved variable table attached")

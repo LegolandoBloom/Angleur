@@ -80,7 +80,7 @@
             <KeyValue key="showEditBox" value="false" type="boolean"/>
         </KeyValues>
 		<Frames>
-			<Frame name="$parent_TooltipAreaFrame" parentKey="tooltipArea" propagateMouseInput="true">
+			<Frame name="$parent_TooltipAreaFrame" parentKey="tooltipArea">
 				<Anchors>
 					<!-- <Anchor point="TOPLEFT" relativeKey="$parent.bar" relativePoint="TOPLEFT" x="-3" y="3"/>
 					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.editBox" relativePoint="BOTTOMRIGHT" x="3" y="-3"/> -->
