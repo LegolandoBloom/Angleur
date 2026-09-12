@@ -1,3 +1,4 @@
+local LU = LegolandoUtil
 local T = Angleur_Translate
 
 local debugChannel = 3
@@ -124,19 +125,26 @@ local function handleMoreAdjustmentsForSlot(slotFrame, slot)
     end
 end
 
+
 -- TODO: Redraw for 0.6 instead
 local function _setPictureTooltipForDelayOffsetSlider(slider)
     local pictureTooltip = Angleur_ReusablePictureTooltip
-    slider:SetScript("OnEnter", function(self)
-        local desaturated = self.desaturated
+    local tooltipAreaFrame = slider.tooltipArea
+    local anchorOffsetX, anchorOffsetY = 0, 20
+    local sliderEffectScale = slider:GetEffectiveScale()
+    local pictureTooltipEffectScale = pictureTooltip:GetEffectiveScale()
+    local offsetModifier = LU.SimplifyFloat(sliderEffectScale/pictureTooltipEffectScale, 3)
+    anchorOffsetX, anchorOffsetY = anchorOffsetX*offsetModifier, anchorOffsetY*offsetModifier
+    tooltipAreaFrame:SetScript("OnEnter", function(self)
+        local desaturated = slider.desaturated
         if desaturated then
-            pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+            pictureTooltip:SetOwner(slider.editBox, "ANCHOR_BOTTOMRIGHT", anchorOffsetX, anchorOffsetY)
             pictureTooltip:AddLine("Why Greyed Out?")
             pictureTooltip:AddLine("Angleur needs the Aura-Info before it can do calculations.\n\nPlease cast the item/macro once either through Angleur or manually.\n ", 1, 1, 1, false)
             pictureTooltip:Show()
             pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/auraslidergreyedout.png", 480 * 0.6, 77 * 0.6, "BOTTOMLEFT")
         else
-            pictureTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT")
+            pictureTooltip:SetOwner(slider.editBox, "ANCHOR_BOTTOMRIGHT", anchorOffsetX, anchorOffsetY)
             pictureTooltip:AddLine("Reapply Aura When: ")
             local value = slider.savedVarTable[slider.reference]
             pictureTooltip:AddLine("Have Angleur recast an item/macro X seconds before it expires,\nso it doesn't run out mid-cast.\n\n", 1, 1, 1, false)
@@ -145,9 +153,8 @@ local function _setPictureTooltipForDelayOffsetSlider(slider)
             pictureTooltip:Show()
             pictureTooltip:PlaceTexture("Interface/AddOns/Angleur/images/aurasliderhowto.png", 250, 70, "BOTTOMLEFT")
         end
-    
     end)
-    slider:SetScript("OnLeave", function(self)
+    tooltipAreaFrame:SetScript("OnLeave", function(self)
         pictureTooltip:Hide()
     end)
 end

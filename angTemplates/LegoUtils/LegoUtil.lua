@@ -55,3 +55,10 @@ function LU.GetOffsetsForActualTextureSizeForFrameAnchorPoint(anchorPoint, clipF
     elseif lookup_Y.Middle[anchorPoint] then clipOffsets.y = (clipFromBottom - clipFromTop)/2 end
 	return clipOffsets
 end
+
+-- Before returning the number with n decimal places, first rounds the part starting from (n+1)th decimal place.
+function LU.SimplifyFloat(number, desiredDecimalPlaces)
+	local formatString = "%." .. desiredDecimalPlaces .. "f"
+    return tonumber(string.format(formatString, number))
+end
+

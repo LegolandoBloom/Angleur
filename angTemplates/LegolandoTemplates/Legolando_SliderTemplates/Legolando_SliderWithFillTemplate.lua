@@ -1,3 +1,5 @@
+local LU = LegolandoUtil
+
 local function getFolderPath()
     local stack = debugstack()
     local _, _, luafilepath = string.find(stack, "[%[](.-)[%]]")
@@ -19,6 +21,7 @@ local folderPath = getFolderPath()
 local borderPath =  folderPath .. "/UI-SliderBar-Border"
 local thumbHorizontalPath = folderPath .. "/UI-SliderBar-Button-Horizontal-CROPPED.png"
 local thumbVerticalPath = folderPath .. "/UI-SliderBar-Button-Vertical-CROPPPED.png"
+
 
 Legolando_ResizableSliderBarMixin_Angleur = {}
 
@@ -96,6 +99,19 @@ local function _handleThumb(slider, isHorizontal)
     end
 end
 
+local function _adjustTooltipArea(slider, isHorizontal)
+    local tooltipArea = slider.tooltipArea
+    tooltipArea:ClearAllPoints()
+    if isHorizontal then
+        tooltipArea:SetPoint("TOPLEFT", slider, "TOPLEFT", -3, 3)
+        tooltipArea:SetPoint("RIGHT", slider.editBox, "RIGHT", 3, 0)
+        tooltipArea:SetPoint("BOTTOM", slider.unitText, "BOTTOM", 0, -3)
+    else
+        tooltipArea:SetPoint("TOPLEFT", slider, "TOPLEFT", -3, 3)
+        tooltipArea:SetPoint("BOTTOMRIGHT", slider, "BOTTOMRIGHT", 3, -3)
+    end
+end
+
 function Legolando_SliderColorFillMixin_Angleur:UpdateUnitText(value)
     local sign = 1
     if self.unitTextInvertSign and value ~= 0 then
@@ -160,6 +176,8 @@ function Legolando_SliderColorFillMixin_Angleur:SetDesaturated(desaturate)
     end
 end
 
+
+
 -- Only call after Init() has been called once
 function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     if not unit then unit = "" end
@@ -173,6 +191,7 @@ function Legolando_SliderColorFillMixin_Angleur:ReAdjust(min, max, step, unit)
     if self.showEditBox == true then 
         self.editBox:ReAdjust(min, max)    
     end
+    -- _adjustTooltipArea(self, self:GetOrientation() == "HORIZONTAL")
 end
 
 function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step)
@@ -182,6 +201,7 @@ function Legolando_SliderColorFillMixin_Angleur:Init(min, max, step)
     _handleBar(self, isHorizontal)
     _handleThumb(self, isHorizontal)
     _handleFill(self, isHorizontal)
+    _adjustTooltipArea(self, isHorizontal)
     local teeburu = self.savedVarTable
     if not teeburu then
         print("Slider doesn't have a saved variable table attached")

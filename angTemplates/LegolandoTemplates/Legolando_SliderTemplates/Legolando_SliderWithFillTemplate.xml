@@ -80,6 +80,12 @@
             <KeyValue key="showEditBox" value="false" type="boolean"/>
         </KeyValues>
 		<Frames>
+			<Frame name="$parent_TooltipAreaFrame" parentKey="tooltipArea" propagateMouseInput="true">
+				<Anchors>
+					<!-- <Anchor point="TOPLEFT" relativeKey="$parent.bar" relativePoint="TOPLEFT" x="-3" y="3"/>
+					<Anchor point="BOTTOMRIGHT" relativeKey="$parent.editBox" relativePoint="BOTTOMRIGHT" x="3" y="-3"/> -->
+				</Anchors>
+			</Frame>
 			<Frame name="$parent_Bar" parentKey="bar" inherits="Legolando_ResizableSliderBarTemplate_Angleur" useParentLevel="true">
 				<Anchors>
             		<Anchor point="CENTER"/>
@@ -103,9 +109,10 @@
 			<EditBox name="$parent_EditBox" letters="3" parentKey="editBox" autoFocus="false" scale="0.95" hidden="true" inherits="Legolando_NumericInputBoxWithForceNegativeTempate_Angleur">
 				<Size x="23" y="20"/>
 				<Anchors>
-					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="2" y="0"/>
+					<Anchor point="LEFT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="0"/>
 				</Anchors>
 			</EditBox>
+
 		</Frames>
 		<Layers>
 			<Layer level="ARTWORK">
