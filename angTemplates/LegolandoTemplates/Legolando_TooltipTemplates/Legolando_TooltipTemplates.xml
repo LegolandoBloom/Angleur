@@ -1,7 +1,7 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
     
-    <Script file="Legolando_PictureTooltipTemplate.lua"/>
+    <Script file="Legolando_TooltipTemplates.lua"/>
     
     <!-- ____________________________________________________________________________________________________________________________________________________________________________________________________ -->
     <!-- IMPORTANT: When creating any GameTooltip inherited by GameTooltipTemplate: if you don't give it a UNIQUE name(not just parentKey, but an actual name with name="A_Name"), it won't work properly -->
