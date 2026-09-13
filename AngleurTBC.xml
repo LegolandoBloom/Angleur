@@ -638,16 +638,11 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame name="$parent_Sleep" parentKey="sleep" toplevel="true" inherits="Legolando_SleepAnimFrameTemplate_Angleur" hidden="true">
+                            <Frame name="$parent_Sleep" parentKey="sleep" inherits="Legolando_SleepAnimFrameTemplate_Angleur">
                                 <Size x="42" y="42"/>
                                 <Anchors>
                                     <Anchor point="LEFT" relativeTo="$parent_Lego" relativePoint="RIGHT" x="-15" y="10"/>
                                 </Anchors>
-                                <Scripts>
-                                    <OnLoad>
-                                        self.texture:SetSize(42, 42)
-                                    </OnLoad>
-                                </Scripts>
                             </Frame>
                         </Frames>
                     </Button>
