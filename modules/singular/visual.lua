@@ -29,7 +29,6 @@ function Angleur_VisualMixin:OnClick(button, down)
         print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
     end
 end
-
 function Angleur_VisualMixin:OnDoubleClick(button, down)
     if button ~= "LeftButton" then return end 
     self:GetParent().configPanel:Show() 
@@ -38,17 +37,6 @@ end
 
 local sleepAnimationFrame = Angleur_ReusableSleepAnimFrame
 local reusableTooltip = Angleur_ReusableFrameAnchorableTooltip
--- Angleur.visual:SetScript("OnEnter", function(self)
---     reusableFrameWithinTooltip:SetOwner(Angleur.visual, "ANCHOR_BOTTOMRIGHT")
---     reusableFrameWithinTooltip:AddLine("Why Greyed Out?")
---     reusableFrameWithinTooltip:AddLine("Angleur needs the Aura-Info before it can do calculations.\n\nPlease cast the item/macro once either through Angleur or manually.\n ", 1, 1, 1, false)
---     reusableFrameWithinTooltip:Show()
---     
--- end)
--- Angleur.visual:SetScript("OnLeave", function(self)
---     reusableFrameWithinTooltip:Hide()
--- end)
-
 function Angleur_VisualMixin:OnEnter()
     self.closeButton:Show()
     if not self:IsDragging() then
@@ -83,7 +71,6 @@ function Angleur_VisualMixin:OnEnter()
         end
     end
 end
-
 function Angleur_VisualMixin:OnLeave()
     if not self:IsMouseOver() then
         self.closeButton:Hide()
