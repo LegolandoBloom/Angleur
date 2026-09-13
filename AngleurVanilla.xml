@@ -33,14 +33,6 @@
                     <OnDoubleClick method="OnDoubleClick"/>
                 </Scripts>
                 <Frames>
-                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Legolando_SleepAnimFrameTemplate_Angleur" hidden="true">
-                        <Size x="52" y="52"/>
-                        <Scripts>
-                            <OnLoad>
-                                self.texture:SetSize(52, 52)
-                            </OnLoad>
-                        </Scripts>
-                    </Frame>
                     <Button name="$parent_CloseButton" parentKey = "closeButton" inherits="UIPanelCloseButton" hidden="true">
                         <Anchors>
                             <Anchor point = "CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-2"/>
