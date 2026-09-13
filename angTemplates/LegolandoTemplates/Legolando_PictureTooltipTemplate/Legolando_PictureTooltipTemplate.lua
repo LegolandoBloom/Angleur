@@ -21,7 +21,7 @@ function Legolando_PictureTooltipMixin_Angleur:PlaceTexture(texturePath, picture
     -- "TOPLEFT" doesn't work in classic, as it tries to expand the "top" field which can't be done
     if anchor == "TOPLEFT" then
         if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
-            geterrorhandler()("PictureTooltipTemplate: Tried to Anchor to \"TOPLEFT\" on NON-RETAIL game client.\n\n" 
+            geterrorhandler()("PictureTooltipTemplate: Tried to Anchor Picture to \"TOPLEFT\" on NON-RETAIL game client.\n\n" 
             .. "Tooltip cannot be expanded towards top-side on Classic clients\n\n")
             return
         end
@@ -43,4 +43,55 @@ function Legolando_PictureTooltipMixin_Angleur:OnHide()
     self.texture:SetTexture(nil)
     self:SetPadding(0, 0, 0, 0)
     self.texture:ClearAllPoints()
+end
+
+
+Legolando_FrameWithinTooltipMixin_Angleur = {}
+
+function Legolando_FrameWithinTooltipMixin_Angleur:OnShow()
+
+end
+
+function Legolando_FrameWithinTooltipMixin_Angleur:PlaceFrame(frame, anchor, extraPaddingX, extraPaddingY)
+    if not frame then return end
+    if not extraPaddingX then extraPaddingX = 0 end
+    if not extraPaddingY then extraPaddingY = 0 end
+    self.frame = frame
+    frame:SetParent(self)
+    local frameWidth, frameHeight = frame:GetSize() 
+    -- frame:SetPoint(anchor, self, anchor)
+    local width, height = self:GetSize()
+    local adjustedWidth = 0
+    local adjustedHeight = 0
+    -- + 16 is needed due to the offset of 8 in SetPoint
+    if frameWidth + 16 > width then adjustedWidth = frameWidth - width + 16 end
+    if frameHeight + 16 > height then adjustedHeight = frameHeight - height + 16 end
+    -- "TOPLEFT" doesn't work in classic, as it tries to expand the "top" field which can't be done
+    if anchor == "TOPLEFT" then
+        if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+            geterrorhandler()("PictureTooltipTemplate: Tried to Anchor Picture to \"TOPLEFT\" on NON-RETAIL game client.\n\n" 
+            .. "Tooltip cannot be expanded towards top-side on Classic clients\n\n")
+            return
+        end
+        frame:SetPoint(anchor, self, anchor, 8, -8)
+        self:SetPadding(adjustedWidth + extraPaddingX, 0, 0, frameHeight + extraPaddingY)
+    elseif anchor == "TOPRIGHT" then
+        frame:SetPoint(anchor, self, anchor, -8, -8)
+        self:SetPadding(frameWidth + extraPaddingX, adjustedHeight + extraPaddingY, 0, 0)
+    elseif anchor == "BOTTOMLEFT" then
+        frame:SetPoint(anchor, self, anchor, 8, 8)
+        self:SetPadding(adjustedWidth + extraPaddingX, frameHeight + extraPaddingY, 0, 0)
+    elseif anchor == "BOTTOMRIGHT" then
+        frame:SetPoint(anchor, self, anchor, -8, 8)
+        self:SetPadding(frameWidth + extraPaddingX, adjustedHeight + extraPaddingY, 0, 0)
+    end
+end
+
+function Legolando_FrameWithinTooltipMixin_Angleur:OnHide()
+    self:SetPadding(0, 0, 0, 0)
+    if self.frame then
+        self.frame:ClearAllPoints()
+        self.frame:SetParent(nil)
+        self.frame = nil
+    end
 end

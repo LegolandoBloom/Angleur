@@ -22,6 +22,8 @@
     <Include file="Legolando_SliderTemplates\Legolando_SliderWithFillTemplate.xml"/>
 
     <Include file="Legolando_EditBoxTemplates\Legolando_EditBoxTemplates.xml"/>
+
+    <Include file="Legolando_SleepAnimFrameTemplate\Legolando_SleepAnimFrameTemplate.xml"/>
     
     
 </Ui>

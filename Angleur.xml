@@ -6,7 +6,7 @@
             <OnLoad function="Angleur_OnLoad"/>
         </Scripts>
         <Frames>
-            <Button name="$parent_Visual" parentKey="visual" clampedToScreen="true" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
+            <Button name="$parent_Visual" parentKey="visual" mixin="Angleur_VisualMixin" clampedToScreen="true" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
                 <Size x="45" y="45"/>
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
@@ -73,27 +73,26 @@
                     </OnLeave>
                     <OnClick>
                         if button == "RightButton" and down == true then
-                                if InCombatLockdown() then
-                                    print(Angleur_Translate["Can't change sleep state in combat."])
-                                    return
-                                end
-                                if UnitIsDeadOrGhost("player") then
-                                    print(Angleur_Translate["Can't change sleep state while in ghost form."])
-                                    return
-                                end
-                                local colorBlu = CreateColor(0.61, 0.85, 0.92)
-                                if AngleurCharacter.sleeping == true then
-                                    AngleurCharacter.sleeping = false
-                                    Angleur_SetSleep()
-                                    Angleur_EquipAngleurSet(true)
-                                    print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
-                                elseif AngleurCharacter.sleeping == false then
-                                    AngleurCharacter.sleeping = true
-                                    Angleur_SetSleep()
-                                    Angleur_UnequipAngleurSet()
-                                    print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
-                                end
-                                
+                            if InCombatLockdown() then
+                                print(Angleur_Translate["Can't change sleep state in combat."])
+                                return
+                            end
+                            if UnitIsDeadOrGhost("player") then
+                                print(Angleur_Translate["Can't change sleep state while in ghost form."])
+                                return
+                            end
+                            local colorBlu = CreateColor(0.61, 0.85, 0.92)
+                            if AngleurCharacter.sleeping == true then
+                                AngleurCharacter.sleeping = false
+                                Angleur_SetSleep()
+                                Angleur_EquipAngleurSet(true)
+                                print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
+                            elseif AngleurCharacter.sleeping == false then
+                                AngleurCharacter.sleeping = true
+                                Angleur_SetSleep()
+                                Angleur_UnequipAngleurSet()
+                                print(Angleur_Translate[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
+                            end
                         end
                     </OnClick>
                     <OnDoubleClick>
@@ -103,7 +102,7 @@
                     </OnDoubleClick>
                 </Scripts>
                 <Frames>
-                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Legolando_SleepAnimFrameTemplate_Angleur" hidden="true">
                         <Size x="52" y="52"/>
                         <Scripts>
                             <OnLoad>
@@ -752,7 +751,7 @@
                             </Frame>
                         </Frames>
                     </Button>
-                    <Button name="$parent_WakeUpButton" parentKey="wakeUpButton" inherits="UIPanelBorderedButtonTemplate" hidden="true">
+                    <Button name="$parent_WakeUpButton" parentKey="wakeUpButton" flattenRenderLayers="true" inherits="UIPanelBorderedButtonTemplate" hidden="true">
                         <Size x="75" y="65"/>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="$parent" relativePoint="BOTTOMLEFT" x="2" y="0"/>
@@ -797,16 +796,11 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame name="$parent_Sleep" parentKey="sleep" toplevel="true" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                            <Frame name="$parent_Sleep" parentKey="sleep" inherits="Legolando_SleepAnimFrameTemplate_Angleur">
                                 <Size x="42" y="42"/>
                                 <Anchors>
                                     <Anchor point="LEFT" relativeTo="$parent_Lego" relativePoint="RIGHT" x="-15" y="10"/>
                                 </Anchors>
-                                <Scripts>
-                                    <OnLoad>
-                                        self.texture:SetSize(42, 42)
-                                    </OnLoad>
-                                </Scripts>
                             </Frame>
                         </Frames>
                     </Button>

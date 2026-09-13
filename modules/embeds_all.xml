@@ -1,13 +1,13 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
 
+    <Include file="singular\visual.lua"/>
     <Include file="singular\doubleClick.lua"/>
     <Include file="singular\firstInstall.lua"/>
     <Include file="singular\advancedAngling.lua"/>
     <Include file="singular\slashcommands.lua"/>
     <Include file="singular\minimap.lua"/>
     <Include file="singular\addonsTab.lua"/>
-    <Include file="singular\animations.xml"/>
     <Include file="singular\audio.lua"/>
 
 </Ui>

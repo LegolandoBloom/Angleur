@@ -105,7 +105,7 @@
                     </OnDoubleClick>
                 </Scripts>
                 <Frames>
-                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                    <Frame name="$parent_Sleep" parentKey="sleep" frameStrata="TOOLTIP" inherits="Legolando_SleepAnimFrameTemplate_Angleur" hidden="true">
                         <Size x="52" y="52"/>
                         <Scripts>
                             <OnLoad>
@@ -795,7 +795,7 @@
                             </Layer>
                         </Layers>
                         <Frames>
-                            <Frame name="$parent_Sleep" parentKey="sleep" toplevel="true" inherits="Angleur_SleepAnimTemplate" hidden="true">
+                            <Frame name="$parent_Sleep" parentKey="sleep" toplevel="true" inherits="Legolando_SleepAnimFrameTemplate_Angleur" hidden="true">
                                 <Size x="42" y="42"/>
                                 <Anchors>
                                     <Anchor point="LEFT" relativeTo="$parent_Lego" relativePoint="RIGHT" x="-15" y="10"/>

@@ -28,6 +28,7 @@ angleurDelayers = CreateFramePool("Frame", angleurDelayers, nil, function(frameP
 end)
 
 Angleur_ReusablePictureTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePictureTooltip", UIParent, "Legolando_PictureTooltipTemplate_Angleur")
+Angleur_ReusableFrameWithinTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePictureTooltip", UIParent, "Legolando_FrameWithinTooltipTemplate_Angleur")
 
 AngleurConfig = {
     angleurKey = nil,

@@ -1,12 +1,15 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
 ..\FrameXML\UI.xsd">
-    <Frame name="Angleur_SleepAnimTemplate" virtual="true">
+    <Script file="Legolando_SleepAnimFrameTemplate.lua"/>
+
+    <Frame name="Legolando_SleepAnimFrameTemplate_Angleur" mixin="Legolando_SleepAnimFrameMixin_Angleur" virtual="true">
+        <Size x="64" y="64"/>
         <Layers>
-            <Layer level="ARTWORK">
-                <Texture name="$parent_Texture" parentKey="texture" file="Interface/AddOns/Angleur/images/sleep animation/full.png">
-                    <Size x="64" y="64"/>
+            <Layer level="OVERLAY">
+                <Texture name="$parent_Texture" parentKey="texture">
                     <Anchors>
-                        <Anchor point="CENTER"/>
+                        <Anchor point="TOPLEFT"/>
+                        <Anchor point="BOTTOMRIGHT"/>
                     </Anchors>
                 </Texture>
             </Layer>
@@ -17,6 +20,7 @@
             </AnimationGroup>
         </Animations>
         <Scripts>
+            <OnLoad method="OnLoad"/>
             <OnHide>
                 self.anim:Stop()
             </OnHide>
