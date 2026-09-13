@@ -774,7 +774,7 @@ function Angleur_EventLoader(self, event, unit, ...)
 
         _cvars_load()
 
-        Init_AngleurVisual()
+        Angleur.visual:Init()
         HelpTip:Hide(UIParent, helpTipCloseText)
         Angleur_ExtraItems_Auras()
         if AngleurMinimapButton.show then

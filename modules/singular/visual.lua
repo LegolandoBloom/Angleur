@@ -66,3 +66,16 @@ function Angleur_VisualHideHookScript()
     AngleurConfig.visualLocation = nil
     Angleur.visual:ClearAllPoints()
 end
+
+
+
+Angleur_Visual_ReturnButtonMixin = {}
+
+function Angleur_Visual_ReturnButtonMixin:OnClick()
+    if AngleurConfig.visualHidden == true then
+        Angleur.visual:Reset(self, -75, -2, true)
+        Angleur_CreateWeaponSwapFrames()
+        self:Hide()
+    end    
+end
+

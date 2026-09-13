@@ -6,7 +6,7 @@
             <OnLoad function="Angleur_OnLoad"/>
         </Scripts>
         <Frames>
-            <Button name="$parent_Visual" parentKey="visual" mixin="Angleur_VisualMixin" clampedToScreen="true" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
+            <Button name="$parent_Visual" mixin="Angleur_VisualMixin" parentKey="visual" clampedToScreen="true" FrameStrata="MEDIUM" toplevel="true" inherits="ActionButtonTemplate" hidden="false">
                 <Size x="45" y="45"/>
                 <Anchors>
                     <Anchor point="CENTER" relativeTo="UIParent" relativePoint="CENTER"/>
@@ -409,19 +409,13 @@
                                             </Button>
                                         </Frames>
                                     </Frame>
-                                    <Button name="$parent_ReturnButton" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
+                                    <Button name="$parent_ReturnButton" mixin="Angleur_Visual_ReturnButtonMixin" parentKey="returnButton" inherits="UIPanelButtonTemplate" hidden="true">
                                         <Size x="100" y="42"/>
                                         <Anchors>
                                             <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-23"/>
                                         </Anchors>
                                         <Scripts>
-                                            <OnClick>
-                                                if AngleurConfig.visualHidden == true then
-                                                    Angleur_VisualReset(self, -75, -2, true)
-                                                    Angleur_CreateWeaponSwapFrames()
-                                                    self:Hide()
-                                                end
-                                            </OnClick>
+                                            <OnClick method="OnClick"\>
                                         </Scripts>
                                         <Layers>
                                             <Layer level="ARTWORK">
