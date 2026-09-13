@@ -67,7 +67,7 @@ function Angleur_VisualMixin:OnEnter()
         reusableTooltip:Show()
         -- Have to call PlaceFrame after Show(), so we check for sleeping again 
         if AngleurCharacter.sleeping == true then
-            reusableTooltip:PlaceFrame(sleepAnimationFrame, "BOTTOMRIGHT")
+            reusableTooltip:PlaceFrame(sleepAnimationFrame, "BOTTOMLEFT")
         end
     end
 end
