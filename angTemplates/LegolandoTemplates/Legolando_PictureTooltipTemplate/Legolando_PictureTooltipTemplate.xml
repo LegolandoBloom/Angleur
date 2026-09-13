@@ -3,14 +3,12 @@
     
     <Script file="Legolando_PictureTooltipTemplate.lua"/>
     
+    <!-- ____________________________________________________________________________________________________________________________________________________________________________________________________ -->
+    <!-- IMPORTANT: When creating any GameTooltip inherited by GameTooltipTemplate: if you don't give it a UNIQUE name(not just parentKey, but an actual name with name="A_Name"), it won't work properly -->
+                                    <!-- For the templates below, this means you need to give the frame you create using them a unique name -->,
+    <!-- ____________________________________________________________________________________________________________________________________________________________________________________________________ -->
+
     <GameTooltip name= "Legolando_PictureTooltipTemplate_Angleur" mixin="Legolando_PictureTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
-        <KeyValues>
-            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
-            <KeyValue key="paddingL" value="0" type="number"/>
-            <KeyValue key="paddingB" value="0" type="number"/>
-            <KeyValue key="paddingR" value="0" type="number"/>
-            <KeyValue key="paddingT" value="0" type="number"/>
-        </KeyValues>
         <Layers>
             <Layer level="ARTWORK">
                 <Texture name="$parent_Texture" parentKey="texture">
@@ -18,21 +16,12 @@
             </Layer>
         </Layers>
         <Scripts>
-            <OnShow inherit="append" method="OnShow"/>
             <OnHide inherit="append" method="OnHide"/>
         </Scripts>
     </GameTooltip>
 
     <GameTooltip name= "Legolando_FrameAnchorableTooltipTemplate_Angleur" mixin="Legolando_FrameAnchorableTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
-        <KeyValues>
-            <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
-            <KeyValue key="paddingL" value="0" type="number"/>
-            <KeyValue key="paddingB" value="0" type="number"/>
-            <KeyValue key="paddingR" value="0" type="number"/>
-            <KeyValue key="paddingT" value="0" type="number"/>
-        </KeyValues>
         <Scripts>
-            <OnShow inherit="append" method="OnShow"/>
             <OnHide inherit="append" method="OnHide"/>
         </Scripts>
     </GameTooltip>

@@ -1,9 +1,5 @@
 Legolando_PictureTooltipMixin_Angleur = {}
 
-function Legolando_PictureTooltipMixin_Angleur:OnShow()
-
-end
-
 function Legolando_PictureTooltipMixin_Angleur:PlaceTexture(texturePath, pictureWidth, pictureHeight, anchor, extraPaddingX, extraPaddingY)
     if not texturePath then return end
     if not extraPaddingX then extraPaddingX = 0 end
@@ -48,12 +44,7 @@ end
 
 Legolando_FrameAnchorableTooltipMixin_Angleur = {}
 
-function Legolando_FrameAnchorableTooltipMixin_Angleur:OnShow()
-
-end
-
 function Legolando_FrameAnchorableTooltipMixin_Angleur:PlaceFrame(frame, anchor, extraPaddingX, extraPaddingY)
-    print("PLACE FRAME")
     if not frame then return end
     if not extraPaddingX then extraPaddingX = 0 end
     if not extraPaddingY then extraPaddingY = 0 end
@@ -92,7 +83,8 @@ function Legolando_FrameAnchorableTooltipMixin_Angleur:OnHide()
     self:SetPadding(0, 0, 0, 0)
     if self.frame then
         self.frame:ClearAllPoints()
-        self.frame:SetParent(nil)
+        -- Interesting: SetParent() & SetParent(nil) both clear the parent! (I guess it does make sense aFunction() and aFunction(nil) are the same thing after all)
+        self.frame:SetParent()
         self.frame = nil
     end
 end

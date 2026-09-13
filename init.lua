@@ -29,7 +29,7 @@ end)
 
 Angleur_ReusablePictureTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePictureTooltip", UIParent, "Legolando_PictureTooltipTemplate_Angleur")
 Angleur_ReusableSleepAnimFrame = CreateFrame("Frame", "Angleur_ReusableSleepAnimationFrame", UIParent, "Legolando_SleepAnimFrameTemplate_Angleur")
-Angleur_ReusableFrameAnchorableTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePictureTooltip", UIParent, "Legolando_FrameAnchorableTooltipTemplate_Angleur")
+Angleur_ReusableFrameAnchorableTooltip = CreateFrame("GameTooltip", "Angleur_ReusableFrameAnchorTooltip", UIParent, "Legolando_FrameAnchorableTooltipTemplate_Angleur")
 
 AngleurConfig = {
     angleurKey = nil,
