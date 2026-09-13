@@ -393,7 +393,7 @@
                                             <Anchor point="TOPRIGHT" relativeTo="$parent_FishingMethod" relativePoint="BOTTOMRIGHT" x="0" y="-13"/>
                                         </Anchors>
                                         <Scripts>
-                                            <OnClick method="OnClick"\>
+                                            <OnClick method="OnClick"/>
                                         </Scripts>
                                         <Layers>
                                             <Layer level="ARTWORK">
