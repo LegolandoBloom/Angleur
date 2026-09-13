@@ -6,6 +6,34 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 Angleur_VisualMixin = {}
 
+function Angleur_VisualMixin:OnClick(button, down)
+    if button ~= "RightButton" or down == false then return end
+    if InCombatLockdown() then
+        print(T["Can't change sleep state in combat."])
+        return
+    end
+    if UnitIsDeadOrGhost("player") then
+        print(T["Can't change sleep state while in ghost form."])
+        return
+    end
+    if AngleurCharacter.sleeping == true then
+        AngleurCharacter.sleeping = false
+        Angleur_SetSleep()
+        Angleur_EquipAngleurSet(true)
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Awake."])
+    elseif AngleurCharacter.sleeping == false then
+        AngleurCharacter.sleeping = true
+        Angleur_SetSleep()
+        Angleur_UnequipAngleurSet()
+        print(T[colorBlu:WrapTextInColorCode("Angleur: ") .. "Sleeping."])
+    end
+end
+
+function Angleur_VisualMixin:OnDoubleClick(button, down)
+    if button ~= "LeftButton" then return end 
+    self:GetParent().configPanel:Show() 
+end
+
 function Angleur_VisualMixin:OnEnter()
     self.closeButton:Show()
     if not self:IsDragging() then

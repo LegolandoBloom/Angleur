@@ -238,7 +238,7 @@ function Angleur_FirstInstall()
     end
     Angleur_ConfigPanel:Show()
     if AngleurTutorial.part < 2 then
-        Angleur_VisualReset(Angleur.configPanel.tab1.contents.returnButton, 180, 180, false)
+        Angleur.visual:Reset(Angleur.configPanel.tab1.contents.returnButton, 180, 180, false)
     end
     angleurHelpTip:Activate(AngleurTutorial.part)
     --angleurHelpTip:InsertPart(part1, 1)

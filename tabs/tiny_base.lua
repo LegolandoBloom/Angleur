@@ -55,7 +55,7 @@ function Angleur_SetTab3(self)
     self.visualSize:SetupSlider(1, 20, Angleur_TinyOptions.visualScale*10, 1, colorYello:WrapTextInColorCode(T["Visual Size"]))
     self.visualSize:SetCallback(function(value, isUserInput)
         Angleur_TinyOptions.visualScale = value/10
-        Angleur_VisualReset(self.visualSize.buttonHolder, 0, 0)
+        Angleur.visual:Reset(self.visualSize.buttonHolder, 0, 0)
         Angleur.visual:SetScale(Angleur_TinyOptions.visualScale)
         Angleur.visual:Raise()
         --DevTools_Dump({Angleur.visual:GetPoint(1)})
