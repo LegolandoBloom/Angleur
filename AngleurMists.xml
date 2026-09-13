@@ -101,7 +101,6 @@
                     <OnShow>
                         if AngleurCharacter.sleeping == true then
                             self.wakeUpButton:Show()
-                            self.wakeUpButton.sleep:Show()
                         end
                     </OnShow>
                 </Scripts>
