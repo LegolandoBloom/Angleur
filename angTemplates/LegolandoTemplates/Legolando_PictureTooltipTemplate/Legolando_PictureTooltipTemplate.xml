@@ -23,7 +23,7 @@
         </Scripts>
     </GameTooltip>
 
-    <GameTooltip name= "Legolando_FrameWithinTooltipTemplate_Angleur" mixin="Legolando_FrameWithinTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
+    <GameTooltip name= "Legolando_FrameAnchorableTooltipTemplate_Angleur" mixin="Legolando_FrameAnchorableTooltipMixin_Angleur" inherits="GameTooltipTemplate" virtual="true">
         <KeyValues>
             <KeyValue key="anchorTexture" value="TOPLEFT" type="string"/>
             <KeyValue key="paddingL" value="0" type="number"/>

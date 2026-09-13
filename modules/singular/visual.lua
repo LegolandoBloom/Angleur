@@ -3,6 +3,7 @@ local T = Angleur_Translate
 local debugChannel = 5
 local colorYello = CreateColor(1.0, 0.82, 0.0)
 local colorBlu = CreateColor(0.61, 0.85, 0.92)
+local colorWhite = CreateColor(1, 1, 1)
 
 Angleur_VisualMixin = {}
 
@@ -34,38 +35,52 @@ function Angleur_VisualMixin:OnDoubleClick(button, down)
     self:GetParent().configPanel:Show() 
 end
 
+
+local sleepAnimationFrame = Angleur_ReusableSleepAnimFrame
+local reusableTooltip = Angleur_ReusableFrameAnchorableTooltip
+-- Angleur.visual:SetScript("OnEnter", function(self)
+--     reusableFrameWithinTooltip:SetOwner(Angleur.visual, "ANCHOR_BOTTOMRIGHT")
+--     reusableFrameWithinTooltip:AddLine("Why Greyed Out?")
+--     reusableFrameWithinTooltip:AddLine("Angleur needs the Aura-Info before it can do calculations.\n\nPlease cast the item/macro once either through Angleur or manually.\n ", 1, 1, 1, false)
+--     reusableFrameWithinTooltip:Show()
+--     
+-- end)
+-- Angleur.visual:SetScript("OnLeave", function(self)
+--     reusableFrameWithinTooltip:Hide()
+-- end)
+
 function Angleur_VisualMixin:OnEnter()
     self.closeButton:Show()
     if not self:IsDragging() then
-        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
+        reusableTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 45)
         if AngleurCharacter.sleeping == false then
-            local colorBlu = CreateColor(0.61, 0.85, 0.92)
-            local colorWhite = CreateColor(1, 1, 1)
-            GameTooltip:AddLine(T["Angleur Visual Button"], 0.6, 0.85, 0.91)
-            GameTooltip:AddLine(T["Shows what your next key press\nwill do. Not meant to be clicked."], 1, 1, 1, true)
-            GameTooltip:AddLine(" ")
+            reusableTooltip:AddLine(T["Angleur Visual Button"], 0.6, 0.85, 0.91)
+            reusableTooltip:AddLine(T["Shows what your next key press\nwill do. Not meant to be clicked."], 1, 1, 1, true)
+            reusableTooltip:AddLine(" ")
             if AngleurConfig.chosenMethod == "doubleClick" then
-                GameTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")], 1, 1, 1)
+                reusableTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("Double Click\n")], 1, 1, 1)
             elseif AngleurConfig.chosenMethod == "oneKey" then
-                GameTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")], 1, 1, 1)
+                reusableTooltip:AddLine(T["Fishing Mode: " .. colorBlu:WrapTextInColorCode("One Key")], 1, 1, 1)
                 if AngleurConfig.angleurKey then
-                    GameTooltip:AddLine(colorWhite:WrapTextInColorCode(T["Key set to "]) .. AngleurConfig.angleurKey .. "\n ")
+                    reusableTooltip:AddLine(colorWhite:WrapTextInColorCode(T["Key set to "]) .. AngleurConfig.angleurKey .. "\n ")
                 else
-                    GameTooltip:AddLine(T["One-Key NOT SET! To set,\nopen config menu with:"], 1, 0, 0, true)
-                    GameTooltip:AddLine("/angleur")
-                    GameTooltip:AddLine(T[" or\n"], 1, 1, 1, true)
-                    GameTooltip:AddLine("/angang\n ")
+                    reusableTooltip:AddLine(T["One-Key NOT SET! To set,\nopen config menu with:"], 1, 0, 0, true)
+                    reusableTooltip:AddLine("/angleur")
+                    reusableTooltip:AddLine(T[" or\n"], 1, 1, 1, true)
+                    reusableTooltip:AddLine("/angang\n ")
                 end
             end
-            GameTooltip:AddLine(T["Right Click to temporarily put Angleur to sleep. zzz..."], 0.8, 0.8, 0.8, true)
+            reusableTooltip:AddLine(T["Right Click to temporarily put Angleur to sleep. zzz..."], 0.8, 0.8, 0.8, true)
         elseif AngleurCharacter.sleeping == true then
-            GameTooltip:AddLine(T["Sleeping. Zzz...\n"], 1, 1, 1, true)
-            GameTooltip:AddLine(T["\nRight-Click"])
-            GameTooltip:AddLine(T["\nto wake Angleur!"], 1, 1, 1, true)
-            self.sleep:SetPoint("TOPRIGHT", "GameTooltip", "TOPRIGHT", -15, 0)
-            self.sleep:Show()
+            reusableTooltip:AddLine(T["Sleeping. Zzz...\n"], 1, 1, 1, true)
+            reusableTooltip:AddLine(T["\nRight-Click"])
+            reusableTooltip:AddLine(T["\nto wake Angleur!"], 1, 1, 1, true)
         end
-        GameTooltip:Show()
+        reusableTooltip:Show()
+        -- Have to call PlaceFrame after Show(), so we check for sleeping again 
+        if AngleurCharacter.sleeping == true then
+            -- reusableTooltip:PlaceFrame(sleepAnimationFrame, "BOTTOMRIGHT")
+        end
     end
 end
 
@@ -73,10 +88,7 @@ function Angleur_VisualMixin:OnLeave()
     if not self:IsMouseOver() then
         self.closeButton:Hide()
     end
-    GameTooltip:Hide()
-    if self.sleep:IsShown() then
-        self.sleep:Hide()
-    end
+    reusableTooltip:Hide()
 end
 
 function Angleur_VisualMixin:AdjustScale(number)
@@ -114,11 +126,7 @@ function Angleur_VisualMixin:Init()
     self:SetScript("OnDragStart", function(self, button)
         self:StartMoving()
         self.dragText:Hide()
-        GameTooltip:Hide()
-        if self.sleep:IsShown() then
-            self.sleep.anim:Stop()
-            self.sleep:Hide()
-        end
+        reusableTooltip:Hide()
     end)
     self:SetScript("OnDragStop", function(self)
         AngleurConfig.visualLocation = {self:GetPoint()}

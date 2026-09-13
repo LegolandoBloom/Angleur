@@ -46,19 +46,20 @@ function Legolando_PictureTooltipMixin_Angleur:OnHide()
 end
 
 
-Legolando_FrameWithinTooltipMixin_Angleur = {}
+Legolando_FrameAnchorableTooltipMixin_Angleur = {}
 
-function Legolando_FrameWithinTooltipMixin_Angleur:OnShow()
+function Legolando_FrameAnchorableTooltipMixin_Angleur:OnShow()
 
 end
 
-function Legolando_FrameWithinTooltipMixin_Angleur:PlaceFrame(frame, anchor, extraPaddingX, extraPaddingY)
+function Legolando_FrameAnchorableTooltipMixin_Angleur:PlaceFrame(frame, anchor, extraPaddingX, extraPaddingY)
+    print("PLACE FRAME")
     if not frame then return end
     if not extraPaddingX then extraPaddingX = 0 end
     if not extraPaddingY then extraPaddingY = 0 end
     self.frame = frame
     frame:SetParent(self)
-    local frameWidth, frameHeight = frame:GetSize() 
+    local frameWidth, frameHeight = frame:GetSize()
     -- frame:SetPoint(anchor, self, anchor)
     local width, height = self:GetSize()
     local adjustedWidth = 0
@@ -87,7 +88,7 @@ function Legolando_FrameWithinTooltipMixin_Angleur:PlaceFrame(frame, anchor, ext
     end
 end
 
-function Legolando_FrameWithinTooltipMixin_Angleur:OnHide()
+function Legolando_FrameAnchorableTooltipMixin_Angleur:OnHide()
     self:SetPadding(0, 0, 0, 0)
     if self.frame then
         self.frame:ClearAllPoints()
