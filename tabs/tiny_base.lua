@@ -24,6 +24,28 @@ function Angleur_SetTab3(self)
         vanillaTinyTab:ExtraButtons(self)
     end
     
+    self.lootProtection.text:SetText(T["Loot Protection"])
+    --self.lootProtection.text:SetFontObject(SpellFont_Small)
+    self.lootProtection.text.tooltip = T["If checked, Angleur will STOP you from Re-Casting(after Reeling) while the Loot Window is open, " 
+    .. "preventing you from missing loot due to accidental spamming / high ping." .. "\n\nDisable for higher responsivity. Only recommend disabling if you have low ping."]
+    self.lootProtection.checkbox:SetScript("OnClick", function(self)
+        if InCombatLockdown() then
+            self:SetChecked(not self:GetChecked())
+            print(T["Can't change in combat."])
+            return
+        end
+        if self:GetChecked() then
+            Angleur_TinyOptions.lootProtectionEnabled = true
+            print(T["Loot Protection ON. Angleur will stop you from recasting while looting.(DEFAULT)"])
+        elseif self:GetChecked() == false then
+            Angleur_TinyOptions.lootProtectionEnabled = false
+            print(T["Loot Protection OFF. Angleur won't stop you from recasting while looting."])
+        end
+    end)
+    if Angleur_TinyOptions.lootProtectionEnabled == true then
+        self.lootProtection.checkbox:SetChecked(true)
+    end
+
     self.dismount.text:SetText(T["Dismount With Key"])
     --self.dismount.text:SetFontObject(SpellFont_Small)
     self.dismount.text.tooltip = T["If checked, Angleur will make you " .. colorYello:WrapTextInColorCode("dismount ")

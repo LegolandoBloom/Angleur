@@ -5,6 +5,8 @@ local T = Angleur_Translate
 local addonName, ang = ...
 local retail = ang.retail
 
+local logicVars = ang.logicVars
+
 local debugChannel = 1
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
@@ -341,6 +343,12 @@ local function performAction(self, assignKey, action)
     elseif action == "clear" then
         ClearOverrideBindings(self)
         self.visual.texture:SetTexture("")
+    elseif action == "stop" then
+        -- Clear, then set it to an empty macro to stop the key from functioning
+        ClearOverrideBindings(self)
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "")
+        self.visual.texture:SetTexture("Interface/ICONS/Spell_tailor_defenceup01")
     elseif action == "raft" then
         if AngleurConfig.chosenRaft.name == "Random Raft" then
             retail.toys:PickRandomToy("raft", angleurToys.ownedRafts, angleurToys.selectedRaftTable, false)
@@ -397,8 +405,16 @@ function Angleur_ActionHandler(self)
         return
     end
     
+    
+    if Angleur_TinyOptions.lootProtectionEnabled == true and logicVars.shouldProtectLoot == true then
+        action =  "stop"
+        performAction(self, assignKey, action)
+        print("Loot is being protected. Next action blocked.")
+        return
+    end
+
     if midFishing then
-        action =  "reel"
+        action = "reel"
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
             action = "recast"
         end

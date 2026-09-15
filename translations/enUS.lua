@@ -902,3 +902,17 @@ T["Whether Angleur's minimap button is shown."] = "Whether Angleur's minimap but
 T["If checked, Angleur will restore Soft Interact settings after you stop fishing.\n\n" 
 .. "ON by default. You can turn this toggle off if you play with Soft Interact all the time."] = "If checked, Angleur will restore " .. colorYello:WrapTextInColorCode("Soft Interact ") .. "settings after you stop fishing.\n\n" 
     .. colorGreen:WrapTextInColorCode("ON ") .. colorGrae:WrapTextInColorCode("by default. You can turn this toggle off if you play with Soft Interact all the time.")
+
+-- Loot Protection
+T["Loot Protection"] = "Loot Protection"
+
+T["If checked, Angleur will STOP you from Re-Casting(after Reeling) while the Loot Window is open.\n" .. "preventing you from missing loot due to accidental spamming / high ping."
+.. "\n\nDisable for higher responsivity. Only recommend disabling if you have low ping."] = "If checked, Angleur will " .. colorYello:WrapTextInColorCode("STOP ") .."you from " 
+.. "Re-Casting" .. colorGrae:WrapTextInColorCode("(after Reeling) ") .. "while the " .. colorYello:WrapTextInColorCode("Loot Window ") 
+.. "is open, " .. "preventing you from missing loot due to accidental spamming " .. colorYello:WrapTextInColorCode("/ ") .. "high ping." 
+.. colorGrae:WrapTextInColorCode("\n\nDisable for higher responsivity. Only recommend disabling if you have low ping.")
+T["Loot Protection ON. Angleur will stop you from recasting while looting.(DEFAULT)"] = "Loot Protection " .. colorGreen:WrapTextInColorCode("ON. ") 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. "will " .. colorRed:WrapTextInColorCode("stop ") .. "you from recasting while " .. colorYello:WrapTextInColorCode("looting.") .. "(DEFAULT)"
+
+T["Loot Protection OFF. Angleur won't stop you from recasting while looting."] = "Loot Protection " .. colorRed:WrapTextInColorCode("OFF. ") 
+.. colorBlu:WrapTextInColorCode("Angleur ") .. "won't stop you from recasting while looting."

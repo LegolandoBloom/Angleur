@@ -7,6 +7,7 @@ local colorGreen = CreateColor(0, 1, 0)
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
 
+ang.logicVars = {}
 ang.retail = {}
 ang.mists = {}
 ang.vanilla = {}
@@ -139,6 +140,9 @@ function Init_AngleurSavedVariables()
         AngleurCharacter.sleeping = false
     end
 
+    if Angleur_TinyOptions.lootProtectionEnabled == nil then
+        Angleur_TinyOptions.lootProtectionEnabled = true
+    end
     if Angleur_TinyOptions.turnOffSoftInteract == nil then
         Angleur_TinyOptions.turnOffSoftInteract = true
     end

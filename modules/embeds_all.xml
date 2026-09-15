@@ -9,5 +9,6 @@
     <Include file="singular\minimap.lua"/>
     <Include file="singular\addonsTab.lua"/>
     <Include file="singular\audio.lua"/>
+    <Include file="singular\lootProtection.lua"/>
 
 </Ui>
