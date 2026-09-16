@@ -35,6 +35,7 @@ end
 
 function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
     tab3_contents.defaults:SetScript("OnClick", function()
+        Angleur_TinyOptions.lootProtectionEnabled = true
         Angleur_TinyOptions.allowDismount = false
         Angleur_TinyOptions.poleSleep = true
         Angleur_TinyOptions.doubleClickWindow = 0.4
@@ -47,6 +48,7 @@ function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0
         ang.debugLevel = 0
+        tab3_contents.lootProtection.checkbox:SetChecked(true)
         tab3_contents.dismount.checkbox:SetChecked(false)
         tab3_contents.poleSleep.checkbox:SetChecked(true)
         tab3_contents.doubleClickWindow:SetValue(4)

@@ -906,7 +906,7 @@ T["If checked, Angleur will restore Soft Interact settings after you stop fishin
 -- Loot Protection
 T["Loot Protection"] = "Loot Protection"
 
-T["If checked, Angleur will STOP you from Re-Casting(after Reeling) while the Loot Window is open.\n" .. "preventing you from missing loot due to accidental spamming / high ping."
+T["If checked, Angleur will STOP you from Re-Casting(after Reeling) while the Loot Window is open, " .. "preventing you from missing loot due to accidental spamming / high ping." 
 .. "\n\nDisable for higher responsivity. Only recommend disabling if you have low ping."] = "If checked, Angleur will " .. colorYello:WrapTextInColorCode("STOP ") .."you from " 
 .. "Re-Casting" .. colorGrae:WrapTextInColorCode("(after Reeling) ") .. "while the " .. colorYello:WrapTextInColorCode("Loot Window ") 
 .. "is open, " .. "preventing you from missing loot due to accidental spamming " .. colorYello:WrapTextInColorCode("/ ") .. "high ping." 

@@ -45,6 +45,21 @@ function Angleur_SetTab3(self)
     if Angleur_TinyOptions.lootProtectionEnabled == true then
         self.lootProtection.checkbox:SetChecked(true)
     end
+    local smallShieldIcon = self.lootProtection:CreateTexture("Angleur_LootProtection_SmallShieldIcon", "ARTWORK")
+    smallShieldIcon:SetPoint("LEFT", self.lootProtection.checkbox, "RIGHT", 4, 0)
+    smallShieldIcon:SetSize(20, 20)
+    smallShieldIcon:SetTexture("Interface/AddOns/Angleur/imagesClassic/spell_tailor_defenceup01")
+
+    local tabButton = self:GetParent()
+    local newTexture1 = tabButton:CreateTexture("Angleur_NewTexture1", "ARTWORK")
+    newTexture1:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture1:SetSize(64, 32)
+    newTexture1:SetPoint("BOTTOM", tabButton, "TOP", 5, -19)
+
+    local newTexture2 = self.lootProtection:CreateTexture("Angleur_NewTexture2", "ARTWORK")
+    newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
+    newTexture2:SetSize(64, 32)
+    newTexture2:SetPoint("LEFT", smallShieldIcon, "RIGHT", 5, 0)
 
     self.dismount.text:SetText(T["Dismount With Key"])
     --self.dismount.text:SetFontObject(SpellFont_Small)

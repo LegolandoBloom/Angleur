@@ -90,6 +90,7 @@ end
 
 function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
     tab3_contents.defaults:SetScript("OnClick", function()
+        Angleur_TinyOptions.lootProtectionEnabled = true
         Angleur_TinyOptions.turnOffSoftInteract = false
         Angleur_TinyOptions.allowDismount = false
         Angleur_TinyOptions.swimRelease = true
@@ -104,6 +105,7 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.errorsDisabled = true
         Angleur_TinyOptions.debugLevel = 0
         ang.debugLevel = 0
+        tab3_contents.lootProtection.checkbox:SetChecked(true)
         tab3_contents.offInteract.checkbox:SetChecked(false)
         tab3_contents.dismount.checkbox:SetChecked(false)
         tab3_contents.swimRelease.checkbox:SetChecked(true)

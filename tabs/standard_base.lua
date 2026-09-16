@@ -260,11 +260,6 @@ local function _setupAudio(self)
         self.ultraFocus.audio.checkbox:SetChecked(true)
         audioConfig:Show()
     end
-
-    local newTexture2 = recastReminder:CreateTexture("Angleur_New2!", "ARTWORK")
-    newTexture2:SetTexture("Interface/AddOns/Angleur/images/newfeature.png")
-    newTexture2:SetSize(58, 29)
-    newTexture2:SetPoint("LEFT", recastReminder.checkbox, "RIGHT", 0, 0)
 end
 
 function Angleur_SetTab1(self)

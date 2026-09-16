@@ -89,6 +89,7 @@ AngleurMinimapButton = {
 }
 
 Angleur_TinyOptions = {
+    lootProtectionEnabled = true,
     turnOffSoftInteract = false,
     allowDismount = false,
     doubleClickWindow = 0.4,

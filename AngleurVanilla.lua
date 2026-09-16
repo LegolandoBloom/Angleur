@@ -427,7 +427,7 @@ function Angleur_ActionHandler(self)
     if Angleur_TinyOptions.lootProtectionEnabled == true and logicVars.shouldProtectLoot == true then
         action =  "stop"
         performAction(self, assignKey, action)
-        print("Loot is being protected. Next action blocked.")
+        Angleur_BetaPrint(debugChannel, "Loot is being protected. Next action blocked.")
         return
     end
     
