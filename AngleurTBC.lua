@@ -362,7 +362,7 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
         ClearOverrideBindings(self)
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "")
-        self.visual.texture:SetTexture("Interface/ICONS/Spell_tailor_defenceup01")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/spell_tailor_defenceup01")
     elseif action == "bait" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")

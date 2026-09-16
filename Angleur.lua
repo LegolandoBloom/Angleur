@@ -348,7 +348,7 @@ local function performAction(self, assignKey, action)
         ClearOverrideBindings(self)
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "")
-        self.visual.texture:SetTexture("Interface/ICONS/Spell_tailor_defenceup01")
+        self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/spell_tailor_defenceup01")
     elseif action == "raft" then
         if AngleurConfig.chosenRaft.name == "Random Raft" then
             retail.toys:PickRandomToy("raft", angleurToys.ownedRafts, angleurToys.selectedRaftTable, false)
