@@ -645,7 +645,7 @@
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
                                         <Size x="72" y="42"/>
                                         <Anchors>
-                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="53"/>
+                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="60"/>
                                         </Anchors>
                                     </Button>
                                     <Button name="$parent_RedoTutorial" parentKey="redoTutorial" inherits="UIPanelSquareButton">
