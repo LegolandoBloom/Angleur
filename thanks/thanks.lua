@@ -33,6 +33,7 @@ local names = {
     [10] = {text = "Moloch ", r = 1.00, g = 0.96, b = 0.41, logo = "kofi"},
     [11] = {text = "东南西北\n", smallText = "VX:bsx117733 ", r = 1.00, g = 0.76, b = 0.5},
     [12] = {text = "meowfy ", r = 0.06, g = 0.43, b = 0.86, logo = "kofi"},
+    [13] = {text = "Principal Vagina ", r = 0.92, g = 0.32, b = 0.69, logo = "kofi"},
 }
 
 local function _createScrollBox(thanksFrame)
