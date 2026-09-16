@@ -37,7 +37,7 @@
                         <Anchors>
                             <Anchor point = "CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-2"/>
                         </Anchors>
-                        <Size x="20" y="20"/>
+                        <Size x="18" y="18"/>
                         <Scripts>
                             <OnLeave>
                                 if not self:GetParent():IsMouseOver() then

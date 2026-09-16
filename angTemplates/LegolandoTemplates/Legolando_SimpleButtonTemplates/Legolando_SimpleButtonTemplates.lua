@@ -197,3 +197,73 @@ function Legolando_IncreaseDecreaseButtonsMixin_Angleur:Init(min, max)
 		self:SaveToTable(value)
 	end)
 end
+
+
+
+Legolando_LockButtonMixin_Angleur = {}
+
+
+local iconsPath = folderPath .. "/lockbutton-icon.png"
+function Legolando_LockButtonMixin_Angleur:OnLoad()
+	self.unlockedIcon:SetTexture(iconsPath)
+	self.unlockedIcon:SetTexCoord(0.5, 1, 0, 1)
+	self.lockedIcon:SetTexture(iconsPath)
+	self.lockedIcon:SetTexCoord(0, 0.5, 0, 1)
+end
+
+function Legolando_LockButtonMixin_Angleur:OnClick()
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	local newValue = not teeburu[reference]
+	self:SaveToTable(newValue)
+	self:Update()
+end
+
+function Legolando_LockButtonMixin_Angleur:Update()
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	local locked = teeburu[reference]
+	if locked == true then
+		self.unlockedIcon:Hide()
+		self.lockedIcon:Show()
+	elseif locked == false then
+		self.unlockedIcon:Show()
+		self.lockedIcon:Hide()
+	end
+end
+
+function Legolando_LockButtonMixin_Angleur:SaveToTable(newValue)
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	teeburu[reference] = newValue
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+    if privateRegistry and privateRegistryString then
+		privateRegistry:TriggerEvent(privateRegistryString, self)
+	end
+    if self.onSaveCallback then
+		self.onSaveCallback(self, teeburu[reference], teeburu)
+	end
+end
+
+function Legolando_LockButtonMixin_Angleur:Init()
+	local privateRegistry = self.privateRegistry
+	local privateRegistryString = self.privateRegistryString
+	local teeburu = self.savedVarTable
+    if not teeburu then
+        print("Frame element doesn't have a saved variable table attached")
+        return
+    end
+    local reference = self.reference
+    if not reference then 
+        print("no reference string")
+        return
+    end
+	if privateRegistry then
+		privateRegistry:RegisterCallback(privateRegistryString, function(_, caller)
+        	if caller and caller == self then return end
+        	self:Update()
+    	end)
+	end
+	self:Update()
+end
