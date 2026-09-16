@@ -5,6 +5,8 @@ local T = Angleur_Translate
 local addonName, ang = ...
 local mists = ang.mists
 
+local logicVars = ang.logicVars
+
 local debugChannel = 1
 local colorDebug = CreateColor(0.24, 0.76, 1) -- angleur blue
 
@@ -411,6 +413,12 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
     elseif action == "clear" then
         ClearOverrideBindings(self)
         self.visual.texture:SetTexture("")
+    elseif action == "stop" then
+        -- Clear, then set it to an empty macro to stop the key from functioning
+        ClearOverrideBindings(self)
+        SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
+        self.toyButton:SetAttribute("macrotext", "")
+        self.visual.texture:SetTexture("Interface/ICONS/Spell_tailor_defenceup01")
     elseif action == "bait" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name)
@@ -478,6 +486,14 @@ function Angleur_ActionHandler(self)
         performAction(self, assignKey, action)
         return
     end
+
+    if Angleur_TinyOptions.lootProtectionEnabled == true and logicVars.shouldProtectLoot == true then
+        action =  "stop"
+        performAction(self, assignKey, action)
+        print("Loot is being protected. Next action blocked.")
+        return
+    end
+
     if midFishing then
         if AngleurClassicConfig.softInteract.enabled then
             if bobberWithinRange == false then

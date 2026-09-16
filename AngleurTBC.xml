@@ -505,6 +505,11 @@
                                     <Anchor point="CENTER" relativeTo="Angleur_ConfigPanel" relativePoint="CENTER"/>
                                 </Anchors>
                                 <Frames>
+                                    <Frame name="$parent_LootProtection" parentKey="lootProtection" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-38"/>
+                                        </Anchors>
+                                    </Frame>
                                     <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-40"/>

@@ -151,7 +151,9 @@
         "VIDEO_OPTIONS_NEED_CLIENTRESTART",
         "VIDEO_OPTIONS_RECOMMENDED",
         "HUD_EDIT_MODE_PLAYER_FRAME_LABEL",
-        "DEFAULT"
+        "DEFAULT",
+        "ITEMS",
+        "HUD_EDIT_MODE_LOOT_FRAME_LABEL"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
