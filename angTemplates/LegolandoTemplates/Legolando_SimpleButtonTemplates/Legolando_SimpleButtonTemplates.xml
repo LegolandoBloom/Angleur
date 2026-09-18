@@ -137,13 +137,13 @@
         <Layers>
             <Layer level="ARTWORK" textureSubLevel="1">
                 <Texture name="$parent_UnlockedIcon" parentKey="unlockedIcon">
-                    <Size x="20" y="20"/>
+                    <Size x="22" y="22"/>
                     <Anchors>
                         <Anchor point="CENTER" x="0" y="0"/>
                     </Anchors>
                 </Texture>
                 <Texture name="$parent_LockedIcon" file="Interface/BUTTONS/UI-OptionsButton" parentKey="lockedIcon" hidden="true">
-                    <Size x="20" y="20"/>
+                    <Size x="22" y="22"/>
                     <Anchors>
                         <Anchor point="CENTER" relativeKey="$parent.unlockedIcon"/>
                     </Anchors>
