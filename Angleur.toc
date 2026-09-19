@@ -1,7 +1,6 @@
 ## Interface: 16001
 ## Title: Angleur
-## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
-## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
+## Notes: The Beta Version of Angleur for the WoW Forever Beta. 2 Betas? You betcha!
 ## Version: Angleur Forever @project-version@
 ## Author: LegolandoBloom
 ## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI, AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, Angleur_CVars, AngleurClassic_CVars, AngleurAudio
