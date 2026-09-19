@@ -26,7 +26,8 @@ Upon opening it, you need to the section marked as: ____________________________
  │                                                                                           │ 
  │  -- ______ Recast ______                                                                  │ 
  │  local Recast = DISABLED                                                                  │ 
- │  local Recast_Keybind = "SHIFT + SPACE"                                                   │ 
+ │  local Recast_Keybind = "SPACE"                                                           │ 
+ │  local Recast_Modifier = "CTRL"                                                           │ 
  │  -- ____________________                                                                  │ 
  │                                                                                           │ 
  │  -- ____ Ultra Focus ____                                                                 │ 
@@ -44,7 +45,10 @@ Upon opening it, you need to the section marked as: ____________________________
  │                                            .                                              │ 
  │                                                                                           │ 
  └───────────────────────────────────────────────────────────────────────────────────────────┘ 
-                                                                                               
+
+local Recast_Keybind = 
+local Recast_Modifier = "CTRL" -- SHIFT, CTRL, ALT
+
 Here, you can change some of the default settings to your liking.
                                                                                                                                   
     ┌───────────────────────────────┐             ┌───────────────────────────────┐                                            

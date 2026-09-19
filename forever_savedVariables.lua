@@ -145,7 +145,7 @@ print(colorBlu:WrapTextInColorCode("Angleur Forever:") .. " Loaded.\nDue to a Bl
 
 
 AngleurConfig = {
-    angleurKey = Keybind_Modifier .. " + " .. Keybind_Base,
+    angleurKey = Keybind_Modifier .. "-" .. Keybind_Base,
     angleurKey_Base = Keybind_Base,
     baitEnabled = nil,
     chosenBait = {itemID = 0, name = 0, dropDownID = 0},
@@ -153,7 +153,7 @@ AngleurConfig = {
     chosenMethod = Fishing_Method,
     doubleClickChosenID = 2,
     recastEnabled = Recast,
-    recastKey = Recast_Modifier .. " + " ..  Recast_Keybind,
+    recastKey = Recast_Modifier .. "-" ..  Recast_Keybind,
     visualHidden = not Visual_Shown,
     visualLocation = {[1]="CENTER", [2]=UIParent, [3]="CENTER", [4]=Visual_XAxis, [5]=Visual_YAxis},
     ultraFocusAudioEnabled = UltraFocus_Audio,
