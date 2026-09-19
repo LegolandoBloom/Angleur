@@ -9,9 +9,6 @@ local colorBrown = CreateColor(0.67, 0.41, 0)
 local addonName, ang = ...
 local gameVersion = ang.gameVersion
 
-AngleurTutorial = {
-    part = 1
-}
 
 --[[
 	Legolando_HelpTipTemplateMixin.parts[i] = {

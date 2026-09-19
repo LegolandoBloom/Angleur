@@ -32,72 +32,75 @@ Angleur_ReusablePictureTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePic
 Angleur_ReusableSleepAnimFrame = CreateFrame("Frame", "Angleur_ReusableSleepAnimationFrame", UIParent, "Legolando_SleepAnimFrameTemplate_Angleur")
 Angleur_ReusableFrameAnchorableTooltip = CreateFrame("GameTooltip", "Angleur_ReusableFrameAnchorTooltip", UIParent, "Legolando_FrameAnchorableTooltipTemplate_Angleur")
 
-AngleurConfig = {
-    angleurKey = nil,
-    angleurKey_Base = nil,
-    raftEnabled = nil,
-    chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
-    baitEnabled = nil,
-    chosenBait = {itemID = 0, name = 0, dropDownID = 0},
-    oversizedEnabled = nil,
-    crateEnabled = nil,
-    chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
-    chosenMethod = nil,
-    doubleClickChosenID = 2,
-    recastEnabled = nil,
-    recastKey = nil,
-    visualHidden = nil,
-    visualLocation = nil,
-    ultraFocusAudioEnabled = nil,
-    ultraFocusAutoLootEnabled = nil,
-    ultraFocusTurnOffInteract = nil,
-    -- midnight.lua
-    patientEnabled = nil,
-    voidFinderEnabled = nil,
-    voidFinderKey = nil,
-}
+
+-- _______________________________ DISABLED FOR NOW FOR FOREVER _______________________________
+-- AngleurConfig = {
+--     angleurKey = nil,
+--     angleurKey_Base = nil,
+--     raftEnabled = nil,
+--     chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
+--     baitEnabled = nil,
+--     chosenBait = {itemID = 0, name = 0, dropDownID = 0},
+--     oversizedEnabled = nil,
+--     crateEnabled = nil,
+--     chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
+--     chosenMethod = nil,
+--     doubleClickChosenID = 2,
+--     recastEnabled = nil,
+--     recastKey = nil,
+--     visualHidden = nil,
+--     visualLocation = nil,
+--     ultraFocusAudioEnabled = nil,
+--     ultraFocusAutoLootEnabled = nil,
+--     ultraFocusTurnOffInteract = nil,
+--     -- midnight.lua
+--     patientEnabled = nil,
+--     voidFinderEnabled = nil,
+--     voidFinderKey = nil,
+-- }
 
 AngleurAudio = {
     checkboxes = {},
     ultraFocusWhen = nil,
 }
 
-AngleurClassicConfig = {
-    softInteract = {
-        enabled = false,
-        bobberScanner = false,
-        warningSound = false,
-        recastWhenOOB = false,
-    },
-}
+-- AngleurClassicConfig = {
+--     softInteract = {
+--         enabled = false,
+--         bobberScanner = false,
+--         warningSound = false,
+--         recastWhenOOB = false,
+--     },
+-- }
 
-AngleurCharacter = {
-    sleeping = false,
-    angleurSet = false
-}
+-- AngleurCharacter = {
+--     sleeping = false,
+--     angleurSet = false
+-- }
 
-Angleur_CVars = {
-    ultraFocus = {musicOn = nil, ambienceOn = nil, dialogOn = nil, effectsOn = nil,  effectsVolume = nil, masterOn = nil, masterVolume = nil, backgroundOn = nil},
-    autoLoot = nil
-}
-AngleurClassic_CVars = {
-    softInteract = nil,
-}
+-- Angleur_CVars = {
+--     ultraFocus = {musicOn = nil, ambienceOn = nil, dialogOn = nil, effectsOn = nil,  effectsVolume = nil, masterOn = nil, masterVolume = nil, backgroundOn = nil},
+--     autoLoot = nil
+-- }
+-- AngleurClassic_CVars = {
+--     softInteract = nil,
+-- }
 
-AngleurMinimapButton = {
-    hide = nil
-}
+-- AngleurMinimapButton = {
+--     hide = nil
+-- }
 
-Angleur_TinyOptions = {
-    lootProtectionEnabled = true,
-    turnOffSoftInteract = false,
-    allowDismount = false,
-    doubleClickWindow = 0.4,
-    visualScale = 1,
-    loginDisabled = false,
-    errorsDisabled = true,
-    softIconOff = false,
-}
+-- Angleur_TinyOptions = {
+--     lootProtectionEnabled = true,
+--     turnOffSoftInteract = false,
+--     allowDismount = false,
+--     doubleClickWindow = 0.4,
+--     visualScale = 1,
+--     loginDisabled = false,
+--     errorsDisabled = true,
+--     softIconOff = false,
+-- }
+-- ____________________________________________________________________________________________
 
 function Init_AngleurSavedVariables()
     if AngleurConfig.ultraFocusAudioEnabled == nil then
@@ -141,6 +144,9 @@ function Init_AngleurSavedVariables()
         AngleurCharacter.sleeping = false
     end
 
+    if Angleur_TinyOptions == nil then
+        Angleur_TinyOptions = {}
+    end
     if Angleur_TinyOptions.lootProtectionEnabled == nil then
         Angleur_TinyOptions.lootProtectionEnabled = true
     end
@@ -214,6 +220,9 @@ function Init_AngleurSavedVariables()
         AngleurMinimapButton.show = true
     end
 
+    if AngleurTutorial == nil then
+        AngleurTutorial = {}
+    end
     if AngleurTutorial.part == nil then
         AngleurTutorial.part = 1
     end
