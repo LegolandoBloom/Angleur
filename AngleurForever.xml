@@ -33,7 +33,7 @@
                     <OnDoubleClick method="OnDoubleClick"/>
                 </Scripts>
                 <Frames>
-                    <Button name="$parent_CloseButton" parentKey = "closeButton" inherits="UIPanelCloseButton" hidden="true">
+                    <Button name="$parent_CloseButton" parentKey = "closeButton" scale="0.7" inherits="UIPanelCloseButton" hidden="true">
                         <Anchors>
                             <Anchor point = "CENTER" relativeTo="$parent" relativePoint="TOPRIGHT" x="-2" y="-2"/>
                         </Anchors>

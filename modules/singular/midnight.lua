@@ -10,7 +10,6 @@ local NETHER_EGG_ITEMID = 268730
 
 
 --______________________________________________ Void Finder ______________________________________________
-
 local anim = CreateFrame("Frame", "Angleur_VoidScanAnim", UIParent, "Legolando_MouseScanAnim_Angleur")
 anim:SetSize(256, 256)
 anim:SetPoint("CENTER")

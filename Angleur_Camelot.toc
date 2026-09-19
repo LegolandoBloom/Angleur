@@ -30,6 +30,8 @@ angTemplates\GeneralTemplates\RetailTemplates.lua
 angTemplates\GeneralTemplates\RetailTemplates.xml
 angTemplates\embeds.xml
 
+forever_savedVariables.lua
+
 debug.lua
 init.lua
 secrets\secrets.lua
