@@ -2,6 +2,10 @@ local T = Angleur_Translate
 
 local debugChannel = 7
 
+-- 'ang' is the angleur namespace
+local addonName, ang = ...
+local gameVersion = ang.gameVersion
+
 -- Unit: π Radians / s
 local H_SPEED = 0.4
 -- Unit: π Radians / 2s
@@ -235,7 +239,7 @@ function AngleurBobberScanner_CheckMethod(id)
     _config_updateMethod(id)
     loadUserSettings()
 end
-local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "GameFontHighlightHugeOutline2")
+local elevationTitle = collapseConfig.popup:CreateFontString("AngleurBobberScanner_ElevationTitle", "ARTWORK", "GameFontHighlight")
 elevationTitle:SetPoint("TOPLEFT", collapseConfig.popup, "TOPLEFT", 130, -50)
 elevationTitle:SetText(T["ELEVATION:"])
 
@@ -529,12 +533,11 @@ function Angleur_BobberScanner()
         Angleur_BobberScanner_HandleGamepad(true, T["Angleur Bobber Scanner: Please move the Gamepad Cursor that appears into the inticated box."])
         return
     end
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 2 then
         -- ResetView(2)
         -- SetView(2)
         CenterCamera()
-    elseif gameVersion == 3 then
+    elseif gameVersion == 3 or gameVersion == 4 then
         -- ResetView(2)
         -- SetView(2)
         CenterCamera()

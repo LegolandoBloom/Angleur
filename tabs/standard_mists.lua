@@ -8,6 +8,7 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 ang.mists.standardTab = {}
 local mistsStandardTab = ang.mists.standardTab
 local mistsToys = ang.mists.toys
@@ -100,7 +101,7 @@ function mistsStandardTab:ExtraButtons(tab1contents)
     end
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
 
-    if Angleur_CheckVersion() == 2 then
+    if gameVersion == 2 then
         tab1contents.raftEnable.text:SetText(T["Raft"])
         tab1contents.raftEnable.disabledText:SetText(T["Couldn't find any rafts \n in toybox, feature disabled"])
         tab1contents.raftEnable.text.tooltip = T["Pick a Raft, and Angleur will have you use it when you are in water!\n(Also keep the buff going afterwards)"]

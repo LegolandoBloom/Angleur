@@ -7,6 +7,7 @@ local colorPurple = CreateColor(0.64, 0.3, 0.71)
 local colorBrown = CreateColor(0.67, 0.41, 0)
 
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 
 AngleurTutorial = {
     part = 1
@@ -156,7 +157,6 @@ function Angleur_FirstInstall()
         end)
         
         local index = 6
-        local gameVersion = Angleur_CheckVersion()
         if gameVersion == 1 or gameVersion == 2 then
             angleurHelpTip.parts[6] = {
                 text = T[colorPurple:WrapTextInColorCode("Extra Toys\n\n")  .. "You can select a toy from the " .. colorYello:WrapTextInColorCode("Toy Box ") 

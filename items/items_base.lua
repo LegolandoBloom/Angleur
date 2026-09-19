@@ -269,9 +269,9 @@ end
 function Angleur_LoadExtraItems()
     extraItemsFrame = Angleur.configPanel.tab2.contents.extraItems
     _initializeSavedItems()
-    local gameVersion = Angleur_CheckVersion()
     Angleur_ExtraItems_CreateSlots()
-    if gameVersion == 2 or gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    if gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         mistsItems:AdjustCloseButton(extraItemsFrame)
     end
     Angleur_UpdateExtraItems()
@@ -357,9 +357,10 @@ local function checkForHats(itemID)
         print(colorGrae:WrapTextInColorCode("      _____________________"))
         print(colorGrae:WrapTextInColorCode("     I"))
         print("        /use " .. warningHats[itemID])
-        if Angleur_CheckVersion(1) then
+        if gameVersion == 1 then
             print("        /use 28")
-        elseif Angleur_CheckVersion(2) or Angleur_CheckVersion(3) then
+        -- RECHECK FOR FOREVER
+        elseif gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
             print("        /use 16")
         end
         

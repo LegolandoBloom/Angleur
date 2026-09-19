@@ -2,6 +2,7 @@ local T = Angleur_Translate
 
 local addonName, ang = ...
 local lego = ang.lego
+local gameVersion = ang.gameVersion
 
 local debugChannel = 5
 
@@ -263,10 +264,10 @@ local function _setupAudio(self)
 end
 
 function Angleur_SetTab1(self)
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         retailStandardTab:ExtraButtons(self)
-    elseif gameVersion == 2 or gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    elseif gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         mistsStandardTab:ExtraButtons(self)
     end
 

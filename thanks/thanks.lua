@@ -1,5 +1,6 @@
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 local lego = ang.lego
 
 local T = Angleur_Translate
@@ -152,10 +153,10 @@ local addonsTable = {
     },
 }
 function MyOtherAddons_OnLoad(self)
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         --do nothing
-    elseif gameVersion == 2 or gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    elseif gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         -- If any of the pictureTooltips are set to "TOPLEFT", change them into "BOTTOMLEFT" for classic clients.
         -- PictureTooltipTemplate doesn't support "TOPLEFT" picture anchoring for Classic.
         for i, promotedAddon in ipairs(addonsTable) do

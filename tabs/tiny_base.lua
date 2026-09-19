@@ -8,18 +8,18 @@ local colorBlu = CreateColor(0.61, 0.85, 0.92)
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 local retailTinyTab = ang.retail.tinyTab
 local mistsTinyTab = ang.mists.tinyTab
 local vanillaTinyTab = ang.vanilla.tinyTab
 
-
 function Angleur_SetTab3(self)
-    local gameVersion = Angleur_CheckVersion()
     if gameVersion == 1 then
         retailTinyTab:ExtraButtons(self)
     elseif gameVersion == 2 then
         mistsTinyTab:ExtraButtons(self)
-    elseif gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    elseif gameVersion == 3 or gameVersion == 4 then
         --nothing
         vanillaTinyTab:ExtraButtons(self)
     end
@@ -175,7 +175,8 @@ function Angleur_SetTab3(self)
         retailTinyTab:SetDefaultsButtonScript(self)
     elseif gameVersion == 2 then
         mistsTinyTab:SetDefaultsButtonScript(self)
-    elseif gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    elseif gameVersion == 3 or gameVersion == 4 then
         vanillaTinyTab:SetDefaultsButtonScript(self)
     end
     

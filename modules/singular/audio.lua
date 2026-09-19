@@ -1,6 +1,6 @@
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
-
+local gameVersion = ang.gameVersion
 
 local debugChannel = 9
 local colorDebug = CreateColor(0.29, 1, 0) -- bright green
@@ -20,13 +20,14 @@ INFO_SPELLID_INDEX = 8
 -- audioHandlerFrame:SetScript("OnEvent", )
 
 local getChannelDuration
-if ang.gameVersion == 1 or ang.gameVersion == 2 then
+if gameVersion == 1 or gameVersion == 2 then
     getChannelDuration = function()
         local durationObject = UnitChannelDuration("player")
         local channelDuration = durationObject:GetTotalDuration()
         return channelDuration
     end
-elseif ang.gameVersion == 3 then
+-- RECHECK FOR FOREVER
+elseif gameVersion == 3 or gameVersion == 4 then
     getChannelDuration = function()
         local _, _, _, startTimeMs, endTimeMs = UnitChannelInfo("player")
         local durationMs = endTimeMs - startTimeMs

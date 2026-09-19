@@ -4,6 +4,8 @@ ang.secrets = {}
 local secrets = ang.secrets
 
 local VERSION_RETAIL = 1
+local VERSION_FOREVER = 4
+
 local gameVersion = ang.gameVersion
 
 local debugChannel = 10
@@ -20,13 +22,13 @@ secrets.restrictionsActive = {
 
 
 function Angleur_IsSecret(value)
-    if gameVersion == VERSION_RETAIL then
+    if gameVersion == VERSION_RETAIL or gameVersion == VERSION_FOREVER then
         if issecretvalue(value) then return true end
     end
     return false
 end
 function Angleur_ScrubSecret(...)
-    if gameVersion == VERSION_RETAIL then
+    if gameVersion == VERSION_RETAIL or gameVersion == VERSION_FOREVER then
         return scrubsecretvalues(...)
     end
     return ...
@@ -49,7 +51,7 @@ local enum_RestrictionState = {
 
 -- Returns true if any of the types given as arguments is restricted
 function Angleur_IsAddonSecretRestrictedForTypes(...)
-    if gameVersion ~= VERSION_RETAIL then return false end
+    if gameVersion ~= VERSION_RETAIL and gameVersion ~= VERSION_FOREVER then return false end
     local argTable = {...}
     local isRestricted = false
     local restrictedTypesFromArguments = {}

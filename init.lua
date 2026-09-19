@@ -112,8 +112,8 @@ function Init_AngleurSavedVariables()
     if AngleurConfig.recastEnabled == nil then
         AngleurConfig.recastEnabled = false
     end
-    local gameVersion = Angleur_CheckVersion()
-    if gameVersion == 2 or gameVersion == 3 then
+    local gameVersion = ang.gameVersion
+    if gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         if AngleurClassicConfig == nil then
             AngleurClassicConfig = {}
         end
@@ -376,6 +376,11 @@ AngleurRetail_FishingSpellTable = {
     
 }
 
+-- ___ temporary measure for the Forever Branch ___
+local WOW_PROJECT_MAINLINE = 69
+local WOW_PROJECT_FOREVER = 1
+-- ________________________________________________
+
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
@@ -384,6 +389,8 @@ function Angleur_CheckVersion()
         return 2
     elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
         return 3
+    elseif WOW_PROJECT_ID == WOW_PROJECT_FOREVER then
+        return 4
     end
     return 0
 end

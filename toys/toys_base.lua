@@ -5,6 +5,7 @@ local colorDebug = CreateColor(0.68, 0, 1) -- purple
 
 -- 'ang' is the angleur namespace
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 
 local mistsToys = ang.mists.toys
 local retailToys = ang.retail.toys
@@ -97,8 +98,8 @@ function Angleur_LoadToys(self)
     --________________
     --DO RETAIL THING
     --________________
-    if Angleur_CheckVersion() == 1 then retailToys:ToysStandardTab() end
-    if Angleur_CheckVersion() == 2 then mistsToys:ToysStandardTab() end
+    if gameVersion == 1 then retailToys:ToysStandardTab() end
+    if gameVersion == 2 then mistsToys:ToysStandardTab() end
 
     Angleur_LoadExtraToys(Angleur.configPanel.tab2.contents.extraToys)
 end
@@ -124,8 +125,8 @@ end
 --________________
 
 function Angleur_LoadExtraToys(extraToyButtons)
-    local gameVersion = Angleur_CheckVersion()
-    if gameVersion == 2 or gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    if gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         mistsToys:AdjustCloseButton(extraToyButtons)
     end
     for i, slot in pairs(Angleur_SlottedExtraToys) do
@@ -256,7 +257,7 @@ end
 
 function Angleur_ToyBoxOverlay_CaptureSpellID(self, event, unit, ...)
     local arg4, arg5, arg6 = ...
-    if ang.gameVersion == 1 then
+    if gameVersion == 1 then
         if issecretvalue(unit) or issecretvalue(arg4) or issecretvalue(arg5)  or issecretvalue(arg6) then return end
     end
     if event == "UNIT_SPELLCAST_SENT" and unit == "player" then

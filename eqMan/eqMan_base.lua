@@ -18,7 +18,7 @@ local colorGrae = CreateColor(0.85, 0.85, 0.85)
 local EQUIP_DELAY = 1
 local EQUIP_ELAPSETHRESHOLD = 0.2
 
-local gameVersion = Angleur_CheckVersion()
+local gameVersion = ang.gameVersion
 
 local updatingSet = false
 
@@ -172,9 +172,10 @@ local function checkSlottedExtraItems()
     end
     return false
 end
+
+-- RECHECK FOR FOREVER
 local function showAndPlayAnimation()
-    local gameVersion = Angleur_CheckVersion()
-    if gameVersion == 3 then return end
+    if gameVersion == 3 or gameVersion == 4 then return end
     if not CharacterFrame:IsShown() then
         ToggleCharacter("PaperDollFrame")
     end
@@ -403,7 +404,8 @@ ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
             elseif updatingSet == false then
                 if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, newItem) then
+                -- RECHECK FOR FOREVER 
+                elseif (gameVersion == 3 or gameVersion == 4) and CheckTable(fishingPoleTableVanilla, newItem) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
                 else
                     Angleur_SwapoutItemsSaved[slot] = getItemLinkEquipped(slot)
@@ -449,7 +451,8 @@ function Angleur_CreateSetAndAdd_UpdateState()
 end
 
 function Angleur_CreateEquipmentSet()
-    if gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    if gameVersion == 3 or gameVersion == 4 then
         if checkSlottedExtraItems() == false then
             print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
             print(T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
@@ -463,7 +466,8 @@ function Angleur_CreateEquipmentSet()
         local iconID
         if gameVersion == 1 then
             iconID = 4620674
-        elseif gameVersion == 2 or gameVersion == 3 then
+        -- RECHECK FOR FOREVER
+        elseif gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
             iconID = 136245
         end
         C_EquipmentSet.CreateEquipmentSet("Angleur", iconID)
@@ -481,7 +485,8 @@ function Angleur_CreateEquipmentSet()
         .. colorYello:WrapTextInColorCode("Equipment Manager ") .. "to add them to the " .. colorBlu:WrapTextInColorCode("Angleur ") .. "set"])
         AngleurCharacter.angleurSet = true
     end
-    if gameVersion == 3 then
+    -- RECHECK FOR FOREVER
+    if gameVersion == 3 or gameVersion == 4 then
         Angleur_AddToEquipmentSet()
     end
 end
@@ -530,7 +535,8 @@ function Angleur_AddToEquipmentSet()
             if itemID ~= currentlyEquipped then
                 if gameVersion == 2 and CheckTable(fishingPoleTableMoP, currentlyEquipped) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, currentlyEquipped) then
+                -- RECHECK FOR FOREVER
+                elseif (gameVersion == 3 or gameVersion == 4) and CheckTable(fishingPoleTableVanilla, currentlyEquipped) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
                 else
                     Angleur_SwapoutItemsSaved[location] = getItemLinkEquipped(location)
@@ -702,7 +708,7 @@ local function _fillSwapoutTable(setID)
                 else
                     if gameVersion == 2 and CheckTable(fishingPoleTableMoP, inventoryItemID) then
                         Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("_fillSwapoutTable(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                    elseif gameVersion == 3 and CheckTable(fishingPoleTableVanilla, inventoryItemID) then
+                    elseif (gameVersion == 3 or gameVersion == 4) and CheckTable(fishingPoleTableVanilla, inventoryItemID) then
                         Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("_fillSwapoutTable(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
                     else
                         Angleur_SwapoutItemsSaved[location] = itemLink
