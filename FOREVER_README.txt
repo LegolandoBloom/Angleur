@@ -46,9 +46,6 @@ Upon opening it, you need to the section marked as: ____________________________
  │                                                                                           │ 
  └───────────────────────────────────────────────────────────────────────────────────────────┘ 
 
-local Recast_Keybind = 
-local Recast_Modifier = "CTRL" -- SHIFT, CTRL, ALT
-
 Here, you can change some of the default settings to your liking.
                                                                                                                                   
     ┌───────────────────────────────┐             ┌───────────────────────────────┐                                            
