@@ -148,6 +148,7 @@ function Angleur_VisualMixin:Init()
     elseif AngleurConfig.visualLocation then
         local location = AngleurConfig.visualLocation
         self:ClearAllPoints()
+        -- needed to set to a local variable first (some strange bug in wow forever, shouldn't affect any other flavor)
         local anchorTo = location[2]
         self:SetPoint(location[1], anchorTo, location[3], location[4], location[5])
     end
