@@ -1,0 +1,58 @@
+## Interface: 16001
+## Title: Angleur
+## Notes: The Beta Version of Angleur for the WoW Forever Beta. Beta-ception? You betcha!
+## Version: Angleur Forever @project-version@
+## Author: LegolandoBloom
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI, AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, AngleurAudio
+## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
+## X-Curse-Project-ID: 893895
+
+## Category-enUS: Professions
+## Category-deDE: Berufe
+## Category-esES: Profesiones
+## Category-esMX: Profesiones
+## Category-frFR: Métiers
+## Category-itIT: Professioni
+## Category-koKR: 전문 기술
+## Category-ptBR: Profissões
+## Category-ruRU: Профессии
+## Category-zhCN: 专业
+## Category-zhTW: 專業技能
+
+#@no-lib-strip@
+libraries\embeds.xml
+translations\translations.xml
+#@end-no-lib-strip@
+
+angTemplates\LegoUtils\embeds.xml
+angTemplates\GeneralTemplates\RetailTemplates.lua
+angTemplates\GeneralTemplates\RetailTemplates.xml
+angTemplates\embeds.xml
+
+forever_savedVariables.lua
+
+debug.lua
+init.lua
+secrets\secrets.lua
+AngleurForever.lua
+
+items\items_mists.lua
+items\items_base.lua
+
+eqMan\eqMan_base.lua
+
+tabs\tabs-general.lua
+tabs\standard_mists.lua
+tabs\standard_base.lua
+tabs\extra_without.lua
+tabs\tiny_vanilla.lua
+tabs\tiny_base.lua
+
+modules\embeds_all.xml
+modules\embeds_classic.xml
+
+AngleurForever.xml
+
+thanks\thanksTemplates.xml
+thanks\thanks.lua
+thanks\thanks.xml

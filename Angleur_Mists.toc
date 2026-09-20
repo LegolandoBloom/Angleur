@@ -1,17 +1,13 @@
-## Interface: 120007, 120100
-## Title: Angleur
-## Notes: The Ultimate One Button Fishing AddOn - Now with an Auto-Equip Feature!
-## Notes-ruRU: Лучший однокнопочный рыболовный аддон — теперь с функцией автоматического оснащения!
-## Version: Angleur @project-version@
+## Interface: 50504
+## Title: Angleur - Mists of Pandaria Classic
+## Notes: Mists of Pandaria Version of the Ultimate One Button Fishing AddOn, Angleur!
+## Notes-ruRU: Версия Mists of Pandaria лучшего дополнения для рыбалки одной кнопкой, Angleur!
+## Version: Angleur MoP @project-version@
 ## Author: LegolandoBloom
-## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI
 ## SavedVariablesPerCharacter: AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, AngleurAudio
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
-
-## AddonCompartmentFunc: Angleur_AddonCompartment_OnClick
-## AddonCompartmentFuncOnEnter: Angleur_AddonCompartment_OnEnter
-## AddonCompartmentFuncOnLeave: Angleur_AddonCompartment_OnLeave
 
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
@@ -31,41 +27,35 @@ translations\translations.xml
 #@end-no-lib-strip@
 
 angTemplates\LegoUtils\embeds.xml
-angTemplates\GeneralTemplates\RetailTemplates.xml
-angTemplates\GeneralTemplates\RetailTemplates.lua
+angTemplates\GeneralTemplates\ClassicTemplates.lua
+angTemplates\GeneralTemplates\ClassicTemplates.xml
 angTemplates\embeds.xml
 
 debug.lua
 init.lua
 secrets\secrets.lua
-Angleur.lua
+AngleurMists.lua
 
-toys\toys_retail.lua
+toys\toys_mists.lua
 toys\toys_base.lua
 
+items\items_mists.lua
 items\items_base.lua
 
-eqMan\eqMan_retail.lua
 eqMan\eqMan_base.lua
 
 tabs\tabs-general.lua
-tabs\standard_retail.lua
+tabs\standard_mists.lua
 tabs\standard_base.lua
 tabs\extra_with.lua
-tabs\tiny_retail.lua
+tabs\tiny_mists.lua
 tabs\tiny_base.lua
 
 modules\embeds_all.xml
-modules\embeds_retail.xml
+modules\embeds_classic.xml
 
-Angleur.xml
+AngleurMists.xml
 
 thanks\thanksTemplates.xml
 thanks\thanks.lua
 thanks\thanks.xml
-
-#@do-not-package@
-test\testTemplates.xml
-test\test.xml
-test\test.lua
-#@end-do-not-package@
