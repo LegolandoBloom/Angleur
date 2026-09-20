@@ -155,7 +155,7 @@ AngleurConfig = {
     recastEnabled = Recast,
     recastKey = Recast_Modifier .. "-" ..  Recast_Keybind,
     visualHidden = not Visual_Shown,
-    visualLocation = {[1]="CENTER", [2]=UIParent, [3]="CENTER", [4]=Visual_XAxis, [5]=Visual_YAxis},
+    visualLocation = {[1]="CENTER", [2]=nil, [3]="CENTER", [4]=Visual_XAxis, [5]=Visual_YAxis},
     ultraFocusAudioEnabled = UltraFocus_Audio,
     ultraFocusAutoLootEnabled = UltraFocus_TemporaryAutoLoot,
     ultraFocusTurnOffInteract = nil,

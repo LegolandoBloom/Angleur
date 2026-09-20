@@ -148,7 +148,8 @@ function Angleur_VisualMixin:Init()
     elseif AngleurConfig.visualLocation then
         local location = AngleurConfig.visualLocation
         self:ClearAllPoints()
-        self:SetPoint(location[1], location[2], location[3], location[4], location[5])
+        local anchorTo = location[2]
+        self:SetPoint(location[1], anchorTo, location[3], location[4], location[5])
     end
     self:Raise()
 
