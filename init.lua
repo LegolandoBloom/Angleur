@@ -349,7 +349,7 @@ AngleurRetail_FishingSpellTable = {
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-        -- ___ temporary measure for Forever ___
+        -- ___ temporary measure for FOREVER ___
         if LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_MIDNIGHT then
             return 1
         elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_CLASSIC then
