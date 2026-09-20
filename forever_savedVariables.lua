@@ -176,7 +176,7 @@ AngleurCharacter = {
 }
 
 AngleurMinimapButton = {
-    hide = not Minimap_Shown
+    show = Minimap_Shown
 }
 
 AngleurTutorial = {
