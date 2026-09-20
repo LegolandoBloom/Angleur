@@ -15,12 +15,12 @@ local Minimap_Shown = ENABLED
 
 local Fishing_Method = "doubleClick" -- set to: "oneKey"  for keybind fishing
 local Keybind_Base = "SPACE" -- Can be set to any key OTHER than modifier keys: "SHIFT", "CTRL", "ALT"
-local Keybind_Modifier = "SHIFT" -- "SHIFT", "CTRL", "ALT" | If you DON'T WANT a Modifier Key, leave empty: ""
+local Keybind_Modifier = "SHIFT" -- "SHIFT", "CTRL", "ALT", "" |   DON'T WANT a modifier key? --> "" (quotes without anything in between)
 
 -- ______ Recast ______
 local Recast = DISABLED
 local Recast_Keybind = "SPACE" -- Can be set to any key OTHER than modifier keys: SHIFT, CTRL, ALT
-local Recast_Modifier = "CTRL" -- "SHIFT", "CTRL", "ALT" | If you DON'T WANT a Modifier Key, leave empty: ""
+local Recast_Modifier = "CTRL" -- "SHIFT", "CTRL", "ALT", "" |   DON'T WANT a modifier key? --> "" (quotes without anything in between)
 -- ____________________
 
 -- ____ Ultra Focus ____
