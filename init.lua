@@ -655,7 +655,7 @@ Angleur_TempCVars = {
     --     active = false, cached = nil, setTo = AngleurAudio.ultraFocusDialog, updating = false,
     -- },
 }
-Angleur_TempCVarHandler = CreateFrame("Frame", "Example_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
+Angleur_TempCVarHandler = CreateFrame("Frame", "Angleur_CVarHandler", UIParent, "Legolando_TempCVarHandlerTemplate_Angleur")
 Angleur_TempCVarHandler.tempCVarsTable = Angleur_TempCVars
 Angleur_TempCVarHandler:Init()
 local function _cvars_load()
