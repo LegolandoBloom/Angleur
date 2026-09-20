@@ -153,7 +153,9 @@
         "HUD_EDIT_MODE_PLAYER_FRAME_LABEL",
         "DEFAULT",
         "ITEMS",
-        "HUD_EDIT_MODE_LOOT_FRAME_LABEL"
+        "HUD_EDIT_MODE_LOOT_FRAME_LABEL",
+        "LE_EXPANSION_LEVEL_CURRENT",
+        "LE_EXPANSION_CLASSIC"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

@@ -32,89 +32,42 @@ Angleur_ReusablePictureTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePic
 Angleur_ReusableSleepAnimFrame = CreateFrame("Frame", "Angleur_ReusableSleepAnimationFrame", UIParent, "Legolando_SleepAnimFrameTemplate_Angleur")
 Angleur_ReusableFrameAnchorableTooltip = CreateFrame("GameTooltip", "Angleur_ReusableFrameAnchorTooltip", UIParent, "Legolando_FrameAnchorableTooltipTemplate_Angleur")
 
-
--- _______________________________ DISABLED FOR NOW FOR FOREVER _______________________________
--- AngleurConfig = {
---     angleurKey = nil,
---     angleurKey_Base = nil,
---     raftEnabled = nil,
---     chosenRaft = {toyID = 0, name = 0, dropDownID = 0},
---     baitEnabled = nil,
---     chosenBait = {itemID = 0, name = 0, dropDownID = 0},
---     oversizedEnabled = nil,
---     crateEnabled = nil,
---     chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0},
---     chosenMethod = nil,
---     doubleClickChosenID = 2,
---     recastEnabled = nil,
---     recastKey = nil,
---     visualHidden = nil,
---     visualLocation = nil,
---     ultraFocusAudioEnabled = nil,
---     ultraFocusAutoLootEnabled = nil,
---     ultraFocusTurnOffInteract = nil,
---     -- midnight.lua
---     patientEnabled = nil,
---     voidFinderEnabled = nil,
---     voidFinderKey = nil,
--- }
-
-AngleurAudio = {
-    checkboxes = {},
-    ultraFocusWhen = nil,
-}
-
--- AngleurClassicConfig = {
---     softInteract = {
---         enabled = false,
---         bobberScanner = false,
---         warningSound = false,
---         recastWhenOOB = false,
---     },
--- }
-
--- AngleurCharacter = {
---     sleeping = false,
---     angleurSet = false
--- }
-
--- Angleur_CVars = {
---     ultraFocus = {musicOn = nil, ambienceOn = nil, dialogOn = nil, effectsOn = nil,  effectsVolume = nil, masterOn = nil, masterVolume = nil, backgroundOn = nil},
---     autoLoot = nil
--- }
--- AngleurClassic_CVars = {
---     softInteract = nil,
--- }
-
--- AngleurMinimapButton = {
---     hide = nil
--- }
-
--- Angleur_TinyOptions = {
---     lootProtectionEnabled = true,
---     turnOffSoftInteract = false,
---     allowDismount = false,
---     doubleClickWindow = 0.4,
---     visualScale = 1,
---     loginDisabled = false,
---     errorsDisabled = true,
---     softIconOff = false,
--- }
--- ____________________________________________________________________________________________
-
+-- Tables that will be initialised: 
+--   AngleurConfig = { ... }
+--   AngleurClassicConfig = { ... }
+--   AngleurCharacter = { ... }
+--   Angleur_TinyOptions = { ... }
+--   AngleurAudio = { ... }
+--   AngleurMinimapButton = { ... }
+--   AngleurTutorial = { ... }
 function Init_AngleurSavedVariables()
+    -- AngleurConfig
+    if AngleurConfig == nil then
+        AngleurConfig = {}
+    end
     if AngleurConfig.ultraFocusAudioEnabled == nil then
         AngleurConfig.ultraFocusAudioEnabled = false
     end
     if AngleurConfig.ultraFocusAutoLootEnabled == nil then
         AngleurConfig.ultraFocusAutoLootEnabled = false
     end
+    if AngleurConfig.chosenRaft == nil then
+        AngleurConfig.chosenRaft = {toyID = 0, name = 0, dropDownID = 0}
+    end
+    if AngleurConfig.chosenCrateBobber == nil then
+        AngleurConfig.chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0}
+    end
     if AngleurConfig.chosenBait == nil then
         AngleurConfig.chosenBait = {itemID = 0, name = 0, dropDownID = 0}
+    end
+    if AngleurConfig.doubleClickChosenID == nil then
+        AngleurConfig.doubleClickChosenID = 2
     end
     if AngleurConfig.recastEnabled == nil then
         AngleurConfig.recastEnabled = false
     end
+
+    -- AngleurClassicConfig
     local gameVersion = ang.gameVersion
     if gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
         if AngleurClassicConfig == nil then
@@ -129,21 +82,26 @@ function Init_AngleurSavedVariables()
         if AngleurClassicConfig.softInteract.bobberScanner == nil then
             AngleurClassicConfig.softInteract.bobberScanner = false
         end
-        if AngleurClassicConfig.softInteract.bobberScanner == nil then
-            AngleurClassicConfig.softInteract.bobberScanner = false
+        if AngleurClassicConfig.softInteract.warningSound == nil then
+            AngleurClassicConfig.softInteract.warningSound = false
         end
         if AngleurClassicConfig.softInteract.recastWhenOOB == nil then
             AngleurClassicConfig.softInteract.recastWhenOOB = false
         end
     end
-    if AngleurClassic_CVars == nil then
-        AngleurClassic_CVars = {}
-    end
 
+    -- AngleurCharacter
+    if AngleurCharacter == nil then
+        AngleurCharacter = {}
+    end
     if AngleurCharacter.sleeping == nil then
         AngleurCharacter.sleeping = false
     end
+    if AngleurCharacter.angleurSet == nil then
+        AngleurCharacter.angleurSet = false
+    end
 
+    -- Angleur_TinyOptions
     if Angleur_TinyOptions == nil then
         Angleur_TinyOptions = {}
     end
@@ -171,18 +129,21 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.visualScale == nil then
         Angleur_TinyOptions.visualScale = 1
     end
-    
     if Angleur_TinyOptions.loginDisabled == nil then
         Angleur_TinyOptions.loginDisabled = false
     end
     if Angleur_TinyOptions.errorsDisabled == nil then
         Angleur_TinyOptions.errorsDisabled = true
     end
+    if Angleur_TinyOptions.softIconOff == nil then
+        Angleur_TinyOptions.softIconOff = false
+    end
     if Angleur_TinyOptions.debugLevel == nil then
         Angleur_TinyOptions.debugLevel = 0
     end
     ang.debugLevel = Angleur_TinyOptions.debugLevel
     
+    -- AngleurAudio
     if AngleurAudio == nil then
         AngleurAudio = {}
     end
@@ -216,35 +177,30 @@ function Init_AngleurSavedVariables()
         AngleurAudio.checkboxes.recastReminder = false
     end
 
+    -- AngleurMinimapButton
+    if AngleurMinimapButton == nil then
+        AngleurMinimapButton = {}
+    end
     if AngleurMinimapButton.show == nil then
         AngleurMinimapButton.show = true
     end
 
+    -- AngleurTutorial
     if AngleurTutorial == nil then
         AngleurTutorial = {}
     end
     if AngleurTutorial.part == nil then
         AngleurTutorial.part = 1
     end
-
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    -- cleanup for older version's saved variables, may delete in a month
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-    if AngleurConfig.angleurKeyModifier then
-        AngleurConfig.angleurKeyModifier = nil
-        AngleurConfig.angleurKeyMain = nil
-        AngleurConfig.angleurKey = nil
-        print(T["Angleur: VERSION UPDATED. Please re-set your \'OneKey\' from the Config Panel."])
-    end
-    --|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-
     
+    -- ___ Keybind Buttons ___
     Angleur_AngleurKey.savedVarTable = AngleurConfig
     Angleur_AngleurKey.keybindRef = "angleurKey"
     Angleur_AngleurKey.baseRef = "angleurKey_Base"
 
     Angleur_RecastKey.savedVarTable = AngleurConfig
     Angleur_RecastKey.keybindRef = "recastKey"
+    -- _______________________
 end
 
 AngleurVanilla_FishingPoleTable = {
@@ -385,21 +341,20 @@ AngleurRetail_FishingSpellTable = {
     
 }
 
--- ___ temporary measure for the Forever Branch ___
-local WOW_PROJECT_MAINLINE = 69
-local WOW_PROJECT_FOREVER = 1
--- ________________________________________________
-
 -- 1 : Retail | 2 : MoP(Or Cata) | 3 : Vanilla | (0: None, fail)
 function Angleur_CheckVersion()
     if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-        return 1
+        -- ___ temporary measure for Forever ___
+        if LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_MIDNIGHT then
+            return 1
+        elseif LE_EXPANSION_LEVEL_CURRENT == LE_EXPANSION_CLASSIC then
+            return 4
+        end
+        -- _____________________________________
     elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == 19 then
         return 2
     elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
         return 3
-    elseif WOW_PROJECT_ID == WOW_PROJECT_FOREVER then
-        return 4
     end
     return 0
 end
