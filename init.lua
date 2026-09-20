@@ -32,6 +32,11 @@ Angleur_ReusablePictureTooltip = CreateFrame("GameTooltip", "Angleur_ReusablePic
 Angleur_ReusableSleepAnimFrame = CreateFrame("Frame", "Angleur_ReusableSleepAnimationFrame", UIParent, "Legolando_SleepAnimFrameTemplate_Angleur")
 Angleur_ReusableFrameAnchorableTooltip = CreateFrame("GameTooltip", "Angleur_ReusableFrameAnchorTooltip", UIParent, "Legolando_FrameAnchorableTooltipTemplate_Angleur")
 
+-- Need to initialize AngleurAudio outside for 'Angleur_TempCVars's sake
+AngleurAudio = {
+    checkboxes = {},
+    ultraFocusWhen = nil,
+}
 -- Tables that will be initialised: 
 --   AngleurConfig = { ... }
 --   AngleurClassicConfig = { ... }

@@ -4,6 +4,7 @@ local debugChannel = 6
 local colorDebug = CreateColor(0.9, 0.47, 1) -- lily
 
 local addonName, ang = ...
+local gameVersion = ang.gameVersion
 
 angleurDoubleClick = {
     watching = false,
@@ -41,7 +42,8 @@ function Angleur_DoubleClickWatcher(self, event, button)
     if AngleurConfig.chosenMethod ~= "doubleClick" then return end
     if AngleurCharacter.sleeping then return end
     if button ~= angleurDoubleClick.iDtoLeftRight[AngleurConfig.doubleClickChosenID] then return end
-    local bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner
+    local bobberScanner
+    if gameVersion ~= 1 then bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner end
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
     if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("Angleur_StuckFix ") .. ": Double Click mouse look released")
