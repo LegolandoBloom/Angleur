@@ -118,7 +118,7 @@ local addonsTable = {
             tooltipPictureWidth = 358,
             tooltipPictureHeight = 104,
             tooltipPictureAnchor = "BOTTOMLEFT",
-            tooltipTitle = "Camper(Wow Forever)",
+            tooltipTitle = "Camper (Wow Forever)",
             tooltipText = T["- Set up a campfire? With one click, share it with everyone else in zone chat. WAYPOINT included!\n\n- Found someone else's campfire? Do the same thing!\n\n"],
     },
     [2] = {
