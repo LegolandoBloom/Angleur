@@ -766,5 +766,5 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 
 -- Changed lines
-T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
+T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "Вы можете поддержать проект,\nсделав пожертвование на " 
 .. colorYello:WrapTextInColorCode("Ko-Fi!")
