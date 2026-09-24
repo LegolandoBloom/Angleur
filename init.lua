@@ -342,7 +342,6 @@ AngleurRetail_FishingSpellTable = {
     1294463,
     -- Named just "Fishing" on wowhead, Don't know what it does
     1303761, 1239040, 1239227, 1241356, 1286703, 1303612, 1282907, 1239033,
-
     
 }
 
@@ -710,6 +709,12 @@ local helpTipCloseText = "|cnHIGHLIGHT_FONT_COLOR:The |r|cnNORMAL_FONT_COLOR:Int
 function Angleur_EventLoader(self, event, unit, ...)
     local arg4, arg5 = ...
     if event == "ADDON_LOADED" and unit == "Angleur" then
+        -- _________________________________________________________ TEMPORARY FOREVER MEASURE _________________________________________________________
+        -- If saved variables have been fixed, AngleurConfig will exist(apart from first install) so the fake saved variables won't need to be called
+        if ang.gameVersion == 4 and AngleurConfig == nil then
+            AngleurForever_InitiateFakeSavedVariables()
+        end
+        -- _____________________________________________________________________________________________________________________________________________v
         Init_AngleurSavedVariables()
         Angleur_SetTab1(self.configPanel.tab1.contents)
         Angleur_SetTab3(self.configPanel.tab3.contents)
