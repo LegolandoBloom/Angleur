@@ -12,6 +12,9 @@ local colorRed = CreateColor(1, 0, 0)
 local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
 local colorDarkRed = CreateColor(0.68, 0, 0)
 local colorDarkBlu = CreateColor(0.12, 0.5, 1)
+-- For Camper's "other addons" section
+local colorGeneralChat = CreateColor(1, 0.75, 0.75)
+local colorOrange = CreateColor(1, 0.51, 0.08)
 
 --Angleur.xml
 T["Ultra Focus:"] = "Ultra Focus:"
@@ -916,3 +919,9 @@ T["Loot Protection ON. Angleur will stop you from recasting while looting.(DEFAU
 
 T["Loot Protection OFF. Angleur won't stop you from recasting while looting."] = "Loot Protection " .. colorRed:WrapTextInColorCode("OFF. ") 
 .. colorBlu:WrapTextInColorCode("Angleur ") .. "won't stop you from recasting while looting."
+
+
+-- Camper(Other Addons)
+T["- Set up a campfire? With one click, share it with everyone else in zone chat. WAYPOINT included!\n\n- Found someone else's campfire? Do the same thing!\n\n"] = "- Set up a " 
+.. colorOrange:WrapTextInColorCode("campfire") .. "? With one click, share it with everyone else in " .. "zone chat. " 
+.. colorYello:WrapTextInColorCode("WAYPOINT ") .. "included!\n\n- Found someone else's campfire? Do the same thing!\n\n"

@@ -18,6 +18,9 @@ local colorRed = CreateColor(1, 0, 0)
 local colorUnderlight = CreateColor(0.9, 0.8, 0.5)
 local colorDarkRed = CreateColor(0.68, 0, 0)
 local colorDarkBlu = CreateColor(0.12, 0.5, 1)
+-- For Camper's "other addons" section
+local colorGeneralChat = CreateColor(1, 0.75, 0.75)
+local colorOrange = CreateColor(0.76, 0.33, 0.03)
 
 T["Ultra Focus:"] = "专注模式："
 T["You can drag and place this anywhere on your screen"] = "可拖动至屏幕任意位置放置"
