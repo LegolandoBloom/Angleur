@@ -155,7 +155,8 @@
         "ITEMS",
         "HUD_EDIT_MODE_LOOT_FRAME_LABEL",
         "LE_EXPANSION_LEVEL_CURRENT",
-        "LE_EXPANSION_CLASSIC"
+        "LE_EXPANSION_CLASSIC",
+        "Angleur_FirstInstall"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
