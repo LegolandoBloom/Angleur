@@ -36,7 +36,7 @@ function Angleur_OnUpdate(self, elapsed)
     Angleur_StuckFix()
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
-    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end -- For Classic Parity
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     Angleur_ActionHandler(self)
 end
 
@@ -65,6 +65,7 @@ local fishingPoleTable = AngleurVanilla_FishingPoleTable
 function AngleurClassic_CheckFishingPoleEquipped()
     if not Angleur_TinyOptions.poleSleep then return end
     if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
     if not C_Item.DoesItemExist(itemLoc) then 
         AngleurCharacter.sleeping = true
@@ -134,12 +135,15 @@ local formsTable = {
     [3] = true, -- Travel Form
 }
 local function checkMounted()
-    if IsMounted() then
+    local mounted = IsMounted()
+    mounted = Angleur_ScrubSecret(mounted)
+    if mounted then
         return true
     end
     if playerDruid then
         local form = GetShapeshiftFormID()
-        if formsTable[form] == true then
+        form = Angleur_ScrubSecret(form)
+        if form and formsTable[form] == true then
             return true
         end
     end
@@ -149,6 +153,7 @@ local fishingSpellTable = AngleurVanilla_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     if ang.addonLoaded == false then return end
     local arg4, arg5, arg6 = ...
+    unit, arg4, arg5, arg6 = Angleur_ScrubSecret(unit, arg4, arg5, arg6)
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register.
     if event == "PLAYER_ENTERING_WORLD" then
         if checkMounted() then 
@@ -333,8 +338,9 @@ local baitEnchantIDTable = {
     4225
 }
 function Angleur_BaitEnchant()
-    if GetWeaponEnchantInfo() then
-        local _, _, _, enchantID = GetWeaponEnchantInfo()
+    local _, _, _, enchantID = GetWeaponEnchantInfo()
+    local enchantID = Angleur_ScrubSecret(enchantID)
+    if enchantID then
         if CheckTable(baitEnchantIDTable, enchantID) then
             baitApplied = true
         else
@@ -388,7 +394,7 @@ end
 function Angleur_ActionHandler(self)
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
-    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end -- For Classic Parity
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     --print("WorldFrame Dragging: ", WorldFrame:IsDragging())
     Angleur_ExtraItems_UpdateItemsCountDown(false)
     local assignKey = nil
@@ -465,7 +471,7 @@ function Angleur_ActionHandler(self)
         return
     end
     
-    local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)) -- Scrub added for Classic Parity
+    local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID))
     local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount and baitCount > 0
     if baitReady then
         action = "bait"

@@ -80,6 +80,7 @@ local wasEquipped = false
 function AngleurClassic_CheckFishingPoleEquipped()
     if not Angleur_TinyOptions.poleSleep then return end
     if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
+    if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
     -- If Sharpened Tuskarr Spear in the process being juggled by Angleur_NicheOptions, don't change sleep status.
     if spearStatus and spearStatus ~= "unequipped" then return end
     local itemLoc = ItemLocation:CreateFromEquipmentSlot(16)
@@ -158,12 +159,15 @@ local formsTable = {
     [3] = true, -- Travel Form
 }
 local function checkMounted()
-    if IsMounted() then
+    local mounted = IsMounted()
+    mounted = Angleur_ScrubSecret(mounted)
+    if mounted then
         return true
     end
     if playerDruid then
         local form = GetShapeshiftFormID()
-        if formsTable[form] == true then
+        form = Angleur_ScrubSecret(form)
+        if form and formsTable[form] == true then
             return true
         end
     end
@@ -387,8 +391,9 @@ local baitEnchantIDTable = {
     4225
 }
 function Angleur_BaitEnchant()
-    if GetWeaponEnchantInfo() then
-        local _, _, _, enchantID = GetWeaponEnchantInfo()
+    local _, _, _, enchantID = GetWeaponEnchantInfo()
+    local enchantID = Angleur_ScrubSecret(enchantID)
+    if enchantID then
         if CheckTable(baitEnchantIDTable, enchantID) then
             baitApplied = true
         else

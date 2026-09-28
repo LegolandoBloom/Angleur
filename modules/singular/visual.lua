@@ -11,19 +11,6 @@ local gameVersion = ang.gameVersion
 
 Angleur_VisualMixin = {}
 
--- ____________________________ TEMPORARY ADDITION FOR FOREVER ____________________________
-local LU = LegolandoUtil
-local LR = LU.Rect
-function AngleurForever_VisualDragStop(visual)
-    if gameVersion ~= 4 then return end
-    local offsets = LR.GetOffsetFromRelateRect1ToRect2({visual:GetScaledRect()}, {UIParent:GetScaledRect()}, "CENTER", "CENTER")
-    print("Angleur Forever: If you want to save the location of the Angleur Visual, please go to Angleur/forever_savedVariables.lua and change the fields to these values:")
-    print(colorYello:WrapTextInColorCode("1) ") .. "Visual_XAxis to: " .. colorBlu:WrapTextInColorCode(LU.SimplifyFloat(offsets.x, 0)))
-    print(colorYello:WrapTextInColorCode("2) ") .. "Visual_YAxis to: " .. colorBlu:WrapTextInColorCode(LU.SimplifyFloat(offsets.y, 0)))
-    print("\nDue to a bug on Blizzard's end, addons are unable to save user settings. Please refer to FOREVER_README.txt in Angleur's Addon Folder for more info.")
-end
--- ________________________________________________________________________________________
-
 function Angleur_VisualMixin:OnClick(button, down)
     if button ~= "RightButton" or down == false then return end
     if InCombatLockdown() then
@@ -135,9 +122,6 @@ function Angleur_VisualMixin:Init()
     self:SetScript("OnDragStop", function(self)
         AngleurConfig.visualLocation = {self:GetPoint()}
         self:StopMovingOrSizing()
-        -- _____ TEMPORARY ADDITION FOR FOREVER _____
-        AngleurForever_VisualDragStop(self)
-        -- __________________________________________
     end)
 
     self:ClearHighlightTexture()

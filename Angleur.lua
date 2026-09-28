@@ -104,12 +104,15 @@ local formsTable = {
     [3] = true, -- Travel Form
 }
 local function checkMounted()
-    if IsMounted() then
+    local mounted = IsMounted()
+    mounted = Angleur_ScrubSecret(mounted)
+    if mounted then
         return true
     end
     if playerDruid then
         local form = GetShapeshiftFormID()
-        if formsTable[form] == true then
+        form = Angleur_ScrubSecret(form)
+        if form and formsTable[form] == true then
             return true
         end
     end
@@ -120,7 +123,8 @@ local fishingSpellTable = AngleurRetail_FishingSpellTable
 local fishingSpellTable_MoP = AngleurMoP_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     if ang.addonLoaded == false then return end
-    local arg4, arg5 = ...
+    local arg4, arg5, arg6 = ...
+    unit, arg4, arg5, arg6 = Angleur_ScrubSecret(unit, arg4, arg5, arg6)
     -- Needed for when player zones into dungeon while mounted. Zone changes but no reload, and mount journal change doesn"t register
     if event == "PLAYER_ENTERING_WORLD" then
         if checkMounted() then 
@@ -134,7 +138,6 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
             end
         end
     elseif event == "PLAYER_SOFT_INTERACT_CHANGED" then
-        if issecretvalue(arg4) then return end
         iceFishing = false
         compressedOceanFishing = false
         if arg4 then
@@ -166,8 +169,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         -- Call |ActionHandler| right after soft-interact updates to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
-    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and not issecretvalue(unit) and unit == "player" then
-        if issecretvalue(arg5) then return end
+    elseif event == "UNIT_SPELLCAST_CHANNEL_START" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) and not CheckTable(fishingSpellTable_MoP, arg5) then return end
         midFishing = true
         EventRegistry:TriggerEvent("Angleur_StartFishing")
@@ -192,8 +194,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         end
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
         Angleur_RecastReminder_Start(arg5)
-    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and not issecretvalue(unit) and unit == "player" then
-        if issecretvalue(arg5) then return end
+    elseif event == "UNIT_SPELLCAST_CHANNEL_STOP" and unit == "player" then
         if not CheckTable(fishingSpellTable, arg5) and not CheckTable(fishingSpellTable_MoP, arg5) then return end
         Angleur_TempCVars_ToggleUltraFocusAudio(false, "Cast/Reel")
         Angleur_TempCVarHandler:Release("autoLootDefault")
@@ -242,7 +243,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 swimming = false
             end
         end, nil, "swimChecker-cycle")
-    elseif event == "UNIT_AURA" and not issecretvalue(unit) and unit == "player" then
+    elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
         Angleur_ExtraItems_Auras()
