@@ -359,11 +359,14 @@ function Angleur_CheckVersion()
         return 2
     elseif WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_BURNING_CRUSADE_CLASSIC then
         return 3
+    -- Temporary failsafe for WOW_PROJECT_CAMELOT(name might change so we try == 18 anyway)
+    elseif WOW_PROJECT_ID == WOW_PROJECT_CAMELOT or WOW_PROJECT_ID == 18 then
+        return 4
     end
     return 0
 end
-ang.gameVersion = Angleur_CheckVersion()
 
+ang.gameVersion = Angleur_CheckVersion()
 -- USE TO CHECK VERSIONS
 -- /run print(WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and "Retail" 
 -- or WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC and "Cata"
