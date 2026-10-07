@@ -25,6 +25,12 @@ local function SetOverrideBindingSpell_Custom(owner, isPriority, key, spell)
     SetOverrideBindingSpell(owner, isPriority, key, spell)
 end
 
+local enum_idToButtonName = {
+    [1] = "title(aka useless)",
+    [2] = "BUTTON2",
+    [3] = "BUTTON1",
+}
+
 
 local erapusuThreshold = 0.3
 local erapusuCounter = 0
@@ -34,7 +40,8 @@ function Angleur_OnUpdate(self, elapsed)
         return
     end
     erapusuCounter = 0
-    Angleur_StuckFix()
+    -- Disabled for BETA TEST
+    -- Angleur_StuckFix()
     if AngleurCharacter.sleeping then return end
     if InCombatLockdown() then return end
     if Angleur_IsAddonSecretRestrictedForTypes("Combat", "Encounter", "ChallengeModes", "PvPMatch") then return end
@@ -67,7 +74,7 @@ local function isChosenKeyDown()
     if AngleurConfig.chosenMethod == "doubleClick"  then
         if not AngleurConfig.doubleClickChosenID then
             return false
-        elseif IsKeyDown(angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]) then
+        elseif IsKeyDown(enum_idToButtonName[AngleurConfig.doubleClickChosenID]) then
             Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("isChosenKeyDown ") .. ": mouse held")
             return true
         end
@@ -394,7 +401,7 @@ function Angleur_ActionHandler(self)
         --__________________________________________________________
     elseif AngleurConfig.chosenMethod == "doubleClick" then
         if angleurDoubleClick.watching then 
-            assignKey = angleurDoubleClick.iDtoButtonName[AngleurConfig.doubleClickChosenID]
+            assignKey = enum_idToButtonName[AngleurConfig.doubleClickChosenID]
         end
     end
     ClearOverrideBindings(self)
