@@ -1,4 +1,7 @@
 ## Interface: 16001
+#@debug@
+## Interface: 16001, 120100
+#@end-debug@
 ## Title: Angleur
 ## Notes: Angleur4Evah!
 ## Version: Angleur Forever @project-version@
