@@ -204,6 +204,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAutoLootEnabled then
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
+        -- |FOREVER Bobber Scanner Removal|
         -- Removing bobber scanner and mirroring Retail(except for Arc which I might add to Retail later also) 
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
         -- Always force temp-set arc to 2 when channeling on Forever(considering it for Retail later, and for Classic waaay later)
@@ -220,6 +221,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if not CheckTable(fishingSpellTable, arg5) then return end
         Angleur_TempCVars_ToggleUltraFocusAudio(false, "Cast/Reel")
         Angleur_TempCVarHandler:Release("autoLootDefault")
+        -- |FOREVER Bobber Scanner Removal|
         -- Removing bobber scanner and mirroring Retail(except for Arc which I might add to Retail later also) 
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
         -- Release of: Always force temp-set arc to 2 when channeling on Forever(considering it for Retail later, and for Classic waaay later)

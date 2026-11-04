@@ -49,7 +49,8 @@ end
 
 local function _isClickValid()
     local bobberScanner
-    if gameVersion ~= 1 then bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner end
+    -- |FOREVER Bobber Scanner Removal|
+    if (gameVersion ~= 1 and gameVersion ~= 4) then bobberScanner = AngleurClassicConfig.softInteract.enabled and AngleurClassicConfig.softInteract.bobberScanner end
     --print("Mouseover UIParent: ", UIParent:IsMouseOver())
     if not WorldFrame:IsMouseMotionFocus() and GetMouseFoci()[1] ~= nil then
         Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("isClickValid ") .. ": Not over WorldFrame, checking...")

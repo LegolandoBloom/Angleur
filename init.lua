@@ -74,7 +74,8 @@ function Init_AngleurSavedVariables()
 
     -- AngleurClassicConfig
     local gameVersion = ang.gameVersion
-    if gameVersion == 2 or gameVersion == 3 or gameVersion == 4 then
+    -- |FOREVER Bobber Scanner Removal|
+    if gameVersion == 2 or gameVersion == 3 then
         if AngleurClassicConfig == nil then
             AngleurClassicConfig = {}
         end
@@ -615,6 +616,7 @@ Angleur_TempCVars = {
     SoftTargetInteractRangeIsHard = {
         active = false, cached = nil, setTo = "0", updating = false,
     },
+    -- |FOREVER Bobber Scanner Removal|
     -- Only for Forever for now, until classic gets the soft interact fixes patched
     SoftTargetInteractArc = {
         active = false, cached = nil, setTo = "2", updating = false,
@@ -797,8 +799,9 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
     elseif event == "PLAYER_REGEN_ENABLED" then
     elseif event == "PLAYER_STARTED_MOVING" then
+        -- |FOREVER Bobber Scanner Removal|
         -- now Set soft interact cvars for forever as well
-        if ang.gameVersion ~= 1 or ang.gameVersion ~= 4 then return end
+        if (ang.gameVersion ~= 1 and ang.gameVersion ~= 4) then return end
         if InCombatLockdown() then return end
         if firstMove == true and AngleurCharacter.sleeping == false then
             firstMove = false

@@ -168,28 +168,6 @@
                                             </Frame>
                                         </Frames>
                                     </Frame>
-                                    <Frame name="$parent_SoftInteract" parentKey="softInteract" inherits="CheckboxFrameTemplate_Angleur">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="22" y="-120"/>
-                                        </Anchors>
-                                        <Frames>
-                                            <Frame name="$parent_BobberScanner" parentKey="bobberScanner" inherits="CheckboxFrameTemplate_Angleur">
-                                                <Anchors>
-                                                    <Anchor point="TOPLEFT" relativeTo="$parent_Text" relativePoint="BOTTOMLEFT" x="14" y="-4"/>
-                                                </Anchors>
-                                            </Frame>
-                                            <Frame name="$parent_WarningSound" parentKey="warningSound" inherits="CheckboxFrameTemplate_Angleur">
-                                                <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_BobberScanner_Checkbox" relativePoint="RIGHT" x="15" y="7"/>
-                                                </Anchors>
-                                            </Frame>
-                                            <Frame name="$parent_RecastWhenOOB" parentKey="recastWhenOOB" inherits="CheckboxFrameTemplate_Angleur">
-                                                <Anchors>
-                                                    <Anchor point="TOP" relativeTo="$parent_BobberScanner_Checkbox" relativePoint="BOTTOM" x="-52" y="-3"/>
-                                                </Anchors>
-                                            </Frame>
-                                        </Frames>
-                                    </Frame>
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>

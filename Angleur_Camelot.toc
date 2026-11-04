@@ -3,7 +3,7 @@
 ## Notes: Angleur4Evah!
 ## Version: Angleur Forever @project-version@
 ## Author: LegolandoBloom
-## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurClassicConfig, AngleurBobberScannerUI, AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, AngleurAudio
+## SavedVariables: AngleurConfig, Angleur_TinyOptions, AngleurMinimapButton, AngleurTutorial, AngleurCharacter, Angleur_SlottedExtraToys, Angleur_SlottedExtraItems, Angleur_SwapoutItemsSaved, AngleurAudio
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
@@ -40,7 +40,7 @@ items\items_base.lua
 eqMan\eqMan_base.lua
 
 tabs\tabs-general.lua
-tabs\standard_mists.lua
+tabs\standard_camelot.lua
 tabs\standard_base.lua
 tabs\extra_without.lua
 tabs\tiny_vanilla.lua
