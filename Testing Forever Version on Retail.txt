@@ -1,0 +1,30 @@
+___ AngleurForever.lua ___
+line 158:
+    Replace:
+    local fishingSpellTable = AngleurVanilla_FishingSpellTable
+    with:
+    -- FOREVER-RETAIL DEBUG TEST
+    local fishingSpellTable = AngleurRetail_FishingSpellTable
+    -- FOREVER-RETAIL DEBUG TEST
+
+__________________________
+
+
+___ init.lua: ___
+line 375:
+    Add:
+    -- FOREVER-RETAIL DEBUG TEST
+    ang.gameVersion = 4
+    -- FOREVER-RETAIL DEBUG TEST END
+
+    
+_________________
+
+
+
+__ Angleur.toc __
+Comment out the entire thing.
+
+Copy/Paste entirety of Angleur_Camelot.toc
+
+Add Retail Interface number to '## Interface:'
