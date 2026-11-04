@@ -11,6 +11,7 @@ ang.logicVars = {}
 ang.retail = {}
 ang.mists = {}
 ang.vanilla = {}
+ang.camelot = {}
 ang.addonLoaded = false
 
 ang.loadedPlugins = {}

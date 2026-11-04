@@ -488,6 +488,11 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-40"/>
                                         </Anchors>
                                     </Frame>
+                                    <Frame name="$parent_OffInteract" parentKey="offInteract" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-50"/>
+                                        </Anchors>
+                                    </Frame>
                                     <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-70"/>

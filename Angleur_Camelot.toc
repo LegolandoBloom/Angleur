@@ -43,7 +43,7 @@ tabs\tabs-general.lua
 tabs\standard_camelot.lua
 tabs\standard_base.lua
 tabs\extra_without.lua
-tabs\tiny_vanilla.lua
+tabs\tiny_camelot.lua
 tabs\tiny_base.lua
 
 modules\embeds_all.xml
