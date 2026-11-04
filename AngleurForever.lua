@@ -55,7 +55,6 @@ end
 local mounted = false
 local swimming = false
 local midFishing = false
-local bobberWithinRange = false
 
 local function CheckTable(table ,spell)
     local matchFound = false
@@ -177,25 +176,12 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if arg4 then
             local found, endo = string.find(arg4, "GameObject-\0-4458-1-54-35591-")
             if found then
-                Angleur_BetaPrint(debugChannel, "the bobber is within range")
-                bobberWithinRange = true
-                --[[
-                if string.match(arg4, "%-377944%-") then
-                    iceFishing = true
-                elseif string.match(arg4, "%-192631%-") or string.match(arg4, "%-197596%-")then
-                    iceFishing = true
-                elseif string.match(arg4, "%-35591%-") then
-                    midFishing = true
-                end
-                
-                ]]
                 
             else
                 Angleur_BetaPrint(debugChannel, "different soft target")
-                bobberWithinRange = false
             end
         else
-            bobberWithinRange = false
+
         end
         -- Call |ActionHandler| right after soft-interact updates to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
@@ -211,30 +197,17 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         EventRegistry:TriggerEvent("Angleur_StartFishing")
         -- Call |ActionHandler| right after "midFishing" changes to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
-        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.warningSound == true then
-            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
-                if not bobberWithinRange then
-                    PlaySound(12889)
-                end
-            end)
-        end
-        if AngleurClassicConfig.softInteract.enabled == true and AngleurClassicConfig.softInteract.bobberScanner == true then
-            Angleur_PoolDelayer(0.2, 0, 0.1, angleurDelayers, nil, function()
-                if not bobberWithinRange then
-                    Angleur_BobberScanner()
-                end
-            end)
-        end
-        
+
         if AngleurConfig.ultraFocusAudioEnabled then 
             Angleur_TempCVars_ToggleUltraFocusAudio(true, "Cast/Reel")
         end
         if AngleurConfig.ultraFocusAutoLootEnabled then
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
-        if AngleurClassicConfig.softInteract.enabled == true then
-            Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
-        end
+        -- Removing bobber scanner and mirroring Retail(except for Arc which I might add to Retail later also) 
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
+        -- Always force temp-set arc to 2 when channeling on Forever(considering it for Retail later, and for Classic waaay later)
+        Angleur_TempCVarHandler:Set("SoftTargetInteractArc")
         Angleur_RecastReminder_Start(arg5)
     elseif event == "UNIT_SPELLCAST_FAILED" or event == "UNIT_SPELLCAST_FAILED_QUIET" then
         if unit ~= "player" then return end
@@ -247,9 +220,10 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if not CheckTable(fishingSpellTable, arg5) then return end
         Angleur_TempCVars_ToggleUltraFocusAudio(false, "Cast/Reel")
         Angleur_TempCVarHandler:Release("autoLootDefault")
-        if AngleurClassicConfig.softInteract.enabled == true then
-            Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard")
-        end
+        -- Removing bobber scanner and mirroring Retail(except for Arc which I might add to Retail later also) 
+        if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Release("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
+        -- Release of: Always force temp-set arc to 2 when channeling on Forever(considering it for Retail later, and for Classic waaay later)
+        Angleur_TempCVarHandler:Release("SoftTargetInteractArc")
         if isChosenKeyDown() == false then
             midFishing = false
             EventRegistry:TriggerEvent("Angleur_StopFishing")
@@ -271,8 +245,8 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
                 Angleur_ActionHandler(Angleur)
             end)
         end
-        bobberWithinRange = false
-        Angleur_SetCursorForGamePad(false)
+        -- Disabling for now, (bobber scanner removal)
+        -- Angleur_SetCursorForGamePad(false)
         Angleur_RecastReminder_Stop()
     elseif event == "PLAYER_MOUNT_DISPLAY_CHANGED" or event == "UPDATE_SHAPESHIFT_FORM" or event == "MIRROR_TIMER_START" then
         if checkMounted() then 
@@ -360,11 +334,15 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
--- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
-local function performAction(self, assignKey, action, recast, oobIcon, gPad)
+-- action = "cast" | "recast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
+local function performAction(self, assignKey, action, oobIcon, gPad)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
+    elseif action == "recast" then
+        SetOverrideBinding_Custom(self, true, assignKey, "INTERACTTARGET")
+        self.visual.texture:SetTexture("Interface/ICONS/misc_arrowlup")
+        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
     elseif action == "reel" then
         SetOverrideBinding_Custom(self, true, assignKey, "INTERACTMOUSEOVER")
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/misc_arrowlup")
@@ -387,9 +365,6 @@ local function performAction(self, assignKey, action, recast, oobIcon, gPad)
         self.visual.texture:SetTexture(angleurToys.selectedRaftTable.icon)
     elseif action == "extraItem" then
         -- already handled within the other function
-    end
-    if recast then
-        SetOverrideBindingSpell_Custom(self, true, AngleurConfig.recastKey, PROFESSIONS_FISHING)
     end
     if oobIcon then
         self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
@@ -428,7 +403,6 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
 
     local action
-    local recast = false
     local oobIcon = false
     local gPad = false
     if UnitIsDeadOrGhost("player") then
@@ -445,36 +419,17 @@ function Angleur_ActionHandler(self)
     end
     
     if midFishing then
-        if AngleurClassicConfig.softInteract.enabled then
-            if bobberWithinRange == false then
-                oobIcon = true
-                if AngleurClassicConfig.softInteract.recastWhenOOB then
-                    action = "cast"
-                else
-                    action = "reel"
-                end 
-            else
-                action = "reel"
-            end
-        else
-            --Always set doubleClick to recast on Classic(When soft interact is off)
-            if chosenMethod == "doubleClick" then
-                action = "cast"
-            else
-                action = "reel"
-                gPad = true
-            end
-        end
+        action = "reel"
         if AngleurConfig.recastEnabled and AngleurConfig.recastKey then
-            recast = true
+            action = "recast"
         end
-        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        performAction(self, assignKey, action)
         return
     end
 
     if mounted and Angleur_TinyOptions.allowDismount == false then
         action =  "clear"
-        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        performAction(self, assignKey, action, oobIcon, gPad)
         return
     end
     
@@ -482,19 +437,19 @@ function Angleur_ActionHandler(self)
     local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount and baitCount > 0
     if baitReady then
         action = "bait"
-        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        performAction(self, assignKey, action, oobIcon, gPad)
         return
     end
 
     if Angleur_ActionHandler_ExtraItems(self, assignKey) then
         -- HANDLED WITHIN THE FUNCTION
         action =  "extraItems"
-        performAction(self, assignKey, action, recast, oobIcon, gPad)
+        performAction(self, assignKey, action, oobIcon, gPad)
         return
     end
     
     action = "cast"
-    performAction(self, assignKey, action, recast, oobIcon, gPad)
+    performAction(self, assignKey, action, oobIcon, gPad)
 end
 
 local cursorControlEnabled = false

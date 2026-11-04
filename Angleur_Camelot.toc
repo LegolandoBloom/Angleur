@@ -47,7 +47,6 @@ tabs\tiny_vanilla.lua
 tabs\tiny_base.lua
 
 modules\embeds_all.xml
-modules\embeds_classic.xml
 
 AngleurForever.xml
 

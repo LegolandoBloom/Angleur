@@ -336,7 +336,7 @@ end
 --***********[~]**********
 --**Decides which action to perform**
 --***********[~]**********
--- action = "cast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "extraToy" | "extraItem"
+-- action = "cast" | "recast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "extraToy" | "extraItem"
 local function performAction(self, assignKey, action)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
@@ -390,7 +390,7 @@ function Angleur_ActionHandler(self)
         if not AngleurConfig.angleurKey then
             ClearOverrideBindings(self)
             self.visual.texture:SetTexture("")
-            return    
+            return
         end
         assignKey = AngleurConfig.angleurKey
         --                !!!! VERY IMPORTANT !!!!

@@ -615,6 +615,10 @@ Angleur_TempCVars = {
     SoftTargetInteractRangeIsHard = {
         active = false, cached = nil, setTo = "0", updating = false,
     },
+    -- Only for Forever for now, until classic gets the soft interact fixes patched
+    SoftTargetInteractArc = {
+        active = false, cached = nil, setTo = "2", updating = false,
+    },
     -- Ultra Focus Temp Auto Loot
     autoLootDefault = {
         active = false, cached = nil, setTo = "1", updating = false,
@@ -793,7 +797,8 @@ function Angleur_EventLoader(self, event, unit, ...)
         end
     elseif event == "PLAYER_REGEN_ENABLED" then
     elseif event == "PLAYER_STARTED_MOVING" then
-        if ang.gameVersion ~= 1 then return end
+        -- now Set soft interact cvars for forever as well
+        if ang.gameVersion ~= 1 or ang.gameVersion ~= 4 then return end
         if InCombatLockdown() then return end
         if firstMove == true and AngleurCharacter.sleeping == false then
             firstMove = false
