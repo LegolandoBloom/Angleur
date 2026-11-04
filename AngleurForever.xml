@@ -490,27 +490,27 @@
                                     </Frame>
                                     <Frame name="$parent_OffInteract" parentKey="offInteract" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-50"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-70"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-70"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-100"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_PoleSleep" parentKey="poleSleep" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-100"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-130"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-130"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-160"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name= "$parent_VisualSize" parentKey="visualSize" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-160"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-190"/>
                                         </Anchors>
                                         <Frames>
                                             <Frame name="$parent_ButtonHolder" parentKey="buttonHolder">
@@ -533,23 +533,23 @@
                                     </Frame>
                                     <Frame name="$parent_ShowMinimapButton" parentKey="showMinimapButton" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-240"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-270"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_LoginMessages" parentKey="loginMessages" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-278"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-303"/>
                                         </Anchors>
                                     </Frame>
                                     <Frame name="$parent_DebugMode" parentKey="debugMode" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-303"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-328"/>
                                         </Anchors>
                                     </Frame>
                                     <Button name="$parent_Defaults" parentKey="defaults" inherits="GameMenuButtonTemplate">
                                         <Size x="72" y="42"/>
                                         <Anchors>
-                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="73"/>
+                                            <Anchor point="BOTTOMRIGHT" relativeTo="$parent" relativePoint="BOTTOMRIGHT" x="-15" y="60"/>
                                         </Anchors>
                                     </Button>
                                     <Button name="$parent_RedoTutorial" parentKey="redoTutorial" inherits="UIPanelSquareButton">
