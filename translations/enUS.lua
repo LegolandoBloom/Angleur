@@ -925,3 +925,15 @@ T["Loot Protection OFF. Angleur won't stop you from recasting while looting."] =
 T["- Set up a campfire? With one click, share it with everyone else in zone chat. WAYPOINT included!\n\n- Found someone else's campfire? Do the same thing!\n\n"] = "- Set up a " 
 .. colorOrange:WrapTextInColorCode("campfire") .. "? With one click, share it with everyone else in " .. "zone chat. " 
 .. colorYello:WrapTextInColorCode("WAYPOINT ") .. "included!\n\n- Found someone else's campfire? Do the same thing!\n\n"
+
+
+
+-- ____ FOREVER-AUTOADD-FISHINGROD ____
+T["Angleur Forever: Cannot create Equipment Set without eligible Fishing Rod in inventory."] = colorBlu:WrapTextInColorCode("Angleur Forever: ") .. "Cannot create " 
+.. colorYello:WrapTextInColorCode("Equipment Set ") .. "without eligible " .. colorBrown:WrapTextInColorCode("Fishing Rod ") .. "in inventory."
+T["If there IS a Fishing Rod in your inventory and this is still happening, please contact author Legolando. You can find the discord link in the Standard Tab of the Config Panel."] = "If there " 
+.. colorYello:WrapTextInColorCode("IS ") .. "a " .. colorBrown:WrapTextInColorCode("Fishing Rod ") 
+.. "in your inventory and this is still happening, please contact author Legolando. You can find the " .. colorPurple:WrapTextInColorCode("discord ") 
+.. "link in the \'Standard Tab\' of the " .. colorYello:WrapTextInColorCode("Config Panel.")
+
+T["The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!"] = colorGrae:WrapTextInColorCode("The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!")

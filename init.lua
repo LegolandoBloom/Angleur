@@ -738,6 +738,12 @@ function Angleur_EventLoader(self, event, unit, ...)
     elseif event == "PLAYER_ENTERING_WORLD" then
         -- return if zone change
         if unit == false and arg4 == false then return end
+        -- ________________ FOREVER-EQSET-BUGFIX-LOGINMETHOD ________________
+        -- Angleur_FixClassicEqSetBugOnLogin: must be called before 
+        --      _onLogin as _onLogin calls EquipAngleurSet() 
+        --      (the first possible call of EquipAngleurSet)
+        -- Angleur_FixClassicEqSetBugOnLogin()
+        -- __________________________________________________________________
         if unit == true then
             _onLogin()
         elseif arg4 == true then

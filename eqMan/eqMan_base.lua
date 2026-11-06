@@ -25,6 +25,56 @@ local updatingSet = false
 local fishingPoleTableMoP = AngleurMoP_FishingPoleTable
 local fishingPoleTableVanilla = AngleurVanilla_FishingPoleTable
 
+-- _______________________________ FOREVER-EQSET-BUGFIX-LOGINMETHOD _______________________________
+local function checkSetEmptyLogout()
+    if gameVersion ~= 3 and gameVersion ~= 4 then return end
+    local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+    local _, _, _, _, numItems, numEquipped, _, _, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(setID)
+    print("numItems: ", numItems)
+    if not numItems or numItems == 0 then
+        print("is empty")
+        return true
+    end
+    print("is not empty")
+    return false
+end
+local colorRed = CreateColor(1, 0, 0)
+local FOREVER_SLOTCOUNT = 19
+local function _forceIgnoreAllSlots()
+    local Debug_Ignores = ""
+    for i = 1, FOREVER_SLOTCOUNT, 1 do
+        C_EquipmentSet.IgnoreSlotForSave(i)
+        Debug_Ignores = Debug_Ignores .. " | " .. i
+    end
+    Angleur_BetaPrint(debugChannel, colorRed:WrapTextInColorCode("Forever/Classic EqSet Bug: ") .. "Setting all slots to ignore to prevent the Classic EqSet Bug")
+end
+local function _checkIfAllSlotsAreUnignored(angleurSetID)
+    local _, _, _, _, numItems, numEquipped, _, _, numIgnored = C_EquipmentSet.GetEquipmentSetInfo(angleurSetID)
+    print("numIgnored:", numIgnored, "numEquipped:", numEquipped, "numItems:", numItems)
+    Angleur_BetaPrint(debugChannel, "numIgnored:", numIgnored)
+    if numIgnored == 0 or numIgnored >= FOREVER_SLOTCOUNT then
+       return true 
+    end
+    return false
+end
+local function _forceSaveAngleurSet(angleurSetID)
+    C_EquipmentSet.SaveEquipmentSet(angleurSetID)
+    Angleur_BetaPrint(debugChannel, colorRed:WrapTextInColorCode("Forever/Classic EqSet Bug: ") .. "Force-Saving ignored slots(all) to prevent the Classic EqSet Bug")
+end
+function Angleur_FixClassicEqSetBugOnLogin()
+    if gameVersion ~= 3 and gameVersion ~= 4 then return end
+    local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
+    if not setID then return end
+    local allUnignored = _checkIfAllSlotsAreUnignored(setID)
+    if allUnignored then
+        _forceIgnoreAllSlots()
+        _forceSaveAngleurSet(setID)
+    end
+end
+-- ________________________________________________________________________________________
+
+
+
 -- _____________________________________________________________ General Functions__________________________________________________________________________________________
 -- _________________________________________________________Used many times throughout eqMan________________________________________________________________________________
 local function CheckTable(teeburu, itemID)
@@ -172,6 +222,7 @@ local function checkSlottedExtraItems()
     end
     return false
 end
+
 
 -- RECHECK FOR FOREVER
 local function showAndPlayAnimation()
@@ -404,7 +455,7 @@ ManualEquipTracker:SetScript("OnEvent", function(self, event, slot, empty)
             elseif updatingSet == false then
                 if gameVersion == 2 and CheckTable(fishingPoleTableMoP, newItem) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("ManualEquipTracker(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                -- RECHECK FOR FOREVER 
+                -- RECHECK FOR FOREVER: Forever might add new fishing rods, so I might need to add a separate case
                 elseif (gameVersion == 3 or gameVersion == 4) and CheckTable(fishingPoleTableVanilla, newItem) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("ManualEquipTracker(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
                 else
@@ -452,7 +503,7 @@ end
 
 function Angleur_CreateEquipmentSet()
     -- RECHECK FOR FOREVER
-    if gameVersion == 3 or gameVersion == 4 then
+    if gameVersion == 3 then
         if checkSlottedExtraItems() == false then
             print(T["Can't create Equipment Set without any equippable slotted items. Slot a usable and equippable item to your Extra Items slots first."])
             print(T["This is a limitation of Classic(not the case for Mists and Retail), since it lacks a proper built-in Equipment Manager, allowing you to slot passive items to your Angleur Set."])
@@ -486,7 +537,8 @@ function Angleur_CreateEquipmentSet()
         AngleurCharacter.angleurSet = true
     end
     -- RECHECK FOR FOREVER
-    if gameVersion == 3 or gameVersion == 4 then
+    -- FOREVER-EQMAN-RESTORATION
+    if gameVersion == 3 then
         Angleur_AddToEquipmentSet()
     end
 end
@@ -502,19 +554,68 @@ end
 -- Play a glow animation around the "Angleur" Equipment Set in the Equipment Manager menu
 
 
-local function _isEligible(itemID)
+local function isEligible(itemID, verbose)
     if not C_Item.IsEquippableItem(itemID) then return false end
     if not (C_Item.GetItemCount(itemID) >= 1) then
-        print(T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."])
+        if verbose then
+            print(T["ITEM NOT FOUND IN BAGS. TO USE FOR EQUIPMENT SWAP, EITHER ADD IT MANUALLY TO ANGLEUR SET OR RE-DRAG THE MACRO."])
+        end
         return false
     end
     return true
 end
+
+-- ________________________________ FOREVER-AUTOADD-FISHINGROD ________________________________
+local function _checkForPolesInBag()
+    for i, itemID in pairs(fishingPoleTableVanilla) do
+        if isEligible(itemID, false) then
+            return itemID
+        end
+    end
+    return false
+end
+local MAINHAND_SLOT = 16
+local function _autoAddFishingRodForSupportedVersion()
+    local bagPole_ItemID = _checkForPolesInBag()
+    if not bagPole_ItemID then return false end
+    if C_EquipmentSet.IsSlotIgnoredForSave(MAINHAND_SLOT) then
+        C_EquipmentSet.UnignoreSlotForSave(MAINHAND_SLOT)
+    end
+    wantToEquip[MAINHAND_SLOT] = bagPole_ItemID
+    local currentlyEquipped = GetInventoryItemID("player", MAINHAND_SLOT)
+    if currentlyEquipped ~= bagPole_ItemID then
+        Angleur_SwapoutItemsSaved[MAINHAND_SLOT] = getItemLinkEquipped(MAINHAND_SLOT)
+    end
+    return true
+end
+-- ____________________________________________________________________________________________
+
+
+
 -- First called when player clicks the 'Create/Update Set' button
 function Angleur_AddToEquipmentSet()
     local setID = C_EquipmentSet.GetEquipmentSetID("Angleur")
     setIgnores(setID)
     updatingSet = true
+
+    -- ____ FOREVER-AUTOADD-FISHINGROD ____
+    if gameVersion == 4 then
+        if _autoAddFishingRodForSupportedVersion() == true then
+            -- case handled within function
+        else
+            -- abort adding process, and force delete Angleur Set
+            updatingSet = false
+            wantToEquip = {}
+            Angleur_SwapoutItemsSaved = {}
+            Angleur_ForceDeleteSet()
+            print(T["Angleur Forever: Cannot create Equipment Set without eligible Fishing Rod in inventory."])
+            print(T["If there IS a Fishing Rod in your inventory and this is still happening, please contact author Legolando. You can find the discord link in the Standard Tab of the Config Panel."])
+            print(T["The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!"])
+        end
+
+    end
+    -- ____________________________________
+
     for i=1, ang.extraItems.slotCount, 1 do
         local slot = Angleur_SlottedExtraItems[i]
         local itemID
@@ -523,7 +624,12 @@ function Angleur_AddToEquipmentSet()
         elseif slot.macroItemID ~= 0 and slot.macroItemID ~= nil then
             itemID = slot.macroItemID
         end
-        if itemID and _isEligible(itemID) == true and slot.equipLoc ~= 0 and slot.equipLoc ~= nil then
+        -- _________ FOREVER-AUTOADD-FISHINGROD _________
+        if gameVersion == 4 and slot.equipLoc == 16 then
+            -- don't add main hand item as the spot must 
+            --       be reserved for fishing rod
+        -- ______________________________________________
+        elseif itemID and isEligible(itemID, true) == true and slot.equipLoc ~= 0 and slot.equipLoc ~= nil then
             local location = slot.equipLoc
             if type(location) == "table" then location = location[1] end
             if C_EquipmentSet.IsSlotIgnoredForSave(location) then
@@ -535,7 +641,7 @@ function Angleur_AddToEquipmentSet()
             if itemID ~= currentlyEquipped then
                 if gameVersion == 2 and CheckTable(fishingPoleTableMoP, currentlyEquipped) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(MoP) ") .. ": Swapout item is a fishing rod. Not adding.")
-                -- RECHECK FOR FOREVER
+                -- RECHECK FOR FOREVER : Forever might add new fishing rods, so I might need to add a separate case
                 elseif (gameVersion == 3 or gameVersion == 4) and CheckTable(fishingPoleTableVanilla, currentlyEquipped) then
                     Angleur_BetaPrint(debugChannel, colorDebug2:WrapTextInColorCode("Angleur_AddToEquipmentSet(Vanilla) ") .. ": Swapout item is a fishing rod. Not adding.")
                 else
