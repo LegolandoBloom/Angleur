@@ -429,7 +429,7 @@ function Angleur_ActionHandler(self)
         performAction(self, assignKey, action)
         return
     end
-
+    
     if mounted and Angleur_TinyOptions.allowDismount == false then
         action =  "clear"
         performAction(self, assignKey, action)

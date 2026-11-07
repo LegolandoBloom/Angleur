@@ -103,6 +103,36 @@ function mistsStandardTab:ExtraButtons(tab1contents)
         tab1contents.baitEnable.dropDown:Show()
     end
     DropDown_CreateTitle(tab1contents.baitEnable.dropDown, T["Bait"])
+    
+    local colorRed = CreateColor(1, 0, 0)
+    local colorPurple = CreateColor(0.64, 0.3, 0.71)
+    local wherebobberScan = tab1contents:CreateTexture("Angleur_WhereDidBobberScannerGo", "ARTWORK")
+    wherebobberScan:SetTexture("Interface/AddOns/Angleur/images/wherebobberscanner.png")
+    wherebobberScan:SetSize(180, 48)
+    wherebobberScan:SetPoint("LEFT", tab1contents, "LEFT", 50, 77)
+    wherebobberScan:SetScript("OnEnter")
+    wherebobberScan:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_BOTTOMRIGHT", 0, 50)
+        GameTooltip:AddLine("Where did the \'Bobber Scanner\' Go?")
+        GameTooltip:AddLine("Blizzard has reportedly fixed Wow Classic's Soft-Interact issue.", 1, 1, 1)
+        GameTooltip:AddLine("From now on, all your bobbers should land within the soft interact range.", 1, 1, 1, true)
+        GameTooltip:AddLine("\n ")
+        GameTooltip:AddLine("This means you don't need the Bobber Scanner anymore! Which is why I have removed it from Forever.", 1, 1, 1, true)
+        GameTooltip:AddLine("\n ")
+        GameTooltip:AddLine(colorRed:WrapTextInColorCode("Soft-Interact STILL MISSES For You?"))
+        GameTooltip:AddLine("Please let the author, " .. colorYello:WrapTextInColorCode("Legolando ") .. "know. " .. colorPurple:WrapTextInColorCode("Discord ") 
+        .. "link can be found in the bottomright corner of the Standard Tab in the Config Panel.", 1, 1, 1, true)
+        GameTooltip:AddLine("In the meantime, if you want the bobber scanner back, you can download and use version: " 
+        .. colorBlu:WrapTextInColorCode("Angleur-2.9.78 ") .. "From Curseforge.", 0.85, 0.85, 0.85, true)
+
+        GameTooltip:Show()
+    
+    end)
+    wherebobberScan:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+
 
     if gameVersion == 2 then
         tab1contents.raftEnable.text:SetText(T["Raft"])

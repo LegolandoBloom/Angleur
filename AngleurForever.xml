@@ -171,7 +171,7 @@
                                     <Frame name="$parent_FishingMethod" parentKey="fishingMethod">
                                         <Size x="260" y="150"/>
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-120"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="19" y="-170"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="ARTWORK">
@@ -702,9 +702,8 @@
             <OnEnter>
                 GameTooltip:SetOwner(self, "ANCHOR_BOTTOMLEFT", 70)
                 local colorWhite = CreateColor(1, 1, 1)
-                GameTooltip:AddLine(Angleur_Translate["Beta: " 
-                .. colorWhite:WrapTextInColorCode("If you are having trouble,\ntry resetting the set by clicking\nthe reset button then refreshing\nthe UI with ") 
-                .. "/reload."], 1.0, 0.82, 0.0)
+                GameTooltip:AddLine(Angleur_Translate["Note:"], 1.0, 1, 1)
+                GameTooltip:AddLine(Angleur_Translate["Needs an equippable Fishing Rod in your inventory or on your character to work.\n\nOnce created, Angleur will automatically equip your rod when waking up."], 1.0, 1, 1)
                 GameTooltip:Show()
             </OnEnter>
             <OnLeave>

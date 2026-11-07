@@ -938,6 +938,10 @@ T["If there IS a Fishing Rod in your inventory and this is still happening, plea
 
 T["The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!"] = colorGrae:WrapTextInColorCode("The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!")
 
+T["Needs an equippable Fishing Rod in your inventory or on your character to work.\n\nOnce created, Angleur will automatically equip your rod when waking up."] = "Needs " 
+.. "an equippable " .. colorBrown:WrapTextInColorCode("Fishing Rod ") .. "in your inventory or on your character to work.\n\nOnce created, Angleur will automatically equip your rod when waking up."
+T["Note:"] = colorYello:WrapTextInColorCode("Note:")
+
 
 -- soft icon changes
 
