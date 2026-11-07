@@ -570,19 +570,9 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-63"/>
                                         </Anchors>
                                     </Frame>
-                                    <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-88"/>
-                                        </Anchors>
-                                    </Frame>
-                                    <Frame name="$parent_SwimRelease" parentKey="swimRelease" inherits="CheckboxFrameTemplate_Angleur">
-                                        <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-113"/>
-                                        </Anchors>
-                                    </Frame>
                                     <Frame name="$parent_SoftIcon" parentKey="softIcon" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
-                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-138"/>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-88"/>
                                         </Anchors>
                                         <Layers>
                                             <Layer level="OVERLAY">
@@ -603,6 +593,17 @@
                                             </Layer>
                                         </Layers>
                                     </Frame>
+                                    <Frame name="$parent_Dismount" parentKey="dismount" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-113"/>
+                                        </Anchors>
+                                    </Frame>
+                                    <Frame name="$parent_SwimRelease" parentKey="swimRelease" inherits="CheckboxFrameTemplate_Angleur">
+                                        <Anchors>
+                                            <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-138"/>
+                                        </Anchors>
+                                    </Frame>
+                                    
                                     <Frame name= "$parent_DoubleClickWindow" parentKey="doubleClickWindow" inherits="SliderAndEditControlTemplate">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-161"/>

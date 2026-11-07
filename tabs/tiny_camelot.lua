@@ -1,5 +1,5 @@
 -- |FOREVER Bobber Scanner Removal|
--- COPIED OFF OF: tiny_vanilla -> then added offInteract parts
+-- COPIED OFF OF: tiny_vanilla -> then added offInteract parts & softIcon parts from tiny_retail
 
 
 local T = Angleur_Translate
@@ -41,6 +41,37 @@ function vanillaTinyTab:ExtraButtons(tab3_contents)
     end
     -- __________________________________________________________________________________________________________
 
+    tab3_contents.softIcon.text:SetText(T["Show Bobber Icon"])
+    --tab3_contents.softIcon.text:SetFontObject(SpellFont_Small)
+    tab3_contents.softIcon.text.tooltip = T["When checked, Angleur will enable the fish hook icon above your bobber."]
+    tab3_contents.softIcon.checkbox:SetScript("OnClick", function(self)
+        if InCombatLockdown() then
+            self:SetChecked(not self:GetChecked())
+            print(T["Can't change in combat."])
+            return
+        end
+        if self:GetChecked() then
+            Angleur_TinyOptions.softIcon = true
+            -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
+            C_CVar.SetCVar("SoftTargetIconGameObject", "1")
+            self:GetParent().disabledTexture:Hide()
+            print(T["Fish hook icon above bobber will be shown."])
+        elseif self:GetChecked() == false then
+            Angleur_TinyOptions.softIcon = false
+            -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
+            C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+            self:GetParent().disabledTexture:Show()
+            print(T["Fish hook icon above bobber disabled."])
+        end
+    end)
+    -- don't call SetCVar, already called in init.lua -> _cvars_load()
+    if Angleur_TinyOptions.softIcon == true then
+        tab3_contents.softIcon.checkbox:SetChecked(true)
+        tab3_contents.softIcon.disabledTexture:Hide()
+    elseif Angleur_TinyOptions.softIcon == false then
+        tab3_contents.softIcon.disabledTexture:Show()
+    end
+
     
     tab3_contents.poleSleep.text:SetText(T["Sleep Without Fishing Rod"])
     --tab3_contents.poleSleep.text:SetFontObject(SpellFont_Small)
@@ -69,6 +100,7 @@ function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
         -- ______|FOREVER Bobber Scanner Removal|______
         Angleur_TinyOptions.turnOffSoftInteract = true
         -- ____________________________________________
+        Angleur_TinyOptions.softIcon = true
         Angleur_TinyOptions.allowDismount = false
         Angleur_TinyOptions.poleSleep = true
         Angleur_TinyOptions.doubleClickWindow = 0.4
@@ -85,6 +117,12 @@ function vanillaTinyTab:SetDefaultsButtonScript(tab3_contents)
         -- _________|FOREVER Bobber Scanner Removal|________
         tab3_contents.offInteract.checkbox:SetChecked(true)
         -- _________________________________________________
+        -- ** soft icon **
+        -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
+        C_CVar.SetCVar("SoftTargetIconGameObject", "1")
+        tab3_contents.softIcon.checkbox:SetChecked(true)
+        tab3_contents.softIcon.disabledTexture:Hide()
+        -- ***************
         tab3_contents.dismount.checkbox:SetChecked(false)
         tab3_contents.poleSleep.checkbox:SetChecked(true)
         tab3_contents.doubleClickWindow:SetValue(4)

@@ -95,9 +95,9 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
     tab3_contents.defaults:SetScript("OnClick", function()
         Angleur_TinyOptions.lootProtectionEnabled = true
         Angleur_TinyOptions.turnOffSoftInteract = true
+        Angleur_TinyOptions.softIcon = true
         Angleur_TinyOptions.allowDismount = false
         Angleur_TinyOptions.swimRelease = true
-        Angleur_TinyOptions.softIcon = true
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
         -- Minimap Button --
@@ -110,14 +110,14 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         ang.debugLevel = 0
         tab3_contents.lootProtection.checkbox:SetChecked(true)
         tab3_contents.offInteract.checkbox:SetChecked(true)
-        tab3_contents.dismount.checkbox:SetChecked(false)
-        tab3_contents.swimRelease.checkbox:SetChecked(true)
         -- ** soft icon **
         -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
         C_CVar.SetCVar("SoftTargetIconGameObject", "1")
         tab3_contents.softIcon.checkbox:SetChecked(true)
         tab3_contents.softIcon.disabledTexture:Hide()
         -- ***************
+        tab3_contents.dismount.checkbox:SetChecked(false)
+        tab3_contents.swimRelease.checkbox:SetChecked(true)
         tab3_contents.doubleClickWindow:SetValue(4)
         tab3_contents.visualSize:SetValue(10)
         -- Minimap Button --
