@@ -59,32 +59,35 @@ function retailTinyTab:ExtraButtons(tab3_contents)
         tab3_contents.offInteract.checkbox:SetChecked(true)
     end
 
-    tab3_contents.softIconOff.text:SetText(T["Disable Soft Icon"])
-    --tab3_contents.softIconOff.text:SetFontObject(SpellFont_Small)
-    tab3_contents.softIconOff.text.tooltip = T["Whether the Hook icon above the bobber is shown.\nNote, this affects icons for other soft target objects."]
-    tab3_contents.softIconOff.checkbox:SetScript("OnClick", function(self)
+    tab3_contents.softIcon.text:SetText(T["Show Bobber Icon"])
+    --tab3_contents.softIcon.text:SetFontObject(SpellFont_Small)
+    tab3_contents.softIcon.text.tooltip = T["When checked, Angleur will enable the fish hook icon above your bobber."]
+    tab3_contents.softIcon.checkbox:SetScript("OnClick", function(self)
         if InCombatLockdown() then
             self:SetChecked(not self:GetChecked())
             print(T["Can't change in combat."])
             return
         end
         if self:GetChecked() then
-            Angleur_TinyOptions.softIconOff = true
-            if C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
-                C_CVar.SetCVar("SoftTargetIconGameObject", "0")
-            end
-            self:GetParent().disabledTexture:Show()
-            print(T["Soft target icon for game objects disabled."])
-        elseif self:GetChecked() == false then
-            Angleur_TinyOptions.softIconOff = false
+            Angleur_TinyOptions.softIcon = true
+            -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
             C_CVar.SetCVar("SoftTargetIconGameObject", "1")
             self:GetParent().disabledTexture:Hide()
-            print(T["Soft target icon for game objects re-enabled."])
+            print(T["Fish hook icon above bobber will be shown."])
+        elseif self:GetChecked() == false then
+            Angleur_TinyOptions.softIcon = false
+            -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
+            C_CVar.SetCVar("SoftTargetIconGameObject", "0")
+            self:GetParent().disabledTexture:Show()
+            print(T["Fish hook icon above bobber disabled."])
         end
     end)
-    if Angleur_TinyOptions.softIconOff == true then
-        tab3_contents.softIconOff.checkbox:SetChecked(true)
-        tab3_contents.softIconOff.disabledTexture:Show()
+    -- don't call SetCVar, already called in init.lua -> _cvars_load()
+    if Angleur_TinyOptions.softIcon == true then
+        tab3_contents.softIcon.checkbox:SetChecked(true)
+        tab3_contents.softIcon.disabledTexture:Hide()
+    elseif Angleur_TinyOptions.softIcon == false then
+        tab3_contents.softIcon.disabledTexture:Show()
     end
 end
 
@@ -94,7 +97,7 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         Angleur_TinyOptions.turnOffSoftInteract = true
         Angleur_TinyOptions.allowDismount = false
         Angleur_TinyOptions.swimRelease = true
-        Angleur_TinyOptions.softIconOff = false
+        Angleur_TinyOptions.softIcon = true
         Angleur_TinyOptions.doubleClickWindow = 0.4
         Angleur_TinyOptions.visualScale = 1
         -- Minimap Button --
@@ -109,7 +112,12 @@ function retailTinyTab:SetDefaultsButtonScript(tab3_contents)
         tab3_contents.offInteract.checkbox:SetChecked(true)
         tab3_contents.dismount.checkbox:SetChecked(false)
         tab3_contents.swimRelease.checkbox:SetChecked(true)
-        tab3_contents.softIconOff.checkbox:SetChecked(false)
+        -- ** soft icon **
+        -- can't use tempCVars bcuz we don't just want to 'release' when turning off, we want it altered permanently to off
+        C_CVar.SetCVar("SoftTargetIconGameObject", "1")
+        tab3_contents.softIcon.checkbox:SetChecked(true)
+        tab3_contents.softIcon.disabledTexture:Hide()
+        -- ***************
         tab3_contents.doubleClickWindow:SetValue(4)
         tab3_contents.visualSize:SetValue(10)
         -- Minimap Button --

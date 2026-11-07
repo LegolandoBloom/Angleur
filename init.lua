@@ -142,8 +142,8 @@ function Init_AngleurSavedVariables()
     if Angleur_TinyOptions.errorsDisabled == nil then
         Angleur_TinyOptions.errorsDisabled = true
     end
-    if Angleur_TinyOptions.softIconOff == nil then
-        Angleur_TinyOptions.softIconOff = false
+    if Angleur_TinyOptions.softIcon == nil then
+        Angleur_TinyOptions.softIcon = true
     end
     if Angleur_TinyOptions.debugLevel == nil then
         Angleur_TinyOptions.debugLevel = 0
@@ -688,7 +688,9 @@ local function _cvars_load()
     Angleur_TempCVars["Sound_AmbienceVolume"].setTo =  AngleurAudio.ultraFocusAmbience
     Angleur_TempCVars["Sound_DialogVolume"].setTo =  AngleurAudio.ultraFocusDialog
     -- Order: Anywhere in PLAYER_ENTERING_WORLD
-    if Angleur_TinyOptions.softIconOff == true and 	C_CVar.GetCVar("SoftTargetIconGameObject") == "1" then
+    if Angleur_TinyOptions.softIcon == true then
+        C_CVar.SetCVar("SoftTargetIconGameObject", "1")
+    elseif Angleur_TinyOptions.softIcon == false then
         C_CVar.SetCVar("SoftTargetIconGameObject", "0")
     end
     if GetCVar("autoLootDefault") == "1" then

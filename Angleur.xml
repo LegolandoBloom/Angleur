@@ -580,7 +580,7 @@
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-113"/>
                                         </Anchors>
                                     </Frame>
-                                    <Frame name="$parent_SoftIconOff" parentKey="softIconOff" inherits="CheckboxFrameTemplate_Angleur">
+                                    <Frame name="$parent_SoftIcon" parentKey="softIcon" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="20" y="-138"/>
                                         </Anchors>

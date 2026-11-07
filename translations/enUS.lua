@@ -937,3 +937,11 @@ T["If there IS a Fishing Rod in your inventory and this is still happening, plea
 .. "link in the \'Standard Tab\' of the " .. colorYello:WrapTextInColorCode("Config Panel.")
 
 T["The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!"] = colorGrae:WrapTextInColorCode("The likely cause is that it's a new fishing rod Legolando didn't know about, so please let him know!")
+
+
+-- soft icon changes
+
+T["Show Bobber Icon"] = "Show Bobber Icon"
+T["When checked, Angleur will enable the fish hook icon above your bobber."] = "When checked, Angleur will enable the fish hook icon above your bobber."
+T["Fish hook icon above bobber disabled."] = "Fish hook icon above bobber disabled."
+T["Fish hook icon above bobber will be shown."] = "Fish hook icon above bobber will be shown."

@@ -301,7 +301,9 @@
         "STAT_TOOLTIP_BONUS_AP",
         "AZERITE_PREVIEW_UNAVAILABLE_FOR_CLASS",
         "CR_PARRY_BASE_STAT_TOOLTIP",
-        "CR_DODGE_BASE_STAT_TOOLTIP"
+        "CR_DODGE_BASE_STAT_TOOLTIP",
+        "Angleur_TempCVarHandler",
+        "Angleur_TempCVars_ToggleUltraFocusAudio"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
