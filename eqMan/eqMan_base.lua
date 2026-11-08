@@ -23,7 +23,7 @@ local gameVersion = ang.gameVersion
 local updatingSet = false
 
 local fishingPoleTableMoP = AngleurMoP_FishingPoleTable
-local fishingPoleTableVanilla = AngleurVanilla_FishingPoleTable
+local fishingPoleTableVanilla = AngleurVanillaForever_FishingPoleTable
 
 -- _______________________________ FOREVER-EQSET-BUGFIX-LOGINMETHOD _______________________________
 local function checkSetEmptyLogout()

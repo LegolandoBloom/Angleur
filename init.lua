@@ -210,7 +210,13 @@ function Init_AngleurSavedVariables()
     -- _______________________
 end
 
-AngleurVanilla_FishingPoleTable = {
+-- ************************************************************************************************************************************************************************************
+-- *** TODO: Separate Vanilla and Forever for FishingPoleTable and FishingSpellTable once forever hits a year old(blizz might still add missing vanilla rods and spells to forever) ***
+-- ************************************************************************************************************************************************************************************
+
+-- Shared Vanilla and Forever
+AngleurVanillaForever_FishingPoleTable = {
+    -- Vanilla(and some shared Forever)
     6256,
     6365,
     6366,
@@ -225,17 +231,34 @@ AngleurVanilla_FishingPoleTable = {
     45991,
     45992,
     46337,
-    52678
+    52678,
+
+    -- Forever only
+    285094,
 }
-AngleurVanilla_FishingSpellTable = {
+
+AngleurVanillaForever_FishingSpellTable = {
+    -- __ Rank 1 to 4 ___
     7620,
     7731,
     7732,
     18248,
+    -- __________________
+
+    -- Misc
     33095,
     51294,
-    88868
+    88868,
+
+    -- Forever only
+    -- __ UNKNOWN | Called 'Fishing' (Diamond Icon on Wowhead) __
+    1240948, -- Rank 1
+    1240959, -- Rank 2
+    1240970, -- Rank 3
+    1240983, -- Rank 4 
+    -- __________________________________________________________
 }
+
 AngleurMoP_FishingPoleTable = {
     6256, --Fishing Pole
     6365, --Strong Fishing Pole

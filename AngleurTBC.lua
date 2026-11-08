@@ -68,7 +68,7 @@ local function CheckTable(table ,spell)
     return matchFound
 end
 
-local fishingPoleTable = AngleurVanilla_FishingPoleTable
+local fishingPoleTable = AngleurVanillaForever_FishingPoleTable
 function AngleurClassic_CheckFishingPoleEquipped()
     if not Angleur_TinyOptions.poleSleep then return end
     if InCombatLockdown() or UnitIsDeadOrGhost("player") then return end
@@ -156,7 +156,7 @@ local function checkMounted()
     end
     return false
 end
-local fishingSpellTable = AngleurVanilla_FishingSpellTable
+local fishingSpellTable = AngleurVanillaForever_FishingSpellTable
 function Angleur_LogicVariableHandler(self, event, unit, ...)
     if ang.addonLoaded == false then return end
     local arg4, arg5, arg6 = ...

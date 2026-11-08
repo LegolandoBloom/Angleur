@@ -1,7 +1,7 @@
 ___ AngleurForever.lua ___
 line 158:
     Replace:
-    local fishingSpellTable = AngleurVanilla_FishingSpellTable
+    local fishingSpellTable = AngleurVanillaForever_FishingSpellTable
     with:
     -- FOREVER-RETAIL DEBUG TEST
     local fishingSpellTable = AngleurRetail_FishingSpellTable
