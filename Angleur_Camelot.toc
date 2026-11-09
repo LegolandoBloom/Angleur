@@ -8,6 +8,10 @@
 ## IconTexture: Interface\AddOns\Angleur\images\angleuriconsmall
 ## X-Curse-Project-ID: 893895
 
+## AddonCompartmentFunc: Angleur_AddonCompartment_OnClick
+## AddonCompartmentFuncOnEnter: Angleur_AddonCompartment_OnEnter
+## AddonCompartmentFuncOnLeave: Angleur_AddonCompartment_OnLeave
+
 ## Category-enUS: Professions
 ## Category-deDE: Berufe
 ## Category-esES: Profesiones
@@ -48,6 +52,7 @@ tabs\tiny_camelot.lua
 tabs\tiny_base.lua
 
 modules\embeds_all.xml
+modules\embeds_forever.xml
 
 AngleurForever.xml
 
