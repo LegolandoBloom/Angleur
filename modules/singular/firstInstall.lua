@@ -10,6 +10,8 @@ local addonName, ang = ...
 local gameVersion = ang.gameVersion
 
 
+local MAX_ATTEMPTS = 3
+
 --[[
 	Legolando_HelpTipTemplateMixin.parts[i] = {
 		text,									-- also acts as a key for various API, MUST BE SET
@@ -69,6 +71,8 @@ function Angleur_FirstInstall()
 
         angleurHelpTip.savedVarTable = AngleurTutorial
         angleurHelpTip.reference = "part"
+        angleurHelpTip.maxAttempts = MAX_ATTEMPTS
+        angleurHelpTip.attemptsRemainingReference = "attemptsRemaining"
 
         angleurHelpTip.onSkipCallback = platerWarning
 
@@ -224,6 +228,10 @@ function Angleur_FirstInstall()
         alreadySet = true
     end
     
+    Angleur_FirstInstall_KickoffTutorial()
+end
+
+function Angleur_FirstInstall_KickoffTutorial()
     if AngleurTutorial.part > #angleurHelpTip.parts then
         return
     elseif AngleurTutorial.part < 6 then
@@ -238,5 +246,13 @@ function Angleur_FirstInstall()
         Angleur.visual:Reset(Angleur.configPanel.tab1.contents.returnButton, 180, 180, false)
     end
     angleurHelpTip:Activate(AngleurTutorial.part)
-    --angleurHelpTip:InsertPart(part1, 1)
+end
+
+function Angleur_FirstInstall_RedoTutorial()
+    if not alreadySet then 
+        print("Angleur_FirstInstall_RedoTutorial: HelpTip Frame setup not completed")
+        return
+    end
+    angleurHelpTip:ResetTutorial()
+    Angleur_FirstInstall_KickoffTutorial()
 end

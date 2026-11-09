@@ -199,6 +199,9 @@ function Init_AngleurSavedVariables()
     if AngleurTutorial.part == nil then
         AngleurTutorial.part = 1
     end
+    if AngleurTutorial.attemptsRemaining == nil then
+        AngleurTutorial.attemptsRemaining = 3
+    end
     
     -- ___ Keybind Buttons ___
     Angleur_AngleurKey.savedVarTable = AngleurConfig

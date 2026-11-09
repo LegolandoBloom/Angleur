@@ -221,6 +221,17 @@ function Legolando_HelpTipTemplateMixin_Angleur:AttachWarning(warningFrame)
 	end)
 end
 
+function Legolando_HelpTipTemplateMixin_Angleur:ResetTutorial()
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	if not teeburu or not reference then 
+		print("no saved variable table or reference found")
+		return 
+	end
+	teeburu[reference] = 1
+	self:ResetAttempts()
+end
+
 function Legolando_HelpTipTemplateMixin_Angleur:SkipTutorial()
 	local teeburu = self.savedVarTable
 	if not teeburu then 
@@ -231,6 +242,7 @@ function Legolando_HelpTipTemplateMixin_Angleur:SkipTutorial()
 	if self.reference then
 		teeburu[self.reference] = self.partActive
 	end
+	self:ResetAttempts()
 	self:Hide()
 	if self.onSkipCallback then
 		self.onSkipCallback()
@@ -241,6 +253,36 @@ function Legolando_HelpTipTemplateMixin_Angleur:CompletePartWithAction(part)
 		self.acknowledgeThisHide = true
 		self:Hide()
 	end
+end
+
+function Legolando_HelpTipTemplateMixin_Angleur:ResetAttempts()
+	local maxAttempts = self.maxAttempts
+	if not maxAttempts then return false end
+	local attemptsRemainingReference = self.attemptsRemainingReference
+	if not attemptsRemainingReference then return false end
+	local attemptsRemaining = self.savedVarTable[attemptsRemainingReference]
+	if attemptsRemaining == nil then 
+		print("Legolando_HelpTip: Max attempts set, but missing table value for attemptsRemaining")
+		return false 
+	end
+	self.savedVarTable[attemptsRemainingReference] = maxAttempts
+end
+
+function Legolando_HelpTipTemplateMixin_Angleur:HasRunOutOfAttempts()
+	local maxAttempts = self.maxAttempts
+	if not maxAttempts then return false end
+	local attemptsRemainingReference = self.attemptsRemainingReference
+	if not attemptsRemainingReference then return false end
+	local attemptsRemaining = self.savedVarTable[attemptsRemainingReference]
+	if attemptsRemaining == nil then 
+		print("Legolando_HelpTip: Max attempts set, but missing table value for attemptsRemaining")
+		return false 
+	end
+	if attemptsRemaining <= 0 then
+		return true
+	end
+	self.savedVarTable[attemptsRemainingReference] = attemptsRemaining - 1
+	return false
 end
 
 function Legolando_HelpTipTemplateMixin_Angleur:Activate(startingPart)
@@ -258,6 +300,10 @@ function Legolando_HelpTipTemplateMixin_Angleur:Activate(startingPart)
         return
     end
 	if startingPart > #self.parts then 
+		return 
+	end
+	if self:HasRunOutOfAttempts() == true then
+		self:SkipTutorial()
 		return 
 	end
 	self.partActive = startingPart
