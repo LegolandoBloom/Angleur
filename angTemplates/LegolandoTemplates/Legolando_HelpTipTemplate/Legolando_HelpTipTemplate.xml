@@ -66,17 +66,8 @@
             <Button parentKey="CloseButton" mixin="Legolando_HelpTipCloseButtonMixin_Angleur" hidden="false" frameLevel="100">
                 <Size x="18" y="18"/>
                 <Anchors>
-                    <Anchor point="TOPRIGHT" x="-2" y="-2"/>
+                    <Anchor point="TOPRIGHT" x="-2" y="-1"/>
                 </Anchors>
-                <Layers>
-                    <Layer level="ARTWORK">
-                        <Texture parentKey="Texture">
-                            <Anchors>
-                                <Anchor point="TOPLEFT"/>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
-                </Layers>
                 <Scripts>
                     <OnLoad method="OnLoad"/>
                     <OnEnter method="OnEnter"/>

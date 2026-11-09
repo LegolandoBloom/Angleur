@@ -1,21 +1,34 @@
+local function getFolderPath()
+    local stack = debugstack()
+    local _, _, luafilepath = string.find(stack, "[%[](.-)[%]]")
+    -- print("lue file's path: ", luafilepath)
+    local i = 1
+    local lastPart
+    while string.find(luafilepath, "([/].+)", i) do
+        local startPoint, endPoint
+        startPoint, endPoint, lastPart = string.find(luafilepath, "([/].+)", i)
+        i = startPoint + 1
+        -- print(s, startPoint, endPoint, "\n")
+    end
+    -- print("part to remove: ", lastPart)
+    local afterRemoval = string.gsub(luafilepath, lastPart, "")
+    -- print("After removal: ", afterRemoval)
+    return afterRemoval
+end
+
+local folderPath = getFolderPath()
+local closeTexture = folderPath .. "/helptipclosebutton.png"
+local closeTexture_pushed = folderPath .. "/helptipclosebutton-pushed.png"
+local closeTexture_hilight = folderPath .. "/helptipclosebutton-hilight.png"
+
 Legolando_HelpTipCloseButtonMixin_Angleur = CreateFromMixins(ButtonStateBehaviorMixin);
 
-local atlas
-if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE then
-	atlas = "uitools-icon-close"
-elseif WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC or WOW_PROJECT_ID == WOW_PROJECT_CLASSIC or WOW_PROJECT_ID == 19 then
-	atlas = "simplecheckout-close-normal-1x"
-end
-function Legolando_HelpTipCloseButtonMixin_Angleur:GetAtlas()
-	if self:IsDown() then
-		return atlas;
-	end
-	return atlas;
+function Legolando_HelpTipCloseButtonMixin_Angleur:OnLoad()
+	self:SetNormalTexture(closeTexture)
+	self:SetPushedTexture(closeTexture_pushed)
+	self:SetHighlightTexture(closeTexture_hilight, "ADD")
 end
 
-function Legolando_HelpTipCloseButtonMixin_Angleur:OnButtonStateChanged()
-	self.Texture:SetAtlas(self:GetAtlas(), TextureKitConstants.UseAtlasSize);
-end
 
 --**********************************************************************
 --*THE PART THAT IS PORTED FROM RETAIL TO CLASSIC, NOT NEEDED IN RETAIL*
