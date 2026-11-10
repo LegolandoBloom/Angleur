@@ -130,8 +130,6 @@ Legolando_HelpTipTemplateMixin_Angleur.acknowledgeThisHide = false
 
 Legolando_HelpTipTemplateMixin_Angleur.savedVarTable = nil
 
-Legolando_HelpTipTemplateMixin_Angleur.partActive = nil
-
 Legolando_HelpTipTemplateMixin_Angleur.onSkipCallback = nil
 
 Legolando_HelpTipTemplateMixin_Angleur.parts = {}
@@ -189,20 +187,20 @@ function Legolando_HelpTipTemplateMixin_Angleur:OnHide()
 		self.warningFrame:Hide()
 	end
 	if not self.acknowledgeThisHide then return end
-	if not self.partActive then 
+	if not self:GetActivePartIndex() then 
         assert("Legolando_Helptip: Unexpected Error, no active part found when hiding")
         return
     end
-    local thisPart = self.parts[self.partActive]
-    if not thisPart then
+    local activePartTable = self:GetActivePartTable()
+    if not activePartTable then
         assert("Legolando_Helptip: Unexpected Error, data table of this part could not be found")
         return
     end
-    if thisPart.onHideCallback then
-		thisPart.onHideCallback(thisPart.callbackArg);
+    if activePartTable.onHideCallback then
+		activePartTable.onHideCallback(activePartTable.callbackArg);
 	end
-	thisPart.appliedAlignment = nil
-	thisPart.appliedTargetPoint = nil
+	activePartTable.appliedAlignment = nil
+	activePartTable.appliedTargetPoint = nil
 	self.OkayButton:Hide()
 	self.featureHighlight:ClearAllPoints()
 	self.featureHighlight:Hide()
@@ -221,6 +219,22 @@ function Legolando_HelpTipTemplateMixin_Angleur:AttachWarning(warningFrame)
 	end)
 end
 
+function Legolando_HelpTipTemplateMixin_Angleur:GetActivePartIndex()
+	local teeburu = self.savedVarTable
+	local reference = self.reference
+	if not teeburu or not reference then 
+		print("no saved variable table or reference found")
+		return 
+	end
+	return teeburu[reference]
+end
+
+function Legolando_HelpTipTemplateMixin_Angleur:GetActivePartTable()
+	local thisPartIndex = self:GetActivePartIndex()
+	local thisPart = self.parts[thisPartIndex]
+	return thisPart
+end
+
 function Legolando_HelpTipTemplateMixin_Angleur:ResetTutorial()
 	local teeburu = self.savedVarTable
 	local reference = self.reference
@@ -234,14 +248,12 @@ end
 
 function Legolando_HelpTipTemplateMixin_Angleur:SkipTutorial()
 	local teeburu = self.savedVarTable
-	if not teeburu then 
-		print("no saved variable table attached")
+	local reference = self.reference
+	if not teeburu or not reference then 
+		print("no saved variable table or reference attached")
 		return 
 	end
-	self.partActive = #self.parts + 1
-	if self.reference then
-		teeburu[self.reference] = self.partActive
-	end
+	teeburu[reference] = #self.parts + 1
 	self:ResetAttempts()
 	self:Hide()
 	if self.onSkipCallback then
@@ -249,7 +261,8 @@ function Legolando_HelpTipTemplateMixin_Angleur:SkipTutorial()
 	end
 end
 function Legolando_HelpTipTemplateMixin_Angleur:CompletePartWithAction(part)
-	if part == self.partActive then
+	local activePartIndex = self:GetActivePartIndex()
+	if part == activePartIndex then
 		self.acknowledgeThisHide = true
 		self:Hide()
 	end
@@ -285,30 +298,25 @@ function Legolando_HelpTipTemplateMixin_Angleur:HasRunOutOfAttempts()
 	return false
 end
 
-function Legolando_HelpTipTemplateMixin_Angleur:Activate(overriddenStartingPart)
+function Legolando_HelpTipTemplateMixin_Angleur:Activate(forceStartAt)
     local teeburu = self.savedVarTable
-	if not teeburu then 
-		print("no saved variable table attached")
+	local reference = self.reference
+	if not teeburu or not reference then 
+		print("no saved variable table or reference attached")
 		return 
 	end
-    if not self.reference then 
-        print("no checkbox reference string")
+    if teeburu[reference] == nil then
+        print("saved var table reference index is nil")
         return
     end
-    if teeburu[self.reference] == nil then
-        print("checkbox reference not found in saved variable table")
-        return
-    end
-	local startingPart = teeburu[self.reference]
-	if overriddenStartingPart then startingPart = overriddenStartingPart end
-	if startingPart > #self.parts then 
+	if forceStartAt then teeburu[reference] = forceStartAt end
+	if teeburu[reference] > #self.parts then 
 		return 
 	end
 	if self:HasRunOutOfAttempts() == true then
 		self:SkipTutorial()
 		return 
 	end
-	self.partActive = startingPart
 	if self.warningFrame then self.warningFrame:Hide() end
     self:ShowActivePart()
 end
@@ -320,21 +328,18 @@ function Legolando_HelpTipTemplateMixin_Angleur:GoToNextPart()
 		print("no saved variable table or reference attached")
 		return 
 	end
-	self.partActive = self.partActive + 1
-	if self.reference then
-		teeburu[self.reference] = self.partActive
-	end
-    if self.parts[self.partActive] then
+	teeburu[reference] = teeburu[reference] + 1
+    if self.parts[teeburu[reference]] then
         self:ShowActivePart()
     else
-        self.partActive = nil
+		-- do nothing
     end
 end
 
 function Legolando_HelpTipTemplateMixin_Angleur:ShowActivePart()
-	local thisPart = self.parts[self.partActive]
-    self:AnchorAndRotate(thisPart)
-    self:Layout(thisPart)
+	local activePartTable = self:GetActivePartTable()
+    self:AnchorAndRotate(activePartTable)
+    self:Layout(activePartTable)
     self:Show()
 end
 
