@@ -367,4 +367,74 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 -- Changed lines
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
-.. colorYello:WrapTextInColorCode("Ko-Fi!")
+.. colorYello:WrapTextInColorCode("Ko-Fi!").. colorYello:WrapTextInColorCode("Ko-Fi!")
+
+-- Machine-translated entries added for missing locale strings.
+
+T["Toggle Background Audio"] = "切换背景音频"
+
+T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("如果角色后面有一个物体迫使你的相机角度改变，请尝试将其设置为 ") .. colorRed:WrapTextInColorCode("lower ") .. colorWhite:WrapTextInColorCode("value.")
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping."
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "如果启用，Angleur 将在 " .. colorGreen:WrapTextInColorCode("awake") .. " 时将 " .. colorGreen:WrapTextInColorCode(" 设为 ") .. colorYello:WrapTextInColorCode("“背景声音”") .. "，并在 " .. colorRed:WrapTextInColorCode("sleeping") .. "." .. colorGrae:WrapTextInColorCode(" 时将 [[colorRed]] 恢复为之前的值\n\n仅当您不想打开背景声音，或者由于与另一个插件冲突而出现错误时才禁用。")
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker."
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "宏绑定键可轻松查找和标记虚空池！\n\n当您按下它时，如果附近有 " .. colorDarkBlu:WrapTextInColorCode(" 虚空池") .. "，它将在您的小地图上和游戏中用头骨标记进行标记。" .. colorGrae:WrapTextInColorCode("\n\n还在鼠标光标下播放很酷的音效和扫描动画")
+
+T["Ambience Volume"] = "环境音量"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur：") .. "Ultra Focus 将触发"
+
+T["Adjust Audio Levels"] = "调整音频电平"
+
+T["Zoom Out To"] = colorPurple:WrapTextInColorCode("!!新的 ！！ ") .. colorYello:WrapTextInColorCode("缩小至")
+
+T["Recast Reminder"] = "重铸提醒"
+
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "选择何时 Angleur 的 Ultra Focus " .. colorGreen:WrapTextInColorCode(" 激活 ") .. "/" .. colorRed:WrapTextInColorCode(" 发布 ") .. "。\n\n" .. colorYello:WrapTextInColorCode("Cast/Reel：") .. "每次施放" .. colorGrae:WrapTextInColorCode("时都会激活/释放（默认）\n\n") .. colorYello:WrapTextInColorCode("睡眠/唤醒：") .. "只会在您唤醒/睡眠插件时激活/释放"
+
+T["Activation Mode:"] = "激活方式："
+
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur：") .. "隐藏小地图按钮"
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. " 显示小地图按钮"
+
+T["Open Config Panel"] = "打开配置面板"
+
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "取消选中以隐藏小地图，或用鼠标中键单击小地图按钮。"
+
+T["Show Minimap Button"] = "显示小地图按钮"
+
+T["Recommended Value: 2\n"] = "[[colorGrae]]推荐值：2\n角标1X"
+
+T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode(" 在开始扫描之前，相机将 ") .. " 缩小 " .. colorWhite:WrapTextInColorCode(" 多远。更高的值=>更远。\n")
+
+T["Defaults\n(Recommended)"] = "默认值\n（推荐）"
+
+T["Dialog Volume"] = "对话音量"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n"
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("适用于") .. colorDarkBlu:WrapTextInColorCode("[患者胸部]\n\n") .. "启用后，Angleur 将播放警告声音、屏幕动画并显示 Reno Jackson 的炫酷图像，警告您有关宝藏的信息。\n\n" .. colorGrae:WrapTextInColorCode("注：声音也是 Reno Jackson 的声音\n\n") .. colorGrae:WrapTextInColorCode("我们会变得富有的！")
+
+T["Effects Volume"] = "效果音量"
+
+T["Master Volume"] = "主音量"
+
+T["Music Volume"] = "音乐音量"
+
+T["Patient Chest"] = "病人胸部"
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[耐心宝藏] ") .. "生成。快点抓住它吧！祝坐骑蛋好运："
+
+T["You need to open the Config Panel to change Angleur's settings!"
+.. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."] = colorWhite:WrapTextInColorCode("您需要打开配置面板来更改 Angleur 的设置！") .. colorGrae:WrapTextInColorCode("\n\n（提示）您还可以：\n - 类型 ") .. colorYello:WrapTextInColorCode("/ang") .. colorGrae:WrapTextInColorCode("\n - 双击 ") .. colorYello:WrapTextInColorCode("Angleur 视觉效果\n") .. colorGrae:WrapTextInColorCode(" - 单击 ") .. colorYello:WrapTextInColorCode(" 迷你地图/附加隔间按钮") .. colorGrae:WrapTextInColorCode("\n打开它。")
+
+T["Ultra Focus: Audio Settings"] = "超级聚焦：音频设置"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus：恢复默认音频设置"
+
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!"
+.. "\n\nRecommended when fishing on the side while doing something else."] = "如果启用，当您的鱼线用完时，Angleur 会播放 " .. colorYello:WrapTextInColorCode(" 音效 ") .. "，提醒您再次抛投！" .. colorGrae:WrapTextInColorCode("\n\n建议在一边钓鱼一边做其他事情时使用。")
+
+T["Coming Soon!"] = "即将推出！"
