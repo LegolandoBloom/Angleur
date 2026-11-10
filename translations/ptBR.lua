@@ -823,4 +823,74 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 -- Changed lines
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
-.. colorYello:WrapTextInColorCode("Ko-Fi!")
+.. colorYello:WrapTextInColorCode("Ko-Fi!").. colorYello:WrapTextInColorCode("Ko-Fi!")
+
+-- Machine-translated entries added for missing locale strings.
+
+T["Toggle Background Audio"] = "Alternar áudio de fundo"
+
+T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("Se houver um objeto ATRÁS do seu personagem que force o ângulo da câmera a mudar, tente configurá-lo para um valor ") .. colorRed:WrapTextInColorCode("inferior ") .. colorWhite:WrapTextInColorCode(".")
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping."
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "Se ativado, Angleur transformará " .. colorGreen:WrapTextInColorCode(" em ") .. colorYello:WrapTextInColorCode("\"Som em segundo plano\" ") .. "quando " .. colorGreen:WrapTextInColorCode("despertar") .. " e " .. colorRed:WrapTextInColorCode("restaurar ") .. "it para seu valor anterior quando " .. colorRed:WrapTextInColorCode("dormir") .. "." .. colorGrae:WrapTextInColorCode("\n\nDesative apenas se NUNCA quiser que o som de fundo esteja ativado ou se houver um erro devido a um conflito com outro complemento.")
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker."
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "Chave Macro-Bound para encontrar e marcar Void Pools facilmente!\n\nAo pressioná-lo, se houver um " .. colorDarkBlu:WrapTextInColorCode("Void Pool") .. " próximo, ele será marcado em seu minimapa e no jogo com um marcador de caveira." .. colorGrae:WrapTextInColorCode("\n\nTambém reproduz um efeito sonoro legal e uma animação de digitalização sob o cursor do mouse")
+
+T["Ambience Volume"] = "Volume ambiente"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Ultra Focus será acionado em"
+
+T["Adjust Audio Levels"] = "Ajustar os níveis de áudio"
+
+T["Zoom Out To"] = colorPurple:WrapTextInColorCode("!! NOVO !! ") .. colorYello:WrapTextInColorCode("Diminuir para")
+
+T["Recast Reminder"] = "Lembrete de reformulação"
+
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Escolha quando o Ultra Focus " .. colorGreen:WrapTextInColorCode(" da Angleur ativa") .. "/" .. colorRed:WrapTextInColorCode("libera") .. ".\n\n" .. colorYello:WrapTextInColorCode("Cast/Reel: ") .. "Ativará/liberará com cada lançamento " .. colorGrae:WrapTextInColorCode("(DEFAULT)\n\n") .. colorYello:WrapTextInColorCode("Sleep/Wake : ") .. "Só ativará/liberará quando você ativar/dormir o complemento"
+
+T["Activation Mode:"] = "Modo de ativação:"
+
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Botão Minimapa oculto"
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: Botão ") .. "Minimapa mostrado"
+
+T["Open Config Panel"] = "Abra o painel de configuração"
+
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "Desmarque para ocultar o minimapa ou clique com o botão do meio do mouse no botão do minimapa."
+
+T["Show Minimap Button"] = "Mostrar botão do minimapa"
+
+T["Recommended Value: 2\n"] = "[[colorGrae]]Valor recomendado: 2\nMARCA ÂNGULO1X"
+
+T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode("A que distância a câmera ") .. " diminuirá o zoom [[colorWhite]]antes de iniciar a varredura. Valor mais alto => mais longe.\nMARCA ÂNGULO3X"
+
+T["Defaults\n(Recommended)"] = "Padrões\n(Recomendado)"
+
+T["Dialog Volume"] = "Volume da caixa de diálogo"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n"
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("para ") .. colorDarkBlu:WrapTextInColorCode("[Baú do Paciente]\n\n") .. "Quando ativado, Angleur emitirá um som de aviso, uma animação na tela e mostrará uma imagem legal de Reno Jackson avisando sobre o tesouro.\n\n" .. colorGrae:WrapTextInColorCode("Nota: O som também é de Reno Jackson\n\n") .. colorGrae:WrapTextInColorCode("Vamos ficar ricos!")
+
+T["Effects Volume"] = "Volume de efeitos"
+
+T["Master Volume"] = "Volume mestre"
+
+T["Music Volume"] = "Volume da música"
+
+T["Patient Chest"] = "Peito do Paciente"
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[Tesouro do Paciente] ") .. "Gerado. Seja rápido e agarre-o! Boa sorte com o ovo da montaria:"
+
+T["You need to open the Config Panel to change Angleur's settings!"
+.. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."] = colorWhite:WrapTextInColorCode("Você precisa abrir o Painel de Configuração para alterar as configurações do Angleur!") .. colorGrae:WrapTextInColorCode("\n\n(Dica) Você também pode:\n - digite ") .. colorYello:WrapTextInColorCode("/ang") .. colorGrae:WrapTextInColorCode("\n - Clique duas vezes no visual ") .. colorYello:WrapTextInColorCode("Angleur\n") .. colorGrae:WrapTextInColorCode(" - Clique no botão ") .. colorYello:WrapTextInColorCode("Minimapa/AddonCompartment") .. colorGrae:WrapTextInColorCode("\npara abri-lo.")
+
+T["Ultra Focus: Audio Settings"] = "Ultra Focus: configurações de áudio"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: configurações de áudio padrão restauradas"
+
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!"
+.. "\n\nRecommended when fishing on the side while doing something else."] = "Se ativado, Angleur reproduzirá um efeito sonoro " .. colorYello:WrapTextInColorCode(" ") .. " quando seu elenco de pesca acabar para lembrá-lo de lançar novamente!" .. colorGrae:WrapTextInColorCode("\n\nRecomendado ao pescar lateralmente enquanto faz outra coisa.")
+
+T["Coming Soon!"] = "Em breve!"

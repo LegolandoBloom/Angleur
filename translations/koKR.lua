@@ -833,4 +833,80 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 -- Changed lines
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
-.. colorYello:WrapTextInColorCode("Ko-Fi!")
+.. colorYello:WrapTextInColorCode("Ko-Fi!").. colorYello:WrapTextInColorCode("Ko-Fi!")
+
+-- Machine-translated entries added for missing locale strings.
+
+T["Toggle Background Audio"] = "배경 오디오 전환"
+
+T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("카메라 각도를 강제로 변경하는 캐릭터 뒤에 개체가 있는 경우 해당 개체를 ") .. colorRed:WrapTextInColorCode("낮은 ") .. colorWhite:WrapTextInColorCode("값으로 설정해 보세요.")
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping."
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "활성화된 경우 Angleur는 " .. colorGreen:WrapTextInColorCode("awake") .. "일 때 " .. colorGreen:WrapTextInColorCode("를 ") .. colorYello:WrapTextInColorCode("\"Sound in the Background\" ") .. "로 바꾸고 " .. colorRed:WrapTextInColorCode("[[colorRed]]sleeping일 때 ") .. "it를 이전 값으로 복원합니다.[[/colorRed]]." .. colorGrae:WrapTextInColorCode("\n\n배경 사운드를 절대 켜기를 원하지 않거나 다른 애드온과의 충돌로 인해 오류가 있는 경우에만 비활성화하세요.")
+
+T["The following slotted items could not be added to your Angleur Equipment Set:"] = "다음 슬롯 아이템은 " .. colorYello:WrapTextInColorCode("Angleur 장비 세트 ") .. "에 추가할 수 없습니다:"
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker."
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "공허 웅덩이를 쉽게 찾고 표시하는 매크로 바인딩 키!\n\n이 버튼을 누르면 근처에 " .. colorDarkBlu:WrapTextInColorCode("공허 웅덩이") .. "가 있으면 미니맵과 게임 내 해골 마커로 표시됩니다." .. colorGrae:WrapTextInColorCode("\n\n또한 마우스 커서 아래에서 멋진 사운드 효과와 스캔 애니메이션을 재생합니다.")
+
+T["Ambience Volume"] = "분위기 볼륨"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Ultra Focus가 트리거됩니다."
+
+T["Adjust Audio Levels"] = "오디오 레벨 조정"
+
+T["Zoom Out To"] = "앵글러마크0X!! 새로운 !! [[/colorPurple]]" .. colorYello:WrapTextInColorCode("") .. "로 축소"
+
+T["Recast Reminder"] = "재방송 알림"
+
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Angleur의 Ultra Focus " .. colorGreen:WrapTextInColorCode("가 ") .. "를 활성화/" .. colorRed:WrapTextInColorCode("가") .. "를 해제할 때 선택합니다.\n\n" .. colorYello:WrapTextInColorCode("캐스트/릴: ") .. "시전할 때마다 활성화/해제됩니다. " .. colorGrae:WrapTextInColorCode("(DEFAULT)\n\n") .. colorYello:WrapTextInColorCode("Sleep/Wake : ") .. "애드온을 깨우거나 잠자기할 때만 활성화/해제됩니다."
+
+T["Activation Mode:"] = "활성화 모드:"
+
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "미니맵 버튼 숨김"
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "미니맵 버튼 표시됨"
+
+T["Open Config Panel"] = "구성 패널 열기"
+
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "미니맵을 숨기려면 선택을 취소하거나 미니맵 버튼을 마우스 가운데 버튼으로 클릭하세요."
+
+T["Show Minimap Button"] = "미니맵 버튼 표시"
+
+T["Recommended Value: 2\n"] = "[[colorGrae]]권장 값: 2\n앵글러마크1X"
+
+T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode("스캔을 시작하기 전에 카메라가 얼마나 멀리 ") .. "확대할 수 있는지 [[colorWhite]]. 값이 높을수록 => 더 멀리.\n앵글러마크3X"
+
+T["Defaults\n(Recommended)"] = "기본값\n(권장)"
+
+T["Dialog Volume"] = "대화 볼륨"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n"
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("for ") .. colorDarkBlu:WrapTextInColorCode("[환자 흉부]\n\n") .. "를 활성화하면 Angleur는 경고음과 화면 애니메이션을 재생하고 보물에 대해 경고하는 Reno Jackson의 멋진 이미지를 표시합니다.\n\n" .. colorGrae:WrapTextInColorCode("참고: 사운드도 Reno Jackson의 사운드입니다.\n\n") .. colorGrae:WrapTextInColorCode("우리는 부자가 될 거예요!")
+
+T["Effects Volume"] = "효과 볼륨"
+
+T["Master Volume"] = "마스터 볼륨"
+
+T["Music Volume"] = "음악 볼륨"
+
+T["Patient Chest"] = "환자 가슴"
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[인내심의 보물] ") .. "가 생성되었습니다. 빨리 가서 잡아라! 마운트 에그에 행운이 있기를 바랍니다:"
+
+T["You need to open the Config Panel to change Angleur's settings!"
+.. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."] = colorWhite:WrapTextInColorCode("Angleur의 설정을 변경하려면 구성 패널을 열어야 합니다!") .. colorGrae:WrapTextInColorCode("\n\n(힌트) 다음을 수행할 수도 있습니다.\n - ") .. colorYello:WrapTextInColorCode("/angLEURMARK5X[[colorGrae]] 유형\n - [[/colorGrae]][[colorYello]]Angleur 시각적 개체를 두 번 클릭합니다.\n") .. colorGrae:WrapTextInColorCode(" - ") .. colorYello:WrapTextInColorCode("Minimap/AddonCompartment 버튼을 클릭하세요.") .. colorGrae:WrapTextInColorCode("\n열어 보세요.")
+
+T["Ultra Focus: Audio Settings"] = "울트라 포커스: 오디오 설정"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: 기본 오디오 설정이 복원되었습니다."
+
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!"
+.. "\n\nRecommended when fishing on the side while doing something else."] = "활성화된 경우 Angleur는 낚시 캐스팅이 다 떨어지면 " .. colorYello:WrapTextInColorCode("음향 효과 ") .. "를 재생하여 다시 캐스팅하도록 상기시킵니다!" .. colorGrae:WrapTextInColorCode("\n\n다른 일을 하면서 옆에서 낚시할 때 추천합니다.")
+
+T["Angleur works on a " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. "system, so you don't have to reload your UI after you're done fishing.\n\n"
+.. colorBlu:WrapTextInColorCode("Right Click ")
+.. "to put Angleur to sleep, and wake it up if it is. You can also Right Click the minimap button."] = "Angleur는 " .. colorYello:WrapTextInColorCode("Sleep/Wake ") .. " 시스템에서 작동하므로 낚시를 마친 후 UI를 다시 로드할 필요가 없습니다.\n\n[[colorBlu]]AngleURMARK3X를 마우스 오른쪽 버튼으로 클릭하여 Angleur를 절전 모드로 설정하고 절전 모드인 경우 깨우세요. 미니맵 버튼을 마우스 오른쪽 버튼으로 클릭할 수도 있습니다."
+
+T["Coming Soon!"] = "곧 출시됩니다!"

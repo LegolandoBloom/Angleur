@@ -767,4 +767,91 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 -- Changed lines
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "You can support the project\nby donating on " 
-.. colorYello:WrapTextInColorCode("Ko-Fi!")
+.. colorYello:WrapTextInColorCode("Ko-Fi!").. colorYello:WrapTextInColorCode("Ko-Fi!")
+
+-- Machine-translated entries added for missing locale strings.
+
+T["Toggle Background Audio"] = "Переключить фоновый звук"
+
+T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("Если за вашим персонажем есть объект, который заставляет камеру менять угол, попробуйте установить для него значение ") .. colorRed:WrapTextInColorCode("lower ") .. colorWhite:WrapTextInColorCode("value.")
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping."
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "Если этот параметр включен, Angleur включит " .. colorGreen:WrapTextInColorCode(" при ") .. colorYello:WrapTextInColorCode(" «Звук в фоновом режиме» ") .. " при " .. colorGreen:WrapTextInColorCode("awake") .. " и " .. colorRed:WrapTextInColorCode(" восстановит ") .. "it до предыдущего значения при включении " .. colorRed:WrapTextInColorCode("спящий") .. "." .. colorGrae:WrapTextInColorCode("\n\nОтключайте только в том случае, если вы НИКОГДА не хотите, чтобы фоновый звук был включен, или возникла ошибка из-за конфликта с другим дополнением.")
+
+T["The following slotted items could not be added to your Angleur Equipment Set:"] = "Следующие элементы с слотами не могут быть добавлены в ваш набор оборудования " .. colorYello:WrapTextInColorCode("Angleur ") .. ":"
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker."
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "Ключ с макросом, позволяющий легко находить и отмечать лужи Бездны!\n\nКогда вы нажимаете ее, если поблизости есть " .. colorDarkBlu:WrapTextInColorCode("Пустота") .. ", он будет отмечен на вашей мини-карте и в игре маркером черепа." .. colorGrae:WrapTextInColorCode("\n\nТакже воспроизводится крутой звуковой эффект и анимация сканирования под курсором мыши.")
+
+T["Ambience Volume"] = "Громкость атмосферы"
+
+T["debug mode deactivated"] = "режим отладки отключен"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Ультра Фокус сработает"
+
+T["Adjust Audio Levels"] = "Отрегулируйте уровни звука"
+
+T["Zoom Out To"] = colorPurple:WrapTextInColorCode("!! НОВЫЙ !! ") .. colorYello:WrapTextInColorCode("Уменьшить изображение")
+
+T["Recast Reminder"] = "Переделать напоминание"
+
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Выберите, когда Angleur Ultra Focus " .. colorGreen:WrapTextInColorCode(" активирует") .. "/" .. colorRed:WrapTextInColorCode("Выпускает") .. ".\n\n" .. colorYello:WrapTextInColorCode("Cast/Reel: ") .. " будет активироваться/отпускаться при каждом забросе " .. colorGrae:WrapTextInColorCode(" (ПО УМОЛЧАНИЮ)\n\n") .. colorYello:WrapTextInColorCode("Sleep/Wake: ") .. " будет активироваться/отключаться только тогда, когда вы пробуждаете/переводите аддон в режим сна."
+
+T["Activation Mode:"] = "Режим активации:"
+
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Кнопка мини-карты скрыта"
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Показана кнопка на мини-карте"
+
+T["Open Config Panel"] = "Открыть панель конфигурации"
+
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "Снимите флажок, чтобы скрыть мини-карту, или щелкните средней кнопкой мыши кнопку мини-карты."
+
+T["Show Minimap Button"] = "Показать кнопку мини-карты"
+
+T["Recommended Value: 2\n"] = "[[colorGrae]]Рекомендуемое значение: 2\nАНГЛЕРМАРК1X"
+
+T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode("На каком расстоянии камера ") .. " уменьшит масштаб [[colorWhite]] перед началом сканирования. Большее значение => дальше.\nАНГЛЕРМАРК3X"
+
+T["Equipping of the Angleur set disrupted due to sudden death/ghost-form"] = "Экипировка набора Angleur прервана из-за внезапной смерти/призрачной формы."
+
+T["Defaults\n(Recommended)"] = "По умолчанию\n(рекомендуется)"
+
+T["Dialog Volume"] = "Громкость диалога"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n"
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("для ") .. colorDarkBlu:WrapTextInColorCode("[Грудная клетка пациента]\n\n") .. "Если эта функция включена, Angleur воспроизведет предупреждающий звуковой сигнал, анимацию на экране и покажет классное изображение Рено Джексона, предупреждающего вас о сокровище.\n\n" .. colorGrae:WrapTextInColorCode("Примечание: звук также принадлежит Рено Джексону.\n\n") .. colorGrae:WrapTextInColorCode("Мы будем богатыми!")
+
+T["Effects Volume"] = "Громкость эффектов"
+
+T["Master Volume"] = "Основной объем"
+
+T["Music Volume"] = "Громкость музыки"
+
+T["Patient Chest"] = "Грудь пациента"
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[Сокровище пациента] ") .. "Появился. Поторопитесь и хватайте его! Удачи с креплением яйца:"
+
+T["You need to open the Config Panel to change Angleur's settings!"
+.. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."] = colorWhite:WrapTextInColorCode("Вам необходимо открыть панель конфигурации, чтобы изменить настройки Angleur!") .. colorGrae:WrapTextInColorCode("\n\n(Подсказка) Вы также можете:\n - введите ") .. colorYello:WrapTextInColorCode("/ang") .. colorGrae:WrapTextInColorCode("\n - Дважды щелкните визуальный элемент ") .. colorYello:WrapTextInColorCode("Angleur.\n") .. colorGrae:WrapTextInColorCode(" — нажмите кнопку ") .. colorYello:WrapTextInColorCode("Minimap/AddonCompartment") .. colorGrae:WrapTextInColorCode(".\nчтобы открыть его.")
+
+T["Can't add toys while dead"] = "Не могу добавить игрушки, пока мёртв."
+
+T["Item equip interrupted by death/ghost-form"] = "Надевание предмета прерывается смертью/призрачной формой"
+
+T["Angleur Config Panel " .. colorYello:WrapTextInColorCode("-> ")
+.. "Tiny tab(tab 3),  and disable \'Login Messages\'"] = "Панель конфигурации Angleur " .. colorYello:WrapTextInColorCode("-> вкладка ") .. "Tiny (вкладка 3) и отключите «Сообщения для входа»"
+
+T["Ultra Focus: Audio Settings"] = "Ультра Фокус: настройки звука"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: восстановлены настройки звука по умолчанию."
+
+T["debug mode active"] = "режим отладки активен"
+
+T["Can't change sleep state while in ghost form."] = "Невозможно изменить состояние сна, находясь в форме призрака."
+
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!"
+.. "\n\nRecommended when fishing on the side while doing something else."] = "Если эта функция включена, Angleur будет воспроизводить звуковой эффект [[colorYello]], когда закончится ваш рыболовный заброс, чтобы напомнить вам о необходимости повторного заброса!" .. colorGrae:WrapTextInColorCode("\n\nРекомендуется при ловле рыбы сбоку, одновременно занимаясь чем-то другим.")
+
+T["Coming Soon!"] = "Вскоре!"

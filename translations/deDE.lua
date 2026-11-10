@@ -816,4 +816,90 @@ T["This is a limitation of Classic(not the case for Mists and Retail), since it 
 
 -- changed lines
 T["You can support the project\nby donating on " .. colorYello:WrapTextInColorCode("Ko-Fi! ")] = "Sie können das Projekt unter- \nstützen, indem Sie auf " 
-.. colorYello:WrapTextInColorCode("Ko-Fi ") .. "\nspenden!"
+.. colorYello:WrapTextInColorCode("Ko-Fi ") .. "\nspenden!".. colorYello:WrapTextInColorCode("Ko-Fi ") .. "\nspenden!"
+
+-- Machine-translated entries added for missing locale strings.
+
+T["Toggle Background Audio"] = "Hintergrundaudio umschalten"
+
+T["My Other Addons!"] = "Meine anderen Addons!"
+
+T["If there is an object BEHIND your character that forces your camera angle to change, try setting it to a lower value."] = colorWhite:WrapTextInColorCode("Wenn sich HINTER Ihrem Charakter ein Objekt befindet, das eine Änderung Ihres Kamerawinkels erzwingt, versuchen Sie, es auf einen ") .. colorRed:WrapTextInColorCode("niedrigeren ") .. colorWhite:WrapTextInColorCode("-Wert.") .. " einzustellen"
+
+T["If enabled, Angleur will turn on \"Sound in the Background\" when awake, and restore it to its previous value when sleeping."
+.. "\n\nOnly disable if you NEVER want background sound to be on, or there is an error due to a clash with another addon."] = "Wenn diese Option aktiviert ist, schaltet Angleur " .. colorGreen:WrapTextInColorCode(" ein, ") .. colorYello:WrapTextInColorCode(", „Sound im Hintergrund“, ") .. ", wenn " .. colorGreen:WrapTextInColorCode(" aufwacht, ") .. ", und " .. colorRed:WrapTextInColorCode(" stellt ") .. " auf den vorherigen Wert zurück, wenn " .. colorRed:WrapTextInColorCode(" ruht, ") .. "." .. colorGrae:WrapTextInColorCode("\n\nDeaktivieren Sie es nur, wenn Sie NIEMALS möchten, dass der Hintergrundton eingeschaltet ist, oder wenn ein Fehler aufgrund einer Kollision mit einem anderen Add-on.") .. " vorliegt"
+
+T["Automatic Aquatic Form for ALL CLASSES, ALL THE TIME!\n\nEquip Underlight_Angler when swimming, re-equip your \'Main\' Fishing Rod when not."] = "Automatische Wasserform für ALLE KLASSEN, JEDERZEIT!\n\nRüste dich beim Schwimmen mit " .. colorUnderlight:WrapTextInColorCode("Underlight_Angler ") .. " aus, rüste deine „Hauptangelrute“ erneut aus, wenn du nicht schwimmst."
+
+T["Select which mouse button by:"] = "Wählen Sie die Maustaste aus, indem Sie:"
+
+T["The following slotted items could not be added to your Angleur Equipment Set:"] = "Die folgenden geschlitzten Artikel konnten Ihrem " .. colorYello:WrapTextInColorCode("Angleur-Ausrüstungsset ") .. " nicht hinzugefügt werden:"
+
+T["Macro-Bound Key to find and mark Void Pools easily!\n\nWhen you press it, if there is a nearby Void Pool, it will be marked on your minimap & in-game with a skull marker."
+    .. "\n\nAlso plays a cool sound effect and a scan animation under your mouse cursor"] = "Makrogebundener Schlüssel zum einfachen Auffinden und Markieren von Void Pools!\n\nWenn Sie darauf drücken und sich in der Nähe ein " .. colorDarkBlu:WrapTextInColorCode("Void Pool") .. " befindet, wird dieser auf Ihrer Minikarte und im Spiel mit einer Schädelmarkierung markiert." .. colorGrae:WrapTextInColorCode("\n\nSpielt außerdem einen coolen Soundeffekt und eine Scan-Animation unter Ihrem Mauszeiger") .. " ab"
+
+T["Ambience Volume"] = "Umgebungslautstärke"
+
+T["Angleur: Ultra Focus will trigger on "] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Ultra Focus wird ausgelöst"
+
+T["Adjust Audio Levels"] = "Passen Sie die Audiopegel an"
+
+T[colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ")
+    .. "and " .. colorBlu:WrapTextInColorCode("use Items and Configured Macros ")
+    .. "using \none button."] = colorBlu:WrapTextInColorCode("Cast ") .. ", " .. colorBlu:WrapTextInColorCode("Reel ") .. "und " .. colorBlu:WrapTextInColorCode("use Elemente und konfigurierte Makros ") .. "using \neine taste."
+
+T["Zoom Out To"] = colorPurple:WrapTextInColorCode("!! NEU !! ") .. colorYello:WrapTextInColorCode("Auszoomen auf ")
+
+T["Recast Reminder"] = "Erinnerung an Neufassung"
+
+T["Choose when Angleur's Ultra Focus Activates/Releases.\n\n" .. "Cast/Reel : Will activate/release with every single cast (DEFAULT)\n\n"
+.. "Sleep/Wake : Will only activate/release when you wake/sleep the addon\n"] = "Wählen Sie, wann Angleurs Ultra Focus " .. colorGreen:WrapTextInColorCode("") .. " aktiviert/" .. colorRed:WrapTextInColorCode("") .. " freigibt.\n\n" .. colorYello:WrapTextInColorCode("Cast/Reel: ") .. "Wird mit jedem einzelnen Wurf aktiviert/freigegeben " .. colorGrae:WrapTextInColorCode("(STANDARD)\n\n") .. colorYello:WrapTextInColorCode("Sleep/Wake: ") .. "Wird nur aktiviert/freigegeben, wenn Sie das Add-on aktivieren/in den Ruhezustand versetzen"
+
+T["Activation Mode:"] = "Aktivierungsmodus:"
+
+T["Angleur: Minimap Button Hidden"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap-Schaltfläche ausgeblendet"
+
+T["Angleur: Minimap Button Shown"] = colorBlu:WrapTextInColorCode("Angleur: ") .. "Minimap-Schaltfläche angezeigt"
+
+T["Open Config Panel"] = "Öffnen Sie das Konfigurationsfenster"
+
+T["Uncheck to hide minimap, or middle-mouse-click on the minimap button."] = "Deaktivieren Sie das Kontrollkästchen, um die Minikarte auszublenden, oder klicken Sie mit der mittleren Maustaste auf die Minikartenschaltfläche."
+
+T["Show Minimap Button"] = "Schaltfläche „Minikarte anzeigen“."
+
+T["Recommended Value: 2\n"] = "[[colorGrae]]Empfohlener Wert: 2\nWINKELMARK1X"
+
+T["How far out the camera will zoom out before starting the scan. Higher value => farther.\n"] = colorWhite:WrapTextInColorCode("Wie weit wird die Kamera herausgezoomt, ") .. "AnglEURMARK2Xbevor der Scan gestartet wird. Höherer Wert => weiter.\nWINKELMARK3X"
+
+T["Defaults\n(Recommended)"] = "Standardeinstellungen\n(Empfohlen)"
+
+T["Two-Way Transformations to Worgens when you cast abilities or use items!\n\nFeatures a built-in drag&drop Macro Maker."] = "Zwei-Wege-Transformationen zu Worgens, wenn du Fähigkeiten wirkst oder Gegenstände verwendest!\n\nVerfügt über einen integrierten Drag&Drop " .. colorYello:WrapTextInColorCode("Macro Maker.")
+
+T["Dialog Volume"] = "Dialoglautstärke"
+
+T["for [Patient Chest]\n\n" .. "When enabled, Angleur will play a warning sound, screen animation and show a cool image of Reno Jackson warning you about the treasure.\n\nNote: The sound is also that of Reno Jackson\n\n"
+.. "We're gonna be rich!"] = colorGrae:WrapTextInColorCode("für ") .. colorDarkBlu:WrapTextInColorCode("[Patiententruhe]\n\n") .. "Wenn aktiviert, spielt Angleur einen Warnton und eine Bildschirmanimation ab und zeigt ein cooles Bild von Reno Jackson, der Sie vor dem Schatz warnt.\n\n" .. colorGrae:WrapTextInColorCode("Hinweis: Der Sound ist auch der von Reno Jackson\n\n") .. colorGrae:WrapTextInColorCode("Wir werden reich!")
+
+T["Effects Volume"] = "Effektlautstärke"
+
+T["Master Volume"] = "Master-Volume"
+
+T["Music Volume"] = "Musiklautstärke"
+
+T["Patient Chest"] = "Patientenbrust"
+
+T["[Patient Treasure] Spawned. Be quick and grab it! Good luck with the mount egg:\n"] = colorDarkBlu:WrapTextInColorCode("[Patientenschatz] ") .. "Gespawnt. Seien Sie schnell und greifen Sie zu! Viel Glück mit dem Reitei:"
+
+T["You need to open the Config Panel to change Angleur's settings!"
+.. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."] = colorWhite:WrapTextInColorCode("Sie müssen das Konfigurationsfenster öffnen, um die Einstellungen von Angleur zu ändern!") .. colorGrae:WrapTextInColorCode("\n\n(Hinweis) Sie können auch:\n - Typ ") .. colorYello:WrapTextInColorCode("/ang") .. colorGrae:WrapTextInColorCode("\n - Doppelklicken Sie auf ") .. colorYello:WrapTextInColorCode("Angleur Visual\n") .. colorGrae:WrapTextInColorCode(" – Klicken Sie auf die ") .. colorYello:WrapTextInColorCode("Minimap/AddonCompartment-Schaltfläche") .. colorGrae:WrapTextInColorCode("\num es zu öffnen.")
+
+T["Ultra Focus: Audio Settings"] = "Ultra Focus: Audioeinstellungen"
+
+T["Ultra Focus: Default audio settings restored"] = "Ultra Focus: Standard-Audioeinstellungen wiederhergestellt"
+
+T["Pickpocket overhaul for Rogues!\n\nSingle player RPG-like Pickpocket Prompt System with dynamic keybind(released back when not pick pocketing)."] = "Überarbeitung des Taschendiebstahls für Rogues!\n\nEinzelspieler-RPG-ähnliches Taschendiebstahl-Aufforderungssystem mit dynamischer Tastenkombination (wird wieder freigegeben, wenn kein Taschendiebstahl begangen wird)."
+
+T["If enabled, Angleur will play a sound effect when your fishing cast runs out to remind you to cast again!"
+.. "\n\nRecommended when fishing on the side while doing something else."] = "Wenn diese Option aktiviert ist, spielt Angleur einen " .. colorYello:WrapTextInColorCode("-Soundeffekt ") .. " ab, wenn Ihr Angelwurf aufgebraucht ist, um Sie daran zu erinnern, erneut zu werfen!" .. colorGrae:WrapTextInColorCode("\n\nEmpfohlen, wenn Sie nebenbei angeln und gleichzeitig einer anderen Tätigkeit nachgehen.")
+
+T["Coming Soon!"] = "Bald erhältlich!"
