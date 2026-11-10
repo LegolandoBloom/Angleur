@@ -245,7 +245,7 @@ function Angleur_FirstInstall_KickoffTutorial()
     if AngleurTutorial.part < 2 then
         Angleur.visual:Reset(Angleur.configPanel.tab1.contents.returnButton, 180, 180, false)
     end
-    angleurHelpTip:Activate(AngleurTutorial.part)
+    angleurHelpTip:Activate()
 end
 
 function Angleur_FirstInstall_RedoTutorial()

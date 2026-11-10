@@ -285,7 +285,7 @@ function Legolando_HelpTipTemplateMixin_Angleur:HasRunOutOfAttempts()
 	return false
 end
 
-function Legolando_HelpTipTemplateMixin_Angleur:Activate(startingPart)
+function Legolando_HelpTipTemplateMixin_Angleur:Activate(overriddenStartingPart)
     local teeburu = self.savedVarTable
 	if not teeburu then 
 		print("no saved variable table attached")
@@ -299,6 +299,8 @@ function Legolando_HelpTipTemplateMixin_Angleur:Activate(startingPart)
         print("checkbox reference not found in saved variable table")
         return
     end
+	local startingPart = teeburu[self.reference]
+	if overriddenStartingPart then startingPart = overriddenStartingPart end
 	if startingPart > #self.parts then 
 		return 
 	end
@@ -313,8 +315,9 @@ end
 
 function Legolando_HelpTipTemplateMixin_Angleur:GoToNextPart()
 	local teeburu = self.savedVarTable
-	if not teeburu then 
-		print("no saved variable table attached")
+	local reference = self.reference
+	if not teeburu or not reference then 
+		print("no saved variable table or reference attached")
 		return 
 	end
 	self.partActive = self.partActive + 1
