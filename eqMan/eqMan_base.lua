@@ -373,7 +373,11 @@ local function Cycle_SwapoutSet()
             elseif IsInventoryItemLocked(location) then
                 Angleur_BetaPrint(debugChannel, colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": LOCKEDLOCKEDLOCKEDLOCKED")
             else
-                C_Item.EquipItemByName(itemID)
+                local equipSpecificallyTo
+                if location == 16 or location == 17 or location == 13 or location == 14 then
+                    equipSpecificallyTo = location
+                end
+                C_Item.EquipItemByName(itemID, equipSpecificallyTo)
                 Angleur_BetaPrint(debugChannel, colorDebug1:WrapTextInColorCode("Cycle_SwapoutSet ") .. ": Attempting to swapout item")
             end
         else
@@ -575,6 +579,7 @@ local function _checkForPolesInBag()
     return false
 end
 local MAINHAND_SLOT = 16
+local OFFHAND_SLOT = 17
 local function _autoAddFishingRodForSupportedVersion()
     local bagPole_ItemID = _checkForPolesInBag()
     if not bagPole_ItemID then return false end
@@ -585,6 +590,7 @@ local function _autoAddFishingRodForSupportedVersion()
     local currentlyEquipped = GetInventoryItemID("player", MAINHAND_SLOT)
     if currentlyEquipped ~= bagPole_ItemID then
         Angleur_SwapoutItemsSaved[MAINHAND_SLOT] = getItemLinkEquipped(MAINHAND_SLOT)
+        Angleur_SwapoutItemsSaved[OFFHAND_SLOT] = getItemLinkEquipped(OFFHAND_SLOT)
     end
     return true
 end
