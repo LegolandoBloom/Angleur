@@ -204,6 +204,9 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         if AngleurConfig.ultraFocusAutoLootEnabled then
             Angleur_TempCVarHandler:Set("autoLootDefault")
         end
+        if C_GamePad.IsEnabled() and C_AutoLoot then
+            C_AutoLoot.SetUseAutoLootToggle(true)
+        end
         -- |FOREVER Bobber Scanner Removal|
         -- Removing bobber scanner and mirroring Retail(except for Arc which I might add to Retail later also) 
         if Angleur_TinyOptions.turnOffSoftInteract then Angleur_TempCVarHandler:Set("SoftTargetInteract", "SoftTargetInteractRange", "SoftTargetInteractRangeIsHard") end
