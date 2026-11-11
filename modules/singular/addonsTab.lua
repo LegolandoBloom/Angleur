@@ -26,7 +26,11 @@ function Angleur_LoadAddonsTab()
     end
 
     do
-        local buttonText, addSearchTags = T["Open Config Panel"], true
+        -- ---------------------------------------------- !  POTENTIAL UI BUG ! ----------------------------------------------------
+        -- addSearchTags: FALSE for now. If set to true, It spreads taint to Blizzard stuff that is searched through the search bar.
+        -- Recreation of bug: set it to true, then type "status" in the search bar. Try changing "Status Text" from the dropdown.
+        local buttonText, addSearchTags = T["Open Config Panel"], false
+        -- -------------------------------------------------------------------------------------------------------------------------
         local tooltip = T["You need to open the Config Panel to change Angleur's settings!"
         .. "\n\n(Hint) You can also:\n - type /ang\n - Double-Click the Angleur Visual\n - Click the Minimap/AddonCompartment Button\nto open it."]
         local function onButtonClick(self)
