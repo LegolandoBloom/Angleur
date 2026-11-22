@@ -228,7 +228,7 @@ end
 local function showAndPlayAnimation()
     if gameVersion == 3 or gameVersion == 4 then return end
     if not CharacterFrame:IsShown() then
-        ToggleCharacter("PaperDollFrame")
+        ShowUIPanel(CharacterFrame)
     end
     PaperDollFrame_SetSidebar(PaperDollFrame, 3)
     if gameVersion == 1 then retailEqMan:showShiny() end

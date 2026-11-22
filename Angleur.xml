@@ -444,7 +444,11 @@
                                         <Scripts>
                                             <OnClick>
                                                 if InCombatLockdown() then return end
-                                                ToggleCharacter("PaperDollFrame")
+                                                if CharacterFrame:IsShown() then
+                                                    HideUIPanel(CharacterFrame)
+                                                else
+                                                    ShowUIPanel(CharacterFrame)
+                                                end
                                             </OnClick>
                                         </Scripts>
                                     </Button>
