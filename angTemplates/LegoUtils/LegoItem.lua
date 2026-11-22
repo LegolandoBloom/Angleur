@@ -11,7 +11,7 @@ local LOAD_RETRY_ATTEMPTS = 5
 --  LI.CreateDebugHandler 🗸(GOOD)
 --  LI:CreateDebugHandler ✗(BAD)
 -- ________________________________
-function LI.CreateItemLoader(debugging)
+function LI.CreateItemLoader()
     local itemLoader = {}
     itemLoader.addedItems = {}
     function itemLoader:AppendItemID(...)
@@ -52,12 +52,20 @@ function LI.CreateItemLoader(debugging)
         if lookupItem and lookupItem.loaded == false then
             if success then
                 lookupItem.loaded = true
+                if itemLoader.onLoadCallback then
+                    itemLoader.onLoadCallback()
+                end
             elseif lookupItem.retriesRemaining > 0 then
                 C_Item.RequestLoadItemDataByID(itemID)
                 lookupItem.retriesRemaining = lookupItem.retriesRemaining - 1
             end
         end
     end)
+
+    function itemLoader:SetOnLoadCallback(callback)
+        if not callback then return end
+        itemLoader.onLoadCallback = callback
+    end
 
     function itemLoader:GetLoaded()
         local loadedItems = {}
@@ -84,7 +92,6 @@ function LI.CreateItemLoader(debugging)
             print("itemID:", itemID, " loaded:", loadTable.loaded, " retries remaining:", loadTable.retriesRemaining)
         end
     end
-
 
 	return itemLoader;
 end

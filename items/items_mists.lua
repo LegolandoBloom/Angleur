@@ -1,5 +1,10 @@
 local T = Angleur_Translate
 
+local LU = LegolandoUtil
+local LI = LU.Item
+
+
+
 local debugChannel = 3
 local colorDebug = CreateColor(1, 0.41, 0) -- orange
 
@@ -19,44 +24,59 @@ function mistsItems:AdjustCloseButton(extraItemsFrame)
     done = true
 end
 
-angleurItems = {
-    baitPossibilities = {
-        {itemID = 111111}, 
-        {name= T["Shiny Bauble"], itemID = 6529, icon = 134335},
-        {itemID = 222222},
-        {name = T["Nightcrawlers"], itemID = 6530, icon = 134324},
-        {itemID = 333333},
-        --{name = "Aquadynamic Fish Lens", itemID = 6811, icon = 134440},
-        {name = T["Bright Baubles"], itemID = 6532, icon = 134139},
-        {name = T["Flesh Eating Worm"], itemID = 7307, icon = 134324},
-        {name = T["Aquadynamic Fish Attractor"], itemID = 6533, icon = 133982},
-        {name = T["Feathered Lure"], itemID = 62673, icon = 135992},
-        {name = T["Sharpened Fish Hook"], itemID = 34861, icon = 134226},
-        {name = T["Glow Worm"], itemID = 46006, icon = 237147},
-        {name = T["Heat-Treated Spinning Lure"], itemID = 68049, icon = 135811}
+-- chosenBait = 0 --> default, aka no bait 
+Angleur_Items = {
+    bait = {
+        [1] = {itemID = 111111, loaded = false,}, 
+        [2] = {name= T["Shiny Bauble"], itemID = 6529, icon = 134335, loaded = false,},
+        [3] = {itemID = 222222, loaded = false,},
+        [4] = {name = T["Nightcrawlers"], itemID = 6530, icon = 134324, loaded = false,},
+        [5] = {itemID = 333333, loaded = false,},
+        [6] = {name = "Aquadynamic Fish Lens", itemID = 6811, icon = 134440, loaded = false,},
+        [7] = {name = T["Bright Baubles"], itemID = 6532, icon = 134139, loaded = false,},
+        [8] = {name = T["Flesh Eating Worm"], itemID = 7307, icon = 134324, loaded = false,},
+        [9] = {name = T["Aquadynamic Fish Attractor"], itemID = 6533, icon = 133982, loaded = false,},
+        [10] = {name = T["Feathered Lure"], itemID = 62673, icon = 135992, loaded = false,},
+        [11] = {name = T["Sharpened Fish Hook"], itemID = 34861, icon = 134226, loaded = false,},
+        [12] = {name = T["Glow Worm"], itemID = 46006, icon = 237147, loaded = false,},
+        [13] = {name = T["Heat-Treated Spinning Lure"], itemID = 68049, icon = 135811, loaded = false,}
     },
-    --baitPossibilities = {{itemID = 111111, spellID = 111111}, {itemID = 222222, spellID = 222222}, {itemID = 333333, spellID = 333333}} --filled with fake items for testing purposes, normally quoted out
-    ownedBait = {},
-    selectedBaitTable = {name = 0, itemID = 0, icon = 0, hasItem = false, loaded = false, dropDownID = 0}
 }
+
+
+local ownedBait = {
+    -- itemID1 = true
+    -- itemID2 = true
+    -- itemID3 = true
+    --      ...
+}
+
+local itemLoader = LI.CreateItemLoader()
+
 
 local function clearTable(table)
     for i, v in pairs(table) do
         table[i] = nil
     end
 end
-function Angleur_CheckOwnedItems(selectedItemTable, ownedItemsTable, possibilityTable)
-    clearTable(ownedItemsTable)
-    for i, item in pairs(possibilityTable) do
-        if C_Item.IsItemDataCachedByID(item.itemID) then
-            --print("Item name: ", item.name)
-            if C_Item.GetItemCount(item.itemID) > 0 then
+function Angleur_CheckOwnedItems(teeburu)
+    clearTable(ownedBait)
+    for i, itemTable in pairs(teeburu) do
+        if itemTable.loaded == true then
+            if C_Item.GetItemCount(itemTable.itemID) > 0 then
                 --print("in bag")
-                table.insert(ownedItemsTable, item)
+                ownedBait[itemTable.itemID] = true
             end
         end
     end
 end
+function Angleur_DecideBait()
+    -- dropdown uses "ownedBait" table to fill itself
+    -- this function gets the itemID(the index) from the ownedBait table,
+    -- and looks up the rest of the details on bait table
+end
+
+
 function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
     local selection = {}
     local dropDownID
@@ -76,36 +96,14 @@ function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPla
     selectedItemTable.spellID = selection.spellID
     selectedItemTable.icon = selection.icon
 end
-local function requestItems(selectedItemTable, ownedItemsTable, possibilityTable)
-    local requestFrame = CreateFrame("Frame")
-    requestFrame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
-    requestFrame:SetScript("OnEvent", function(self, event, itemID, success) 
-        if event ~= "ITEM_DATA_LOAD_RESULT" then return end
-        local allTrue = true
-        for i, item in pairs(possibilityTable) do
-            if item.itemID == itemID then
-                local _, link = C_Item.GetItemInfo(itemID)
-                Angleur_BetaPrint(debugChannel, "Requested item loaded: ", link)
-                item.loaded = true
-            end
-            if item.loaded ~= true then
-                allTrue = false
-            end
-        end
-        if allTrue == true then
-            self:SetScript("OnEvent", nil)
-            Angleur_BetaPrint(debugChannel, "all have finished loading, setting tables")
-            Angleur_CheckOwnedItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
-            Angleur_SetSelectedItem(angleurItems.selectedBaitTable, angleurItems.ownedBait, AngleurConfig.chosenBait.itemID)
-        end
-    end)
-    for i, item in pairs(possibilityTable) do
-        item.loaded = false
-        C_Item.RequestLoadItemDataByID(item.itemID)
+local function requestLoad_Bait()
+    -- itemLoader:SetOnLoadCallback(some function that refreshes dropdown etc.)
+    for i, v in ipairs(Angleur_Items.bait) do
+        itemLoader:AppendItemID(v.itemID)
     end
 end
 
 function Angleur_LoadItems()
     GetTimePreciseSec()
-    requestItems(angleurItems.selectedBaitTable, angleurItems.ownedBait, angleurItems.baitPossibilities)
+    requestLoad_Bait()
 end
