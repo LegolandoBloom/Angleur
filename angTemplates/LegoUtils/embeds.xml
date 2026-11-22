@@ -3,5 +3,11 @@
 
     <Include file="LegoUtil.lua"/>
     <Include file="LegoRectUtil.lua"/>
-
+    <Include file="LegoMap.lua"/>
+    <Include file="LegoSecret.lua"/>
+    <Include file="LegoSpell.lua"/>
+    <Include file="LegoChat.lua"/>
+    <Include file="LegoDebug.lua"/>
+    <Include file="LegoUI.lua"/>
+    <Include file="LegoItem.lua">
 </Ui>
