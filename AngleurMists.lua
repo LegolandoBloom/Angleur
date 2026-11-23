@@ -323,7 +323,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         AngleurClassic_CheckFishingPoleEquipped()
         -- Also call BaitEnchant() on equipment changed in case the player has multiple fishing rods
         -- Because "UNIT_INVENTORY_CHANGED" won't always trigger when you swap rods
-        Angleur_BaitEnchant()
+        AngleurItems_CheckBaitEnchant()
     elseif event == "UNIT_AURA" and unit == "player" then
         Angleur_Auras()
         Angleur_ExtraToyAuras()
@@ -331,7 +331,7 @@ function Angleur_LogicVariableHandler(self, event, unit, ...)
         -- Call |ActionHandler| right after auras update to override the regular onUpdate threshold for SNAPPY CASTING right after
         Angleur_ActionHandler(Angleur)
     elseif event == "UNIT_INVENTORY_CHANGED" and unit == "player" then
-        Angleur_BaitEnchant()
+        AngleurItems_CheckBaitEnchant()
     end
 end
 local logicVarFrame = CreateFrame("Frame")
@@ -388,28 +388,6 @@ function Angleur_ExtraToyAuras()
 end
 --***********[~]**********
 
-local baitApplied = false
-local baitEnchantIDTable = {
-    263,
-    264,
-    265,
-    266,
-    3868,
-    4225
-}
-function Angleur_BaitEnchant()
-    local _, _, _, enchantID = GetWeaponEnchantInfo()
-    local enchantID = Angleur_ScrubSecret(enchantID)
-    if enchantID then
-        if CheckTable(baitEnchantIDTable, enchantID) then
-            baitApplied = true
-        else
-            baitApplied = false
-        end
-    else
-        baitApplied = false
-    end
-end
 
 --***********[~]**********
 --**Decides which action to perform**

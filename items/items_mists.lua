@@ -54,40 +54,72 @@ local ownedBait = {
 local itemLoader = LI.CreateItemLoader()
 
 
-local function clearTable(table)
-    for i, v in pairs(table) do
-        table[i] = nil
+
+local baitPossibilities = {
+    {itemID = 111111}, 
+    {name= T["Shiny Bauble"], itemID = 6529, icon = 134335},
+    {itemID = 222222},
+    {name = T["Nightcrawlers"], itemID = 6530, icon = 134324},
+    {itemID = 333333},
+    --{name = "Aquadynamic Fish Lens", itemID = 6811, icon = 134440},
+    {name = T["Bright Baubles"], itemID = 6532, icon = 134139},
+    {name = T["Flesh Eating Worm"], itemID = 7307, icon = 134324},
+    {name = T["Aquadynamic Fish Attractor"], itemID = 6533, icon = 133982},
+    {name = T["Feathered Lure"], itemID = 62673, icon = 135992},
+    {name = T["Sharpened Fish Hook"], itemID = 34861, icon = 134226},
+    {name = T["Glow Worm"], itemID = 46006, icon = 237147},
+    {name = T["Heat-Treated Spinning Lure"], itemID = 68049, icon = 135811},
+}
+
+AngleurItems = {
+    ownedBait = {},
+}
+
+local function _find_itemOnPossibilityTable_fromItemID(teeburu, itemID)
+    for i, itemTable in pairs(teeburu) do
+        if itemTable.itemID == itemID then
+            return itemTable
+        end
     end
 end
-function Angleur_CheckOwnedItems(teeburu)
-    clearTable(ownedBait)
-    for i, itemTable in pairs(teeburu) do
-        if itemTable.loaded == true then
-            if C_Item.GetItemCount(itemTable.itemID) > 0 then
-                --print("in bag")
-                ownedBait[itemTable.itemID] = true
+
+local function _iterate_possibility_table(possibility)
+    local returnTable = {}
+    local index = 1
+    for i, item in pairs(possibility) do
+        if item.loaded == true then
+            if C_Item.GetItemCount(item.itemID) > 0 then
+                returnTable[index] =  item.itemID
             end
         end
     end
 end
-function Angleur_DecideBait()
+
+function AngleurItems_RefreshOwnedItems()
+    AngleurItems.ownedBait = _iterate_possibility_table(baitPossibilities)
+end
+
+function AngleurItems_DecideBait()
     -- dropdown uses "ownedBait" table to fill itself
     -- this function gets the itemID(the index) from the ownedBait table,
     -- and looks up the rest of the details on bait table
 end
 
 
-function Angleur_SetSelectedItem(selectedItemTable, ownedItemsTable, chosenByPlayer)
+function Angleur_GetSelectedBait(index)
     local selection = {}
     local dropDownID
-    for i, ownedItem in pairs(ownedItemsTable) do
-        selection = ownedItem
-        dropDownID = i
-        if chosenByPlayer == ownedItem.itemID then
-            break
-        end
+    local baitID = AngleurItems.ownedBait[index] 
+
+    local itemTable = _find_itemOnPossibilityTable_fromItemID(baitPossibilities, baitID)
+    if not itemTable then
+        print("Error: item couldn't be located on possibility table")
+        return
     end
-    if next(selection) == nil then return end
+
+    local localisedName = C_Item.GetItemNameByID(baitID)
+    local icon = itemTable.icon
+
     selectedItemTable.itemID = selection.itemID
     selectedItemTable.dropDownID = dropDownID
     selectedItemTable.hasItem = true
@@ -106,4 +138,37 @@ end
 function Angleur_LoadItems()
     GetTimePreciseSec()
     requestLoad_Bait()
+end
+
+local function CheckTable(table ,spell)
+    local matchFound = false
+    for i, value in pairs(table) do
+        if spell == value then
+            matchFound = true
+            break
+        end
+    end
+    return matchFound
+end
+local baitApplied = false
+local baitEnchantIDTable = {
+    263,
+    264,
+    265,
+    266,
+    3868,
+    4225
+}
+function AngleurItems_CheckBaitEnchant()
+    local _, _, _, enchantID = GetWeaponEnchantInfo()
+    local enchantID = Angleur_ScrubSecret(enchantID)
+    if enchantID then
+        if CheckTable(baitEnchantIDTable, enchantID) then
+            baitApplied = true
+        else
+            baitApplied = false
+        end
+    else
+        baitApplied = false
+    end
 end

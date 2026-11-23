@@ -611,7 +611,7 @@ local function _load_forever()
     if ang.gameVersion ~= 4 then return end
     -- Order: LoadItems & BaitEnchant back-to-back
     Angleur_LoadItems()
-    Angleur_BaitEnchant()
+    AngleurItems_CheckBaitEnchant()
 end
 
 -- |FOREVER Bobber Scanner Removal|
@@ -621,7 +621,7 @@ local function _load_not_forever_or_retail()
     Angleur_BobberScanner_HandleGamepad(false, T["Angleur Bobber Scanner: Gamepad Detected! Cast fishing once to trigger cursor mode, then place it in the indicated box."])
     -- Order: LoadItems & BaitEnchant back-to-back
     Angleur_LoadItems()
-    Angleur_BaitEnchant()
+    AngleurItems_CheckBaitEnchant()
 end
 
 local function _load_retail()
