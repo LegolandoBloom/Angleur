@@ -303,7 +303,8 @@
         "CR_PARRY_BASE_STAT_TOOLTIP",
         "CR_DODGE_BASE_STAT_TOOLTIP",
         "Angleur_TempCVarHandler",
-        "Angleur_TempCVars_ToggleUltraFocusAudio"
+        "Angleur_TempCVars_ToggleUltraFocusAudio",
+        "AngleurItems_CheckBaitEnchant"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

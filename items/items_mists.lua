@@ -73,6 +73,7 @@ local baitPossibilities = {
 
 AngleurItems = {
     ownedBait = {},
+    baitApplied = false
 }
 
 local function _find_itemOnPossibilityTable_fromItemID(teeburu, itemID)
@@ -150,7 +151,7 @@ local function CheckTable(table ,spell)
     end
     return matchFound
 end
-local baitApplied = false
+
 local baitEnchantIDTable = {
     263,
     264,
@@ -160,15 +161,17 @@ local baitEnchantIDTable = {
     4225
 }
 function AngleurItems_CheckBaitEnchant()
+    -- GetWeaponEnchantInfo() --> DEPRECATED, SOON TO BE REMOVED
+    -- REPLACE WITH THIS: PaperDollInfo.GetTemporaryEnchantmentInfo()
     local _, _, _, enchantID = GetWeaponEnchantInfo()
     local enchantID = Angleur_ScrubSecret(enchantID)
     if enchantID then
         if CheckTable(baitEnchantIDTable, enchantID) then
-            baitApplied = true
+            AngleurItems.baitApplied = true
         else
-            baitApplied = false
+            AngleurItems.baitApplied = false
         end
     else
-        baitApplied = false
+        AngleurItems.baitApplied = false
     end
 end

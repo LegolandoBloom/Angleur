@@ -457,7 +457,7 @@ function Angleur_ActionHandler(self)
     end
     
     local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID)) -- Scrub added for Classic Parity
-    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and baitApplied == false and baitCount and baitCount > 0
+    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and AngleurItems.baitApplied and baitCount and baitCount > 0
     if baitReady then
         action = "bait"
         performAction(self, assignKey, action, recast, oobIcon, gPad)
