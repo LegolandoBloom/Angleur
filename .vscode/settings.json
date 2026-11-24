@@ -304,7 +304,8 @@
         "CR_DODGE_BASE_STAT_TOOLTIP",
         "Angleur_TempCVarHandler",
         "Angleur_TempCVars_ToggleUltraFocusAudio",
-        "AngleurItems_CheckBaitEnchant"
+        "AngleurItems_CheckBaitEnchant",
+        "Angleur_Items"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"

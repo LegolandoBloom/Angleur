@@ -417,7 +417,10 @@ function Angleur_ActionHandler(self)
     end
     
     local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID))
-    local baitReady = angleurItems.selectedBaitTable.hasItem == true and AngleurConfig.baitEnabled and angleurItems.selectedBaitTable.loaded and AngleurItems.baitApplied and baitCount and baitCount > 0
+    if AngleurConfig.baitEnabled and AngleurItems.baitApplied == false then
+        AngleurItems_GetBestApplicableBait()
+    end
+    local baitReady = AngleurConfig.baitEnabled and AngleurItems.baitApplied == false
     if baitReady then
         action = "bait"
         performAction(self, assignKey, action, oobIcon, gPad)

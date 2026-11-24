@@ -53,7 +53,7 @@ function LI.CreateItemLoader()
             if success then
                 lookupItem.loaded = true
                 if itemLoader.onLoadCallback then
-                    itemLoader.onLoadCallback()
+                    itemLoader.onLoadCallback(itemID)
                 end
             elseif lookupItem.retriesRemaining > 0 then
                 C_Item.RequestLoadItemDataByID(itemID)

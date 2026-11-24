@@ -161,3 +161,12 @@ function LU.TableToString(tbl)
     end
     return tableToString
 end
+
+function LU.ScanTablesInsideTableForFieldValue_AndReturnFoundInnerTable(outerTable, field, value)
+    for i, innerTable in pairs(outerTable) do
+        if innerTable[field] and innerTable[field] == value then
+            return true, innerTable
+        end
+    end
+    return false
+end
