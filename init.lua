@@ -64,8 +64,8 @@ function Init_AngleurSavedVariables()
         AngleurConfig.chosenCrateBobber = {toyID = 0, name = 0, dropDownID = 0}
     end
     -- chosenBait = 0 --> no bait 
-    if AngleurConfig.chosenBait == nil then
-        AngleurConfig.chosenBait = 0
+    if AngleurConfig.chosenBaitID == nil then
+        AngleurConfig.chosenBaitID = 0
     end
     if AngleurConfig.doubleClickChosenID == nil then
         AngleurConfig.doubleClickChosenID = 2

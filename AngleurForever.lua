@@ -318,7 +318,7 @@ logicVarFrame:SetScript("OnEvent", Angleur_LogicVariableHandler)
 --**Decides which action to perform**
 --***********[~]**********
 -- action = "cast" | "recast" | "reel" | "clear" | "raft" | "oversized" | "crate" | "randomCrate" | "extraToy" | "extraItem"
-local function performAction(self, assignKey, action, oobIcon, gPad)
+local function performAction(self, assignKey, action, extraArgsTable, gPad)
     if action == "cast" then
         SetOverrideBindingSpell_Custom(self, true, assignKey, PROFESSIONS_FISHING)
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/UI_Profession_Fishing")
@@ -338,10 +338,11 @@ local function performAction(self, assignKey, action, oobIcon, gPad)
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "")
         self.visual.texture:SetTexture("Interface/AddOns/Angleur/imagesClassic/spell_tailor_defenceup01")
+    -- action: "bait" REQUIRES extraArgsTable with 'name' and 'icon' fields
     elseif action == "bait" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
-        self.toyButton:SetAttribute("macrotext", "/cast " .. angleurItems.selectedBaitTable.name .. "\n/use 16")
-        self.visual.texture:SetTexture(angleurItems.selectedBaitTable.icon)
+        self.toyButton:SetAttribute("macrotext", "/cast " .. extraArgsTable.name .. "\n/use 16")
+        self.visual.texture:SetTexture(extraArgsTable.icon)
     elseif action == "raft" then
         SetOverrideBindingClick_Custom(self, true, assignKey, "Angleur_ToyButton")
         self.toyButton:SetAttribute("macrotext", "/cast " .. angleurToys.selectedRaftTable.name)
@@ -349,9 +350,7 @@ local function performAction(self, assignKey, action, oobIcon, gPad)
     elseif action == "extraItem" then
         -- already handled within the other function
     end
-    if oobIcon then
-        self.visual.texture:SetTexture("Interface/ICONS/Achievement_BG_returnXflags_def_WSG.blp")
-    end
+
     if gPad then
         Angleur_SetCursorForGamePad(true)
     end
@@ -386,7 +385,7 @@ function Angleur_ActionHandler(self)
     ClearOverrideBindings(self)
 
     local action
-    local oobIcon = false
+    local extraArgsTable = {}
     local gPad = false
     if UnitIsDeadOrGhost("player") then
         action = "clear"
@@ -412,30 +411,31 @@ function Angleur_ActionHandler(self)
 
     if mounted and Angleur_TinyOptions.allowDismount == false then
         action =  "clear"
-        performAction(self, assignKey, action, oobIcon, gPad)
+        performAction(self, assignKey, action, extraArgsTable, gPad)
         return
     end
     
     local baitCount = Angleur_ScrubSecret(C_Item.GetItemCount(AngleurConfig.chosenBait.itemID))
     if AngleurConfig.baitEnabled and AngleurItems.baitApplied == false then
-        AngleurItems_GetBestApplicableBait()
-    end
-    local baitReady = AngleurConfig.baitEnabled and AngleurItems.baitApplied == false
-    if baitReady then
-        action = "bait"
-        performAction(self, assignKey, action, oobIcon, gPad)
-        return
+        local baitName, baitIcon = AngleurItems_GetBestApplicableBait()
+        if baitName then
+            extraArgsTable.name = baitName
+            extraArgsTable.icon = baitIcon
+            action = "bait"
+            performAction(self, assignKey, action, extraArgsTable, gPad)
+            return
+        end
     end
 
     if Angleur_ActionHandler_ExtraItems(self, assignKey) then
         -- HANDLED WITHIN THE FUNCTION
         action =  "extraItems"
-        performAction(self, assignKey, action, oobIcon, gPad)
+        performAction(self, assignKey, action, extraArgsTable, gPad)
         return
     end
     
     action = "cast"
-    performAction(self, assignKey, action, oobIcon, gPad)
+    performAction(self, assignKey, action, extraArgsTable, gPad)
 end
 
 local cursorControlEnabled = false

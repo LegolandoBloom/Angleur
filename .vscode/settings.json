@@ -305,7 +305,8 @@
         "Angleur_TempCVarHandler",
         "Angleur_TempCVars_ToggleUltraFocusAudio",
         "AngleurItems_CheckBaitEnchant",
-        "Angleur_Items"
+        "Angleur_Items",
+        "LegolandoUtil"
     ],
     "Lua.diagnostics.disable": [
         "redundant-parameter"
