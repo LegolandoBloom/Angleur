@@ -9,5 +9,5 @@
     <Include file="LegoChat.lua"/>
     <Include file="LegoDebug.lua"/>
     <Include file="LegoUI.lua"/>
-    <Include file="LegoItem.lua">
+    <Include file="LegoItem.lua"/>
 </Ui>

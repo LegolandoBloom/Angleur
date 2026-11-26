@@ -5,7 +5,7 @@ LegolandoUtil.UI = {}
 
 local LUI = LegolandoUtil.UI
 
-function LUI.SetupGenericBlizzMenuDropdown(parent, savedVarTable, reference, title, defaultText, elementTable, isSelectedCallback, setSelectedCallback)
+function LUI.SetupGenericBlizzMenuDropdown(parent, savedVarTable, reference, title, defaultText, elementTable, isSelectedCallback, setSelectedCallback, onClickCallback)
     if not savedVarTable or not reference then
         print("LUI.SetupGenericDropdown: Table or reference missing")
         return
@@ -29,14 +29,39 @@ function LUI.SetupGenericBlizzMenuDropdown(parent, savedVarTable, reference, tit
             setSelectedCallback(index)
         end
     end
-    local function BlizzMenuDD_GeneratorFunction(owner, rootDescription)
+    local dropdown = CreateFrame("DropdownButton", nil, parent, "WowStyle1DropdownTemplate")
+    dropdown.elementTable = elementTable
+    local function BlizzMenuDD_GeneratorFunction(dd, rootDescription)
+        if not dd.elementTable or next(dd.elementTable) == nil then return end
+        print("Generator function called", #(dd.elementTable))
+        print("Element Table")
+        DevTools_Dump(dd.elementTable)
+        print("done")
         rootDescription:CreateTitle(title)
-        for index = 1, #elementTable do
-            local elementdescription = rootDescription:CreateRadio(elementTable[index], BlizzMenuDD_IsSelected, BlizzMenuDD_SetSelected, index)
+        for index = 1, #(dd.elementTable) do
+            print("index:", index)
+            local elementdescription = rootDescription:CreateRadio(dd.elementTable[index], BlizzMenuDD_IsSelected, BlizzMenuDD_SetSelected, index)
+            elementdescription:SetOnEnter(function()
+                print("hai")
+            end)
+            elementdescription:AddInitializer(function(button, description, menu)
+            end);
         end
     end
-    local dropdown = CreateFrame("DropdownButton", nil, parent, "WowStyle1DropdownTemplate")
+
     dropdown:SetDefaultText(defaultText)
     dropdown:SetupMenu(BlizzMenuDD_GeneratorFunction)
+
+    function dropdown:RefreshElements(newElementTable)
+        print("Refreshing Elements")
+        dropdown.elementTable = newElementTable
+        dropdown:SetupMenu(BlizzMenuDD_GeneratorFunction)
+    end
+
+    if onClickCallback then
+        dropdown:RegisterForClicks("AnyUp", "AnyDown")
+        dropdown:HookScript("PreClick", onClickCallback)
+    end
+    
     return dropdown
 end

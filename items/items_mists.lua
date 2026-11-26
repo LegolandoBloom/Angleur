@@ -2,7 +2,7 @@ local T = Angleur_Translate
 
 local LU = LegolandoUtil
 local LI = LU.Item
-
+local LUI = LU.UI
 
 
 local debugChannel = 3
@@ -50,7 +50,10 @@ AngleurItems = {
     ownedBait = {},
     baitApplied = false
 }
-local itemLoader = LI.CreateItemLoader()
+local baitDD_ElementTable = {}
+local itemLoader = LI.CreateItemLoader(false)
+
+
 
 itemLoader.onLoadCallback = function(itemID)
     local found, innerTable = LU.ScanTablesInsideTableForFieldValue_AndReturnFoundInnerTable(baitPossibilities, "itemID", itemID)
@@ -70,20 +73,22 @@ end
 -- Owned items will get their priority assigned according to their ordering in the "Possibility Table"
 -- Example: Out of 15 items, possibility table index 2, 5 and 9 are the only ones get added to the owned table. Priorities assigned shown in parantheses: 2(1), 5(2), 9(3)  
 local function _iterate_possibility_table(possibility)
-    local returnTable = {}
+    local ownedTable = {}
+    local DD_ElementTable = {}
     local priority = 1
     for i, item in ipairs(possibility) do
         if item.loaded == true and C_Item.IsUsableItem(item.itemID) then
             if C_Item.GetItemCount(item.itemID) > 0 then
-                returnTable[item.itemID] = priority
+                ownedTable[item.itemID] = priority
+                DD_ElementTable[priority] = item.name
                 priority = priority + 1
             end
         end
     end
-    return returnTable
+    return ownedTable, DD_ElementTable
 end
 function AngleurItems_RefreshOwnedItems()
-    AngleurItems.ownedBait = _iterate_possibility_table(baitPossibilities)
+    AngleurItems.ownedBait, baitDD_ElementTable = _iterate_possibility_table(baitPossibilities)
 end
 
 function Angleur_GetSelectedBait(index)
@@ -142,8 +147,9 @@ function AngleurItems_CheckBaitEnchant()
     if gameVersion == 1 then
         baitEnchantSlot = RETAIL_ROD_SLOT
     end
-    local enchantInfo = C_PaperDollInfo.GetTemporaryEnchantmentInfo(baitEnchantSlot)
-    local enchantID = Angleur_ScrubSecret(enchantInfo.enchantID)
+    -- local enchantInfo = C_PaperDollInfo.GetTemporaryEnchantmentInfo(baitEnchantSlot)
+    -- local enchantID = Angleur_ScrubSecret(enchantInfo.enchantID)
+    local _, _, _, enchantID = GetWeaponEnchantInfo()
     if enchantID then
         if CheckTableSpell(baitEnchantIDTable, enchantID) then
             AngleurItems.baitApplied = true
@@ -155,6 +161,8 @@ function AngleurItems_CheckBaitEnchant()
     end
 end
 
+
+
 function AngleurItems_GetBestApplicableBait()
     AngleurItems_RefreshOwnedItems()
     local ownedBait = AngleurItems.ownedBait
@@ -163,16 +171,18 @@ function AngleurItems_GetBestApplicableBait()
     if playerChosenBaitID and playerChosenBaitID ~= 0 and ownedBait[playerChosenBaitID] then
         local _, itemTable = LU.ScanTablesInsideTableForFieldValue_AndReturnFoundInnerTable(baitPossibilities, "itemID", playerChosenBaitID)
         if itemTable then
+            Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("AngleurItems_GetBestApplicapleBait ") .. ": player chosen bait is applicable. Activating.")
             return itemTable.name, itemTable.icon
         else
             print("AngleurItems_GetBestApplicableBait: Unexpected Error")
             return
         end
     end
-    for itemID, priority in ipairs(ownedBait) do
+    for itemID, priority in pairs(ownedBait) do
         if priority == 1 then
             local _, itemTable = LU.ScanTablesInsideTableForFieldValue_AndReturnFoundInnerTable(baitPossibilities, "itemID", itemID)
             if itemTable then
+                Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("AngleurItems_GetBestApplicapleBait ") .. ": Can't apply player chosen bait. Activating the next best option.")
                 return itemTable.name, itemTable.icon
             else
                 print("AngleurItems_GetBestApplicableBait: Unexpected Error")
@@ -180,4 +190,52 @@ function AngleurItems_GetBestApplicableBait()
             end
         end
     end
+    Angleur_BetaPrint(debugChannel, colorDebug:WrapTextInColorCode("AngleurItems_GetBestApplicapleBait ") .. ": Can't apply player chosen bait, or any next best option. Deactivating bait.")
 end
+
+
+function AngleurItems_SetupBaitDropdown(parent)
+    AngleurItems_RefreshOwnedItems()
+    parent.dropDown = LUI.SetupGenericBlizzMenuDropdown(parent, AngleurConfig, "chosenBaitID", "Bait", "bait improvement test", baitDD_ElementTable, function()
+        print("is selected")
+    end, function()
+        print("set selected")
+    end, function(self, button, down)
+        print(button, down)
+        if button == "LeftButton" and down == true then
+            AngleurItems_RefreshOwnedItems()
+            parent.dropDown:RefreshElements(baitDD_ElementTable)
+            print("baitDD_ElementTable")
+            DevTools_Dump(baitDD_ElementTable)
+        end
+    end)
+    parent.dropDown:SetPoint("LEFT", parent.checkbox, "RIGHT", 5, 0)
+    if not AngleurConfig.baitEnabled then 
+        parent.dropDown:Hide()
+    end
+
+
+    
+    SLASH_ITEMLOADERTEST1 = "/iloader"
+    SlashCmdList["ITEMLOADERTEST"] = function()
+        -- AngleurItems_RefreshOwnedItems()
+        -- parent.dropDown:RefreshElements(AngleurItems.ownedBait)
+        itemLoader:PrintAll()
+        -- print("\n\n")
+        -- print("Possibility Table:")
+        -- for i, v in ipairs(baitPossibilities) do
+        --     print(i)
+        --     DevTools_Dump(v)
+        -- end
+        -- print("\n\n")
+        -- print("Owned Table:")
+        -- DevTools_Dump(AngleurItems.ownedBait)
+    end
+
+end
+
+
+    SLASH_BITEMLOADERTEST1 = "/itesty"
+    SlashCmdList["BITEMLOADERTEST"] = function()
+        AngleurItems_SetupBaitDropdown(Angleur.configPanel.tab1.contents.baitEnable)
+    end

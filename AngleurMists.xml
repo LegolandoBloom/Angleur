@@ -133,13 +133,6 @@
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="$parent" relativePoint="TOPLEFT" x="21" y="-38"/>
                                         </Anchors>
-                                        <Frames>
-                                            <Frame name="$parent_DropDown" parentKey="dropDown" inherits="UIDropDownMenuTemplate" hidden="true">
-                                                <Anchors>
-                                                    <Anchor point="LEFT" relativeTo="$parent_Checkbox" relativePoint="RIGHT"/>
-                                                </Anchors>
-                                            </Frame>
-                                        </Frames>
                                     </Frame>
                                     <Frame name="$parent_RaftCheckBox" parentKey="raftEnable" inherits="CheckboxFrameTemplate_Angleur">
                                         <Anchors>
