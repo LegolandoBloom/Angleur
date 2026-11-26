@@ -11,9 +11,15 @@ local LOAD_RETRY_ATTEMPTS = 5
 --  LI.CreateDebugHandler 🗸(GOOD)
 --  LI:CreateDebugHandler ✗(BAD)
 -- ________________________________
-function LI.CreateItemLoader()
+function LI.CreateItemLoader(debug)
     local itemLoader = {}
     itemLoader.addedItems = {}
+    
+    function itemLoader:drint(...)
+        if not debug then return end
+        print(...)
+    end
+
     function itemLoader:AppendItemID(...)
         local candidates = {...}
         if not candidates or next(candidates) == nil then
@@ -22,20 +28,23 @@ function LI.CreateItemLoader()
         end
         for i, itemID in ipairs(candidates) do
             local validID = C_Item.GetItemInfoInstant(itemID)
+            validID = tonumber(validID)
             if validID and self.addedItems[validID] == nil then
                 -- false upon adding, true when loaded
                 self.addedItems[validID] = {}
                 self.addedItems[validID].loaded = false
                 self.addedItems[validID].retriesRemaining = LOAD_RETRY_ATTEMPTS
+                self:drint("ItemLoader: added", validID, "to addedItems table")
             end
         end
         self:RequestLoadAddedItems()
     end
 
     function itemLoader:RequestLoadAddedItems()
-        for validID, loadTable in ipairs(self.addedItems) do
+        for validID, loadTable in pairs(self.addedItems) do
             if loadTable.loaded == false then
                 C_Item.RequestLoadItemDataByID(validID)
+                self:drint("ItemLoader: requesting load for:", validID)
             end
         end
     end
@@ -51,11 +60,13 @@ function LI.CreateItemLoader()
         local lookupItem = addedItems[itemID]
         if lookupItem and lookupItem.loaded == false then
             if success then
+                itemLoader:drint("ItemLoader: succesfully loaded:", itemID)
                 lookupItem.loaded = true
                 if itemLoader.onLoadCallback then
                     itemLoader.onLoadCallback(itemID)
                 end
             elseif lookupItem.retriesRemaining > 0 then
+                itemLoader:drint("ItemLoader: failed load:", itemID, "\nRetrying(" .. lookupItem.retriesRemaining .. " tries remaining)")
                 C_Item.RequestLoadItemDataByID(itemID)
                 lookupItem.retriesRemaining = lookupItem.retriesRemaining - 1
             end
@@ -69,7 +80,7 @@ function LI.CreateItemLoader()
 
     function itemLoader:GetLoaded()
         local loadedItems = {}
-        for itemID, loadTable in ipairs(self.addedItems) do
+        for itemID, loadTable in pairs(self.addedItems) do
             if loadTable.loaded == true then
                 loadedItems[itemID] = true
             end
@@ -79,19 +90,18 @@ function LI.CreateItemLoader()
 
     function itemLoader:GetPending()
         local pendingItems = {}
-        for itemID, loadTable in ipairs(self.addedItems) do
+        for itemID, loadTable in pairs(self.addedItems) do
             if loadTable.loaded == false then
-                pendingItems[itemID] = true
+                pendingItems[tonumber(itemID)] = true
             end
         end
         return pendingItems
     end
 
     function itemLoader:PrintAll()
-        for itemID, loadTable in ipairs(self.addedItems) do
+        for itemID, loadTable in pairs(self.addedItems) do
             print("itemID:", itemID, " loaded:", loadTable.loaded, " retries remaining:", loadTable.retriesRemaining)
         end
     end
-
 	return itemLoader;
 end
